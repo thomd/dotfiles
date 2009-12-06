@@ -1,0 +1,46 @@
+#
+# for Rspec run 'RSPEC=true autospec' in project root, put specs into 'spec' folder
+#
+require 'autotest/redgreen'
+# require 'autotest/pretty'
+# require 'autotest/snarl'
+# require 'autotest/timestamp'
+
+RSPEC = ENV['RSPEC']
+
+module Autotest::Growl
+  
+  def self.growl title, msg, img
+    system "growlnotify -n autotest --image #{img} -p 0 -m #{msg.inspect} #{title}"
+  end
+
+  Autotest.add_hook :initialize do |at|
+    %w{.svn .hg .git vendor}.each {|exception| at.add_exception(exception)}
+  end
+
+  Autotest.add_hook :ran_command do |at|
+    image_root = "~/.autotest_images"
+    results = [at.results].flatten.join("\n")
+
+    if RSPEC
+      output = results.slice(/(\d+)\s+examples?,\s*(\d+)\s+failures?(,\s*(\d+)\s+pending)?/)
+      if output
+        if $~[2].to_i > 0
+          growl "FAIL", "#{output}", "#{image_root}/fail.png"
+        else
+          growl "Pass", "#{output}", "#{image_root}/pass.png"
+        end
+      end
+    else
+      output = results.slice(/(\d+)\s+tests?,\s*(\d+)\s+assertions?,\s*(\d+)\s+failures?,\s*(\d+)\s+errors?/)
+      if output
+        if ($~[3].to_i > 0) || ($~[4].to_i > 0)
+          growl "FAIL", "#{output}", "#{image_root}/rails_fail.png"
+        else
+          growl "Pass", "#{output}", "#{image_root}/rails_ok.png"
+        end
+      end
+    end
+  end
+    
+end
