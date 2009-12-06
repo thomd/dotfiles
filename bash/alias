@@ -1,0 +1,133 @@
+#
+# commons
+#
+alias l="ls -AlhG"
+alias ..="cd .."
+alias ...="cd ../.."
+alias cl='clear; l'
+function cdc() { 
+    cd $1; ls 
+}
+alias cls='clear; ls'
+alias h='history'
+alias l.='ls -d .[^.]*'
+alias md='mkdir -p'
+alias ta='tail -f /var/log/apache2/error_log'
+
+
+alias m="mate ."
+alias ff='open -a Firefox $1'
+alias burp='java -jar /usr/local/burpsuite/burpsuite_v1.2.01.jar &'
+alias xml='xmlstarlet $1'
+alias saxon='java -jar /usr/local/saxon/saxon9.jar $1'
+alias httpdump='sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E "Host\: .*|GET \/.*"'
+
+
+alias k9="killall -9"
+function killnamed () { 
+    ps ax | grep $1 | cut -d ' ' -f 2 | xargs kill 
+}
+
+
+#
+# cat syntax highlighting (http://www.ralfebert.de/blog/tools/cat_syntax_highlighting/)
+#
+alias pcat=pygmentize
+function pless() {
+    pcat "$1" | less -R
+}
+
+
+#
+# git aliases
+#
+alias ungit="find . -name '.git' -exec rm -rf {} \;"
+alias gb='git branch'
+alias gba='git branch -a'
+alias gc='git commit -v'
+alias gca='git commit -v -a'
+alias gco='git checkout'
+alias gd='git diff'
+alias gdm='git diff master'
+alias gl='git pull'
+alias gnp="git-notpushed"
+alias gp='git push'
+alias gst='git status'
+alias gt='git status'
+alias g='git status'
+alias eg='mate .git/config'
+# shows the git history as ASCII graph
+function glog() {
+    git log --pretty=oneline --topo-order --graph --abbrev-commit $@
+}
+
+
+#
+# subversion
+#
+alias svnadd='svn --force --depth infinity add .'
+alias svndiff='svn-colored-diff'
+alias svnlog='svn-colored-log'
+
+
+#
+# ruby
+#
+alias r="rake"
+function markdown() { 
+ /Applications/TextMate.app/Contents/SharedSupport/Support/bin/Markdown.pl $1 > $1.html 
+}
+
+
+#
+# rails
+#
+alias rp='touch tmp/restart.txt'
+alias sc='./script/console'
+alias sg='./script/generate'
+alias sp='./script/plugin'
+alias ss='./script/server'
+alias tl='tail -f log/*.log'
+
+
+#
+# TDD / BDD
+#
+alias aa='autotest'
+alias aaf='autotest -f' # don't run all at start
+alias aas="./script/autospec"
+
+
+#
+# javascript
+#
+function jsc() { 
+  jsl -conf /etc/jsl/jsl.conf -process $1 # syntax check
+}                                                      
+
+# Rhino (see http://peter.michaux.ca/articles/installing-rhino-on-os-x and http://www.thefrontside.net/blog/taming_the_rhino)
+alias js="java jline.ConsoleRunner org.mozilla.javascript.tools.shell.Main"                             
+
+
+#
+# base conversions with ruby
+#
+alias bin='hex-dec-bin -b $1'
+alias oct='hex-dec-bin -o $1'
+alias dec='hex-dec-bin -d $1'
+alias hex='hex-dec-bin -h $1'
+
+# alternative base conversions with perl (from http://use.perl.org/~brian_d_foy/journal/36287)
+alias d2h="perl -e 'printf qq|%X\n|, int( shift )'"
+alias d2o="perl -e 'printf qq|%o\n|, int( shift )'"
+alias d2b="perl -e 'printf qq|%b\n|, int( shift )'"
+
+alias h2d="perl -e 'printf qq|%d\n|, hex( shift )'"
+alias h2o="perl -e 'printf qq|%o\n|, hex( shift )'"
+alias h2b="perl -e 'printf qq|%b\n|, hex( shift )'"
+
+alias o2h="perl -e 'printf qq|%X\n|, oct( shift )'"
+alias o2d="perl -e 'printf qq|%d\n|, oct( shift )'"
+alias o2b="perl -e 'printf qq|%b\n|, oct( shift )'"
+
+

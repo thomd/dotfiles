@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+`svn log -v #{ARGV.join(' ')}`.each do |line|
+  puts( if line =~ /^r\d+\s\|(.*)$/
+          "\e[31m#{$&}\e[0m" 
+        elsif line =~ /^-(.*)$/
+          "\e[32m#{$&}\e[0m" 
+        else
+          line
+        end
+      )
+end
