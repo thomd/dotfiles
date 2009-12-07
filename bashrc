@@ -117,3 +117,9 @@ function parse_git_dirty {
 export PS1='\n\[\033[00m\]\h \[\033[0;36m\]\W $(git_ps1 "\[\e[0;32m\][%s\[\e[0m\]\[\033[31m\]$(parse_git_dirty)\[\e[0;32m\]]") \[\033[00m\]$\[\033[00m\] '
 export PS2=" : "
 
+
+#
+# rake completion (http://onrails.org/articles/2006/08/30/namespaces-and-rake-command-completion)
+#
+complete -C ~/bin/rake-completion -o default rake
+
