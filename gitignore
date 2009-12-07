@@ -1,0 +1,9 @@
+.DS_Store
+*.bak
+*.old
+.project
+.settings
+.svn
+build
+build/*
+log/*
