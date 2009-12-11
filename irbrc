@@ -8,6 +8,14 @@ Wirble.init
 Wirble.colorize
 
 
+
+#hirb (http://blog.10to1.be/Rails/2009/12/09/hirb/)
+if ENV['RAILS_ENV']
+  require 'hirb'
+  Hirb.enable
+end
+
+
 # alias
 alias q exit
 
