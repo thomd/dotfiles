@@ -27,6 +27,9 @@ alias xml='xmlstarlet $1'
 # http://saxon.sourceforge.net/
 alias saxon='java -jar /usr/local/saxon/saxon9.jar $1'
 
+# http://ditaa.sourceforge.net/
+alias ditaa='java -jar /usr/local/ditaa/ditaa0_9.jar $1'
+
 alias httpdump='sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E "Host\: .*|GET \/.*"'
 
 
