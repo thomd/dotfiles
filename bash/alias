@@ -17,9 +17,16 @@ alias ta='tail -f /var/log/apache2/error_log'
 
 alias m="mate ."
 alias ff='open -a Firefox $1'
+
+# http://portswigger.net/suite/
 alias burp='java -jar /usr/local/burpsuite/burpsuite_v1.2.01.jar &'
+
+# http://xmlstar.sourceforge.net/
 alias xml='xmlstarlet $1'
+
+# http://saxon.sourceforge.net/
 alias saxon='java -jar /usr/local/saxon/saxon9.jar $1'
+
 alias httpdump='sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E "Host\: .*|GET \/.*"'
 
 
