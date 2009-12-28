@@ -116,7 +116,7 @@ function jsc() {
 }                                                      
 
 # Rhino (see http://peter.michaux.ca/articles/installing-rhino-on-os-x and http://www.thefrontside.net/blog/taming_the_rhino)
-alias js="java jline.ConsoleRunner org.mozilla.javascript.tools.shell.Main"                             
+alias rhino="java jline.ConsoleRunner org.mozilla.javascript.tools.shell.Main"
 
 
 #

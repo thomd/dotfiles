@@ -12,5 +12,8 @@ GEM_PATH="/Users/thomd/.gem/ruby/1.8/bin"
 RUBY_PATH="/usr/local/lib/ruby/site_ruby/1.8:/develop/jruby/jruby/bin"
 APPENGINE_PATH="/develop/google-appengine/appengine-java-sdk-1.2.2/bin"
 SUBVERSION_PATH="/opt/subversion/bin"
+NARWHAL_PATH="/usr/local/narwhal/bin"
 
-export PATH="$SUBVERSION_PATH:~/bin:$BIN_PATH:$GEM_PATH:$RUBY_PATH:${M2_HOME}/bin:${EC2_HOME}/bin:${JAVA_HOME}/bin:$APPENGINE_PATH:$PATH"
+PATH="$SUBVERSION_PATH:~/bin:$BIN_PATH:$GEM_PATH:$RUBY_PATH:${M2_HOME}/bin:${EC2_HOME}/bin:${JAVA_HOME}/bin:$APPENGINE_PATH:$PATH"
+export PATH="$NARWHAL_PATH:$PATH"
+
