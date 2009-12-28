@@ -1,9 +1,9 @@
 #
 # load bash config, environment ans aliases
 #
-. ~/dotfiles_/bash/config
-. ~/dotfiles_/bash/env
-. ~/dotfiles_/bash/alias
+. ~/dotfiles/bash/config
+. ~/dotfiles/bash/env
+. ~/dotfiles/bash/alias
 
 
 #
