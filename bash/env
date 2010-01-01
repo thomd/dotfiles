@@ -17,3 +17,5 @@ NARWHAL_PATH="~/narwhal/bin"
 PATH="$SUBVERSION_PATH:~/bin:$BIN_PATH:$GEM_PATH:$RUBY_PATH:${M2_HOME}/bin:${EC2_HOME}/bin:${JAVA_HOME}/bin:$APPENGINE_PATH:$PATH"
 export PATH="$NARWHAL_PATH:$PATH"
 
+PYTHONPATH="/opt/subversion/lib/svn-python"
+export PYTHONPATH="$HOME/pythonpath:$PYTHONPATH"
