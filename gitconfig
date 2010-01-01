@@ -11,6 +11,7 @@
     whatis = show -s --pretty='tformat:%h (%s, %ad)' --date=short
     changes = diff --name-status -r
     diffstat = diff --stat -r
+    wtf = !git-wtf
 [color]
 	ui = auto
 [core]
