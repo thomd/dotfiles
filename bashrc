@@ -67,9 +67,8 @@ complete -o default -o nospace -F _gemdocomplete gemdoc
 
 
 #
-# show git-info in prompt 
+# get git-info
 #
-
 function git_ps1 {
 	local g="$(git rev-parse --git-dir 2>/dev/null)"
 	if [ -n "$g" ]; then
@@ -114,8 +113,33 @@ function parse_git_dirty {
   [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
 }
 
-export PS1='\n\[\033[00m\]\h \[\033[0;36m\]\W $(git_ps1 "\[\e[0;32m\][%s\[\e[0m\]\[\033[31m\]$(parse_git_dirty)\[\e[0;32m\]]") \[\033[00m\]$\[\033[00m\] '
+
+#
+# get svn-info
+#
+parse_svn_url() {
+        svn info 2>/dev/null | sed -ne 's#^URL: ##p'
+}
+
+parse_svn_repository_root() {
+        svn info 2>/dev/null | sed -ne 's#^Repository Root: ##p'
+}
+
+parse_svn_current_revision() {
+        svn info 2>/dev/null | sed -ne 's#^Revision: ##p'
+}
+
+parse_svn_branch_revision() {
+	parse_svn_url | sed -e 's#^'"$(parse_svn_repository_root)"'##g' | awk -F / '{print $1 "/" $2 }' | awk '{print "[SVN:_@" $1 "]" } ' | sed -e 's#_@#'"$(parse_svn_current_revision)"' #g'	
+}
+
+
+#
+# show git-info and svn-info in prompt
+#
+export PS1='\n\[\e[00m\]\h \[\e[0;36m\]\W $(git_ps1 "\[\e[0;32m\][%s\[\e[0m\]\[\e[31m\]$(parse_git_dirty)\[\e[0;32m\]]")\[\e[0;32m\]$(parse_svn_branch_revision) \[\e[0m\]$ '
 export PS2=" : "
+
 
 
 #
