@@ -141,3 +141,7 @@ alias o2d="perl -e 'printf qq|%d\n|, oct( shift )'"
 alias o2b="perl -e 'printf qq|%b\n|, oct( shift )'"
 
 
+#
+# start trac standalone server
+#
+alias trac="tracd -p 8000 -a projects,/Users/thomd/trac/projects/users.htdigest,trac ~/trac/projects/"
