@@ -122,8 +122,8 @@ svn_ps1() {
 	if [ -n "$svn" ]; then
 		local rev="$(svn info 2>/dev/null | sed -ne 's#^Revision: ##p')"
 		local root="$(svn info 2>/dev/null | sed -ne 's#^Repository Root: ##p')"
-        local url="$(svn info 2>/dev/null | sed -ne 's#^URL: '"$root/"'##p')"
-		printf "$1" "SVN:$url $rev"
+        local url="$(svn info 2>/dev/null | sed -ne 's#^URL: '"$root/"'##p' | sed -ne 's/^.*\(branches\/[^\/.]*\).*$/\1/p')"
+		printf "$1" "svn:$url $rev"
 	fi
 }
 
