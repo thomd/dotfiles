@@ -117,27 +117,25 @@ function parse_git_dirty {
 #
 # get svn-info
 #
-parse_svn_url() {
-        svn info 2>/dev/null | sed -ne 's#^URL: ##p'
+svn_ps1() {
+	local svn="$(svn info 2>/dev/null)"
+	if [ -n "$svn" ]; then
+		local rev="$(svn info 2>/dev/null | sed -ne 's#^Revision: ##p')"
+		local root="$(svn info 2>/dev/null | sed -ne 's#^Repository Root: ##p')"
+        local url="$(svn info 2>/dev/null | sed -ne 's#^URL: '"$root/"'##p')"
+		printf "$1" "SVN:$url $rev"
+	fi
 }
 
-parse_svn_repository_root() {
-        svn info 2>/dev/null | sed -ne 's#^Repository Root: ##p'
-}
-
-parse_svn_current_revision() {
-        svn info 2>/dev/null | sed -ne 's#^Revision: ##p'
-}
-
-parse_svn_branch_revision() {
-	parse_svn_url | sed -e 's#^'"$(parse_svn_repository_root)"'##g' | awk -F / '{print $1 "/" $2 }' | awk '{print "[SVN:_@" $1 "]" } ' | sed -e 's#_@#'"$(parse_svn_current_revision)"' #g'	
+function parse_svn_dirty {
+    [[ $(svn status 2> /dev/null) != "" ]] && echo " *"
 }
 
 
 #
-# show git-info and svn-info in prompt
+# show both git-info and svn-info in prompt
 #
-export PS1='\n\[\e[00m\]\h \[\e[0;36m\]\W $(git_ps1 "\[\e[0;32m\][%s\[\e[0m\]\[\e[31m\]$(parse_git_dirty)\[\e[0;32m\]]")\[\e[0;32m\]$(parse_svn_branch_revision) \[\e[0m\]$ '
+export PS1='\n\[\e[00m\]\h \[\e[0;36m\]\W $(git_ps1 "\[\e[0;32m\][%s\[\e[0m\]\[\e[31m\]$(parse_git_dirty)\[\e[0;32m\]]")\[\e[0;32m\]$(svn_ps1 "\[\e[0;32m\][%s\[\e[0m\]\[\e[31m\]$(parse_svn_dirty)\[\e[0;32m\]]")\[\e[0;32m\] \[\e[0m\]$ '
 export PS2=" : "
 
 
