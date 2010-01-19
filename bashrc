@@ -116,13 +116,15 @@ function parse_git_dirty {
 
 #
 # get svn-info
+# 
+#   show trunk- or branches-path in prompt for all repositories following the trunk/branches convention
 #
 svn_ps1() {
 	local svn="$(svn info 2>/dev/null)"
 	if [ -n "$svn" ]; then
 		local rev="$(svn info 2>/dev/null | sed -ne 's#^Revision: ##p')"
 		local root="$(svn info 2>/dev/null | sed -ne 's#^Repository Root: ##p')"
-        local url="$(svn info 2>/dev/null | sed -ne 's#^URL: '"$root/"'##p' | sed -ne 's/^.*\(trunk\).*$/\1/p;s/^.*\(branches\/[^\/.]*\).*$/\1/p')"
+		local url="$(svn info 2>/dev/null | sed -ne 's#^URL: '"$root/"'##p' | sed -ne 's/^.*\(trunk\).*$/\1/p;s/^.*\(branches\/[^\/.]*\).*$/\1/p')"
 		printf "$1" "svn:$url $rev"
 	fi
 }
