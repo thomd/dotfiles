@@ -141,7 +141,6 @@ export PS1='\n\[\e[00m\]\h \[\e[0;36m\]\W $(git_ps1 "\[\e[0;32m\][%s\[\e[0m\]\[\
 export PS2=" : "
 
 
-
 #
 # rake completion (http://onrails.org/articles/2006/08/30/namespaces-and-rake-command-completion)
 #
@@ -154,3 +153,9 @@ complete -C ~/bin/rake-completion -o default rake
 function www {
     python -c 'import SimpleHTTPServer,SocketServer;PORT=1234;httpd = SocketServer.TCPServer(("", PORT),SimpleHTTPServer.SimpleHTTPRequestHandler); print "serving at port", PORT; httpd.serve_forever()'
 }
+
+
+#
+# Define words and phrases with google (http://www.commandlinefu.com/commands/view/4722/define-words-and-phrases-with-google.)
+#
+define(){ local y="$@";curl -sA"Opera" "http://www.google.com/search?q=define:${y// /+}"|grep -Eo '<li>[^<]+'|sed 's/^<li>//g'|nl|/usr/bin/perl -MHTML::Entities -pe 'decode_entities($_)';}
