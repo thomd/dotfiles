@@ -56,7 +56,7 @@ describe Dotfile do
     FileUtils.rm @target if File.symlink?(@target)
     FileUtils.rm @src2
     FileUtils.rm @target2
-    FileUtils.rm_r @dir
+    FileUtils.rm_r @home
   end
   
 end
