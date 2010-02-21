@@ -2,6 +2,7 @@
 # environment
 #
 export TERM=xterm-color
+export CLICOLOR=1
 export M2_HOME="/usr/local/maven"
 export EC2_HOME="/usr/local/ec2-api-tools"
 export EDITOR="/usr/local/bin/mate -w"

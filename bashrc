@@ -9,7 +9,7 @@
 #
 # thomd
 #
-echo -en $RED
+echo -en ${RED}
 echo ' _____ _   _  ___  __  __ ____  '
 echo '|_   _| | | |/ _ \|  \/  |  _ \ '
 echo '  | | | |_| | | | | |\/| | | | |'
@@ -31,7 +31,7 @@ complete -o default -W "${SSH_COMPLETE[*]}" ssh
 #
 # Set the title of the terminal window with cd (can't remember where I got this from)
 #
-function settitle() { echo -ne "\e]0;$@\a"; }
+function settitle() { echo -ne "\033]0;$@\a"; }
 function cd() { command cd "$@"; settitle `pwd | awk 'BEGIN {FS="/"} {print $NF}'`; }
 
 
@@ -137,7 +137,7 @@ function parse_svn_dirty {
 #
 # show both git-info and svn-info in prompt
 #
-export PS1='\n\[\e[00m\]\h \[\e[0;36m\]\W $(git_ps1 "\[\e[0;32m\][%s\[\e[0m\]\[\e[31m\]$(parse_git_dirty)\[\e[0;32m\]]")\[\e[0;32m\]$(svn_ps1 "\[\e[0;32m\][%s\[\e[0m\]\[\e[31m\]$(parse_svn_dirty)\[\e[0;32m\]]")\[\e[0;32m\] \[\e[0m\]$ '
+export PS1='\n\[\033[00m\]\h \[\033[0;36m\]\W $(git_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_git_dirty)\[\033[0;32m\]]")\[\033[0;32m\]$(svn_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_svn_dirty)\[\033[0;32m\]]")\[\033[0;32m\] \[\033[0m\]$ '
 export PS2=" : "
 
 
