@@ -4,9 +4,9 @@ require "dotfile"
 
 FILES_NOT_TO_INSTALL = %w[Rakefile README.md dotfile.rb]
 
-PURPLE = "\e[0;35m"
-BLUE   = "\e[0;34m"
-WHITE  = "\e[0;37m"
+PURPLE = "\033[0;35m"
+BLUE   = "\033[0;34m"
+WHITE  = "\033[0;37m"
 
 
 task :default do
