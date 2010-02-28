@@ -32,6 +32,7 @@ alias ditaa='java -jar /usr/local/ditaa/ditaa0_9.jar $1'
 
 alias httpdump='sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E "Host\: .*|GET \/.*"'
 
+alias grep='GREP_COLOR="1;37;41" LANG=C grep --color=auto'
 
 alias k9="killall -9"
 function killnamed () { 
