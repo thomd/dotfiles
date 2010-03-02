@@ -2,7 +2,14 @@
 # load bash config, environment ans aliases
 #
 . ~/dotfiles/bash/config
+
+SNOWLEOPARD="$(sw_vers 2>/dev/null | sed -ne 's/\(10\.6\)/\1/p')"
+if [[ -n $SNOWLEOPARD ]]; then
+. ~/dotfiles/bash/env.10.6
+else
 . ~/dotfiles/bash/env
+fi
+
 . ~/dotfiles/bash/alias
 
 
