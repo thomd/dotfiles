@@ -154,3 +154,9 @@ alias trac="tracd -p 8000 -a projects,/Users/thomd/trac/projects/users.htdigest,
 alias jquery="wget -O jquery.1.4.2.js http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"
 alias prototype="wget -O prototype.1.6.1.0.js http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"
 alias swfobject="wget -O swfobject.js http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"
+
+
+#
+# tree (from http://mama.indstate.edu/users/ice/tree/)
+#
+alias tree="tree -C"
