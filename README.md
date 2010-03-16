@@ -1,7 +1,7 @@
-dotfiles
-========
+OSX dotfiles
+============
 
-Some of my current OSX dotfiles.
+Some of my OSX dotfiles (with a rspec'd installer).
 
 
 Installation
@@ -19,7 +19,7 @@ To install them in your home directory:
 Features
 --------
 
-* __bashrc__: has a nice git- and svn-info prompt
+* `bashrc`: has a nice git- and svn-info prompt
 
 
 
