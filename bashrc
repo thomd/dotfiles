@@ -166,3 +166,12 @@ function www {
 # Define words and phrases with google (http://www.commandlinefu.com/commands/view/4722/define-words-and-phrases-with-google.)
 #
 define(){ local y="$@";curl -sA"Opera" "http://www.google.com/search?q=define:${y// /+}"|grep -Eo '<li>[^<]+'|sed 's/^<li>//g'|nl|/usr/bin/perl -MHTML::Entities -pe 'decode_entities($_)';}
+
+
+#
+#  Google Translate
+#
+#    Usage:   translate <phrase> <source-language> <output-language>
+#    Example: translate hello en es
+#
+translate(){ wget -qO- "http://ajax.googleapis.com/ajax/services/language/translate?v=1.0&q=$1&langpair=$2|${3:-en}" | sed 's/.*"translatedText":"\([^"]*\)".*}/\1/'; }
