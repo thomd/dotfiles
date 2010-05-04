@@ -137,7 +137,7 @@ svn_ps1() {
 }
 
 function parse_svn_dirty {
-    [[ $(svn status 2> /dev/null) != "" ]] && echo " *"
+    [[ $(svn status 2> /dev/null) != "" ]] && echo "*"
 }
 
 
