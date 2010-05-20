@@ -1,7 +1,7 @@
 #
 # commons
 #
-alias l="ls -AlhG"
+alias l="ls -alhG"
 alias ..="cd .."
 alias ...="cd ../.."
 alias cl='clear; l'
