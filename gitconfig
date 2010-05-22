@@ -11,7 +11,7 @@
   changes = diff --name-status -r
   diffstat = diff --stat -r
   wtf = !git-wtf
-  l = log --all --pretty=oneline --graph
+  l = log --all --pretty=oneline --graph --abbrev-commit
 [color]
 	ui = auto
 [core]

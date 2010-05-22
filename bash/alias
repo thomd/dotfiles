@@ -61,16 +61,9 @@ alias gco='git checkout'
 alias gd='git diff'
 alias gdm='git diff master'
 alias gl='git pull'
-alias gnp="git-notpushed"
 alias gp='git push'
-alias gst='git status'
-alias gt='git status'
 alias g='git status'
 alias eg='mate .git/config'
-# shows the git history as ASCII graph
-function glog() {
-    git log --pretty=oneline --topo-order --graph --abbrev-commit $@
-}
 
 
 #
