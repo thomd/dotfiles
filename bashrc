@@ -175,3 +175,10 @@ define(){ local y="$@";curl -sA"Opera" "http://www.google.com/search?q=define:${
 #    Example: translate hello en es
 #
 translate(){ wget -qO- "http://ajax.googleapis.com/ajax/services/language/translate?v=1.0&q=$1&langpair=$2|${3:-en}" | sed 's/.*"translatedText":"\([^"]*\)".*}/\1/'; }
+
+
+#
+# what is my IP?
+#
+ip(){ curl "http://www.whatismyip.org"; }
+
