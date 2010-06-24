@@ -1,4 +1,9 @@
 #
+# autotest config
+#
+#    see also: http://ph7spot.com/musings/getting-started-with-autotest
+#
+#
 # for Rspec run 'RSPEC=true autospec' in project root, put specs into 'spec' folder
 #
 require 'redgreen/autotest' unless ENV['RSPEC']
