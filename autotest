@@ -1,10 +1,7 @@
 #
 # for Rspec run 'RSPEC=true autospec' in project root, put specs into 'spec' folder
 #
-require 'autotest/redgreen'
-# require 'autotest/pretty'
-# require 'autotest/snarl'
-# require 'autotest/timestamp'
+require 'redgreen/autotest' unless ENV['RSPEC']
 
 RSPEC = ENV['RSPEC']
 
