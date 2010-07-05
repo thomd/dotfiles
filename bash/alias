@@ -4,15 +4,9 @@
 alias l="ls -alhG"
 alias ..="cd .."
 alias ...="cd ../.."
-alias cl='clear; l'
-function cdc() { 
-    cd $1; ls 
-}
-alias cls='clear; ls'
 alias h='history'
 alias l.='ls -d .[^.]*'
 alias md='mkdir -p'
-alias ta='tail -f /var/log/apache2/error_log'
 
 
 alias m="mate ."
@@ -33,20 +27,6 @@ alias ditaa='java -jar /usr/local/ditaa/ditaa0_9.jar $1'
 alias httpdump='sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E "Host\: .*|GET \/.*"'
 
 alias grep='GREP_COLOR="1;37;41" LANG=C grep --color=auto'
-
-alias k9="killall -9"
-function killnamed () { 
-    ps ax | grep $1 | cut -d ' ' -f 2 | xargs kill 
-}
-
-
-#
-# cat syntax highlighting (http://www.ralfebert.de/blog/tools/cat_syntax_highlighting/)
-#
-alias pcat=pygmentize
-function pless() {
-    pcat "$1" | less -R
-}
 
 
 #
@@ -72,14 +52,6 @@ alias eg='mate .git/config'
 alias svnadd='svn --force --depth infinity add .'
 alias svndiff='svn-colored-diff'
 alias svnlog='svn-colored-log'
-
-
-#
-# ruby
-#
-function markdown() { 
- /Applications/TextMate.app/Contents/SharedSupport/Support/bin/Markdown.pl $1 > $1.html 
-}
 
 
 #
@@ -136,12 +108,6 @@ alias h2b="perl -e 'printf qq|%b\n|, hex( shift )'"
 alias o2h="perl -e 'printf qq|%X\n|, oct( shift )'"
 alias o2d="perl -e 'printf qq|%d\n|, oct( shift )'"
 alias o2b="perl -e 'printf qq|%b\n|, oct( shift )'"
-
-
-#
-# start trac standalone server
-#
-alias trac="tracd -p 8000 -a projects,/Users/thomd/trac/projects/users.htdigest,trac ~/trac/projects/"
 
 
 #
