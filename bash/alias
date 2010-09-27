@@ -80,7 +80,7 @@ alias aas="./script/autospec"
 #    cp jsl into /usr/local/bin
 #    cp jsl.conf into /etc/jsl/jsl.conf 
 #
-function jsc() { 
+function jslint() { 
   jsl -conf /etc/jsl/jsl.conf -process $1 # syntax check
 }                                                      
 
