@@ -16,6 +16,6 @@
 	ui = auto
 [core]
 	excludesfile = /Users/thomd/.gitignore
-	editor = mate -w
+	editor = vim
 [merge]
 	tool = opendiff
