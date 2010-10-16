@@ -1,0 +1,7 @@
+-- sqlite3 configuration
+.header ON
+.mode column
+.separator "\t"
+.nullvalue "Null"
+
+
