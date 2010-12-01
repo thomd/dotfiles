@@ -12,7 +12,7 @@ To install them in your home directory:
     cd ~
     git clone git://github.com/thomd/dotfiles.git
     cd dotfiles
-    spec spec/dotfiles_spec.rb
+    rspec spec
     rake
 
 

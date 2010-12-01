@@ -1,6 +1,6 @@
 require "rubygems"
 require "fileutils"
-require "dotfile"
+require File.dirname(__FILE__) + "/../dotfile"
 
 describe Dotfile do
 
