@@ -164,3 +164,8 @@ translate(){ wget -qO- "http://ajax.googleapis.com/ajax/services/language/transl
 #
 ip(){ curl "http://www.whatismyip.org"; }
 
+
+#
+# combine 'mkdir foo && cd foo' into a single command 'ccd foo'
+#
+ccd(){ mkdir -p "$@" && cd "$@"; }
