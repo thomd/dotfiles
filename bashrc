@@ -131,12 +131,6 @@ export PS2=" : "
 
 
 #
-# rake completion (http://onrails.org/articles/2006/08/30/namespaces-and-rake-command-completion)
-#
-complete -C ~/bin/rake-completion -o default rake
-
-
-#
 # start a tiny web server serving the current directory (http://www.ralfebert.de/blog/tools/www_here/)
 #
 function www {
