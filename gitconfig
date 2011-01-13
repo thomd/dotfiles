@@ -12,7 +12,9 @@
   diffstat = diff --stat -r
   wtf = !git-wtf
   l = log --all --oneline --graph --abbrev-commit --decorate
-	root = !pwd -P
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  root = !pwd -P
+  graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
 [color]
 	ui = auto
 [core]
