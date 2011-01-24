@@ -26,7 +26,6 @@ echo ''
 echo -en $NO_COLOR
 
 
-
 #
 # ssh-complete (http://drawohara.tumblr.com/post/6584031)
 #
