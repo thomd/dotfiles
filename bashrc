@@ -33,15 +33,6 @@ SSH_COMPLETE=($(cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uni
 complete -o default -W "${SSH_COMPLETE[*]}" ssh
 
 
-
-#
-# Set the title of the terminal window with cd (can't remember where I got this from)
-#
-function settitle() { echo -ne "\033]0;$@\a"; }
-function cd() { command cd "$@"; settitle `pwd | awk 'BEGIN {FS="/"} {print $NF}'`; }
-
-
-
 #
 # generate rails project based on template (http://github.com/thomd/rails-templates/tree/master)
 #
@@ -51,7 +42,6 @@ function railst() {
   shift 2
   rails $appname -m http://github.com/thomd/rails-templates/raw/master/$template.template.rb $@
 }
-
 
 
 #
@@ -156,3 +146,10 @@ translate(){ wget -qO- "http://ajax.googleapis.com/ajax/services/language/transl
 # what is my IP?
 #
 ip(){ curl "http://www.whatismyip.org"; }
+
+
+#
+# Set the title of the terminal window with cd (can't remember where I got this from)
+#
+function settitle() { echo -ne "\033]0;$@\a"; }
+function cd() { command cd "$@"; settitle `pwd | awk 'BEGIN {FS="/"} {print $NF}'`; }
