@@ -7,7 +7,7 @@ alias ...="cd ../.."
 alias h='history'
 alias l.='ls -d .[^.]*'
 alias md='mkdir -p'
-alias pwd='pwd | pbcopy; pwd'
+alias wd="pwd | tr -d '\n' | pbcopy; pwd"
 alias m="mate ."
 alias ff='open -a Firefox $1'
 
