@@ -1,0 +1,9 @@
+// .tidyrc
+// http://tidy.sourceforge.net/docs/quickref.html
+indent: yes
+indent-spaces: 2
+wrap: 0
+markup: yes
+hide-comments: yes
+show-warnings: yes
+char-encoding: utf8
