@@ -11,8 +11,8 @@ alias wd="pwd | tr -d '\n' | pbcopy; pwd"
 alias m="mate ."
 alias ff='open -a Firefox $1'
 
-# http://portswigger.net/suite/
-alias burp='java -jar /usr/local/burpsuite/burpsuite_v1.2.01.jar &'
+# http://portswigger.net/
+alias burp='java -jar /usr/local/burpsuite/burpsuite.jar &'
 
 # http://xmlstar.sourceforge.net/
 alias xml='xmlstarlet $1'
