@@ -1,9 +1,13 @@
 // .tidyrc
 // http://tidy.sourceforge.net/docs/quickref.html
-indent: yes
+indent: true
 indent-spaces: 2
 wrap: 0
 markup: yes
 hide-comments: yes
 show-warnings: yes
 char-encoding: utf8
+new-blocklevel-tags: article,header,footer,section
+new-inline-tags: video,audio,canvas
+vertical-space: true
+doctype "<!DOCTYPE html>"
