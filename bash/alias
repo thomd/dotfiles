@@ -77,11 +77,11 @@ alias aas="./script/autospec"
 #
 # download JavaScritpLint from www.javascriptlint.com
 #    cp jsl into /usr/local/bin
-#    cp jsl.conf into /etc/jsl/jsl.conf 
+#    cp jsl.conf into /etc/jsl/jsl.conf
 #
-function jslint() { 
+function jslint() {
   jsl -conf /etc/jsl/jsl.conf -process $1 # syntax check
-}                                                      
+}
 
 # Rhino (see http://peter.michaux.ca/articles/installing-rhino-on-os-x). To enable up-arrow command completion in Rhino, put jline.jar (http://jline.sourceforge.net/) into ~/Library/Java/Extensions/
 alias rhino="java jline.ConsoleRunner org.mozilla.javascript.tools.shell.Main"
@@ -121,3 +121,8 @@ alias swfobject="wget -O swfobject.js http://ajax.googleapis.com/ajax/libs/swfob
 # tree (from http://mama.indstate.edu/users/ice/tree/)
 #
 alias tree="tree -C"
+
+#
+# ssh-host-color (from https://gist.github.com/956095)
+#
+alias ssh=~/bin/ssh-host-color.sh
