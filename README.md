@@ -1,8 +1,9 @@
 OSX dotfiles
 ============
 
-Some of my OSX dotfiles (with a rspec'd installer).
+Some of my OSX dotfiles (with a [rspec](http://rspec.info/)'d installer).
 
+A `.vimrc` is not included due to a usage of [janus](https://github.com/thomd/janus) vim disttribution.
 
 Installation
 ------------
