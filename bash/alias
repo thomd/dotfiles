@@ -126,3 +126,8 @@ alias tree="tree -C"
 # ssh-host-color (from https://gist.github.com/956095)
 #
 alias ssh=~/bin/ssh-host-color.sh
+
+#
+# colorize ant output
+#
+alias ant="ant | ~/bin/colored-ant.pl"
