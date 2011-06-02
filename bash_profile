@@ -3,6 +3,6 @@
 
 # This loads RVM into a shell session.
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-echo -en ${YELLOW}
-echo "RUBY: $(~/.rvm/bin/rvm-prompt s i v)"
-echo -en $NO_COLOR
+#echo -en ${YELLOW}
+#echo "RUBY: $(~/.rvm/bin/rvm-prompt s i v)"
+#echo -en $NO_COLOR
