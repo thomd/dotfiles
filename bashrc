@@ -94,7 +94,7 @@ function parse_git_dirty {
 
 #
 # get svn-info
-# 
+#
 #   show trunk- or branches-path in prompt for all repositories following the trunk/branches convention
 #
 svn_ps1() {
@@ -153,3 +153,15 @@ ip(){ curl "http://www.whatismyip.org"; }
 #
 function settitle() { echo -ne "\033]0;$@\a"; }
 function cd() { command cd "$@"; settitle `pwd | awk 'BEGIN {FS="/"} {print $NF}'`; }
+
+#
+# colored ant
+#
+antc(){
+  if [ -n "$1" ]; then
+    ant $1 | colored-ant.pl;
+  else
+    ant | colored-ant.pl;
+  fi;
+}
+

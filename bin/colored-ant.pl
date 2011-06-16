@@ -6,7 +6,7 @@
 #
 # Installation:
 #    chmod 755 ~/bin/colored-ant.pl
-#    alias ant="ant | ./colored-ant.pl"
+#    ant | ./colored-ant.pl
 #
 
 use Term::ANSIColor;
