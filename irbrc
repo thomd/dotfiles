@@ -1,4 +1,9 @@
+require 'irb/completion'
+require 'irb/ext/save-history'
 require 'rubygems' rescue nil
+%x{gem install 'wirble' --no-ri --no-rdoc} unless Gem.available?('wirble')
+%x{gem install 'hirb' --no-ri --no-rdoc} unless Gem.available?('hirb')
+Gem.refresh
 require 'wirble'
 require 'hirb'
 
@@ -20,12 +25,12 @@ if ENV.include?('RAILS_ENV')
   def sql(query)
     ActiveRecord::Base.connection.select_all(query)
   end
-  
+
   if ENV['RAILS_ENV'] == 'test'
     require 'test/test_helper'
   end
 
-# for rails 3
+  # for rails 3
 elsif defined?(Rails) && !Rails.env.nil?
   if Rails.logger
     Rails.logger =Logger.new(STDOUT)
@@ -45,8 +50,6 @@ end
 
 # alias
 alias q exit
-
-puts "> all systems are go wirble/hirb/ap/show <"
 
 #
 # put this into Gemfile of a rails project if you like to use wirble and hirb in rails console
