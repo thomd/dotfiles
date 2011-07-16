@@ -88,6 +88,9 @@ function jslint() {
 # to enable up-arrow command completion in Rhino, put jline.jar (http://jline.sourceforge.net/) into ~/Library/Java/Extensions/
 alias rhino="java jline.ConsoleRunner org.mozilla.javascript.tools.shell.Main"
 
+# Rhino Javascript2Java Compiler
+alias jsc="java Jsc $1"
+
 
 #
 # base conversions with ruby
