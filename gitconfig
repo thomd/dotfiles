@@ -6,7 +6,6 @@
 	st = status
 	ci = commit
 	br = branch
-  df = !git diff | mate
   whatis = show -s --pretty='tformat:%h (%s, %ad)' --date=short
   changes = diff --name-status -r
   diffstat = diff --stat -r
@@ -16,7 +15,8 @@
   root = !pwd -P
   type = cat-file -t
   dump = cat-file -p
-  graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
+  ls = ls-files
+  ign = ls-files -o -i --exclude-standard
 [color]
 	ui = auto
 [core]
