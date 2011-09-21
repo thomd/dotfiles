@@ -1,11 +1,11 @@
 [user]
-	name = Thomas Duerr
-	email = thomduerr@gmail.com
+  name = Thomas Duerr
+  email = thomduerr@gmail.com
 [alias]
-	co = checkout
-	st = status
-	ci = commit
-	br = branch
+  co = checkout
+  st = status
+  ci = commit
+  br = branch
   whatis = show -s --pretty='tformat:%h (%s, %ad)' --date=short
   changes = diff --name-status -r
   diffstat = diff --stat -r
@@ -18,9 +18,9 @@
   ls = ls-files
   ign = ls-files -o -i --exclude-standard
 [color]
-	ui = auto
+  ui = auto
 [core]
-	excludesfile = /Users/thomd/.gitignore
-	editor = vim
+  excludesfile = /Users/thomd/.gitignore
+  editor = vim
 [merge]
-	tool = opendiff
+  tool = vimdiff

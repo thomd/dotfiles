@@ -41,7 +41,7 @@ alias gd='git diff'
 alias gdm='git diff master'
 alias gl='git pull'
 alias gp='git push'
-alias g='git status'
+alias g='git status -sb'
 alias eg='mate .git/config'
 
 
