@@ -22,8 +22,26 @@ hardstatus alwayslastline "%{=b}%{G} : %{b}%w %=%{kG}%C%A"
 # copy screen clipboard to mac clipboard
 bind b eval "writebuf" "exec sh -c 'pbcopy < /tmp/screen-exchange'"
 
-# enable bold
+# allow bold colors - necessary for some reason
 attrcolor b ".I"
 
 # allow 256 colors
 termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+
+# erase background with current bg color
+defbce "on"
+
+# tell screen that xterm can switch to dark background and has function keys.
+# termcapinfo xterm 'VR=\E[?5h:VN=\E[?5l'
+# termcapinfo xterm 'k1=\E[11~:k2=\E[12~:k3=\E[13~:k4=\E[14~'
+# termcapinfo xterm 'kh=\EOH:kI=\E[2~:kD=\E[3~:kH=\EOF:kP=\E[5~:kN=\E[6~'
+# termcapinfo xterm-color 'VR=\E[?5h:VN=\E[?5l'
+# termcapinfo xterm-color 'k1=\E[11~:k2=\E[12~:k3=\E[13~:k4=\E[14~'
+# termcapinfo xterm-color 'kh=\EOH:kI=\E[2~:kD=\E[3~:kH=\EOF:kP=\E[5~:kN=\E[6~'
+
+# Default screens
+#   screen statements in the following format: screen -t NameOfScreen ScreenNumber ShellCommand
+screen -t shell1 0
+screen -t shell2 1
+# screen -t server 2 ssh thomd
+
