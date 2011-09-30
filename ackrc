@@ -1,0 +1,4 @@
+--type-set=isml=.isml
+--type-set=ds=.ds
+--sort-files
+-a
