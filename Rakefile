@@ -2,7 +2,7 @@ require "rubygems"
 require "rake"
 require "dotfile"
 
-FILES_NOT_TO_INSTALL = %w[Rakefile README.md dotfile.rb]
+FILES_NOT_TO_INSTALL = %w[Rakefile README.md dotfile.rb TODO]
 
 PURPLE = "\033[0;35m"
 BLUE   = "\033[0;34m"
