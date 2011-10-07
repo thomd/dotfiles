@@ -143,12 +143,6 @@ translate(){ wget -qO- "http://ajax.googleapis.com/ajax/services/language/transl
 
 
 #
-# what is my IP?
-#
-ip(){ curl "http://www.whatismyip.org"; }
-
-
-#
 # Set the title of the terminal window with cd (can't remember where I got this from)
 #
 function settitle() { echo -ne "\033]0;$@\a"; }
