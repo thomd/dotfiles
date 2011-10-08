@@ -163,3 +163,10 @@ antc(){
 # automatically correct mistyped directory names
 #
 shopt -s cdspell
+
+#
+# bind backward-word to ctrl-b
+# bind forward-word to ctrl-f
+#
+bind "\C-b":backward-word
+bind "\C-f":forward-word
