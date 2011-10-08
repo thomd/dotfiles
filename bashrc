@@ -159,3 +159,7 @@ antc(){
   fi;
 }
 
+#
+# automatically correct mistyped directory names
+#
+shopt -s cdspell
