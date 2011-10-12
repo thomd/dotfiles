@@ -114,14 +114,14 @@ function parse_svn_dirty {
 function rvm_prompt {
   local rvm="$(~/.rvm/bin/rvm-prompt v g)"
   if [ -n "$rvm" ]; then
-    printf "[$rvm]"
+    printf "[$rvm] "
   fi
 }
 
 #
 # show both git-info and svn-info in prompt
 #
-export PS1='\n\[\033[00m\]\u \[\033[0;36m\]\W \[\033[1;32m\]$(rvm_prompt)\[\033[0;36m\] $(git_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_git_dirty)\[\033[0;32m\]]")\[\033[0;32m\]$(svn_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_svn_dirty)\[\033[0;32m\]]")\[\033[0;32m\] \[\033[0m\]$ '
+export PS1='\n\[\033[00m\]\u \[\033[0;36m\]\W \[\033[1;32m\]$(rvm_prompt)\[\033[0;36m\]$(git_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_git_dirty)\[\033[0;32m\]]")\[\033[0;32m\]$(svn_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_svn_dirty)\[\033[0;32m\]]")\[\033[0;32m\] \[\033[0m\]$ '
 export PS2=" : "
 
 
