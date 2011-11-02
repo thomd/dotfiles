@@ -1,4 +1,13 @@
+# define filetypes
 --type-set=isml=.isml
 --type-set=ds=.ds
+--type-set=prop=.properties
+
+# Always sort the files
 --sort-files
--a
+
+# Always color, even if piping to a filter
+--color
+
+# Use "less -r" as my pager
+# --pager=less -r
