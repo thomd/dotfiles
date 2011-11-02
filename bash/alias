@@ -43,6 +43,7 @@ alias gl='git pull'
 alias gp='git push'
 alias g='git status -sb'
 alias eg='mate .git/config'
+alias gr='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup || pwd`'
 
 
 #
