@@ -10,6 +10,7 @@
   changes = diff --name-status -r
   diffstat = diff --stat -r
   wtf = !git-wtf
+  diff-grep = !git-diff-grep
   l = log --all --oneline --graph --abbrev-commit --decorate
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   root = !pwd -P
