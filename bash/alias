@@ -17,9 +17,6 @@ alias burp='java -jar /usr/local/burpsuite/burpsuite.jar &'
 # http://xmlstar.sourceforge.net/
 alias xml='xmlstarlet $1'
 
-# http://saxon.sourceforge.net/
-alias saxon='java -jar /usr/local/saxon/saxon9.jar $1'
-
 # http://ditaa.sourceforge.net/
 alias ditaa='java -jar /usr/local/ditaa/ditaa0_9.jar $1'
 
