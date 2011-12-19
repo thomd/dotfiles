@@ -176,3 +176,8 @@ shopt -s cdspell
 #
 bind "\C-b":backward-word
 bind "\C-f":forward-word
+
+#
+# stderred (https://github.com/sickill/stderred)
+#
+export DYLD_INSERT_LIBRARIES=/usr/local/lib/stderred.dylib DYLD_FORCE_FLAT_NAMESPACE=1
