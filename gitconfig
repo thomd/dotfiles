@@ -18,6 +18,7 @@
   dump = cat-file -p
   ls = ls-files
   ign = ls-files -o -i --exclude-standard
+  cat = cat-file
 [color]
   ui = auto
 [core]
