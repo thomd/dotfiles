@@ -1,0 +1,20 @@
+#!/usr/bin/python
+
+'''
+json pretty print
+
+usage:
+    cat data.json | jsonpp
+
+you may also use:
+    cat data.json | python -mjson.tool
+'''
+import json
+import sys
+
+data = sys.stdin.readline()
+dd = json.loads(data)
+
+print json.dumps(dd, indent=2)
+
+# vim:ft=python
