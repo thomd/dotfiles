@@ -2,6 +2,9 @@
 --type-set=isml=.isml
 --type-set=ds=.ds
 --type-set=prop=.properties
+--type-set=coffee=.coffee
+--type-set=haml=.haml
+--type-set=sass=.sass
 
 # Always sort the files
 --sort-files
@@ -11,3 +14,11 @@
 
 # Use "less -r" as my pager
 # --pager=less -r
+
+# add type aliases
+--type-add
+html=.haml
+--type-add
+css=.sass,.scss,.less
+--type-add
+js=.coffee
