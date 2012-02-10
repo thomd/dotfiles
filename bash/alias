@@ -123,6 +123,8 @@ alias o2b="perl -e 'printf qq|%b\n|, oct( shift )'"
 #
 alias jquery="wget http://code.jquery.com/jquery-latest.js"
 
+# calendar with the current date marked:
+alias cal='cal | grep --color=auto -E "( |^)$(date +%e)( |$)|$"'
 
 #
 # tree (from http://mama.indstate.edu/users/ice/tree/)
