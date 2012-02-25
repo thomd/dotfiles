@@ -96,6 +96,11 @@ alias rhinod="java org.mozilla.javascript.tools.debugger.Main"
 alias jsc="java Jsc $1"
 
 
+# Clojure REPL with jline
+# copy clojure.jar into ~/Library/Java/Extension
+alias clojure="java jline.ConsoleRunner clojure.main"
+
+
 #
 # base conversions with ruby
 #
