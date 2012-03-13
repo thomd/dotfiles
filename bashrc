@@ -2,14 +2,7 @@
 # load bash config, environment and aliases
 #
 . ~/dotfiles/bash/config
-
-SNOWLEOPARD="$(sw_vers 2>/dev/null | sed -ne 's/\(10\.6\)/\1/p')"
-if [[ -n $SNOWLEOPARD ]]; then
 . ~/dotfiles/bash/env.10.6
-else
-. ~/dotfiles/bash/env.10.5
-fi
-
 . ~/dotfiles/bash/alias
 
 
@@ -17,12 +10,13 @@ fi
 # thomd
 #
 echo -en ${RED}
-echo ' _____ _   _  ___  __  __ ____  '
-echo '|_   _| | | |/ _ \|  \/  |  _ \ '
-echo '  | | | |_| | | | | |\/| | | | |'
-echo '  | | |  _  | |_| | |  | | |_| |'
-echo '  |_| |_| |_|\___/|_|  |_|____/ '
-echo ''
+echo `whoami`@`hostname`
+# echo ' _____ _   _  ___  __  __ ____  '
+# echo '|_   _| | | |/ _ \|  \/  |  _ \ '
+# echo '  | | | |_| | | | | |\/| | | | |'
+# echo '  | | |  _  | |_| | |  | | |_| |'
+# echo '  |_| |_| |_|\___/|_|  |_|____/ '
+# echo ''
 echo -en $NO_COLOR
 
 
@@ -134,25 +128,29 @@ function www {
 
 
 #
-# Define words and phrases with google (http://www.commandlinefu.com/commands/view/4722/define-words-and-phrases-with-google.)
-#
-define(){ local y="$@";curl -sA"Opera" "http://www.google.com/search?q=define:${y// /+}"|grep -Eo '<li>[^<]+'|sed 's/^<li>//g'|nl|/usr/bin/perl -MHTML::Entities -pe 'decode_entities($_)';}
-
-
-#
-#  Google Translate
-#
-#    Usage:   translate <phrase> <source-language> <output-language>
-#    Example: translate hello en es
-#
-translate(){ wget -qO- "http://ajax.googleapis.com/ajax/services/language/translate?v=1.0&q=$1&langpair=$2|${3:-en}" | sed 's/.*"translatedText":"\([^"]*\)".*}/\1/'; }
-
-
-#
 # Set the title of the terminal window with cd (can't remember where I got this from)
 #
 function settitle() { echo -ne "\033]0;$@\a"; }
 function cd() { command cd "$@"; settitle `pwd | awk 'BEGIN {FS="/"} {print $NF}'`; }
+
+
+#
+# list all folders in PATH environment variable more readable (non existent folders in red)
+#
+function paths(){
+  IFS=$':'
+  for i in $PATH
+  do
+    if [ -d $i ]
+    then
+      echo $i
+    else
+      echo -e "\033[0;31m$i\033[0m"
+    fi
+  done
+  unset IFS
+}
+
 
 #
 # colored ant
@@ -181,3 +179,6 @@ bind "\C-f":forward-word
 # stderred (https://github.com/sickill/stderred)
 #
 export DYLD_INSERT_LIBRARIES=/usr/local/lib/stderred.dylib DYLD_FORCE_FLAT_NAMESPACE=1
+
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
