@@ -1,8 +1,9 @@
 #
 # environment for OSX 10.6.x (Snow Leopard on iMac)
 #
-export TERM=xterm-color
+export TERM=xterm-256color
 export CLICOLOR=1
+
 export EC2_HOME="/usr/local/ec2-api-tools"
 #export EDITOR="/usr/bin/mate -w"
 export EDITOR="/Users/thomd/bin/vim"
@@ -10,7 +11,7 @@ export JAVA_HOME="/Library/Java/Home"
 export JRUBY_HOME="/Library/Java/JRuby"
 export REPO="~/.m2/repository"
 export VIMRUNTIME="/usr/share/vim/vim72"
-export NODE_PATH="~/.node_libraries"
+#export NODE_PATH="~/.node_libraries"
 
 BIN_PATH="/Users/thomd/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/scala/bin:/opt/local/bin:/opt/local/sbin:/usr/local/git/bin"
 GEM_PATH="/Users/thomd/.gem/ruby/1.8/bin"
