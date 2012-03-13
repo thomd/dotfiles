@@ -2,7 +2,7 @@
 # load bash config, environment and aliases
 #
 . ~/dotfiles/bash/config
-. ~/dotfiles/bash/env.10.6
+. ~/dotfiles/bash/env
 . ~/dotfiles/bash/alias
 
 
