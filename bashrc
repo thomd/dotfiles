@@ -139,15 +139,7 @@ function cd() { command cd "$@"; settitle `pwd | awk 'BEGIN {FS="/"} {print $NF}
 #
 function paths(){
   IFS=$':'
-  for i in $PATH
-  do
-    if [ -d $i ]
-    then
-      echo $i
-    else
-      echo -e "\033[0;31m$i\033[0m"
-    fi
-  done
+  for i in $PATH; do if [ -d $(eval echo $i) ]; then echo $i; else echo -e "\033[0;31m$i\033[0m"; fi; done;
   unset IFS
 }
 
