@@ -5,12 +5,11 @@
 . ~/dotfiles/bash/env
 . ~/dotfiles/bash/alias
 
-
 #
 # thomd
 #
 echo -en ${RED}
-echo `whoami`@`hostname`
+# echo `whoami`@`hostname`
 # echo ' _____ _   _  ___  __  __ ____  '
 # echo '|_   _| | | |/ _ \|  \/  |  _ \ '
 # echo '  | | | |_| | | | | |\/| | | | |'
