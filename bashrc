@@ -168,8 +168,9 @@ bind "\C-f":forward-word
 
 #
 # stderred (https://github.com/sickill/stderred)
+# for the time being this is commented out as it breaks the 'open' command (see https://github.com/sickill/stderred/issues/11)
 #
-export DYLD_INSERT_LIBRARIES=/usr/local/lib/stderred.dylib DYLD_FORCE_FLAT_NAMESPACE=1
+# export DYLD_INSERT_LIBRARIES=/usr/local/lib/stderred.dylib DYLD_FORCE_FLAT_NAMESPACE=1
 
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
