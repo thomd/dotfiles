@@ -122,8 +122,10 @@ export PS2=" : "
 #
 # start a tiny web server serving the current directory (http://www.ralfebert.de/blog/tools/www_here/)
 #
-function www {
-    python -c 'import SimpleHTTPServer,SocketServer;PORT=1234;httpd = SocketServer.TCPServer(("", PORT),SimpleHTTPServer.SimpleHTTPRequestHandler); print "serving at port", PORT; httpd.serve_forever()'
+function www() {
+  local port="${1:-8000}"
+  open "http://localhost:${port}"
+  python -m SimpleHTTPServer $port
 }
 
 
