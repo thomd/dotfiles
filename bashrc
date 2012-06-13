@@ -176,6 +176,27 @@ bind "\C-f":forward-word
 # export DYLD_INSERT_LIBRARIES=/usr/local/lib/stderred.dylib DYLD_FORCE_FLAT_NAMESPACE=1
 
 
+#
+# create scratch dir [http://ku1ik.com/2012/05/04/scratch-dir.html]
+#
+function scratch {
+  CUR="$HOME/scratch"
+  NEW="/tmp/scratch-`date +'%s'`"
+  SCRATCH_PS=$PS1
+  mkdir -p $NEW
+  ln -nfs $NEW $CUR
+  cd $CUR
+  function scratch_check_prompt {
+    if [[ $(pwd) =~ ^$CUR ]]
+      then export PS1=${SCRATCH_PS//36m/31m}
+      else export PS1=$SCRATCH_PS
+    fi
+  }
+  export PROMPT_COMMAND='scratch_check_prompt'
+}
+alias temp="scratch"
+
+
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 #
