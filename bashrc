@@ -112,10 +112,32 @@ function rvm_prompt {
 }
 
 #
+# create temporary scratch directory [http://ku1ik.com/2012/05/04/scratch-dir.html]
+#
+export SCRATCH_HOME="$HOME/scratch"
+function scratch {
+  NEW="/tmp/scratch-`date +'%s'`"
+  SCRATCH_PS=$PS1
+  mkdir -p $NEW
+  ln -nfs $NEW $SCRATCH_HOME
+  cd $SCRATCH_HOME
+}
+alias temp="scratch"
+
+#
+# make scratch dir red
+#
+function scratch_dir {
+  if [[ $(pwd) =~ ^$SCRATCH_HOME ]]
+    then echo -e "\033[0;31m"
+  fi
+}
+
+#
 # show both git-info and svn-info in prompt
 #
 # export PS1='\n\[\033[00m\]\u \[\033[0;36m\]\W \[\033[1;32m\]$(rvm_prompt)\[\033[0;36m\]$(git_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_git_dirty)\[\033[0;32m\]]")\[\033[0;32m\]$(svn_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_svn_dirty)\[\033[0;32m\]]")\[\033[0;32m\] \[\033[0m\]$ '
-export PS1='\n\[\033[0;36m\]\W \[\033[1;32m\]$(rvm_prompt)\[\033[0;36m\]$(git_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_git_dirty)\[\033[0;32m\]]")\[\033[0;32m\]$(svn_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_svn_dirty)\[\033[0;32m\]]")\[\033[0;32m\] \[\033[0m\]$ '
+export PS1='\n\[\033[0;36m\]$(scratch_dir)\W \[\033[1;32m\]$(rvm_prompt)\[\033[0;36m\]$(git_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_git_dirty)\[\033[0;32m\]]")\[\033[0;32m\]$(svn_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_svn_dirty)\[\033[0;32m\]]")\[\033[0;32m\] \[\033[0m\]$ '
 export PS2=" : "
 
 
@@ -176,25 +198,6 @@ bind "\C-f":forward-word
 # export DYLD_INSERT_LIBRARIES=/usr/local/lib/stderred.dylib DYLD_FORCE_FLAT_NAMESPACE=1
 
 
-#
-# create scratch dir [http://ku1ik.com/2012/05/04/scratch-dir.html]
-#
-function scratch {
-  CUR="$HOME/scratch"
-  NEW="/tmp/scratch-`date +'%s'`"
-  SCRATCH_PS=$PS1
-  mkdir -p $NEW
-  ln -nfs $NEW $CUR
-  cd $CUR
-  function scratch_check_prompt {
-    if [[ $(pwd) =~ ^$CUR ]]
-      then export PS1=${SCRATCH_PS//36m/31m}
-      else export PS1=$SCRATCH_PS
-    fi
-  }
-  export PROMPT_COMMAND='scratch_check_prompt'
-}
-alias temp="scratch"
 
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
