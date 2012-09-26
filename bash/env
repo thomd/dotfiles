@@ -4,6 +4,9 @@
 export TERM=xterm-256color
 export CLICOLOR=1
 
+# allow less(1) to display colors
+export LESS=-RFX
+
 export EC2_HOME="/usr/local/ec2-api-tools"
 #export EDITOR="/usr/bin/mate -w"
 export EDITOR="/Users/thomd/bin/vim"

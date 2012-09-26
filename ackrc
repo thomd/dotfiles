@@ -12,8 +12,9 @@
 # Always color, even if piping to a filter
 --color
 
-# Use "less -r" as my pager
-# --pager=less -r
+# Use less(1) as pager
+# you'll need to tell less(1) to allow color to be displayed: echo export LESS=-RFX >> ~/.bashrc && source ~/.bashrc
+--pager=less
 
 # add type aliases
 --type-add
