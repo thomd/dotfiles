@@ -6,9 +6,9 @@
 . ~/dotfiles/bash/alias
 
 #
-# thomd
+# thomd splash
 #
-echo -en ${RED}
+# echo -en ${RED}
 # echo `whoami`@`hostname`
 # echo ' _____ _   _  ___  __  __ ____  '
 # echo '|_   _| | | |/ _ \|  \/  |  _ \ '
@@ -16,7 +16,7 @@ echo -en ${RED}
 # echo '  | | |  _  | |_| | |  | | |_| |'
 # echo '  |_| |_| |_|\___/|_|  |_|____/ '
 # echo ''
-echo -en $NO_COLOR
+# echo -en $NO_COLOR
 
 
 #
