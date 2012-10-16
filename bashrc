@@ -112,32 +112,31 @@ function rvm_prompt {
 }
 
 #
-# create temporary scratch directory [http://ku1ik.com/2012/05/04/scratch-dir.html]
+# create temporary scratch directory [inspired by http://ku1ik.com/2012/05/04/scratch-dir.html]
 #
 export SCRATCH_HOME="$HOME/scratch"
 function scratch {
-  NEW="/tmp/scratch-`date +'%s'`"
-  SCRATCH_PS=$PS1
-  mkdir -p $NEW
-  ln -nfs $NEW $SCRATCH_HOME
-  cd $SCRATCH_HOME
+  NEW="/tmp/scratch-`date +'%s'`"                  # scratch folder with timestamp in /tmp. will be deleted after logout
+  export PS1="\n\[\033[0;31m\]"${PS1:16}           # color prompt string red
+  mkdir -p $NEW                                    # create scratch folder
+  ln -nfs $NEW $SCRATCH_HOME                       # symlink to scratch folder
+  cd $SCRATCH_HOME                                 # cd into scratch folder
+  function cd() {                                  # extend 'cd' command
+    command cd "$@"
+    if [[ $(pwd) =~ ^$SCRATCH_HOME ]]
+    then
+      export PS1="\n\[\033[0;31m\]"${PS1:16}       # color prompt string red
+    else
+      export PS1="\n\[\033[0;36m\]"${PS1:16}       # color prompt string blue
+    fi
+  }
 }
-alias temp="scratch"
+alias sca="scratch"
+
 
 #
-# make scratch dir red
+# show rvm-info, git-info and svn-info in prompt
 #
-function scratch_dir {
-  if [[ $(pwd) =~ ^$SCRATCH_HOME ]]
-    then echo -e "\033[0;31m"
-  fi
-}
-
-#
-# show both git-info and svn-info in prompt
-#
-# export PS1='\n\[\033[00m\]\u \[\033[0;36m\]\W \[\033[1;32m\]$(rvm_prompt)\[\033[0;36m\]$(git_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_git_dirty)\[\033[0;32m\]]")\[\033[0;32m\]$(svn_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_svn_dirty)\[\033[0;32m\]]")\[\033[0;32m\] \[\033[0m\]$ '
-# export PS1='\n\[\033[0;36m\]$(scratch_dir)\W \[\033[1;32m\]$(rvm_prompt)\[\033[0;36m\]$(git_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_git_dirty)\[\033[0;32m\]]")\[\033[0;32m\]$(svn_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_svn_dirty)\[\033[0;32m\]]")\[\033[0;32m\] \[\033[0m\]$ '
 export PS1='\n\[\033[0;36m\]\W \[\033[1;32m\]$(rvm_prompt)\[\033[0;36m\]$(git_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_git_dirty)\[\033[0;32m\]]")\[\033[0;32m\]$(svn_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_svn_dirty)\[\033[0;32m\]]")\[\033[0;32m\] \[\033[0m\]$ '
 export PS2=" : "
 
@@ -150,13 +149,6 @@ function www() {
   open "http://localhost:${port}"
   python -m SimpleHTTPServer $port
 }
-
-
-#
-# Set the title of the terminal window with cd (can't remember where I got this from)
-#
-function settitle() { echo -ne "\033]0;$@\a"; }
-function cd() { command cd "$@"; settitle `pwd | awk 'BEGIN {FS="/"} {print $NF}'`; }
 
 
 #
