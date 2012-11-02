@@ -1,25 +1,30 @@
-# define filetypes
---type-set=isml=.isml
---type-set=ds=.ds
+# set filetypes
 --type-set=prop=.properties
---type-set=coffee=.coffee
---type-set=haml=.haml
---type-set=sass=.sass
+--type-set=markdown=.markdown,.md,.mdown
+--type-set=txt=.txt,.todo,.faq
 
-# Always sort the files
+# add type aliases
+--type-add=html=.haml,.isml
+--type-add=css=.sass,.scss,.less
+--type-add=js=.coffee,.ds
+
+# lexically sort filenames
 --sort-files
 
-# Always color, even if piping to a filter
+# highlight matching text
 --color
+
+# print one line of context before and after a matching line
+--context=1
+
+# follow symlinks
+--follow
+
+# print a filename heading above each file's results and
+# print a break between results from different files
+--group
 
 # Use less(1) as pager
 # you'll need to tell less(1) to allow color to be displayed: echo export LESS=-RFX >> ~/.bashrc && source ~/.bashrc
 --pager=less
 
-# add type aliases
---type-add
-html=.haml
---type-add
-css=.sass,.scss,.less
---type-add
-js=.coffee
