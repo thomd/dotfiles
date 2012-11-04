@@ -124,7 +124,7 @@ alias o2b="perl -e 'printf qq|%b\n|, oct( shift )'"
 
 
 # calendar with the current date marked:
-alias cal='cal | grep --color=auto -E "( |^)$(date +%e)( |$)|$"'
+alias cal='ncal -w | grep --color=auto -E "( |^)$(date +%e)( |$)|$"'
 
 #
 # tree (from http://mama.indstate.edu/users/ice/tree/)
