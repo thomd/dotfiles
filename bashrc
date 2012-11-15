@@ -116,14 +116,14 @@ function rvm_prompt {
 #
 export SCRATCH_HOME="$HOME/scratch"
 function scratch {
-  NEW="/tmp/scratch-`date +'%s'`"                  # scratch folder with timestamp in /tmp. will be deleted after logout
   export PS1="\n\[\033[0;31m\]"${PS1:16}           # color prompt string red
-  mkdir -p $NEW                                    # create scratch folder
-  ln -nfs $NEW $SCRATCH_HOME                       # symlink to scratch folder
+  (NEW="/tmp/scratch-`date +'%s'`"                 # scratch folder with timestamp in /tmp. will be deleted after logout
+   mkdir -p $NEW                                   # create scratch folder
+   ln -nfs $NEW $SCRATCH_HOME)                     # symlink to scratch folder
   cd $SCRATCH_HOME                                 # cd into scratch folder
   function cd() {                                  # extend 'cd' command
     command cd "$@"
-    if [[ $(pwd) =~ ^$SCRATCH_HOME ]]
+    if [[ $PWD =~ ^$SCRATCH_HOME ]]
     then
       export PS1="\n\[\033[0;31m\]"${PS1:16}       # color prompt string red
     else
