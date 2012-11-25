@@ -107,9 +107,10 @@ function parse_svn_dirty {
 function rvm_prompt {
   local rvm="$(~/.rvm/bin/rvm-prompt v g)"
   if [ -n "$rvm" ]; then
-    printf "[$rvm] "
+    printf "\033[1;32m[$rvm]\033[0;36m "           # print RVM into in prompt in bold green
   fi
 }
+
 
 #
 # create temporary scratch directory [inspired by http://ku1ik.com/2012/05/04/scratch-dir.html]
@@ -121,23 +122,22 @@ function scratch {
    mkdir -p $NEW                                   # create scratch folder
    ln -nfs $NEW $SCRATCH_HOME)                     # symlink to scratch folder
   cd $SCRATCH_HOME                                 # cd into scratch folder
-  function cd() {                                  # extend 'cd' command
-    command cd "$@"
-    if [[ $PWD =~ ^$SCRATCH_HOME ]]
-    then
-      export PS1="\n\[\033[0;31m\]"${PS1:16}       # color prompt string red
-    else
-      export PS1="\n\[\033[0;36m\]"${PS1:16}       # color prompt string blue
-    fi
-  }
+}
+function scratch_prompt() {                        # set color of scratch prompt to red
+  if [[ $PWD =~ ^$SCRATCH_HOME ]]
+  then
+    printf "\033[0;31m"
+  else
+    printf "\033[0;36m"
+  fi
 }
 alias sca="scratch"
 
 
 #
-# show rvm-info, git-info and svn-info in prompt
+# show rvm-, git- and svn-info in prompt
 #
-export PS1='\n\[\033[0;36m\]\W \[\033[1;32m\]$(rvm_prompt)\[\033[0;36m\]$(git_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_git_dirty)\[\033[0;32m\]]")\[\033[0;32m\]$(svn_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_svn_dirty)\[\033[0;32m\]]")\[\033[0;32m\] \[\033[0m\]$ '
+export PS1='\n$(scratch_prompt)\W $(rvm_prompt)$(git_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_git_dirty)\[\033[0;32m\]]")\[\033[0;32m\]$(svn_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_svn_dirty)\[\033[0;32m\]]")\[\033[0;32m\] \[\033[0m\]$ '
 export PS2=" : "
 
 

@@ -134,7 +134,7 @@ alias tree="tree -C"
 #
 # ssh-host-color (from https://gist.github.com/956095)
 #
-alias ssh=~/bin/ssh-host-color.sh
+# alias ssh=~/bin/ssh-host-color.sh
 
 #
 # open markdown files in Marked.app
