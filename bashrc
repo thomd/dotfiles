@@ -115,6 +115,7 @@ function rvm_prompt {
 #
 # create temporary scratch directory [inspired by http://ku1ik.com/2012/05/04/scratch-dir.html]
 #
+# TODO check for valid ~/scratch link. Delete link if not valid
 export SCRATCH_HOME="$HOME/scratch"
 function scratch {
   local NEW="/tmp/scratch-`date +'%s'`"            # scratch folder with timestamp in /tmp. will be deleted after logout
@@ -143,8 +144,8 @@ export PS2=" : "
 #
 function www() {
   local port="${1:-8000}"
-  open "http://localhost:${port}"
   python -m SimpleHTTPServer $port
+  open -a /Applications/Firefox.app "http://localhost:${port}"
 }
 
 
