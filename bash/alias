@@ -1,14 +1,15 @@
 #
 # commons
 #
-alias l="ls -alhG"
+alias l="ls -AlhG"
 alias ..="cd .."
 alias ...="cd ../.."
 alias h='history'
-alias l.='ls -d .[^.]*'
+alias l.='ls -ld .[^.]*'
 alias md='mkdir -p'
 alias wd="pwd | tr -d '\n' | pbcopy; pwd"
 alias m="mate ."
+alias v="vim"
 alias ff='open -a Firefox $1'
 
 # http://portswigger.net/
