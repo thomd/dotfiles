@@ -144,8 +144,8 @@ export PS2=" : "
 #
 function www() {
   local port="${1:-8000}"
+  open -g -a /Applications/Firefox.app "http://localhost:${port}"
   python -m SimpleHTTPServer $port
-  open -a /Applications/Firefox.app "http://localhost:${port}"
 }
 
 
