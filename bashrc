@@ -115,15 +115,15 @@ function rvm_prompt {
 #
 # create temporary scratch directory [inspired by http://ku1ik.com/2012/05/04/scratch-dir.html]
 #
-# TODO check for valid ~/scratch link. Delete link if not valid
 export SCRATCH_HOME="$HOME/scratch"
+[[ -h $SCRATCH_HOME && ! -d $SCRATCH_HOME ]] && rm $SCRATCH_HOME     # delete scratch link if scratch folder doesn't exist anymore
 function scratch {
-  local NEW="/tmp/scratch-`date +'%s'`"            # scratch folder with timestamp in /tmp. will be deleted after logout
-  mkdir -p $NEW                                    # create scratch folder
-  ln -nfs $NEW $SCRATCH_HOME                       # symlink to scratch folder
-  cd $SCRATCH_HOME                                 # cd into scratch folder
+  local NEW="/tmp/scratch-`date +'%s'`"                              # scratch folder with timestamp in /tmp. will be deleted after logout
+  mkdir -p $NEW                                                      # create scratch folder
+  ln -nfs $NEW $SCRATCH_HOME                                         # symlink to scratch folder
+  cd $SCRATCH_HOME                                                   # cd into scratch folder
 }
-function scratch_prompt {                          # set color of scratch prompt to red
+function scratch_prompt {                                            # set color of scratch prompt to red
   if [[ $PWD =~ ^$SCRATCH_HOME ]]; then
     printf "\033[0;31m"
   else
