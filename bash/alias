@@ -11,6 +11,13 @@ alias wd="pwd | tr -d '\n' | pbcopy; pwd"
 alias m="mate ."
 alias v="vim"
 alias ff='open -a Firefox $1'
+alias t='tmux $@'
+
+# compress javascript using YUI Compressor
+alias yuicompressor="java -jar ~/Library/Java/Extensions/yuicompressor.jar --type js $1"
+
+# compress javascript using Google Closure compiler
+alias closurecompiler="java -jar ~/Library/Java/Extensions/compiler.jar $1"
 
 # http://portswigger.net/
 alias burp='java -jar /usr/local/burpsuite/burpsuite.jar &'
