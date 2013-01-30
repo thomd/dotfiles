@@ -11,7 +11,8 @@ alias wd="pwd | tr -d '\n' | pbcopy; pwd"
 alias m="mate ."
 alias v="vim"
 alias ff='open -a Firefox $1'
-alias t='tmux $@'
+alias tm='tmux $@'
+alias t='tree -a -I ".git|.svn"'
 
 # compress javascript using YUI Compressor
 alias yuicompressor="java -jar ~/Library/Java/Extensions/yuicompressor.jar --type js $1"
