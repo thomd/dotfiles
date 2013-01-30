@@ -122,6 +122,9 @@ function scratch {
   mkdir -p $NEW                                                      # create scratch folder
   ln -nfs $NEW $SCRATCH_HOME                                         # symlink to scratch folder
   cd $SCRATCH_HOME                                                   # cd into scratch folder
+  if [ -n "$TMUX" ]; then
+    tmux rename-window 'scratch';                                    # set tmux window
+  fi
 }
 function scratch_prompt {                                            # set color of scratch prompt to red
   if [[ $PWD =~ ^$SCRATCH_HOME ]]; then
