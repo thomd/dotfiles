@@ -31,5 +31,8 @@ export CLASSPATH=$CLASSPATH:~/bin/jsc
 # IO
 export PATH=$PATH:/develop/io/io/build/_build/binaries
 
+# heroku
+export PATH=/usr/local/heroku/bin:$PATH
+
 # mad(1)
 export MAD_PATH="$HOME/.mad"
