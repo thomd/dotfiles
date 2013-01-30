@@ -5,8 +5,8 @@ readline.parse_and_bind('tab: complete')
 class Prompt:
   def __init__(self, str='>>>'):
     self.str = str;
-        
+
   def __str__(self):
     return self.str
-    
-sys.ps1 = Prompt("\033[1;34m>>> \033[0m")
+
+sys.ps1 = Prompt("\033[31m > \033[0m")
