@@ -29,3 +29,5 @@
   editor = vim
 [merge]
   tool = vimdiff
+[github]
+  user = thomd
