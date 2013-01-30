@@ -139,7 +139,7 @@ function scratch_prompt {                                            # set color
 #
 # show rvm-, git- and svn-info in prompt
 #
-export PS1='\n$(scratch_prompt)\W $(rvm_prompt)$(git_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_git_dirty)\[\033[0;32m\]]")\[\033[0;32m\]$(svn_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_svn_dirty)\[\033[0;32m\]]")\[\033[0;32m\] \[\033[0m\]$ '
+export PS1='\n$(scratch_prompt)\W $(rvm_prompt)$(git_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_git_dirty)\[\033[0;32m\]]")\[\033[0;32m\]$(svn_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_svn_dirty)\[\033[0;32m\]]")\[\033[0;32m\] \[\033[1;31m\]$\[\033[0m\] '
 export PS2=" : "
 
 
