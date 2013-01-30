@@ -4,6 +4,7 @@
 . ~/dotfiles/bash/config
 . ~/dotfiles/bash/env
 . ~/dotfiles/bash/alias
+[[ -f ~/.bashrc_private ]] && . ~/.bashrc_private
 
 #
 # thomd splash
