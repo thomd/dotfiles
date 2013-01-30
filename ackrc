@@ -28,3 +28,8 @@
 # you'll need to tell less(1) to allow color to be displayed: echo export LESS=-RFX >> ~/.bashrc && source ~/.bashrc
 --pager=less
 
+# select all files, regardless of type
+--all-types
+
+# ignore case in the search strings if PATTERN contains no uppercase characters
+--smart-case
