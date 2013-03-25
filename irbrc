@@ -1,60 +1,58 @@
+# ~/.irbrc
+# mostly from http://rakeroutes.com/blog/customize-your-irb/
+
+# ruby 1.8.7 compatible
+require 'rubygems'
 require 'irb/completion'
-require 'irb/ext/save-history'
-require 'rubygems' rescue nil
-%x{gem install 'wirble' --no-ri --no-rdoc} unless Gem.available?('wirble')
-%x{gem install 'hirb' --no-ri --no-rdoc} unless Gem.available?('hirb')
-Gem.refresh
-require 'wirble'
-require 'hirb'
 
-# load wirble
-Wirble.init
-Wirble.colorize
+# interactive editor: use vim from within irb
+begin
+  require 'interactive_editor'
+rescue LoadError => err
+  warn "Couldn't load interactive_editor: #{err}"
+end
 
-# load hirb
-Hirb::View.enable
+# awesome print
+begin
+  require 'awesome_print'
+  AwesomePrint.irb!
+rescue LoadError => err
+  warn "Couldn't load awesome_print: #{err}"
+end
 
+# configure irb
+IRB.conf[:PROMPT_MODE] = :SIMPLE
 IRB.conf[:AUTO_INDENT] = true
 
-if ENV.include?('RAILS_ENV')
-  if !Object.const_defined?('RAILS_DEFAULT_LOGGER')
-    require 'logger'
-    Object.const_set('RAILS_DEFAULT_LOGGER', Logger.new(STDOUT))
-  end
+# irb history
+ARGV.concat [ "--readline", "--prompt-mode", "simple" ]
+IRB.conf[:EVAL_HISTORY] = 1000
+IRB.conf[:SAVE_HISTORY] = 1000
+IRB.conf[:HISTORY_FILE] = File::expand_path("~/.irbhistory")
 
-  def sql(query)
-    ActiveRecord::Base.connection.select_all(query)
+# load .railsrc in rails environments
+railsrc_path = File.expand_path('~/.irbrc_rails')
+if ( ENV['RAILS_ENV'] || defined? Rails ) && File.exist?( railsrc_path )
+  begin
+    load railsrc_path
+  rescue Exception
+    warn "Could not load: #{ railsrc_path } because of #{$!.message}"
   end
-
-  if ENV['RAILS_ENV'] == 'test'
-    require 'test/test_helper'
-  end
-
-  # for rails 3
-elsif defined?(Rails) && !Rails.env.nil?
-  if Rails.logger
-    Rails.logger =Logger.new(STDOUT)
-    ActiveRecord::Base.logger = Rails.logger
-  end
-  if Rails.env == 'test'
-    require 'test/test_helper'
-  end
-else
-  # nothing to do
 end
 
-# annotate column names of an AR model
-def show(obj)
-  y(obj.send("column_names"))
+class Object
+  def interesting_methods
+    case self.class
+    when Class
+      self.public_methods.sort - Object.public_methods
+    when Module
+      self.public_methods.sort - Module.public_methods
+    else
+      self.public_methods.sort - Object.new.public_methods
+    end
+  end
 end
 
-# alias
+# aliases
 alias q exit
 
-#
-# put this into Gemfile of a rails project if you like to use wirble and hirb in rails console
-#
-#group :development do
-#  gem "wirble"
-#  gem "hirb"
-#end
