@@ -1,12 +1,18 @@
 #!/usr/bin/python
-import rlcompleter, readline, sys
-readline.parse_and_bind('tab: complete')
+try:
+    import readline
+except ImportError:
+    print("Module readline not available.")
+else:
+    import rlcompleter
+    readline.parse_and_bind("tab: complete")
 
 class Prompt:
-  def __init__(self, str='>>>'):
-    self.str = str;
+    def __init__(self, str='>>>'):
+        self.str = str;
 
-  def __str__(self):
-    return self.str
+    def __str__(self):
+        return self.str
 
+import sys
 sys.ps1 = Prompt("\033[31m > \033[0m")
