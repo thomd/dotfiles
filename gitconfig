@@ -23,6 +23,7 @@
   ls = ls-files
   ign = ls-files -o -i --exclude-standard
   cat = cat-file
+  div = divergence
 [color]
   ui = auto
 [core]
@@ -32,3 +33,5 @@
   tool = vimdiff
 [github]
   user = thomd
+[push]
+	default = simple
