@@ -19,9 +19,14 @@ RUBY_PATH="/usr/local/lib/ruby/site_ruby/1.8:/develop/jruby/jruby/bin"
 
 export PATH="~/bin:$BIN_PATH:$GEM_PATH:$RUBY_PATH:${JAVA_HOME}/bin:${JRUBY_HOME}/bin:$PATH"
 
-# PYTHONPATH="/opt/subversion/lib/svn-python"
-# export PYTHONPATH="$HOME/pythonpath:$PYTHONPATH"
+# homebrew python 2.7
+export PATH="/usr/local/share/python:${PATH}"
 export PYTHONSTARTUP="$HOME/.pythonrc"
+
+# python wirtualenvwrapper
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/share/python/virtualenvwrapper_lazy.sh
+
 
 export HTML_TIDY="$HOME/.tidyrc"
 
@@ -33,6 +38,9 @@ export PATH=$PATH:/develop/io/io/build/_build/binaries
 
 # heroku
 export PATH=/usr/local/heroku/bin:$PATH
+
+# npm
+export PATH=/usr/local/share/npm/bin:$PATH
 
 # mad(1)
 export MAD_PATH="$HOME/.mad"
