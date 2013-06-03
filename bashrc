@@ -127,19 +127,25 @@ function scratch {
     tmux rename-window 'scratch';                                    # set tmux window
   fi
 }
-function scratch_prompt {                                            # set color of scratch prompt to red
+
+#
+# set color of scratch prompt
+#
+# usage in PS1:
+#   $(scratch_prompt \W "\[\033[0;31m\]")
+#
+function scratch_prompt {
   if [[ $PWD =~ ^$SCRATCH_HOME ]]; then
-    printf "\033[0;31m"
+    echo -e "$2$1"
   else
-    printf "\033[0;36m"
+    echo -e "$1"
   fi
 }
 
-
 #
-# show rvm-, git- and svn-info in prompt
+# show job-, scratch-, virtualenv-, rvm-, git- and svn-info in prompt
 #
-export PS1='\n$(scratch_prompt)\W $(rvm_prompt)$(git_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_git_dirty)\[\033[0;32m\]]")\[\033[0;32m\]$(svn_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_svn_dirty)\[\033[0;32m\]]")\[\033[0;32m\] \[\033[1;31m\]$\[\033[0m\] '
+export PS1='\n$([ \j -gt 0 ] && echo "\033[1;30m[\j]\033[0m ")$(scratch_prompt \W "\[\033[0;31m\]") $(rvm_prompt)$(git_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_git_dirty)\[\033[0;32m\]]")\[\033[0;32m\]$(svn_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_svn_dirty)\[\033[0;32m\]]")\[\033[0;32m\] \[\033[1;31m\]⚡\[\033[0m\] '
 export PS2=" : "
 
 
