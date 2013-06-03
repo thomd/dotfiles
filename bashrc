@@ -108,7 +108,7 @@ function parse_svn_dirty {
 function rvm_prompt {
   local rvm="$(~/.rvm/bin/rvm-prompt v g)"
   if [ -n "$rvm" ]; then
-    printf "\033[1;32m[$rvm]\033[0;36m "           # print RVM into in prompt in bold green
+    printf "\033[1;32m[$rvm]\033[0;36m "           # print RVM info in bold green
   fi
 }
 
