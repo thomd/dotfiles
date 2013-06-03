@@ -27,6 +27,7 @@ class Prompt:
     def __str__(self):
         return self.str
 
+# sys.ps1 = Prompt(" > ")
 sys.ps1 = Prompt("\033[31m > \033[0m")
 
 
