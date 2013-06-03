@@ -1,15 +1,25 @@
 #
 # load bash config, environment and aliases
 #
-. ~/dotfiles/bash/config
+# . ~/dotfiles/bash/config
 . ~/dotfiles/bash/env
 . ~/dotfiles/bash/alias
 [[ -f ~/.bashrc_private ]] && . ~/.bashrc_private
 
+
+#
+# colors
+#
+RESET="\033[0m"
+RED="\033[0;31m"
+GREY="\033[1;30m"
+LIGHT_GREEN="\033[1;32m"
+GREEN="\033[0;32m"
+
 #
 # thomd splash
 #
-# echo -en ${RED}
+# echo -en $RED
 # echo `whoami`@`hostname`
 # echo ' _____ _   _  ___  __  __ ____  '
 # echo '|_   _| | | |/ _ \|  \/  |  _ \ '
@@ -17,7 +27,7 @@
 # echo '  | | |  _  | |_| | |  | | |_| |'
 # echo '  |_| |_| |_|\___/|_|  |_|____/ '
 # echo ''
-# echo -en $NO_COLOR
+# echo -en $RESET
 
 
 #
@@ -105,10 +115,13 @@ function parse_svn_dirty {
     [[ $(svn status 2> /dev/null) != "" ]] && echo "*"
 }
 
+#
+# RVM info in prompt
+#
 function rvm_prompt {
   local rvm="$(~/.rvm/bin/rvm-prompt v g)"
   if [ -n "$rvm" ]; then
-    printf "\033[1;32m[$rvm]\033[0;36m "           # print RVM info in bold green
+    printf "$1[$rvm]$RESET "
   fi
 }
 
@@ -132,20 +145,32 @@ function scratch {
 # set color of scratch prompt
 #
 # usage in PS1:
-#   $(scratch_prompt \W "\[\033[0;31m\]")
+#   $(scratch_prompt \W "\033[0;31m")
 #
 function scratch_prompt {
   if [[ $PWD =~ ^$SCRATCH_HOME ]]; then
-    echo -e "$2$1"
+    echo -e "$2$1$RESET"
   else
     echo -e "$1"
   fi
 }
 
+
+#
+# job prompt
+#
+# usage
+#   $(job_prompt \j "\033[1;30m")
+#
+function job_prompt {
+  [ $1 -gt 0 ] && echo -e "$2[$1]$RESET "
+}
+
+
 #
 # show job-, scratch-, virtualenv-, rvm-, git- and svn-info in prompt
 #
-export PS1='\n$([ \j -gt 0 ] && echo "\033[1;30m[\j]\033[0m ")$(scratch_prompt \W "\[\033[0;31m\]") $(rvm_prompt)$(git_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_git_dirty)\[\033[0;32m\]]")\[\033[0;32m\]$(svn_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_svn_dirty)\[\033[0;32m\]]")\[\033[0;32m\] \[\033[1;31m\]⚡\[\033[0m\] '
+export PS1='\n$(job_prompt \j $GREY)$(scratch_prompt \W $RED) $(rvm_prompt $LIGHT_GREEN)$(git_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_git_dirty)\[\033[0;32m\]]")\[\033[0;32m\]$(svn_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_svn_dirty)\[\033[0;32m\]]")\[\033[0;32m\] \[\033[1;31m\]⚡\[\033[0m\] '
 export PS2=" : "
 
 
