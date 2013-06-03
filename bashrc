@@ -12,6 +12,7 @@
 #
 RESET="\033[0m"
 RED="\033[0;31m"
+LIGHT_RED="\033[1;31m"
 GREY="\033[1;30m"
 LIGHT_GREEN="\033[1;32m"
 GREEN="\033[0;32m"
@@ -170,8 +171,8 @@ function job_prompt {
 #
 # show job-, scratch-, virtualenv-, rvm-, git- and svn-info in prompt
 #
-export PS1='\n$(job_prompt \j $GREY)$(scratch_prompt \W $RED) $(rvm_prompt $LIGHT_GREEN)$(git_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_git_dirty)\[\033[0;32m\]]")\[\033[0;32m\]$(svn_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_svn_dirty)\[\033[0;32m\]]")\[\033[0;32m\] \[\033[1;31m\]⚡\[\033[0m\] '
-export PS2=" : "
+export PS1='\n$(job_prompt \j $GREY)$(scratch_prompt \W $RED) $(rvm_prompt $LIGHT_GREEN)$(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN]")\[\033[0;32m\]$(svn_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_svn_dirty)\[\033[0;32m\]]")\[\033[0;32m\] \[\033[1;31m\]⚡\[\033[0m\] '
+export PS2=" $LIGHT_RED:$RESET "
 
 
 #
