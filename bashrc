@@ -1,9 +1,210 @@
+
+
+export TERM=xterm-256color
+export CLICOLOR=1
+
+# allow less(1) to display colors
+export LESS=-RFX
+
+export EDITOR="/Users/thomd/bin/vim"
+export JAVA_HOME="/Library/Java/Home"
+export JRUBY_HOME="/Library/Java/JRuby"
+export REPO="~/.m2/repository"
+export VIMRUNTIME="/usr/share/vim/vim72"
+
+BIN_PATH="/Users/thomd/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/scala/bin:/usr/local/git/bin"
+GEM_PATH="/Users/thomd/.gem/ruby/1.8/bin"
+RUBY_PATH="/usr/local/lib/ruby/site_ruby/1.8:/develop/jruby/jruby/bin"
+
+export PATH="~/bin:$BIN_PATH:$GEM_PATH:$RUBY_PATH:${JAVA_HOME}/bin:${JRUBY_HOME}/bin:$PATH"
+
+# homebrew python 2.7
+export PATH="/usr/local/share/python:${PATH}"
+export PYTHONSTARTUP="$HOME/.pythonrc"
+
+# python wirtualenvwrapper
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/share/python/virtualenvwrapper_lazy.sh
+
+# html tidy
+export HTML_TIDY="$HOME/.tidyrc"
+
+# Java
+export CLASSPATH=$CLASSPATH:~/bin/jsc
+
+# IO
+export PATH=$PATH:/develop/io/io/build/_build/binaries
+
+# heroku
+export PATH=/usr/local/heroku/bin:$PATH
+
+# npm
+export PATH=/usr/local/share/npm/bin:$PATH
+
+# mad(1)
+export MAD_PATH="$HOME/.mad"
+
 #
-# load bash config, environment and aliases
+# list all folders in PATH environment variable more readable (non existent folders in red)
 #
-# . ~/dotfiles/bash/config
-. ~/dotfiles/bash/env
-. ~/dotfiles/bash/alias
+function paths {
+  IFS=$':'
+  for i in $PATH; do if [ -d $(eval echo $i) ]; then echo $i; else echo -e "\033[0;31m$i\033[0m"; fi; done;
+  unset IFS
+}
+
+
+
+#
+# common aliases
+#
+alias l="ls -AlhG"
+alias ..="cd .."
+alias ...="cd ../.."
+alias h='history'
+alias l.='ls -ld .[^.]*'                             # list dotfiles only
+alias md='mkdir -p'
+alias wd="pwd | tr -d '\n' | pbcopy; pwd"            # show cwd and copy
+alias m="mate ."
+alias v="vim"
+alias ff='open -a Firefox $1'
+alias tm='tmux $@'
+alias t='tree -a -I ".git|.svn"'
+alias d='cd ~/dotfiles && [ -n "$TMUX" ] && tmux rename-window "dotfiles"'
+alias s=". ~/.bashrc"                                # source bashrc
+
+# compress javascript using YUI Compressor
+alias yuicompressor="java -jar ~/Library/Java/Extensions/yuicompressor.jar --type js $1"
+
+# compress javascript using Google Closure compiler
+alias closurecompiler="java -jar ~/Library/Java/Extensions/compiler.jar $1"
+
+# http://portswigger.net/
+alias burp='java -jar /usr/local/burpsuite/burpsuite.jar &'
+
+# http://ditaa.sourceforge.net/
+alias ditaa='java -jar /usr/local/ditaa/ditaa0_9.jar $1'
+
+alias httpdump='sudo tcpdump -i en1 -n -s 0 -w - | \grep -a -o -E "Host\: .*|GET \/.*"'
+
+alias grep='GREP_COLOR="1;37;41" LANG=C grep --color=auto'
+
+
+#
+# git aliases
+#
+alias ungit="find . -name '.git' -exec rm -rf {} \;"
+alias gb='git branch'
+alias gba='git branch -a'
+alias gc='git commit -v'
+alias gca='git commit -v -a'
+alias gd='git diff'
+alias gl='git l'
+alias g='git status -sb'
+alias eg='vim .git/config'
+alias gr='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup || pwd`'
+
+
+#
+# subversion aliases
+#
+alias svnadd='svn --force --depth infinity add .'
+alias svndiff='svn-colored-diff'
+alias svnlog='svn-colored-log'
+
+
+#
+# rails aliases
+#
+alias rp='touch tmp/restart.txt'
+alias sc='./script/console'
+alias sg='./script/generate'
+alias sp='./script/plugin'
+alias ss='./script/server'
+alias tl='tail -f log/*.log'
+
+
+#
+# network aliases
+#
+alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
+alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias flush="dscacheutil -flushcache" # Flush DNS cache
+
+
+#
+# TDD / BDD aliases
+#
+alias aa='autotest'
+alias aaf='autotest -f' # don't run all at start
+alias aas="./script/autospec"
+
+
+#
+# javascript JsLint Check
+#
+# download JavaScritpLint from www.javascriptlint.com
+#    cp jsl into /usr/local/bin
+#    cp jsl.conf into /etc/jsl/jsl.conf
+#
+function jslint() {
+  jsl -conf /etc/jsl/jsl.conf -process $1 # syntax check
+}
+
+# Rhino
+# put js.jar into ~/Library/Extensions
+# to enable up-arrow command completion in Rhino, put jline.jar (http://jline.sourceforge.net/) into ~/Library/Java/Extensions/
+alias rhino="java jline.ConsoleRunner org.mozilla.javascript.tools.shell.Main"
+alias rhinod="java org.mozilla.javascript.tools.debugger.Main"
+
+# Rhino Javascript to JavaClass Compiler
+alias jsc="java Jsc $1"
+
+
+# Clojure REPL with jline
+# copy clojure.jar into ~/Library/Java/Extension
+alias clojure="java jline.ConsoleRunner clojure.main"
+
+
+#
+# base conversions with ruby
+#
+alias bin='hex-dec-bin -b $1'
+alias oct='hex-dec-bin -o $1'
+alias dec='hex-dec-bin -d $1'
+alias hex='hex-dec-bin -h $1'
+
+# alternative base conversions with perl (from http://use.perl.org/~brian_d_foy/journal/36287)
+alias d2h="perl -e 'printf qq|%X\n|, int( shift )'"
+alias d2o="perl -e 'printf qq|%o\n|, int( shift )'"
+alias d2b="perl -e 'printf qq|%b\n|, int( shift )'"
+
+alias h2d="perl -e 'printf qq|%d\n|, hex( shift )'"
+alias h2o="perl -e 'printf qq|%o\n|, hex( shift )'"
+alias h2b="perl -e 'printf qq|%b\n|, hex( shift )'"
+
+alias o2h="perl -e 'printf qq|%X\n|, oct( shift )'"
+alias o2d="perl -e 'printf qq|%d\n|, oct( shift )'"
+alias o2b="perl -e 'printf qq|%b\n|, oct( shift )'"
+
+
+# calendar with the current date marked:
+alias cal='ncal -w | grep --color=auto -E "( |^)$(date +%e)( |$)|$"'
+
+#
+# tree (from http://mama.indstate.edu/users/ice/tree/)
+#
+alias tree="tree -C"
+
+#
+# open markdown files in Marked.app
+#
+alias md="open -a /Applications/Marked.app/ $1"
+
+
+#
+# source private environment variables (e.g. user:password)
+#
 [[ -f ~/.bashrc_private ]] && . ~/.bashrc_private
 
 
@@ -18,25 +219,17 @@ LIGHT_GREEN="\033[1;32m"
 GREEN="\033[0;32m"
 BLUE="\033[0;36m"
 
-#
-# thomd splash
-#
-# echo -en $RED
-# echo `whoami`@`hostname`
-# echo ' _____ _   _  ___  __  __ ____  '
-# echo '|_   _| | | |/ _ \|  \/  |  _ \ '
-# echo '  | | | |_| | | | | |\/| | | | |'
-# echo '  | | |  _  | |_| | |  | | |_| |'
-# echo '  |_| |_| |_|\___/|_|  |_|____/ '
-# echo ''
-# echo -en $RESET
-
 
 #
 # ssh-complete (http://drawohara.tumblr.com/post/6584031)
 #
 # SSH_COMPLETE=($(cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq))
 # complete -o default -W "${SSH_COMPLETE[*]}" ssh
+
+#
+# ssh-host-color (from https://gist.github.com/956095)
+#
+# alias ssh=~/bin/ssh-host-color.sh
 
 
 #
@@ -189,16 +382,6 @@ function www {
   local port="${1:-8000}"
   open -g -a /Applications/Firefox.app "http://localhost:${port}"
   python -m SimpleHTTPServer $port
-}
-
-
-#
-# list all folders in PATH environment variable more readable (non existent folders in red)
-#
-function paths {
-  IFS=$':'
-  for i in $PATH; do if [ -d $(eval echo $i) ]; then echo $i; else echo -e "\033[0;31m$i\033[0m"; fi; done;
-  unset IFS
 }
 
 
