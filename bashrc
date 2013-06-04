@@ -35,14 +35,14 @@ BLUE="\033[0;36m"
 #
 # ssh-complete (http://drawohara.tumblr.com/post/6584031)
 #
-SSH_COMPLETE=($(cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq))
-complete -o default -W "${SSH_COMPLETE[*]}" ssh
+# SSH_COMPLETE=($(cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq))
+# complete -o default -W "${SSH_COMPLETE[*]}" ssh
 
 
 #
 # generate rails project based on template (http://github.com/thomd/rails-templates/tree/master)
 #
-function railst() {
+function railst {
   template=$1
   appname=$2
   shift 2
@@ -185,7 +185,7 @@ export PS2=" $LIGHT_RED:$RESET "
 #
 # start a tiny web server serving the current directory (http://www.ralfebert.de/blog/tools/www_here/)
 #
-function www() {
+function www {
   local port="${1:-8000}"
   open -g -a /Applications/Firefox.app "http://localhost:${port}"
   python -m SimpleHTTPServer $port
@@ -195,7 +195,7 @@ function www() {
 #
 # list all folders in PATH environment variable more readable (non existent folders in red)
 #
-function paths(){
+function paths {
   IFS=$':'
   for i in $PATH; do if [ -d $(eval echo $i) ]; then echo $i; else echo -e "\033[0;31m$i\033[0m"; fi; done;
   unset IFS
@@ -205,7 +205,7 @@ function paths(){
 #
 # colored ant
 #
-antc(){
+function antc {
   if [ -n "$1" ]; then
     ant $1 | colored-ant.pl;
   else
