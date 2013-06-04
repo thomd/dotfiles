@@ -16,6 +16,7 @@ LIGHT_RED="\033[1;31m"
 GREY="\033[1;30m"
 LIGHT_GREEN="\033[1;32m"
 GREEN="\033[0;32m"
+BLUE="\033[0;36m"
 
 #
 # thomd splash
@@ -50,7 +51,7 @@ function railst() {
 
 
 #
-# get git-info
+# GIT info for prompt
 #
 function git_ps1 {
 	local g="$(git rev-parse --git-dir 2>/dev/null)"
@@ -98,17 +99,19 @@ function parse_git_dirty {
 
 
 #
-# get svn-info
+# SVN info
 #
 #   show trunk- or branches-path in prompt for all repositories following the trunk/branches convention
 #
-svn_ps1() {
+function svn_ps1 {
 	local svn="$(svn info 2>/dev/null)"
 	if [ -n "$svn" ]; then
 		local rev="$(svn info 2>/dev/null | sed -ne 's#^Revision: ##p')"
 		local root="$(svn info 2>/dev/null | sed -ne 's#^Repository Root: ##p')"
 		local url="$(svn info 2>/dev/null | sed -ne 's#^URL: '"$root/"'##p' | sed -ne 's/^.*\(trunk\).*$/\1/p;s/^.*\(branches\/[^\/.]*\).*$/\1/p')"
-		printf "$1" "svn:$url $rev"
+    local info="$url:$rev"
+    [[ $url == '' ]] && info="svn:$rev"    # if not trunk/branches
+		printf "$1$RESET" "$info"
 	fi
 }
 
@@ -116,10 +119,11 @@ function parse_svn_dirty {
     [[ $(svn status 2> /dev/null) != "" ]] && echo "*"
 }
 
+
 #
 # RVM info in prompt
 #
-function rvm_prompt {
+function rvm_ps1 {
   local rvm="$(~/.rvm/bin/rvm-prompt v g)"
   if [ -n "$rvm" ]; then
     printf "$1[$rvm]$RESET "
@@ -148,11 +152,11 @@ function scratch {
 # usage in PS1:
 #   $(scratch_prompt \W "\033[0;31m")
 #
-function scratch_prompt {
+function scratch_ps1 {
   if [[ $PWD =~ ^$SCRATCH_HOME ]]; then
     echo -e "$2$1$RESET"
   else
-    echo -e "$1"
+    [[ $PWD == $HOME ]] && echo -e "$BLUE~$RESET" || echo -e "$BLUE$1$RESET"
   fi
 }
 
@@ -163,15 +167,18 @@ function scratch_prompt {
 # usage
 #   $(job_prompt \j "\033[1;30m")
 #
-function job_prompt {
+function job_ps1 {
   [ $1 -gt 0 ] && echo -e "$2[$1]$RESET "
 }
 
 
 #
-# show job-, scratch-, virtualenv-, rvm-, git- and svn-info in prompt
+# show job-, scratch-, rvm-, git- and svn-info in prompt
 #
-export PS1='\n$(job_prompt \j $GREY)$(scratch_prompt \W $RED) $(rvm_prompt $LIGHT_GREEN)$(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN]")\[\033[0;32m\]$(svn_ps1 "\[\033[0;32m\][%s\[\033[0m\]\[\033[31m\]$(parse_svn_dirty)\[\033[0;32m\]]")\[\033[0;32m\] \[\033[1;31m\]⚡\[\033[0m\] '
+function prompt_ps1 {
+  echo -e "$LIGHT_RED$1$RESET "
+}
+export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(rvm_ps1 $LIGHT_GREEN)$(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN]")$(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]") $(prompt_ps1 "⚡")'
 export PS2=" $LIGHT_RED:$RESET "
 
 
