@@ -71,7 +71,7 @@ alias ff='open -a Firefox $1'
 alias tm='tmux $@'
 alias t='tree -a -I ".git|.svn"'
 alias d='cd ~/dotfiles && [ -n "$TMUX" ] && tmux rename-window "dotfiles"'
-alias s=". ~/.bashrc"                                # source bashrc
+alias so=". ~/.bashrc"                                # source bashrc
 
 # compress javascript using YUI Compressor
 alias yuicompressor="java -jar ~/Library/Java/Extensions/yuicompressor.jar --type js $1"
@@ -338,6 +338,7 @@ function scratch {
     tmux rename-window 'scratch';                                    # set tmux window
   fi
 }
+alias s="scratch $@"
 
 #
 # set color of scratch prompt
