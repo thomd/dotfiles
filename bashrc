@@ -370,9 +370,9 @@ function job_ps1 {
 # show job-, scratch-, rvm-, git- and svn-info in prompt
 #
 function prompt_ps1 {
-  echo -e "$LIGHT_RED$1$RESET "
+  echo -e "$2$1$RESET "
 }
-export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(rvm_ps1 $LIGHT_GREEN)$(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN]")$(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]") $(prompt_ps1 "⚡")'
+export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(rvm_ps1 $LIGHT_GREEN)$(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN]")$(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]") $(prompt_ps1 "⚡" $LIGHT_RED)'
 export PS2=" $LIGHT_RED:$RESET "
 
 
