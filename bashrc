@@ -44,6 +44,10 @@ export PATH=/usr/local/share/npm/bin:$PATH
 # mad(1)
 export MAD_PATH="$HOME/.mad"
 
+# virtualbox for vagrant
+export PATH=$PATH:/Applications/VirtualBox.app/Contents/MacOS/
+
+
 #
 # list all folders in PATH environment variable more readable (non existent folders in red)
 #
