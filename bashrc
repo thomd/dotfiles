@@ -93,6 +93,10 @@ alias httpdump='sudo tcpdump -i en1 -n -s 0 -w - | \grep -a -o -E "Host\: .*|GET
 
 alias grep='GREP_COLOR="1;37;41" LANG=C grep --color=auto'
 
+command -v rlwrap >/dev/null && alias node='env NODE_NO_READLINE=1 rlwrap -p Green -S "node > " node'
+
+alias tracegl='node ~/bin/tracegl.js -nolib -no:repl.js'
+
 
 #
 # git aliases
