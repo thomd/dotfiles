@@ -424,9 +424,12 @@ bind "\C-f":forward-word
 # export DYLD_INSERT_LIBRARIES=/usr/local/lib/stderred.dylib DYLD_FORCE_FLAT_NAMESPACE=1
 
 
+# load RVM into a shell session.
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
+# Add RVM to PATH for scripting
+PATH=$PATH:$HOME/.rvm/bin
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 #
 # tmuxinator
