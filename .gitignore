@@ -1,1 +1,12 @@
+.DS_Store
+*.bak
+*.old
+*.swp
+.project
+.settings
+.svn
+build
+build/*
+log/*
+.texpadtmp
 TODO
