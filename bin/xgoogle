@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+#
+# print URLs of google search results to stdout
+# the name 'xgoogle' is a homage to Peteris Krumins' xgoogle
+#
+# usage:
+#    xgoogle <searchquery> [<number-od-results> [<language>]]
+#
+# this may be useful for downloading top 10 javascript pdf files:
+#    xgoogle "javascript filetype:pdf" 10 | xargs wget -qc
+#
+
+require 'open-uri'
+require 'nokogiri'
+
+q   = ARGV[0].gsub(/ /, '%20')
+num = ARGV[1] || '100'
+hl  = ARGV[2] || 'en'
+
+serp = Nokogiri::HTML(open("http://www.google.com/search?num=#{num}&hl=#{hl}&q=#{q}"))
+
+serp.css("li.g h3 a").each do |ser|
+  puts ser['href'].match(/url\?q=(.*)&sa=/)[1]
+end
+
+# vim:ft=ruby
