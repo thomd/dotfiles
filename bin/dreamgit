@@ -1,0 +1,134 @@
+#!/bin/bash
+#
+# setup local and remote git repository (on dreamhost) for project in current folder and push initial commit
+#
+# Author: thomd < thomduerr@gmail.com >
+#
+#
+# Current Version: 1.2
+#
+#  Version 1.2
+#    changed remote from 'origin' to 'dreamhost'
+#
+#  Version 1.1
+#    support for option -d for gitweb description
+#
+#  Version 1.0
+#    Initial Release
+#
+# Last Updated: 16-May-2010
+#
+#
+# Notes:
+#   - this script tries to detect if project is a rails project (via folder-name comparison) which yields to a rails specific .gitignore
+#   - this script is inspired by Casper Fabricius (http://casperfabricius.com/site/2008/09/21/keeping-git-repositories-on-dreamhost-using-ssh/)
+#
+#
+# Installation:
+#   - Copy the shell script ~/bin
+#
+#   - Create and put your public key into your dreamhost .ssh folder:
+#       ssh-keygen -t rsa
+#       cat .ssh/id_rsa.pub | ssh user@domain.tld 'cat >> .ssh/authorized_keys'
+#
+#
+# Tested platforms:
+#   - OSX 10.5
+#   - OSX 10.6
+#
+# Usage:
+#  invoke dreamgit with the "-h" option.
+#
+# Examples:
+#
+#  $ dreamgit
+#
+#  $ dreamgit -n "project name"
+#
+#  $ dreamgit -n blog -d "an awesome blog"
+#
+
+
+# set this vars to your real dreamhost domain, username and host (with name of your machine)
+# see ~/.bashrc_private
+#
+#DREAMHOST_DOMAIN="domain.tld"
+#DREAMHOST_USER="username"
+#DREAMHOST_HOSTNAME="machine-name.dreamhost.com"
+
+
+# private
+RAILS_FINGERPRINT=("app/" "config/" "db/" "doc/" "lib/" "log/" "public/" "script/" "test/" "tmp/" "vendor/")
+RAILS="TRUE"
+DESCRIPTION=""
+REPONAME=""
+
+
+# describe how the script works
+usage()
+{
+  echo "Usage: $0 [ -h ] [ -d description ] [ -n projectname ]"
+  echo ""
+  echo "If no projectname is given, the name of the parent folder will be used as project name."
+  echo ""
+  echo "  -d description : description for gitweb"
+  echo "  -h             : print this screen"
+  echo "  -n name        : name of the project"
+  echo ""
+}
+
+
+# evaluate the options passed on the command line
+while getopts d:n:h option
+do
+  case "${option}"
+  in
+    d) DESCRIPTION=${OPTARG};;
+    n) REPONAME=${OPTARG};;
+    h) usage
+      exit 1;;
+  esac
+done
+
+
+# check if name of repository is given. if not, use folder name
+if [ -z $REPONAME ]; then
+  REPONAME=$(basename $PWD)
+fi
+
+
+# try to detect a rails project
+for folder in ${RAILS_FINGERPRINT[@]} ; do
+	if [ ! -d $folder ]; then
+	  RAILS="FALSE"
+	fi
+done
+
+
+# init bare remote repository, local repository, update config and commit
+# ssh username@domain.tld 'mkdir -p ~/domain.tld/project.git && cd ~/domain.tld/project.git && git --bare init && echo "a new project" > description'
+ssh $DREAMHOST_USER'@'$DREAMHOST_DOMAIN 'mkdir -p ~/'$DREAMHOST_DOMAIN'/'$REPONAME'.git && cd ~/'$DREAMHOST_DOMAIN'/'$REPONAME'.git && git --bare init && echo "'$DESCRIPTION'" > description'
+git init
+# git remote add dreamhost ssh://thomd@crate.dreamhost.com/home/thomd/git.no80.net/$REPONAME.git
+git remote add dreamhost ssh://$DREAMHOST_USER'@'$DREAMHOST_HOSTNAME/home/$DREAMHOST_USER/$DREAMHOST_DOMAIN/$REPONAME.git
+touch .gitignore
+if [ $RAILS == 'TRUE' ]; then
+  echo ".DS_Store" >> .gitignore
+  echo "log/*.log" >> .gitignore
+  echo "tmp/**/*" >> .gitignore
+  echo "config/database.yml" >> .gitignore
+  echo "db/*.sqlite3" >> .gitignore
+  echo "db/*.db" >> .gitignore
+  touch tmp/.gitignore log/.gitignore vendor/.gitignore
+fi
+git add .
+git commit -m 'created new remote repository for project '$REPONAME
+git push dreamhost master
+echo "[branch \"master\"]" >> .git/config
+echo "  remote = dreamhost" >> .git/config
+echo "  merge = refs/heads/master" >> .git/config
+echo "Your new git repo '$REPONAME.git' is ready and initialized at $DREAMHOST_HOSTNAME/~/$DREAMHOST_DOMAIN/$REPONAME.git"
+echo
+
+# exit with a success indicator
+exit 0
