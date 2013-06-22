@@ -29,9 +29,6 @@ source /usr/local/share/python/virtualenvwrapper_lazy.sh
 # html tidy
 export HTML_TIDY="$HOME/.tidyrc"
 
-# Java
-export CLASSPATH=$CLASSPATH:~/bin/jsc
-
 # IO
 export PATH=$PATH:/develop/io/io/build/_build/binaries
 
@@ -166,7 +163,7 @@ alias rhino="java jline.ConsoleRunner org.mozilla.javascript.tools.shell.Main"
 alias rhinod="java org.mozilla.javascript.tools.debugger.Main"
 
 # Rhino Javascript to JavaClass Compiler
-alias jsc="java Jsc $1"
+alias jsc="java -jar ~/Library/Java/Extensions/jsc.jar $1"
 
 
 # Clojure REPL with jline
