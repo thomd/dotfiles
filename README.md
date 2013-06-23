@@ -9,5 +9,5 @@ To install them in your home directory:
     cd ~
     git clone git://github.com/thomd/dotfiles.git
     cd dotfiles
-    make
+    make install
 
