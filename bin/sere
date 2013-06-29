@@ -1,0 +1,13 @@
+#!/bin/sh
+# sere: SEarch & REplace
+
+if [ $# -ne 3 ]; then
+  echo "usage: sere <path> <search> <replace>";
+  exit 1;
+fi;
+for file in $(find $1 -type f | grep -v '.git'); do
+  sed -i '' "s/$2/$3/g" $file;
+  echo "-> $file";
+done;
+echo "DONE";
+exit 0;
