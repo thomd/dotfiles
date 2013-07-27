@@ -352,10 +352,15 @@ alias s="scratch $@"
 #   $(scratch_prompt \W "\033[0;31m")
 #
 function scratch_ps1 {
+  local args=($@)
+  local n=$((${#args[@]}-1))
+  local dir=${args[@]:0:$n}                                          # directory-names with spaces
+  local color=${args[@]:$n}                                          # color
+
   if [[ $PWD =~ ^$SCRATCH_HOME ]]; then
-    echo -e "$2$1$RESET"
+    echo -e "$color$dir$RESET"
   else
-    [[ $PWD == $HOME ]] && echo -e "$BLUE~$RESET" || echo -e "$BLUE$1$RESET"
+    [[ $PWD == $HOME ]] && echo -e "$BLUE~$RESET" || echo -e "$BLUE$dir$RESET"
   fi
 }
 
