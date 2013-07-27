@@ -437,3 +437,8 @@ PATH=$PATH:$HOME/.rvm/bin
 # tmuxinator
 #
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
+
+#
+# perlbrew
+#
+source /Users/thomd/perl5/perlbrew/etc/bashrc
