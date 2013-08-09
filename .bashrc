@@ -13,10 +13,11 @@ export REPO="~/.m2/repository"
 export VIMRUNTIME="/usr/share/vim/vim72"
 
 BIN_PATH="/Users/thomd/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/scala/bin:/usr/local/git/bin"
-GEM_PATH="/Users/thomd/.gem/ruby/1.8/bin"
-RUBY_PATH="/usr/local/lib/ruby/site_ruby/1.8:/develop/jruby/jruby/bin"
+# GEM_PATH="/Users/thomd/.gem/ruby/1.8/bin"
+# RUBY_PATH="/usr/local/lib/ruby/site_ruby/1.8:/develop/jruby/jruby/bin"
 
-export PATH="~/bin:$BIN_PATH:$GEM_PATH:$RUBY_PATH:${JAVA_HOME}/bin:${JRUBY_HOME}/bin:$PATH"
+# export PATH="~/bin:$BIN_PATH:$GEM_PATH:$RUBY_PATH:${JAVA_HOME}/bin:${JRUBY_HOME}/bin:$PATH"
+export PATH="~/bin:$BIN_PATH:${JAVA_HOME}/bin:${JRUBY_HOME}/bin:$PATH"
 
 # homebrew python 2.7
 export PATH="/usr/local/share/python:${PATH}"
@@ -419,6 +420,13 @@ shopt -s cdspell
 bind "\C-b":backward-word
 bind "\C-f":forward-word
 
+
+#
+# perlbrew
+#
+source /Users/thomd/perl5/perlbrew/etc/bashrc
+
+
 #
 # stderred (https://github.com/sickill/stderred)
 # for the time being this is commented out as it breaks the 'open' command (see https://github.com/sickill/stderred/issues/11)
@@ -438,7 +446,3 @@ PATH=$PATH:$HOME/.rvm/bin
 #
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
 
-#
-# perlbrew
-#
-source /Users/thomd/perl5/perlbrew/etc/bashrc
