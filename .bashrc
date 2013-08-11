@@ -110,6 +110,7 @@ alias g='git status -sb'
 alias eg='vim .git/config'
 alias gr='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup || pwd`'
 
+alias gist='gist -c'
 
 #
 # subversion aliases
