@@ -385,7 +385,8 @@ function job_ps1 {
 function prompt_ps1 {
   echo -e "$2$1$RESET "
 }
-export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(rvm_ps1 $LIGHT_GREEN)$(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN]")$(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]") $(prompt_ps1 "⚡" $LIGHT_RED)'
+
+export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN]")$(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]") $(prompt_ps1 "⚡" $LIGHT_RED)'
 export PS2=" $LIGHT_RED:$RESET "
 
 
