@@ -254,6 +254,9 @@ function railst {
 #
 # GIT info for prompt
 #
+# usage in PS1:
+#   $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN]")
+#
 function git_ps1 {
 	local g="$(git rev-parse --git-dir 2>/dev/null)"
 	if [ -n "$g" ]; then
@@ -300,9 +303,10 @@ function parse_git_dirty {
 
 
 #
-# SVN info
+# SVN info: show trunk- or branches-path in prompt for all repositories following the trunk/branches convention
 #
-#   show trunk- or branches-path in prompt for all repositories following the trunk/branches convention
+# usage in PS1:
+#   $(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]")
 #
 function svn_ps1 {
 	local svn="$(svn info 2>/dev/null)"
@@ -323,6 +327,9 @@ function parse_svn_dirty {
 
 #
 # RVM info in prompt
+#
+# usage in PS1:
+#   $(rvm_ps1 $LIGHT_GREEN)
 #
 function rvm_ps1 {
   local rvm="$(~/.rvm/bin/rvm-prompt v g)"
@@ -352,7 +359,7 @@ alias s="scratch $@"
 # set color of scratch prompt
 #
 # usage in PS1:
-#   $(scratch_prompt \W "\033[0;31m")
+#   $(scratch_ps1 \W $RED)
 #
 function scratch_ps1 {
   local args=($@)
@@ -371,8 +378,8 @@ function scratch_ps1 {
 #
 # job prompt
 #
-# usage
-#   $(job_prompt \j "\033[1;30m")
+# usage in PS1:
+#   $(job_ps1 \j $GREY)
 #
 function job_ps1 {
   [ $1 -gt 0 ] && echo -e "$2[$1]$RESET "
@@ -381,6 +388,9 @@ function job_ps1 {
 
 #
 # show job-, scratch-, rvm-, git- and svn-info in prompt
+#
+# usage in PS1:
+#   $(prompt_ps1 ">" $LIGHT_RED)
 #
 function prompt_ps1 {
   echo -e "$2$1$RESET "
