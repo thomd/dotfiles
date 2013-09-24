@@ -1,5 +1,6 @@
-DOT_FILES = $(shell find . -maxdepth 1 -type f -name '.*' -not -name '*.sh' -not -name '.DS_Store' | sort | xargs -n1 basename)
-BIN_FILES = $(shell find bin -maxdepth 1 -type f -name '*' | sort | xargs -n1 basename)
+SRCDIR ?= $(shell pwd)
+DOT_FILES = $(shell find $(SRCDIR) -maxdepth 1 -type f -name '.*' -not -name '*.sh' -not -name '.DS_Store' | sort | xargs -n1 basename)
+BIN_FILES = $(shell find $(SRCDIR)/bin -maxdepth 1 -type f -name '*' | sort | xargs -n1 basename)
 
 .PHONY: install dot bin
 
