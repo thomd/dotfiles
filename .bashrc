@@ -25,7 +25,7 @@ export PYTHONSTARTUP="$HOME/.pythonrc"
 
 # python wirtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
-source /usr/local/share/python/virtualenvwrapper_lazy.sh
+[ -f /usr/local/share/python/virtualenvwrapper_lazy.sh ] && source /usr/local/share/python/virtualenvwrapper_lazy.sh
 
 # html tidy
 export HTML_TIDY="$HOME/.tidyrc"
@@ -437,7 +437,7 @@ bind "\C-f":forward-word
 #
 # perlbrew
 #
-source /Users/thomd/perl5/perlbrew/etc/bashrc
+[ -f /Users/thomd/perl5/perlbrew/etc/bashrc ] && source /Users/thomd/perl5/perlbrew/etc/bashrc
 
 
 #
