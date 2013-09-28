@@ -345,7 +345,7 @@ function rvm_ps1 {
 export SCRATCH_HOME="$HOME/scratch"
 [[ -h $SCRATCH_HOME && ! -d $SCRATCH_HOME ]] && rm $SCRATCH_HOME     # delete scratch link if scratch folder doesn't exist anymore
 function scratch {
-  local NEW="/tmp/scratch-`date +'%s'`"                              # scratch folder with timestamp in /tmp. will be deleted after logout
+  local NEW="/tmp/scratch-`date +'%s'`"                              # scratch folder with timestamp in /tmp. will be deleted after system reboot
   mkdir -p $NEW                                                      # create scratch folder
   ln -nfs $NEW $SCRATCH_HOME                                         # symlink to scratch folder
   cd $SCRATCH_HOME                                                   # cd into scratch folder
