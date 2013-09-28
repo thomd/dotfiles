@@ -459,3 +459,13 @@ PATH=$PATH:$HOME/.rvm/bin
 #
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
 
+
+#
+# cgrep - color grep
+#
+# USAGE
+#    cgrep ERROR error.log
+#    tail -f error.log | cgrep ERROR
+#
+function cgrep { sed ''/$1/s//`printf "\033[1;32m$1\033[0m"`/'' $2; }
+
