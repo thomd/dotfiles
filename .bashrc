@@ -461,11 +461,11 @@ PATH=$PATH:$HOME/.rvm/bin
 
 
 #
-# cgrep - color grep
+# colgrep - color grep
 #
 # USAGE
-#    cgrep ERROR error.log
-#    tail -f error.log | cgrep ERROR
+#    colgrep ERROR error.log
+#    tail -f error.log | colgrep ERROR
 #
-function cgrep { sed ''/$1/s//`printf "\033[1;32m$1\033[0m"`/'' $2; }
+function colgrep { sed ''/$1/s//`printf "\033[0;32m$1\033[0m"`/g'' $2; }
 
