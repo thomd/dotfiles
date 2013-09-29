@@ -11,3 +11,4 @@ log/*
 .texpadtmp
 TODO
 .files
+.vagrant
