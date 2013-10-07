@@ -398,6 +398,7 @@ function prompt_ps1 {
 export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN]")$(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]") $(prompt_ps1 "⚡" $LIGHT_RED)'
 export PS2=" $LIGHT_RED:$RESET "
 
+# TODO http://blog.yjl.im/2011/02/error-code-deserves-its-own-line.html
 
 #
 # start a tiny web server serving the current directory (http://www.ralfebert.de/blog/tools/www_here/)

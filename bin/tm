@@ -3,11 +3,9 @@
 list=$(tmux ls)
 
 if [ $? -eq 1 ]; then
-  echo "statrting a new session"
   tmux
 else
   session=$(echo $list | grep attached | cut -d : -f 1)
-  echo "joining session: $session"
   if [ -z "$session" ] ; then
     session=$(echo $list | head -1 | cut -d : -f 1)
   fi
