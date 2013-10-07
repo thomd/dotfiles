@@ -45,6 +45,8 @@ export MAD_PATH="$HOME/.mad"
 # virtualbox for vagrant
 export PATH=$PATH:/Applications/VirtualBox.app/Contents/MacOS/
 
+# postgresql data
+export PGDATA=/usr/local/var/postgres
 
 #
 # list all folders in PATH environment variable more readable (non existent folders in red)
