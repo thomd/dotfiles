@@ -48,6 +48,9 @@ export PATH=$PATH:/Applications/VirtualBox.app/Contents/MacOS/
 # postgresql data
 export PGDATA=/usr/local/var/postgres
 
+# groovy
+export GROOVY_HOME=/usr/local/opt/groovy/libexec
+
 #
 # list all folders in PATH environment variable more readable (non existent folders in red)
 #
