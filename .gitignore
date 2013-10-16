@@ -12,3 +12,4 @@ log/*
 TODO
 .files
 .vagrant
+node_modules
