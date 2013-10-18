@@ -75,7 +75,7 @@ alias wd="pwd | tr -d '\n' | pbcopy; pwd"            # show cwd and copy
 alias m="mate ."
 alias v="vim"
 alias ff='open -a Firefox $1'
-alias t='tree -a -I ".git|.svn"'
+alias t='tree -a -I ".git|.svn|node_modules"'
 alias d='cd ~/dotfiles && [ -n "$TMUX" ] && tmux rename-window "dotfiles"'
 alias so=". ~/.bashrc"                                # source bashrc
 
