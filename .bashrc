@@ -495,3 +495,11 @@ function explain {
   # opens url in browser
   open $url
 }
+
+
+#
+# mkdir & cd (ccd = "create & cd")
+#
+function ccd {
+  mkdir -p "$@" && cd "$_"
+}
