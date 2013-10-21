@@ -498,8 +498,8 @@ function explain {
 
 
 #
-# mkdir & cd (ccd = "create & cd")
+# mkdir & cd
 #
-function ccd {
+function mcd {
   mkdir -p "$@" && cd "$_"
 }
