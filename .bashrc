@@ -466,16 +466,6 @@ PATH=$PATH:$HOME/.rvm/bin
 
 
 #
-# colgrep - color grep
-#
-# USAGE
-#    colgrep ERROR error.log
-#    tail -f error.log | colgrep ERROR
-#
-function colgrep { sed ''/$1/s//`printf "\033[0;32m$1\033[0m"`/g'' $2; }
-
-
-#
 # https://github.com/schneems/explain_shell
 #
 function explain {
