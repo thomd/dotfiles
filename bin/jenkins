@@ -17,7 +17,7 @@
 message() {
   printf "\n\033[1;30m $1\033[0m\n"
 }
-test -z $1 && message "usage: jenkins start | stop | restart" && exit 1
+test -z $1 && message "usage: jenkins start | stop | reload" && exit 1
 
 ERROR=0
 LAUNCHD_JOB=~/Library/LaunchAgents/homebrew.mxcl.jenkins.plist
@@ -33,7 +33,7 @@ case $1 in
     message "jenkins stopped"
     ERROR=$?
     ;;
-  restart)
+  reload)
     launchctl load $LAUNCHD_JOB 2> /dev/null
     launchctl unload $LAUNCHD_JOB
     message "jenkins reloaded"
