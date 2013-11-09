@@ -490,6 +490,6 @@ function explain {
 #
 # mkdir & cd
 #
-function mcd {
+function mkcd {
   mkdir -p "$@" && cd "$_"
 }
