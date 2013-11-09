@@ -34,8 +34,8 @@ case $1 in
     ERROR=$?
     ;;
   reload)
-    launchctl load $LAUNCHD_JOB 2> /dev/null
-    launchctl unload $LAUNCHD_JOB
+    launchctl unload $LAUNCHD_JOB 2> /dev/null
+    launchctl load $LAUNCHD_JOB
     message "jenkins reloaded"
     ERROR=$?
     ;;
