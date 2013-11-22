@@ -212,6 +212,10 @@ alias tree="tree -C"
 #
 alias md="open -a /Applications/Marked.app/ $1"
 
+#
+# mapping observr (https://github.com/kevinburke/observr) to watchr (which is no longer maintained)
+#
+alias watchr="observr"
 
 #
 # source private environment variables (e.g. user:password)
