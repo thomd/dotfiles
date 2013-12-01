@@ -499,3 +499,36 @@ function explain {
 function mkcd {
   mkdir -p "$@" && cd "$_"
 }
+
+
+#
+# mvd - move down
+# move all files & folders in current directory into a new folder one hierarchy down
+#
+#
+# EXAMPLE
+#
+#   > tree
+#   .
+#   ├── bar
+#   └── baz
+#
+#   > mvd foo
+#   > tree
+#   .
+#   └── foo
+#       ├── bar
+#       └── baz
+#
+function mvd {
+  if [ ! -z "$1" ] && [ "$(ls -A)" ]; then  # if argument given and folder not empty
+    local tmp=`mktemp -d mvdXXXX`
+    mkdir -p "$tmp"
+    shopt -s dotglob
+    mv !("$tmp") "$tmp"
+    shopt -u dotglob
+    mv "$tmp" "$1"
+  else
+    echo "usage: mvd <folder>"
+  fi
+}
