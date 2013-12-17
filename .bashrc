@@ -532,3 +532,12 @@ function mvd {
     echo "usage: mvd <folder>"
   fi
 }
+
+
+#
+# vagrant-bash-completion (https://kura.io/vagrant-bash-completion/)
+#
+if [ -f `brew --prefix`/etc/bash_completion.d/vagrant ]; then
+    source `brew --prefix`/etc/bash_completion.d/vagrant
+fi
+
