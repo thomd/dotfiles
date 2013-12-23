@@ -541,3 +541,10 @@ if [ -f `brew --prefix`/etc/bash_completion.d/vagrant ]; then
     source `brew --prefix`/etc/bash_completion.d/vagrant
 fi
 
+
+#
+# open my side-projects file
+#
+p(){
+  ${EDITOR:-vi} "/develop/PROJECTS"
+}
