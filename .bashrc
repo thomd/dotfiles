@@ -80,6 +80,7 @@ alias ff='open -a Firefox $1'
 alias t='tree -a -I ".git|.svn|node_modules"'
 alias d='cd ~/dotfiles && [ -n "$TMUX" ] && tmux rename-window "dotfiles"'
 alias so=". ~/.bashrc"                                # source bashrc
+alias j="jobs"
 
 # compress javascript using YUI Compressor
 alias yuicompressor="java -jar ~/Library/Java/Extensions/yuicompressor.jar --type js $1"
