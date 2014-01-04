@@ -8,11 +8,13 @@ export LS_COLORS='di=1;34:fi=0:ln=1;32:pi=33:so=0:bd=0:cd=0:or=0:mi=0:ex=1;31' #
 # allow less(1) to display colors
 export LESS=-RFX
 
-export EDITOR="/Users/thomd/bin/vim"
-export JAVA_HOME="/Library/Java/Home"
-export JRUBY_HOME="/Library/Java/JRuby"
+# export EDITOR="/Users/thomd/bin/vim"
+if [ "$UNAME" = Darwin ]; then
+  export JAVA_HOME="/Library/Java/Home"
+fi
+# export JRUBY_HOME="/Library/Java/JRuby"
 export REPO="~/.m2/repository"
-export VIMRUNTIME="/usr/share/vim/vim72"
+# export VIMRUNTIME="/usr/share/vim/vim72"
 
 BIN_PATH="/Users/thomd/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/scala/bin:/usr/local/git/bin"
 # GEM_PATH="/Users/thomd/.gem/ruby/1.8/bin"
@@ -67,7 +69,11 @@ function paths {
 #
 # common aliases
 #
-alias l="ls -AlhG"
+if [ "$UNAME" = Linux ]; then
+  alias l="ls -AlhG --color=auto"
+else
+  alias l="ls -AlhG"
+fi
 alias ..="cd .."
 alias ...="cd ../.."
 alias h='history'
@@ -102,7 +108,9 @@ command -v rlwrap >/dev/null && alias node='env NODE_NO_READLINE=1 rlwrap -p Gre
 
 alias tracegl='node ~/bin/tracegl.js -nolib -no:repl.js'
 
-
+if [ "$UNAME" = Linux ]; then
+  alias ack='ack-grep'
+fi
 #
 # git aliases
 #
@@ -538,7 +546,7 @@ function mvd {
 #
 # vagrant-bash-completion (https://kura.io/vagrant-bash-completion/)
 #
-if [ -f `brew --prefix`/etc/bash_completion.d/vagrant ]; then
+if [ "$UNAME" = Darwin ] && [ -f `brew --prefix`/etc/bash_completion.d/vagrant ]; then
     source `brew --prefix`/etc/bash_completion.d/vagrant
 fi
 
