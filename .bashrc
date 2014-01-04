@@ -8,7 +8,7 @@ export LS_COLORS='di=1;34:fi=0:ln=1;32:pi=33:so=0:bd=0:cd=0:or=0:mi=0:ex=1;31' #
 # allow less(1) to display colors
 export LESS=-RFX
 
-# export EDITOR="/Users/thomd/bin/vim"
+export EDITOR="vim"
 if [ "$UNAME" = Darwin ]; then
   export JAVA_HOME="/Library/Java/Home"
 fi
