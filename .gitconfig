@@ -17,7 +17,6 @@
   lg3 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(blue)%d%C(reset)%n''          %C(white)%s%C(reset) %C(yellow)— %an%C(reset)%n' --abbrev-commit
   lg4 = log --graph --pretty="tformat:%C(yellow)%h%Creset %Cgreen(%ar)%Creset %C(bold blue)<%an>%Creset %C(red)%d%Creset %s"
   lg = !"git lg1"
-  root = !pwd -P
   type = cat-file -t
   dump = cat-file -p
   ls = ls-files
