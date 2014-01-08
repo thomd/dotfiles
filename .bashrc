@@ -9,7 +9,7 @@ export LS_COLORS='di=1;34:fi=0:ln=1;32:pi=33:so=0:bd=0:cd=0:or=0:mi=0:ex=1;31' #
 export LESS=-RFX
 
 export EDITOR="vim"
-if [ "$UNAME" = Darwin ]; then
+if [ `uname` = Darwin ]; then
   export JAVA_HOME="/Library/Java/Home"
 fi
 # export JRUBY_HOME="/Library/Java/JRuby"
@@ -46,9 +46,6 @@ export PATH=/usr/local/share/npm/bin:$PATH
 # mad(1)
 export MAD_PATH="$HOME/.mad"
 
-# virtualbox for vagrant
-export PATH=$PATH:/Applications/VirtualBox.app/Contents/MacOS/
-
 # postgresql data
 export PGDATA=/usr/local/var/postgres
 
@@ -69,7 +66,7 @@ function paths {
 #
 # common aliases
 #
-if [ "$UNAME" = Linux ]; then
+if [ `uname` = Linux ]; then
   alias l="ls -AlhG --color=auto"
 else
   alias l="ls -AlhG"
@@ -108,7 +105,7 @@ command -v rlwrap >/dev/null && alias node='env NODE_NO_READLINE=1 rlwrap -p Gre
 
 alias tracegl='node ~/bin/tracegl.js -nolib -no:repl.js'
 
-if [ "$UNAME" = Linux ]; then
+if [ `uname` = Linux ]; then
   alias ack='ack-grep'
 fi
 #
@@ -542,9 +539,13 @@ function mvd {
 
 
 #
-# vagrant-bash-completion (https://kura.io/vagrant-bash-completion/)
+# Vagrant
 #
-if [ "$UNAME" = Darwin ] && [ -f `brew --prefix`/etc/bash_completion.d/vagrant ]; then
+# virtualbox for vagrant
+export PATH=$PATH:/Applications/VirtualBox.app/Contents/MacOS/
+#
+# vagrant-bash-completion (https://kura.io/vagrant-bash-completion/)
+if [ `uname` = Darwin ] && [ -f `brew --prefix`/etc/bash_completion.d/vagrant ]; then
     source `brew --prefix`/etc/bash_completion.d/vagrant
 fi
 
@@ -555,3 +556,11 @@ fi
 p(){
   ${EDITOR:-vi} "/develop/PROJECTS"
 }
+
+
+#
+# git bash completion
+#
+if [ `uname` = Darwin ] && [ -f /usr/local/git/contrib/completion/git-completion.bash ]; then
+    source /usr/local/git/contrib/completion/git-completion.bash
+fi
