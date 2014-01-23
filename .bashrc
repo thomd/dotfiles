@@ -240,6 +240,9 @@ GREEN="\033[0;32m"
 BLUE="\033[0;36m"
 
 
+# disable mail notification
+unset MAILCHECK
+
 #
 # ssh-complete (http://drawohara.tumblr.com/post/6584031)
 #
