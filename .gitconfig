@@ -23,6 +23,7 @@
   ign = ls-files -o -i --exclude-standard
   cat = cat-file
   div = divergence
+  cl = changelog
 [color]
   ui = auto
 [core]
