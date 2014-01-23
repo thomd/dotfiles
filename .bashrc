@@ -9,18 +9,15 @@ export LS_COLORS='di=1;34:fi=0:ln=1;32:pi=33:so=0:bd=0:cd=0:or=0:mi=0:ex=1;31' #
 export LESS=-RFX
 
 export EDITOR="vim"
+
+# Java environment
 if [ `uname` = Darwin ]; then
   export JAVA_HOME="/Library/Java/Home"
 fi
-# export JRUBY_HOME="/Library/Java/JRuby"
 export REPO="~/.m2/repository"
-# export VIMRUNTIME="/usr/share/vim/vim72"
 
 BIN_PATH="/Users/thomd/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/scala/bin:/usr/local/git/bin"
-# GEM_PATH="/Users/thomd/.gem/ruby/1.8/bin"
-# RUBY_PATH="/usr/local/lib/ruby/site_ruby/1.8:/develop/jruby/jruby/bin"
 
-# export PATH="~/bin:$BIN_PATH:$GEM_PATH:$RUBY_PATH:${JAVA_HOME}/bin:${JRUBY_HOME}/bin:$PATH"
 export PATH="~/bin:$BIN_PATH:${JAVA_HOME}/bin:${JRUBY_HOME}/bin:$PATH"
 
 # homebrew python 2.7
@@ -239,9 +236,18 @@ LIGHT_GREEN="\033[1;32m"
 GREEN="\033[0;32m"
 BLUE="\033[0;36m"
 
+# increase the history size
+HISTSIZE=10000
+HISTFILESIZE=20000
+
+# add date/time to the history
+HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S  "
 
 # disable mail notification
 unset MAILCHECK
+
+# default umask
+umask 0022
 
 #
 # ssh-complete (http://drawohara.tumblr.com/post/6584031)
