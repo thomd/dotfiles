@@ -588,4 +588,3 @@ fi
 if [ `uname` = Darwin ] && [ -f /usr/local/etc/bash_completion.d/play_completion ]; then
     source /usr/local/etc/bash_completion.d/play_completion
 fi
-alias play="play --silent"
