@@ -592,16 +592,16 @@ p(){
 # git bash completion
 #
 if [ `uname` = Darwin ] && [ -f /usr/local/git/contrib/completion/git-completion.bash ]; then
-    source /usr/local/git/contrib/completion/git-completion.bash
+  source /usr/local/git/contrib/completion/git-completion.bash
 fi
 
 
 #
 # Go lang
 #
-export PATH=$PATH:/usr/local/Cellar/go/1.2/libexec/bin
-if [ `uname` = Darwin ] && [ -f /usr/local/etc/bash_completion.d/go-completion.bash ]; then
-    source /usr/local/etc/bash_completion.d/go-completion.bash
+if [ `uname` = Darwin ]; then
+  export PATH=$PATH:/usr/local/Cellar/go/1.2/libexec/bin
+  [ -f /usr/local/etc/bash_completion.d/go-completion.bash ] && source /usr/local/etc/bash_completion.d/go-completion.bash
 fi
 
 
