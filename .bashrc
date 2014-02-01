@@ -79,6 +79,7 @@ alias v="vim"
 alias ff='open -a Firefox $1'
 alias t='tree -a -I ".git|.svn|node_modules"'
 alias d='cd ~/dotfiles && [ -n "$TMUX" ] && tmux rename-window "dotfiles"'
+alias dt='cd ~/Desktop'
 alias so=". ~/.bashrc"                                # source bashrc
 alias j="jobs"
 
