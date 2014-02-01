@@ -570,12 +570,13 @@ function mvd {
 #
 # Vagrant
 #
-# virtualbox for vagrant
-export PATH=$PATH:/Applications/VirtualBox.app/Contents/MacOS/
-#
-# vagrant-bash-completion (https://kura.io/vagrant-bash-completion/)
-if [ `uname` = Darwin ] && [ -f `brew --prefix`/etc/bash_completion.d/vagrant ]; then
-    source `brew --prefix`/etc/bash_completion.d/vagrant
+if [ `uname` = Darwin ]; then
+
+  # virtualbox for vagrant
+  export PATH=$PATH:/Applications/VirtualBox.app/Contents/MacOS/
+
+  # vagrant-bash-completion (https://kura.io/vagrant-bash-completion/)
+  [ -f `brew --prefix`/etc/bash_completion.d/vagrant ] && source `brew --prefix`/etc/bash_completion.d/vagrant
 fi
 
 
