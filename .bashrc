@@ -240,12 +240,30 @@ LIGHT_GREEN="\033[1;32m"
 GREEN="\033[0;32m"
 BLUE="\033[0;36m"
 
+
+
+#
+# History
+#
+
+# append history list of current session to HISTFILE (default: make HISTFILE get overwritten each time).
+# shopt -s histappend
+
+# verify a substituted history expansion (with '!!' or '!$') before executing
+shopt -s histverify
+
 # increase the history size
-HISTSIZE=10000
-HISTFILESIZE=20000
+export HISTSIZE=1000
+export HISTFILESIZE=20000
 
 # add date/time to the history
-HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S  "
+export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S  "
+
+# HISTIGNORE controls the items which get ignored and do not get saved.
+# ignore duplicate commands, commands that begin with a space, the history alias 'h' and the 'exit' command.
+export HISTIGNORE="&:[ ]*:exit"
+
+
 
 # disable mail notification
 unset MAILCHECK
