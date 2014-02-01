@@ -82,6 +82,9 @@ alias d='cd ~/dotfiles && [ -n "$TMUX" ] && tmux rename-window "dotfiles"'
 alias dt='cd ~/Desktop'
 alias so=". ~/.bashrc"                                # source bashrc
 alias j="jobs"
+if [ `uname` = Linux ]; then
+  alias ack="ack-grep"
+fi
 
 # compress javascript using YUI Compressor
 alias yuicompressor="java -jar ~/Library/Java/Extensions/yuicompressor.jar --type js $1"
