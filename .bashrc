@@ -608,6 +608,10 @@ fi
 #
 # play framework
 #
-if [ `uname` = Darwin ] && [ -f /usr/local/etc/bash_completion.d/play_completion ]; then
-    source /usr/local/etc/bash_completion.d/play_completion
+if [ `uname` = Darwin ]; then
+  [ -f /usr/local/etc/bash_completion.d/play_completion ] && source /usr/local/etc/bash_completion.d/play_completion
+else
+  export PATH=$PATH:/develop/play/play
+  [ -f /etc/bash_completion.d/play_completion ] && source /etc/bash_completion.d/play_completion
 fi
+
