@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+#
+# try less css-preprocessor
+# edit less on the right, see compiled css on the left
+#
+# DEPENDENCIES
+#   tmux (tmux.sourceforge.net/)
+#   lessc (less.github.io/)
+#   pygments (pygments.org/)
+#   observr (github.com/kevinburke/observr)
+
+#
+# USAGE
+#   less-try main.less
+#
+
+if [ "-h" = "$1" ] || [ "--help" = "$1" ]; then
+  echo "Usage: `basename $0` less-file" 1>&2 && exit 1;
+fi
+if [ -z "$1" ]; then
+  less_file="temp.less"
+else
+  less_file="$1"
+fi
+
+tmux splitw -h "vim $less_file"
+tmux lastp
+observr -e 'watch(".+\.less$") { |f| \
+  less=f[0]; \
+  css=f[0].sub("less","css"); \
+  system("clear; lessc #{less} > #{css}; pygmentize -f terminal256 #{css}") \
+  }' &
+tmux lastp
