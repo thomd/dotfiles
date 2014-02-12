@@ -44,6 +44,9 @@ set listchars=tab:\ \ ,trail:·,    " don't show tabs, show trailing spaces
 " Case insensitive autocompletion of filename or directories
 set wildignorecase
 
+" show possible completions of commands, file names, etc. in the status line
+set wildmenu
+
 " allow backspacing (del) over everything in insert mode
 set backspace=indent,eol,start
 
@@ -106,6 +109,35 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 
+" wasabi colorscheme
+Bundle 'thomd/vim-wasabi-colorscheme'
+set t_Co=256
+silent! color wasabi256
+
+
+" airline - lean & mean status/tabline for vim that's light as air
+Bundle 'bling/vim-airline'
+let g:airline_left_sep=''
+let g:airline_left_alt_sep='|'
+let g:airline_right_sep=''
+let g:airline_right_alt_sep='|'
+let g:airline_theme='powerlineish'
+"let g:airline#extensions#tabline#enabled = 1     " Automatically displays all buffers when there's only one tab open
+set laststatus=2                                 " Always display the statusline in all windows
+set noshowmode                                   " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+
+if ! has('gui_running')                          " immediateyy exit insert mode
+    set ttimeoutlen=10
+    augroup FastEscape
+        autocmd!
+        au InsertEnter * set timeoutlen=0
+        au InsertLeave * set timeoutlen=1000
+    augroup END
+endif
+
+"Bundle 'bling/vim-bufferline'
+
+
 " Perform all your vim insert mode completions with Tab
 Bundle 'ervandew/supertab'
 let g:SuperTabDefaultCompletionType = "context"
@@ -140,11 +172,6 @@ Bundle 'mattn/emmet-vim'
 " True Sublime Text style multiple selections for Vim
 Bundle 'terryma/vim-multiple-cursors'
 
-
-" wasabi colorscheme
-Bundle 'thomd/vim-wasabi-colorscheme'
-set t_Co=256
-silent! color wasabi256
 
 
 
