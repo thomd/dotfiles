@@ -104,6 +104,9 @@ alias grep='GREP_COLOR="1;37;41" LANG=C grep --color=auto'
 
 alias tracegl='node ~/bin/tracegl.js -nolib -no:repl.js'
 
+# brew install hr
+alias hr="hr '-'"
+
 if [ `uname` = Linux ]; then
   alias ack='ack-grep'
 fi
