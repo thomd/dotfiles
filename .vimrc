@@ -118,9 +118,6 @@ set undoreload=10000
 " Respect vim modelines
 set modeline
 
-" Use the file's name in the title
-set title
-
 " Highlight the line the cursor is on
 set cursorline
 
@@ -146,7 +143,7 @@ set mouse=a
 let mapleader = ","
 
 " toggle paste mode (to keep indendation from copy-paste)
-nmap <leader>p :setlocal paste! paste?<CR>
+nmap <silent> <leader>p :setlocal paste! paste?<CR>
 
 " Toggle spell checking on and off with `,s`
 nmap <silent> <leader>s :set spell!<CR>
@@ -156,10 +153,7 @@ nnoremap <leader>i :set incsearch!<CR>
 
 " remove highlighted search results
 nnoremap <leader>h :nohlsearch<CR>
-"nnoremap <silent> <C-l> :nohl<CR><C-l>
-
-" zoom in/out
-map <Leader><Leader> :ZoomWin<CR>
+nnoremap <silent> <C-l> :nohl<CR><C-l>
 
 " save file without root privileges (when you forgot to sudo before editing a file)
 cmap w!! w !sudo tee % >/dev/null
@@ -173,8 +167,22 @@ nnoremap <C-V> v
 vnoremap v <C-V>
 vnoremap <C-V> v
 
+" list buffers
+nnoremap <silent> <leader><leader> :BuffergatorOpen<CR>
 
+" show vim undo tree
+nnoremap U :GundoToggle<CR>
 
+" git
+nnoremap <leader>gb :Gblame<cr>
+nnoremap <leader>gc :Gcommit<cr>
+nnoremap <leader>gd :Gdiff<cr>
+nnoremap <leader>gl :Glog<cr>
+nnoremap <leader>gp :Git push<cr>
+nnoremap <leader>gs :Git status -sb<cr>
+
+" NERDTree toggle
+map <silent> <leader>n :NERDTreeToggle<cr>
 
 
 "------------------------------------------------------------
@@ -193,15 +201,15 @@ autocmd FilterWritePre * :call TrimTrailingWhiteSpace()
 autocmd BufWritePre * :call TrimTrailingWhiteSpace()
 
 
-" immediateyy exit insert mode
-if ! has('gui_running')
-  set ttimeoutlen=10
-  augroup FastEscape
-    autocmd!
-    au InsertEnter * set timeoutlen=0
-    au InsertLeave * set timeoutlen=1000
-  augroup END
-endif
+" immediately exit insert mode (conflicts with emmet-vim)
+"if ! has('gui_running')
+  "set ttimeoutlen=10
+  "augroup FastEscape
+    "autocmd!
+    "au InsertEnter * set timeoutlen=0
+    "au InsertLeave * set timeoutlen=1000
+  "augroup END
+"endif
 
 
 " tab/space for filetypes
@@ -286,13 +294,13 @@ endfunction
 autocmd VimEnter * call AirlineInit()
 
 
-" Perform all your vim insert mode completions with Tab
-Bundle 'ervandew/supertab'
-let g:SuperTabDefaultCompletionType = "context"
+" The ultimate snippet solution for Vim
+Bundle 'SirVer/ultisnips'
 
 
-" Implement some of TextMate's snippets features in Vim
-Bundle 'msanders/snipmate.vim'
+" Changes Vim working directory to project root
+" (identified by presence of known directory or file)
+Bundle 'airblade/vim-rooter'
 
 
 " Comments
@@ -305,9 +313,10 @@ Bundle 'mhinz/vim-signify'
 
 " Fuzzy file, buffer, mru, tag, etc finder
 Bundle 'kien/ctrlp.vim'
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_map='<c-p>'
+let g:ctrlp_show_hidden=1
+let g:ctrlp_working_path_mode='ra'
+let g:ctrlp_use_caching=0
 let g:ctrlp_custom_ignore = {
       \ 'dir':  '\.git$\|\.hg$\|\.svn$\|precompiled$\|tmp$',
       \ 'file': '\.exe$\|\.so$\|\.dat$\|.gitignore$'
@@ -331,7 +340,11 @@ Bundle 'tpope/vim-surround'
 
 
 " A tree explorer plugin
-"Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdtree'
+let NERDTreeQuitOnOpen=1
+let NERDTreeMinimalUI=1
+let NERDTreeWinSize=50
+let NERDTreeDirArrows=1
 " automatically load NERDTree if vim is started without arguments
 "function! StartUp()
     "if !exists("s:std_in") && 0 == argc()
@@ -346,26 +359,14 @@ Bundle 'tpope/vim-surround'
 Bundle 'Raimondi/delimitMate'
 
 
-" %
-Bundle 'matchit.zip'
-Bundle 'ruby-matchit'
-
-
 " git support
 Bundle 'tpope/vim-fugitive'
 let g:airline_section_b = '%{airline#extensions#branch#get_head()}'
-nnoremap <leader>gb :Gblame<cr>
-nnoremap <leader>gc :Gcommit<cr>
-nnoremap <leader>gd :Gdiff<cr>
-nnoremap <leader>gl :Glog<cr>
-nnoremap <leader>gp :Git push<cr>
-nnoremap <leader>gs :Git status -sb<cr>
 
 
 " Vim plugin to list, select and switch between buffers
 Bundle 'jeetsukumaran/vim-buffergator'
 let g:buffergator_suppress_keymaps = 1
-nnoremap <silent> <Leader>m :BuffergatorOpen<CR>
 let g:buffergator_viewport_split_policy = 'B'
 let g:buffergator_split_size = '10'
 let g:buffergator_sort_regime = 'mru'
@@ -388,7 +389,8 @@ Bundle 'ZoomWin'
 
 " visualize your Vim undo tree
 Bundle 'sjl/gundo.vim'
-nnoremap U :GundoToggle<CR>
+let g:gundo_preview_bottom=1
+let g:gundo_close_on_revert=1
 
 
 " Better Rainbow Parentheses
@@ -413,6 +415,14 @@ Bundle 'vim-scripts/searchfold.vim'
 
 " LessCSS Syntax support in Vim
 Bundle 'groenewege/vim-less'
+
+
+" Perform all your vim insert mode completions with Tab
+Bundle 'ervandew/supertab'
+"let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
+"let g:SuperTabDefaultCompletionType='context'
+"let g:SuperTabNoCompleteAfter
+let g:SuperTabDefaultCompletionType = 'context'
 
 
 " Attempt to determine the type of a file based on its name and possibly its
