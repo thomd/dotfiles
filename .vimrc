@@ -323,7 +323,7 @@ Bundle 'terryma/vim-multiple-cursors'
 
 
 " play framework
-"Bundle 'rdolgushin/play.vim'
+Bundle 'thomd/vim-play-framework'
 
 
 " Surround.vim is about surroundings: parentheses, brackets, quotes, XML and tags
