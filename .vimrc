@@ -136,7 +136,8 @@ set noshowmode
 " Set to auto read when a file is changed from the outside
 set autoread
 
-
+" Enable use of the mouse for all modes
+set mouse=a
 
 
 "------------------------------------------------------------
@@ -165,6 +166,13 @@ cmap w!! w !sudo tee % >/dev/null
 
 " open markdown files in Marked.app
 map <Leader>md :!open -a /Applications/Marked.app/ %<CR><CR>
+
+" swap v and CTRL-V, because block mode is more useful that visual mode
+nnoremap v <C-V>
+nnoremap <C-V> v
+vnoremap v <C-V>
+vnoremap <C-V> v
+
 
 
 
