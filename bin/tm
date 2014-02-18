@@ -5,9 +5,9 @@ list=$(tmux ls)
 if [ $? -eq 1 ]; then
   tmux
 else
-  session=$(echo $list | grep attached | cut -d : -f 1)
+  session=$(echo "$list" | grep attached | cut -d : -f 1)
   if [ -z "$session" ] ; then
-    session=$(echo $list | head -1 | cut -d : -f 1)
+    session=$(echo "$list" | head -1 | cut -d : -f 1)
   fi
   tmux new-session -t $session
 fi
