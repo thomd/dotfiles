@@ -181,8 +181,16 @@ nnoremap <leader>gl :Glog<cr>
 nnoremap <leader>gp :Git push<cr>
 nnoremap <leader>gs :Git status -sb<cr>
 
-" NERDTree toggle
+" toggle NERDTree
 map <silent> <leader>n :NERDTreeToggle<cr>
+
+" move lines
+nnoremap - :m .+1<CR>==
+nnoremap _ :m .-2<CR>==
+vnoremap - :m '>+1<CR>gv=gv
+vnoremap _ :m '<-2<CR>gv=gv
+
+
 
 
 "------------------------------------------------------------
