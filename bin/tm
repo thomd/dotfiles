@@ -5,8 +5,11 @@
 list=$(tmux ls)
 
 if [ $? -eq 1 ]; then
+  # create a new tmux session
   tmux
 else
+  # Create a new session that shares all windows with an existing session, but has its own separate
+  # notion of which window is current
   session=$(echo "$list" | grep attached | cut -d : -f 1)
   if [ -z "$session" ] ; then
     session=$(echo "$list" | head -1 | cut -d : -f 1)
