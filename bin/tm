@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+[ ! -z "$TMUX" ] && echo -e "\033[38;5;160myou must detach tmux for a new session" 2>&1 && exit 1
+
 list=$(tmux ls)
 
 if [ $? -eq 1 ]; then
