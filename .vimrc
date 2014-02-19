@@ -136,6 +136,10 @@ set autoread
 " Enable use of the mouse for all modes
 set mouse=a
 
+" changes the 'w' small word motion not to stop at dashes
+set iskeyword+=-
+
+
 
 "------------------------------------------------------------
 " MAPPINGS
@@ -190,6 +194,11 @@ nnoremap _ :m .-2<CR>==
 vnoremap - :m '>+1<CR>gv=gv
 vnoremap _ :m '<-2<CR>gv=gv
 
+" Shift + left/right to switch tabs.
+" You may need to map these in iTerm2 prefs to escape
+" sequences [1;2C (right) and D (left).
+noremap <S-Left> :tabp<CR>
+noremap <S-Right> :tabn<CR>
 
 
 
@@ -353,6 +362,7 @@ let NERDTreeQuitOnOpen=1
 let NERDTreeMinimalUI=1
 let NERDTreeWinSize=50
 let NERDTreeDirArrows=1
+let NERDTreeShowBookmarks=1
 " automatically load NERDTree if vim is started without arguments
 "function! StartUp()
     "if !exists("s:std_in") && 0 == argc()
