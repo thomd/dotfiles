@@ -162,6 +162,7 @@ nnoremap <silent> <C-l> :nohl<CR><C-l>
 " save file without root privileges (when you forgot to sudo before editing a file)
 cmap w!! w !sudo tee % >/dev/null
 
+
 " open markdown files in Marked.app
 map <Leader>md :!open -a /Applications/Marked.app/ %<CR><CR>
 
@@ -172,7 +173,7 @@ vnoremap v <C-V>
 vnoremap <C-V> v
 
 " list buffers
-nnoremap <silent> <leader><leader> :BuffergatorOpen<CR>
+nnoremap <silent> <leader><leader> :BuffergatorToggle<CR>
 
 " show vim undo tree
 nnoremap U :GundoToggle<CR>
@@ -338,6 +339,11 @@ let g:ctrlp_custom_ignore = {
       \ 'dir':  '\.git$\|\.hg$\|\.svn$\|precompiled$\|tmp$',
       \ 'file': '\.exe$\|\.so$\|\.dat$\|.gitignore$'
       \ }
+let g:ctrlp_prompt_mappings = {
+      \ 'ToggleType(1)':  ['<S-right>'],
+      \ 'ToggleType(-1)':  ['<S-left>'],
+      \ 'AcceptSelection("h")':  ['<c-h>']
+      \ }
 
 
 " Ultra-fast HTML coding
@@ -363,6 +369,8 @@ let NERDTreeMinimalUI=1
 let NERDTreeWinSize=50
 let NERDTreeDirArrows=1
 let NERDTreeShowBookmarks=1
+let NERDTreeMapOpenSplit='h'
+let NERDTreeMapOpenVSplit='v'
 " automatically load NERDTree if vim is started without arguments
 "function! StartUp()
     "if !exists("s:std_in") && 0 == argc()
@@ -384,11 +392,10 @@ let g:airline_section_b = '%{airline#extensions#branch#get_head()}'
 
 " Vim plugin to list, select and switch between buffers
 Bundle 'jeetsukumaran/vim-buffergator'
-let g:buffergator_suppress_keymaps = 1
-let g:buffergator_viewport_split_policy = 'B'
+let g:buffergator_suppress_keymaps = 1              " don't map <leader>b
+let g:buffergator_viewport_split_policy = 'B'       " horizontal bottom
 let g:buffergator_split_size = '10'
-let g:buffergator_sort_regime = 'mru'
-let g:airline#extensions#bufferline#enabled = 0
+let g:buffergator_sort_regime = 'mru'               " most recently used
 
 
 " HTML5
@@ -423,10 +430,6 @@ Bundle 'rosstimson/bats.vim'
 Bundle 'terryma/vim-smooth-scroll'
 
 
-" Toggle the cursor shape in the terminal for Vim
-"Bundle 'jszakmeister/vim-togglecursor'
-
-
 " Fold away lines not matching the last search pattern
 Bundle 'vim-scripts/searchfold.vim'
 
@@ -437,9 +440,6 @@ Bundle 'groenewege/vim-less'
 
 " Perform all your vim insert mode completions with Tab
 Bundle 'ervandew/supertab'
-"let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
-"let g:SuperTabDefaultCompletionType='context'
-"let g:SuperTabNoCompleteAfter
 let g:SuperTabDefaultCompletionType = 'context'
 
 
