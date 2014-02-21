@@ -172,6 +172,10 @@ nnoremap <C-V> v
 vnoremap v <C-V>
 vnoremap <C-V> v
 
+" center search results
+nnoremap n nzz
+nnoremap N Nzz
+
 " list buffers
 nnoremap <silent> <leader><leader> :BuffergatorToggle<CR>
 
@@ -200,6 +204,13 @@ vnoremap _ :m '<-2<CR>gv=gv
 " sequences [1;2C (right) and D (left).
 noremap <S-Left> :tabp<CR>
 noremap <S-Right> :tabn<CR>
+
+" scan searchresults from quickfix window
+nnoremap m :cn<cr> zz
+nnoremap M :cp<cr> zz
+nnoremap <leader>m :copen<cr>
+nnoremap <leader>M :ccl<cr>
+
 
 
 
