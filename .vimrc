@@ -398,7 +398,22 @@ let NERDTreeMapOpenVSplit='v'
 Bundle 'Raimondi/delimitMate'
 
 
-" git support
+" git: syntax, indent, and filetype plugin files for gitcommit, gitconfig, gitrebase
+Bundle 'tpope/vim-git'
+" set some nicers colors in gitcommit dialog only
+function GitCommitColors()
+  highlight diffRemoved ctermfg=darkred
+  highlight diffAdded ctermfg=darkgreen
+  highlight diffChanged ctermfg=darkblue
+  highlight diffLine ctermfg=darkgray
+  highlight diffFile ctermfg=darkgray
+  highlight diffSubname ctermfg=darkgray
+  highlight Normal ctermfg=darkgray
+endfunction
+autocmd FileType gitcommit call GitCommitColors()
+
+
+" a vim interface to git
 Bundle 'tpope/vim-fugitive'
 let g:airline_section_b = '%{airline#extensions#branch#get_head()}'
 
