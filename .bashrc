@@ -586,8 +586,18 @@ fi
 #
 # open my side-projects file
 #
-p(){
+projects() {
   ${EDITOR:-vi} "/develop/PROJECTS"
+}
+
+
+#
+# cd to project root (determined .git folder)
+#
+p() {
+  local root=`git root`
+  [ `pwd` = "$root" ] && echo -e "${GREY}this is project root"
+  cd "$root"
 }
 
 
