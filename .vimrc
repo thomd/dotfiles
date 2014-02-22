@@ -263,6 +263,8 @@ au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 let g:xml_syntax_folding=1
 au FileType xml setlocal foldmethod=syntax
 
+" gradle files are groovy files
+au BufNewFile,BufRead *.gradle set filetype=groovy
 
 
 
@@ -452,6 +454,10 @@ Bundle 'groenewege/vim-less'
 " Perform all your vim insert mode completions with Tab
 Bundle 'ervandew/supertab'
 let g:SuperTabDefaultCompletionType = 'context'
+
+
+" groovy support
+Bundle 'groovy.vim'
 
 
 " Attempt to determine the type of a file based on its name and possibly its
