@@ -33,3 +33,5 @@
   tool = vimdiff
 [github]
   user = thomd
+[push]
+  default = simple
