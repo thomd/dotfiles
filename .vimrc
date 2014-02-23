@@ -250,9 +250,6 @@ au FileType javascript set tabstop=4 shiftwidth=4 expandtab textwidth=100
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
 
-" md, markdown, and mk are markdown and define buffer-local preview
-au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} call s:setupMarkup()
-
 " add json syntax highlighting
 au BufNewFile,BufRead *.json set ft=javascript
 
@@ -361,6 +358,8 @@ let g:ctrlp_prompt_mappings = {
 
 " Ultra-fast HTML coding
 Bundle 'mattn/emmet-vim'
+" remap trigger key to 'm' as being next to ',' and 'n'
+"let g:user_emmet_leader_key='<C-M>'
 
 
 " True Sublime Text style multiple selections for Vim
@@ -473,6 +472,26 @@ let g:SuperTabDefaultCompletionType = 'context'
 
 " groovy support
 Bundle 'groovy.vim'
+
+
+" markdown support
+Bundle 'tpope/vim-markdown'
+" set some nicers colors in gitcommit dialog only
+function MarkdownColors()
+  highlight markdownH1 ctermfg=darkred
+  highlight markdownH2 ctermfg=darkred
+  highlight markdownH3 ctermfg=darkred
+  highlight markdownH4 ctermfg=red
+  highlight markdownCode ctermfg=darkgray
+  highlight markdownCodeBlock ctermfg=darkgray
+  highlight markdownLinkText ctermfg=darkblue
+  highlight markdownURL ctermfg=darkblue
+  highlight markdownBold ctermfg=white
+  highlight markdownItalic ctermfg=white
+endfunction
+autocmd FileType markdown,md,mkd call MarkdownColors()
+
+
 
 
 " Attempt to determine the type of a file based on its name and possibly its
