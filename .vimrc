@@ -211,6 +211,8 @@ nnoremap M :cp<cr> zz
 nnoremap <leader>m :copen<cr>
 nnoremap <leader>M :ccl<cr>
 
+" toggle rainbow parentheses
+nnoremap <leader>r :RainbowParenthesesToggle<cr>
 
 
 
