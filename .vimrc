@@ -346,7 +346,7 @@ let g:ctrlp_show_hidden=1
 let g:ctrlp_working_path_mode='ra'
 let g:ctrlp_use_caching=0
 let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\.git$\|\.hg$\|\.svn$\|precompiled$\|tmp$',
+      \ 'dir':  '\.git$\|\.hg$\|\.svn$\|precompiled$\|tmp$\|node_modules$',
       \ 'file': '\.exe$\|\.so$\|\.dat$\|.gitignore$'
       \ }
 let g:ctrlp_prompt_mappings = {
