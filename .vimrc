@@ -139,6 +139,10 @@ set mouse=a
 " changes the 'w' small word motion not to stop at dashes
 set iskeyword+=-
 
+" wrap using left, right, h or l when at beginning or end of line
+set whichwrap+=<,>,h,l,[,]
+
+
 
 
 "------------------------------------------------------------
@@ -264,6 +268,15 @@ au FileType xml setlocal foldmethod=syntax
 
 " gradle files are groovy files
 au BufNewFile,BufRead *.gradle set filetype=groovy
+
+" set textwidth with wrap for text- and markdown files
+function s:setWrapping()
+  set wrap
+  set wrapmargin=2
+  set textwidth=72
+endfunction
+au BufRead,BufNewFile *.{md,markdown,mkd,txt} call s:setWrapping()
+
 
 
 
