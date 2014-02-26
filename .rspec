@@ -1,7 +1,7 @@
 # gem install fuubar
---format Fuubar
+#--format Fuubar
 
 --color
 
 # equire this file in each spec file
---require spec_helper
+#--require spec_helper
