@@ -104,6 +104,8 @@ alias grep='GREP_COLOR="1;37;41" LANG=C grep --color=auto'
 
 alias tracegl='node ~/bin/tracegl.js -nolib -no:repl.js'
 
+alias brwe=brew  # fix brew typo
+
 # brew install hr
 alias hr="hr '-'"
 
@@ -583,17 +585,13 @@ if [ `uname` = Darwin ]; then
 fi
 
 
-#
 # open my side-projects file
-#
 projects() {
   ${EDITOR:-vi} "/develop/PROJECTS"
 }
 
 
-#
 # cd to project root (determined .git folder)
-#
 p() {
   local root=`git root`
   [ `pwd` = "$root" ] && echo -e "${GREY}this is project root"
@@ -602,38 +600,35 @@ p() {
 
 
 #
+# bash completions
+#
+
 # Homebrew
-#
-alias brwe=brew  # fix brew typo
-if [ `uname` = Darwin ] && [ -f $(brew --repository)/Library/Contributions ]; then
-  source $(brew --repository)/Library/Contributions/
-fi
+[ -f $(brew --repository)/Library/Contributions/brew_bash_completion.sh ] && source $(brew --repository)/Library/Contributions/brew_bash_completion.sh
 
-
-#
 # git bash completion
-#
-if [ `uname` = Darwin ] && [ -f /usr/local/git/contrib/completion/git-completion.bash ]; then
-  source /usr/local/git/contrib/completion/git-completion.bash
-fi
+[ -f /usr/local/git/contrib/completion/git-completion.bash ] && source /usr/local/git/contrib/completion/git-completion.bash
 
-
-#
 # Go lang
-#
 if [ `uname` = Darwin ]; then
   export PATH=$PATH:/usr/local/Cellar/go/1.2/libexec/bin
   [ -f /usr/local/etc/bash_completion.d/go-completion.bash ] && source /usr/local/etc/bash_completion.d/go-completion.bash
 fi
 
-
-#
 # play framework
-#
 if [ `uname` = Darwin ]; then
   [ -f /usr/local/etc/bash_completion.d/play_completion ] && source /usr/local/etc/bash_completion.d/play_completion
 else
   export PATH=$PATH:/develop/play/play
   [ -f /etc/bash_completion.d/play_completion ] && source /etc/bash_completion.d/play_completion
 fi
+
+# gradle build tool
+[ -f /usr/local/etc/bash_completion.d/gradle ] && source /usr/local/etc/bash_completion.d/gradle
+
+# travis-ci
+[ -f /Users/thomd/.travis/travis.sh ] && source /Users/thomd/.travis/travis.sh
+
+# password store
+[ -f /usr/local/etc/bash_completion.d/password-store ] && source /usr/local/etc/bash_completion.d/password-store
 
