@@ -602,6 +602,15 @@ p() {
 
 
 #
+# Homebrew
+#
+alias brwe=brew  # fix brew typo
+if [ `uname` = Darwin ] && [ -f $(brew --repository)/Library/Contributions ]; then
+  source $(brew --repository)/Library/Contributions/
+fi
+
+
+#
 # git bash completion
 #
 if [ `uname` = Darwin ] && [ -f /usr/local/git/contrib/completion/git-completion.bash ]; then
