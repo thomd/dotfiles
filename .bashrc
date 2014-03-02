@@ -15,8 +15,8 @@ export PATH="~/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 # Java environment
 if [ `uname` = Darwin ]; then
   export JAVA_HOME=$(/usr/libexec/java_home)
-  export PATH="$PATH:${JAVA_HOME}/bin"
-  export PATH="$PATH:/Applications/eclipse/"
+  export PATH="$PATH:$JAVA_HOME/bin"
+  export PATH="$PATH:/Applications/eclipse"
 fi
 #export REPO="~/.m2/repository"
 
