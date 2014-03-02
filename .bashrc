@@ -10,35 +10,35 @@ export LESS=-RFX
 
 export EDITOR="vim"
 
+export PATH="~/bin:/usr/local/bin:/usr/local/sbin:$PATH"
+
 # Java environment
 if [ `uname` = Darwin ]; then
-  export JAVA_HOME="/Library/Java/Home"
+  export JAVA_HOME=$(/usr/libexec/java_home)
+  export PATH="$PATH:${JAVA_HOME}/bin"
+  export PATH="$PATH:/Applications/eclipse/"
 fi
-export REPO="~/.m2/repository"
-
-BIN_PATH="/Users/thomd/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/scala/bin:/usr/local/git/bin"
-
-export PATH="~/bin:$BIN_PATH:${JAVA_HOME}/bin:${JRUBY_HOME}/bin:$PATH"
+#export REPO="~/.m2/repository"
 
 # homebrew python 2.7
-export PATH="/usr/local/share/python:${PATH}"
+export PATH="$PATH:/usr/local/share/python"
 export PYTHONSTARTUP="$HOME/.pythonrc"
 
 # python wirtualenvwrapper
-export WORKON_HOME=$HOME/.virtualenvs
+export WORKON_HOME="$HOME/.virtualenvs"
 [ -f /usr/local/share/python/virtualenvwrapper_lazy.sh ] && source /usr/local/share/python/virtualenvwrapper_lazy.sh
 
 # html tidy
 export HTML_TIDY="$HOME/.tidyrc"
 
 # IO
-export PATH=$PATH:/develop/io/io/build/_build/binaries
+export PATH="$PATH:/develop/io/io/build/_build/binaries"
 
 # heroku
-export PATH=/usr/local/heroku/bin:$PATH
+export PATH="$PATH:/usr/local/heroku/bin"
 
 # npm
-export PATH=/usr/local/share/npm/bin:$PATH
+export PATH="$PATH:/usr/local/share/npm/bin"
 
 # mad(1)
 export MAD_PATH="$HOME/.mad"
@@ -306,43 +306,43 @@ function railst {
 #   $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN]")
 #
 function git_ps1 {
-	local g="$(git rev-parse --git-dir 2>/dev/null)"
-	if [ -n "$g" ]; then
-		local r
-		local b
-		if [ -d "$g/../.dotest" ]
-		then
-			r="|AM/REBASE"
-			b="$(git symbolic-ref HEAD 2>/dev/null)"
-		elif [ -f "$g/.dotest-merge/interactive" ]
-		then
-			r="|REBASE-i"
-			b="$(cat $g/.dotest-merge/head-name)"
-		elif [ -d "$g/.dotest-merge" ]
-		then
-			r="|REBASE-m"
-			b="$(cat $g/.dotest-merge/head-name)"
-		elif [ -f "$g/MERGE_HEAD" ]
-		then
-			r="|MERGING"
-			b="$(git symbolic-ref HEAD 2>/dev/null)"
-		else
-			if [ -f $g/BISECT_LOG ]
-			then
-				r="|BISECTING"
-			fi
-			if ! b="$(git symbolic-ref HEAD 2>/dev/null)"
-			then
-				b="$(cut -c1-7 $g/HEAD)..."
-			fi
-		fi
+  local g="$(git rev-parse --git-dir 2>/dev/null)"
+  if [ -n "$g" ]; then
+    local r
+    local b
+    if [ -d "$g/../.dotest" ]
+    then
+      r="|AM/REBASE"
+      b="$(git symbolic-ref HEAD 2>/dev/null)"
+    elif [ -f "$g/.dotest-merge/interactive" ]
+    then
+      r="|REBASE-i"
+      b="$(cat $g/.dotest-merge/head-name)"
+    elif [ -d "$g/.dotest-merge" ]
+    then
+      r="|REBASE-m"
+      b="$(cat $g/.dotest-merge/head-name)"
+    elif [ -f "$g/MERGE_HEAD" ]
+    then
+      r="|MERGING"
+      b="$(git symbolic-ref HEAD 2>/dev/null)"
+    else
+      if [ -f $g/BISECT_LOG ]
+      then
+        r="|BISECTING"
+      fi
+      if ! b="$(git symbolic-ref HEAD 2>/dev/null)"
+      then
+        b="$(cut -c1-7 $g/HEAD)..."
+      fi
+    fi
 
-		if [ -n "$1" ]; then
-			printf "$1" "${b##refs/heads/}$r"
-		else
-			printf " (%s)" "${b##refs/heads/}$r"
-		fi
-	fi
+    if [ -n "$1" ]; then
+      printf "$1" "${b##refs/heads/}$r"
+    else
+      printf " (%s)" "${b##refs/heads/}$r"
+    fi
+  fi
 }
 
 function parse_git_dirty {
@@ -357,15 +357,15 @@ function parse_git_dirty {
 #   $(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]")
 #
 function svn_ps1 {
-	local svn="$(svn info 2>/dev/null)"
-	if [ -n "$svn" ]; then
-		local rev="$(svn info 2>/dev/null | sed -ne 's#^Revision: ##p')"
-		local root="$(svn info 2>/dev/null | sed -ne 's#^Repository Root: ##p')"
-		local url="$(svn info 2>/dev/null | sed -ne 's#^URL: '"$root/"'##p' | sed -ne 's/^.*\(trunk\).*$/\1/p;s/^.*\(branches\/[^\/.]*\).*$/\1/p')"
+  local svn="$(svn info 2>/dev/null)"
+  if [ -n "$svn" ]; then
+    local rev="$(svn info 2>/dev/null | sed -ne 's#^Revision: ##p')"
+    local root="$(svn info 2>/dev/null | sed -ne 's#^Repository Root: ##p')"
+    local url="$(svn info 2>/dev/null | sed -ne 's#^URL: '"$root/"'##p' | sed -ne 's/^.*\(trunk\).*$/\1/p;s/^.*\(branches\/[^\/.]*\).*$/\1/p')"
     local info="$url:$rev"
     [[ $url == '' ]] && info="svn:$rev"    # if not trunk/branches
-		printf "$1$RESET" "$info"
-	fi
+    printf "$1$RESET" "$info"
+  fi
 }
 
 function parse_svn_dirty {
