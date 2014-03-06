@@ -508,6 +508,10 @@ autocmd FileType markdown,md,mkd call MarkdownColors()
 
 
 
+" yaml syntax
+Bundle 'stephpy/vim-yaml'
+
+
 
 " Attempt to determine the type of a file based on its name and possibly its
 " contents.  Use this to allow intelligent auto-indenting for each filetype,
