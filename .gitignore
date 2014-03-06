@@ -14,3 +14,5 @@ TODO
 .vagrant
 node_modules
 .gradle
+.classpath
+eclipse/
