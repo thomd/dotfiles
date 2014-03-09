@@ -4,7 +4,7 @@
 --type-set=txt=.txt,.todo,.faq
 
 # add type aliases
---type-add=html=.haml,.isml
+--type-add=html=.haml,.isml,.tag
 --type-add=css=.sass,.scss,.less
 --type-add=js=.coffee,.ds
 
