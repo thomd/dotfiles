@@ -160,6 +160,12 @@ alias aa='autotest'
 alias aaf='autotest -f' # don't run all at start
 alias aas="./script/autospec"
 
+#
+# URL encode/decode
+#
+alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1])"'
+alias urldecode='python -c "import sys, urllib as ul; print ul.unquote_plus(sys.argv[1])"'
+
 
 #
 # javascript JsLint Check
