@@ -355,6 +355,10 @@ function parse_git_dirty {
   [[ $(git status 2> /dev/null | tail -n1) != nothing\ to\ commit* ]] && echo "*"
 }
 
+function parse_git_stash {
+  [[ $(git stash list 2> /dev/null | tail -n1) != "" ]] && echo "^"
+}
+
 
 #
 # SVN info: show trunk- or branches-path in prompt for all repositories following the trunk/branches convention
@@ -450,7 +454,7 @@ function prompt_ps1 {
   echo -e "$2$1$RESET "
 }
 
-export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN]")$(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]") $(prompt_ps1 "⚡" $LIGHT_RED)'
+export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN]")$(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]") $(prompt_ps1 ">" $GREY)'
 export PS2=" $LIGHT_RED:$RESET "
 
 # TODO http://blog.yjl.im/2011/02/error-code-deserves-its-own-line.html
