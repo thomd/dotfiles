@@ -283,10 +283,9 @@ unset MAILCHECK
 umask 0022
 
 #
-# ssh-complete (http://drawohara.tumblr.com/post/6584031)
+# ssh-completion
 #
-# SSH_COMPLETE=($(cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq))
-# complete -o default -W "${SSH_COMPLETE[*]}" ssh
+complete -o default -o nospace -W "$(grep -i -e '^host ' ~/.ssh/config | awk '{print substr($0, index($0,$2))}' ORS=' ')" ssh scp sftp
 
 #
 # ssh-host-color (from https://gist.github.com/956095)
