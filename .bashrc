@@ -569,6 +569,20 @@ function mvd {
   fi
 }
 
+#
+# find directory/folder depth
+#
+function ffd {
+  if [ "$1" == "-v" ]; then
+    {
+      echo "folders depth"
+      find . -type d 2>/dev/null | awk -F'/' '{print NF -1}' | sort | uniq -c | sort -nk2
+    } | column -t
+  else
+    find . -type d 2>/dev/null | awk -F'/' '{print NF-1}' | sort -n | tail -1
+  fi
+}
+alias fdd=ffd
 
 #
 # Vagrant
