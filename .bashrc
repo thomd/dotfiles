@@ -294,17 +294,6 @@ complete -o default -o nospace -W "$(grep -i -e '^host ' ~/.ssh/config | awk '{p
 
 
 #
-# generate rails project based on template (http://github.com/thomd/rails-templates/tree/master)
-#
-function railst {
-  template=$1
-  appname=$2
-  shift 2
-  rails $appname -m http://github.com/thomd/rails-templates/raw/master/$template.template.rb $@
-}
-
-
-#
 # GIT info for prompt
 #
 # usage in PS1:
