@@ -372,20 +372,6 @@ function parse_svn_dirty {
 
 
 #
-# RVM info in prompt
-#
-# usage in PS1:
-#   $(rvm_ps1 $LIGHT_GREEN)
-#
-function rvm_ps1 {
-  local rvm="$(~/.rvm/bin/rvm-prompt v g)"
-  if [ -n "$rvm" ]; then
-    printf "$1[$rvm]$RESET "
-  fi
-}
-
-
-#
 # create temporary scratch directory [inspired by http://ku1ik.com/2012/05/04/scratch-dir.html]
 #
 export SCRATCH_HOME="$HOME/scratch"
@@ -433,7 +419,7 @@ function job_ps1 {
 
 
 #
-# show job-, scratch-, rvm-, git- and svn-info in prompt
+# show job-, scratch-, git- and svn-info in prompt
 #
 # usage in PS1:
 #   $(prompt_ps1 ">" $LIGHT_RED)
@@ -492,13 +478,6 @@ bind "\C-f":forward-word
 # for the time being this is commented out as it breaks the 'open' command (see https://github.com/sickill/stderred/issues/11)
 #
 # export DYLD_INSERT_LIBRARIES=/usr/local/lib/stderred.dylib DYLD_FORCE_FLAT_NAMESPACE=1
-
-
-# load RVM into a shell session.
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
-# Add RVM to PATH for scripting
-PATH=$PATH:$HOME/.rvm/bin
 
 
 #
