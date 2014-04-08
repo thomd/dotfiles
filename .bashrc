@@ -520,28 +520,27 @@ function mkcd {
 # mvd - move down
 # move all files & folders in current directory into a new folder one hierarchy down
 #
-#
 # EXAMPLE
 #
 #   > tree
 #   .
-#   ├── bar
+#   ├── .bar
 #   └── baz
 #
 #   > mvd foo
 #   > tree
 #   .
 #   └── foo
-#       ├── bar
+#       ├── .bar
 #       └── baz
 #
 function mvd {
   if [ ! -z "$1" ] && [ "$(ls -A)" ]; then  # if argument given and folder not empty
     local tmp=`mktemp -d mvdXXXX`
     mkdir -p "$tmp"
-    shopt -s dotglob
-    mv !("$tmp") "$tmp"
-    shopt -u dotglob
+    for f in $(ls -A); do
+      [ "$f" != "$tmp" ] && mv "$f" "$tmp"
+    done
     mv "$tmp" "$1"
   else
     echo "usage: mvd <folder>"
