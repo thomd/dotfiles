@@ -590,6 +590,13 @@ p() {
 
 
 #
+# rbenv (brew install rbenv ruby-build)
+#
+export RBENV_ROOT=/usr/local/var/rbenv
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+
+#
 # bash completions
 #
 
