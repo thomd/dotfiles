@@ -1,0 +1,5 @@
+# see 'man tigrc' for complete reference
+
+color   cursor        white     grey   bold
+color   title-focus   white     grey   bold
+color   title-blur    white     grey
