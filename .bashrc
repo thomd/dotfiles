@@ -637,7 +637,8 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 [ -f $(brew --repository)/Library/Contributions/brew_bash_completion.sh ] && source $(brew --repository)/Library/Contributions/brew_bash_completion.sh
 
 # git bash completion
-[ -f /usr/local/git/contrib/completion/git-completion.bash ] && source /usr/local/git/contrib/completion/git-completion.bash
+[ -f /usr/local/etc/bash_completion.d/git-completion.bash ] && source /usr/local/etc/bash_completion.d/git-completion.bash
+[ -f /usr/local/etc/bash_completion.d/git-flow-completion.bash ] && source /usr/local/etc/bash_completion.d/git-flow-completion.bash
 
 # Go lang
 if [ `uname` = Darwin ]; then
