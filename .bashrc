@@ -552,6 +552,35 @@ function mvd {
 }
 
 #
+# mvu - move up
+# move all files & folders in a folder one hierarchy up and deletes the - now empty - folder
+#
+# EXAMPLE
+#
+#   > tree
+#   .
+#   └── foo
+#       ├── .bar
+#       └── baz
+#
+#   > mvu foo
+#   > tree
+#   .
+#   ├── .bar
+#   └── baz
+#
+function mvu {
+  if [ ! -z "$1" ] && [ -d "$1" ]; then  # if argument given and folder exist
+    for f in $(ls "$1"); do
+      mv "$1/$f" "$PWD"
+    done
+    rm -r "$1"
+  else
+    echo "usage: mvu <folder>"
+  fi
+}
+
+#
 # find directory/folder depth
 #
 function ffd {
