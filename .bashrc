@@ -123,6 +123,7 @@ alias ungit="find . -name '.git' -exec rm -rf {} \;"
 alias gb='git branch'
 alias gc='git commit -v'
 alias gd='git diff'
+alias gl='git l'
 alias gln='git ln'
 alias gla='git la'
 alias glan='git lan'
@@ -639,8 +640,14 @@ export DOCKER_HOST=tcp://$(boot2docker ip 2>/dev/null):2375
 [ -f /usr/local/etc/bash_completion.d/docker ] && source /usr/local/etc/bash_completion.d/docker
 
 
+#
 # bash completions
 #
+
+#
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
 
 # Homebrew
 [ -f $(brew --repository)/Library/Contributions/brew_bash_completion.sh ] && source $(brew --repository)/Library/Contributions/brew_bash_completion.sh
