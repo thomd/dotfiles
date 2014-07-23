@@ -22,6 +22,7 @@
   div = divergence
   cl = changelog
   root = !pwd
+  ahead = log @{u}...HEAD --graph --decorate --left-right --boundary --pretty=format:'%Cred%h%Creset %d %s %Cgreen(%cr)%Creset %Cblue[%an]%Creset' --abbrev-commit --date=relative
 [color]
   ui = auto
 [core]
@@ -36,3 +37,5 @@
   user = thomd
 [push]
   default = simple
+[url "https://"]
+  insteadOf = git://
