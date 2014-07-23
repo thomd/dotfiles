@@ -633,6 +633,12 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 
 #
+# boot2docker & docker
+#
+export DOCKER_HOST=tcp://$(boot2docker ip 2>/dev/null):2375
+[ -f /usr/local/etc/bash_completion.d/docker ] && source /usr/local/etc/bash_completion.d/docker
+
+
 # bash completions
 #
 
