@@ -12,6 +12,10 @@ export EDITOR="vim"
 
 export PATH="~/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 
+# ack
+#export ACK_COLOR_MATCH='green bold'
+#export ACK_COLOR_FILENAME='magenta underline bold'
+
 # Java environment
 if [ `uname` = Darwin ]; then
   export JAVA_HOME=$(/usr/libexec/java_home)
