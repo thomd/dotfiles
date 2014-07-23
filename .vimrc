@@ -507,10 +507,12 @@ endfunction
 autocmd FileType markdown,md,mkd call MarkdownColors()
 
 
-
 " yaml syntax
 Bundle 'stephpy/vim-yaml'
 
+
+" dockerfile syntax highlighting
+Bundle 'ekalinin/Dockerfile.vim'
 
 
 " Attempt to determine the type of a file based on its name and possibly its
