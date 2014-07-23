@@ -257,6 +257,7 @@ LIGHT_GREEN="\033[1;32m"
 GREEN="\033[0;32m"
 BLUE="\033[0;36m"
 
+alias colors='colortest -w -s -r'
 
 
 #
