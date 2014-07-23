@@ -10,12 +10,10 @@
   changes = diff --name-status -r
   diffstat = diff --stat -r
   diff-grep = !git-diff-grep
-  l = log --all --oneline --graph --abbrev-commit --decorate
-  lg1 = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-  lg2 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)— %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
-  lg3 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(blue)%d%C(reset)%n''          %C(white)%s%C(reset) %C(yellow)— %an%C(reset)%n' --abbrev-commit
-  lg4 = log --graph --pretty="tformat:%C(yellow)%h%Creset %Cgreen(%ar)%Creset %C(bold blue)<%an>%Creset %C(red)%d%Creset %s"
-  lg = !"git lg1"
+  l = log --graph --pretty=format:'%C(yellow)%h%C(reset) — %C(white)%s%C(reset)%C(yellow)%d%C(reset) — <%C(white)%an%C(reset)> %C(white)%ar%C(reset)' --date-order
+  ln = log --pretty=format:'%C(yellow)%h%C(reset) — %C(white)%s%C(reset)%C(yellow)%d%C(reset) — <%C(white)%an%C(reset)> %C(white)%ar%C(reset)' --date-order --no-merges
+  la = log --graph --pretty=format:'%C(yellow)%h%C(reset) — %C(white)%s%C(reset)%C(yellow)%d%C(reset) — <%C(white)%an%C(reset)> %C(white)%ar%C(reset)' --date-order --all
+  lan = log --pretty=format:'%C(yellow)%h%C(reset) — %C(white)%s%C(reset)%C(yellow)%d%C(reset) — <%C(white)%an%C(reset)> %C(white)%ar%C(reset)' --date-order --all --no-merges
   type = cat-file -t
   dump = cat-file -p
   ls = ls-files

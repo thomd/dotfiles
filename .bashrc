@@ -120,10 +120,12 @@ fi
 # git aliases
 #
 alias ungit="find . -name '.git' -exec rm -rf {} \;"
-alias gb='git branch -a'
+alias gb='git branch'
 alias gc='git commit -v'
 alias gd='git diff'
-alias gl='git l'
+alias gln='git ln'
+alias gla='git la'
+alias glan='git lan'
 alias g='git status -sb'
 alias eg='vim .git/config'
 alias gr='git remote -v | column -t'
