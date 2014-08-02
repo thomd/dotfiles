@@ -632,6 +632,8 @@ p() {
 export RBENV_ROOT=/usr/local/var/rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
+# ruby gems
+export GEM_HOME=~/.gems
 
 #
 # boot2docker & docker
