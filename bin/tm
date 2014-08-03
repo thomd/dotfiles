@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -e
+[ -n "$TM_DEBUG" ] && set -x
 
 [ ! -z "$TMUX" ] && echo -e "\033[38;5;160myou must detach tmux for a new session" 2>&1 && exit 1
 
