@@ -20,9 +20,9 @@ export PATH="~/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 if [ `uname` = Darwin ]; then
   export JAVA_HOME=$(/usr/libexec/java_home)
   export PATH="$PATH:$JAVA_HOME/bin"
-  export PATH="$PATH:/Applications/eclipse"
+  #export PATH="$PATH:/Applications/eclipse"
+  #export REPO="~/.m2/repository"
 fi
-#export REPO="~/.m2/repository"
 
 # homebrew python 2.7
 export PATH="$PATH:/usr/local/share/python"
@@ -62,13 +62,12 @@ function paths {
   unset IFS
 }
 
-
-
 #
 # common aliases
 #
 if [ `uname` = Linux ]; then
   alias l="ls -AlhG --color=auto"
+  alias ack="ack-grep"
 else
   alias l="ls -AlhG"
 fi
@@ -86,9 +85,6 @@ alias d='cd ~/dotfiles && [ -n "$TMUX" ] && tmux rename-window "dotfiles"'
 alias dt='cd ~/Desktop'
 alias so=". ~/.bashrc"                                # source bashrc
 alias j="jobs"
-if [ `uname` = Linux ]; then
-  alias ack="ack-grep"
-fi
 
 # compress javascript using YUI Compressor
 alias yuicompressor="java -jar ~/Library/Java/Extensions/yuicompressor.jar --type js $1"
@@ -113,12 +109,7 @@ alias brwe=brew  # fix brew typo
 # brew install hr
 alias hr="hr '-'"
 
-if [ `uname` = Linux ]; then
-  alias ack='ack-grep'
-fi
-#
-# git aliases
-#
+# git
 alias ungit="find . -name '.git' -exec rm -rf {} \;"
 alias gb='git branch'
 alias gc='git commit -v'
@@ -133,17 +124,12 @@ alias gr='git remote -v | column -t'
 alias gt='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup`'   # cd into git root folder
 alias gist='gist -c'
 
-#
-# subversion aliases
-#
+# subversion
 alias svnadd='svn --force --depth infinity add .'
 alias svndiff='svn-colored-diff'
 alias svnlog='svn-colored-log'
 
-
-#
-# rails aliases
-#
+# rails
 alias rp='touch tmp/restart.txt'
 alias sc='./script/console'
 alias sg='./script/generate'
@@ -151,25 +137,12 @@ alias sp='./script/plugin'
 alias ss='./script/server'
 alias tl='tail -f log/*.log'
 
-
-#
-# network aliases
-#
+# network
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias flush="dscacheutil -flushcache" # Flush DNS cache
 
-
-#
-# TDD / BDD aliases
-#
-alias aa='autotest'
-alias aaf='autotest -f' # don't run all at start
-alias aas="./script/autospec"
-
-#
 # URL encode/decode
-#
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1])"'
 alias urldecode='python -c "import sys, urllib as ul; print ul.unquote_plus(sys.argv[1])"'
 
@@ -199,15 +172,6 @@ alias jsc="java -jar ~/Library/Java/Extensions/jsc.jar $1"
 # copy clojure.jar into ~/Library/Java/Extension
 alias clojure="java jline.ConsoleRunner clojure.main"
 
-
-#
-# base conversions with ruby
-#
-alias bin='hex-dec-bin -b $1'
-alias oct='hex-dec-bin -o $1'
-alias dec='hex-dec-bin -d $1'
-alias hex='hex-dec-bin -h $1'
-
 # alternative base conversions with perl (from http://use.perl.org/~brian_d_foy/journal/36287)
 alias d2h="perl -e 'printf qq|%X\n|, int( shift )'"
 alias d2o="perl -e 'printf qq|%o\n|, int( shift )'"
@@ -221,24 +185,18 @@ alias o2h="perl -e 'printf qq|%X\n|, oct( shift )'"
 alias o2d="perl -e 'printf qq|%d\n|, oct( shift )'"
 alias o2b="perl -e 'printf qq|%b\n|, oct( shift )'"
 
-
 # calendar with the current date marked:
 alias cal='ncal -w | grep --color=auto -E "( |^)$(date +%e)( |$)|$"'
 
-#
 # tree (from http://mama.indstate.edu/users/ice/tree/)
-#
 alias tree="tree -C"
 
-#
 # open markdown files in Marked.app
-#
 alias md="open -a /Applications/Marked.app/ $1"
 
-#
 # mapping observr (https://github.com/kevinburke/observr) to watchr (which is no longer maintained)
-#
 alias watchr="observr"
+
 
 #
 # source private environment variables (e.g. user:password)
