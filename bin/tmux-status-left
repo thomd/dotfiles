@@ -1,0 +1,6 @@
+#!/usr/bin/env bash -e
+colors=(208 226 208 208 208 208 208 208)
+S=$(tmux display-message -p '#S')
+BG=${colors[$S]}
+FG=235
+echo "#[fg=colour$FG,bg=colour$BG,bold] #S: #I.#P #[fg=colour$BG,bg=colour234,nobold]⮀"

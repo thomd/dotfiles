@@ -4,14 +4,14 @@ set -e
 
 [ ! -z "$TMUX" ] && echo -e "\033[38;5;160myou must detach tmux for a new session" 2>&1 && exit 1
 
-list=$(tmux ls)
 
-if [ $? -eq 1 ]; then
+if [ -z "$TMUX" ]; then
   # create a new tmux session
   tmux
 else
   # Create a new session that shares all windows with an existing session, but has its own separate
   # notion of which window is current
+  list=$(tmux ls)
   session=$(echo "$list" | grep attached | cut -d : -f 1)
   if [ -z "$session" ] ; then
     session=$(echo "$list" | head -1 | cut -d : -f 1)
