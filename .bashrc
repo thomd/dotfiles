@@ -161,8 +161,8 @@ function jslint() {
 # Rhino
 # put js.jar into ~/Library/Extensions
 # to enable up-arrow command completion in Rhino, put jline.jar (http://jline.sourceforge.net/) into ~/Library/Java/Extensions/
-alias rhino="java jline.ConsoleRunner org.mozilla.javascript.tools.shell.Main"
-alias rhinod="java org.mozilla.javascript.tools.debugger.Main"
+#alias rhino="java jline.ConsoleRunner org.mozilla.javascript.tools.shell.Main"
+#alias rhinod="java org.mozilla.javascript.tools.debugger.Main"
 
 # Rhino Javascript to JavaClass Compiler
 alias jsc="java -jar ~/Library/Java/Extensions/jsc.jar $1"
