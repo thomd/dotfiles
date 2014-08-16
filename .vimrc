@@ -274,6 +274,7 @@ function s:setWrapping()
   set wrap
   set wrapmargin=2
   set textwidth=110
+  set spell
 endfunction
 au BufRead,BufNewFile *.{md,markdown,mkd,txt} call s:setWrapping()
 
