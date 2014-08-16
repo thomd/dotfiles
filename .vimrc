@@ -69,14 +69,14 @@ set autoindent
 set showmatch
 
 " max width of a column
-set textwidth=100
+set textwidth=110
 
 " Don't wrap text
 set nowrap
 
 " Highlight the first column after the text width
 "set colorcolumn=+1
-call matchadd('ColorColumn', '\%81v', 100)
+call matchadd('ColorColumn', '\%111v', 100)
 
 " Split windows below and right -- default is above and left
 set splitbelow
@@ -273,7 +273,7 @@ au BufNewFile,BufRead *.gradle set filetype=groovy
 function s:setWrapping()
   set wrap
   set wrapmargin=2
-  set textwidth=72
+  set textwidth=110
 endfunction
 au BufRead,BufNewFile *.{md,markdown,mkd,txt} call s:setWrapping()
 
