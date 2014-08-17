@@ -43,3 +43,5 @@
   default = simple
 [url "https://"]
   insteadOf = git://
+[init]
+  templatedir = /usr/local/git/share/git-core/templates/
