@@ -66,25 +66,26 @@ function paths {
 # common aliases
 #
 if [ `uname` = Linux ]; then
-  alias l="ls -AlhG --color=auto"
+  alias l='ls -AlhG --color=auto'
   alias ack="ack-grep"
 else
-  alias l="ls -AlhG"
+  alias l='ls -AlhG'
 fi
-alias ..="cd .."
-alias ...="cd ../.."
+alias ..='cd ..'
+alias ...='cd ../..'
 alias h='history'
 alias l.='ls -ld .[^.]*'                             # list dotfiles only
 alias md='mkdir -p'
 alias wd="pwd | tr -d '\n' | pbcopy; pwd"            # show cwd and copy
-alias m="mate ."
-alias v="vim"
+alias m='mate .'
+alias v='vim'
 alias ff='open -a Firefox $1'
 alias t='tree -a -I ".git|.svn|node_modules|.gradle|tmp|.sass-cache"'
 alias d='cd ~/dotfiles && [ -n "$TMUX" ] && tmux rename-window "dotfiles"'
 alias dt='cd ~/Desktop'
-alias so=". ~/.bashrc"                                # source bashrc
-alias j="jobs"
+alias so='. ~/.bashrc'                                # source bashrc
+alias j='jobs -l'
+alias rmi='rm -i'
 
 # compress javascript using YUI Compressor
 alias yuicompressor="java -jar ~/Library/Java/Extensions/yuicompressor.jar --type js $1"
