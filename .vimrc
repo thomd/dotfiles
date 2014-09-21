@@ -247,11 +247,11 @@ autocmd BufWritePre * :call TrimTrailingWhiteSpace()
 "endif
 
 
-" tab/space for filetypes
+" tab- and space-settings for some filetypes
 au FileType xhtml,xml,html set textwidth=0
 au FileType make set noexpandtab shiftwidth=8
 au FileType python set expandtab shiftwidth=4 softtabstop=4 tabstop=4 autoindent
-au FileType javascript set tabstop=4 shiftwidth=4 expandtab textwidth=100
+au FileType javascript set tabstop=2 shiftwidth=2 expandtab autoindent textwidth=100
 
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
@@ -486,8 +486,8 @@ Bundle 'terryma/vim-smooth-scroll'
 Bundle 'vim-scripts/searchfold.vim'
 
 
-" LessCSS Syntax support in Vim
-Bundle 'groenewege/vim-less'
+" HAML & SASS Syntax support in Vim
+Bundle 'tpope/vim-haml'
 
 
 " Perform all your vim insert mode completions with Tab
