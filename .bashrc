@@ -559,6 +559,12 @@ function ffd {
 alias fdd=ffd
 
 #
+# Lighttable
+#
+export PATH=$PATH:/Applications/LightTable/
+
+
+#
 # Vagrant
 #
 if [ `uname` = Darwin ]; then
@@ -637,3 +643,5 @@ fi
 # password store
 [ -f /usr/local/etc/bash_completion.d/password-store ] && source /usr/local/etc/bash_completion.d/password-store
 
+# grunt tasks
+eval "$(grunt --completion=bash)"
