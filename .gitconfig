@@ -23,6 +23,7 @@
   cl = changelog
   root = !pwd
   ahead = log @{u}...HEAD --graph --decorate --left-right --boundary --pretty=format:'%Cred%h%Creset %d %s %Cgreen(%cr)%Creset %Cblue[%an]%Creset' --abbrev-commit --date=relative
+  df = diff --color --color-words --abbrev
 [color]
   ui = auto
 [color "branch"]
