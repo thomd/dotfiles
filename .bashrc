@@ -114,7 +114,7 @@ alias hr="hr '-'"
 alias ungit="find . -name '.git' -exec rm -rf {} \;"
 alias gb='git branch'
 alias gc='git commit -v'
-alias gd='git diff'
+alias gd='git df'
 alias gl='git l'
 alias gln='git ln'
 alias gla='git la'
@@ -395,10 +395,10 @@ function prompt_ps1 {
   echo -e "$2$1$RESET "
 }
 
-export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN]")$(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]") $(prompt_ps1 ">" $GREY)'
+#export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN]")$(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]") $(prompt_ps1 ">" $GREY)'
+export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN]") $(prompt_ps1 ">" $GREY)'
 export PS2=" $LIGHT_RED:$RESET "
 
-# TODO http://blog.yjl.im/2011/02/error-code-deserves-its-own-line.html
 
 #
 # start a tiny web server serving the current directory (http://www.ralfebert.de/blog/tools/www_here/)
@@ -437,7 +437,7 @@ bind "\C-f":forward-word
 #
 # perlbrew
 #
-[ -f /Users/thomd/perl5/perlbrew/etc/bashrc ] && source /Users/thomd/perl5/perlbrew/etc/bashrc
+#[ -f /Users/thomd/perl5/perlbrew/etc/bashrc ] && source /Users/thomd/perl5/perlbrew/etc/bashrc
 
 
 #
@@ -450,29 +450,7 @@ bind "\C-f":forward-word
 #
 # tmuxinator
 #
-[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
-
-
-#
-# https://github.com/schneems/explain_shell
-#
-function explain {
-  # base url with first command already injected
-  # $ explain tar
-  #   => http://explainshel.com/explain/tar?args=
-  url="http://explainshell.com/explain/$1?args="
-
-  # removes $1 (tar) from arguments ($@)
-  shift;
-
-  # iterates over remaining args and adds builds the rest of the url
-  for i in "$@"; do
-    url=$url"$i""+"
-  done
-
-  # opens url in browser
-  open $url
-}
+#[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
 
 
 #
@@ -627,15 +605,15 @@ if [ `uname` = Darwin ]; then
 fi
 
 # play framework
-if [ `uname` = Darwin ]; then
-  [ -f /usr/local/etc/bash_completion.d/play_completion ] && source /usr/local/etc/bash_completion.d/play_completion
-else
-  export PATH=$PATH:/develop/play/play
-  [ -f /etc/bash_completion.d/play_completion ] && source /etc/bash_completion.d/play_completion
-fi
+#if [ `uname` = Darwin ]; then
+  #[ -f /usr/local/etc/bash_completion.d/play_completion ] && source /usr/local/etc/bash_completion.d/play_completion
+#else
+  #export PATH=$PATH:/develop/play/play
+  #[ -f /etc/bash_completion.d/play_completion ] && source /etc/bash_completion.d/play_completion
+#fi
 
 # gradle build tool
-[ -f /usr/local/etc/bash_completion.d/gradle ] && source /usr/local/etc/bash_completion.d/gradle
+#[ -f /usr/local/etc/bash_completion.d/gradle ] && source /usr/local/etc/bash_completion.d/gradle
 
 # travis-ci
 [ -f /Users/thomd/.travis/travis.sh ] && source /Users/thomd/.travis/travis.sh
