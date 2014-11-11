@@ -13,6 +13,7 @@
 
 # highlight matching text
 --color
+--color-match=green
 
 # print one line of context before and after a matching line
 --context=1
