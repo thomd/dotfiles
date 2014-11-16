@@ -1,0 +1,45 @@
+#!/usr/bin/env python
+
+'''Colgrep does just one thing: color a pattern in a data stream
+'''
+import sys
+import signal
+import BaseHTTPServer
+import SimpleHTTPServer
+
+def trap_sigint():
+    '''Exit on interrupt (Ctrl-C)
+    '''
+    signal.signal(signal.SIGINT, lambda *args: sys.exit(1))
+
+class MyHTTPRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+
+    def end_headers(self):
+        self.send_my_headers()
+        SimpleHTTPServer.SimpleHTTPRequestHandler.end_headers(self)
+
+    def send_my_headers(self):
+        '''Set no caching headers
+        '''
+        self.send_header('CacheControl', 'no-cache, no-store, must-revalidate')
+        self.send_header('Pragma', 'no-cache')
+        self.send_header('Expires', '0')
+
+def main():
+    trap_sigint()
+    if sys.argv[1:]:
+        port = int(sys.argv[1])
+    else:
+        port = 8000
+    ServerClass  = BaseHTTPServer.HTTPServer
+    httpd = ServerClass(('127.0.0.1', port), MyHTTPRequestHandler)
+
+    sa = httpd.socket.getsockname()
+    print "Serving HTTP on", sa[0], "port", sa[1], "..."
+
+    httpd.serve_forever()
+
+if __name__ == '__main__':
+    main()
+
+# vim:ft=python

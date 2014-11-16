@@ -399,17 +399,12 @@ function prompt_ps1 {
 #export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN]")$(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]") $(prompt_ps1 ">" $GREY)'
 export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN]") $(prompt_ps1 ">" $GREY)'
 export PS2=" $LIGHT_RED:$RESET "
-
+# TODO https://github.com/twolfson/sexy-bash-prompt
 
 #
-# start a tiny web server serving the current directory (http://www.ralfebert.de/blog/tools/www_here/)
+# start a tiny web server serving the current directory
 #
-function www {
-  local port="${1:-8000}"
-  open -g -a /Applications/Firefox.app "http://localhost:${port}"
-  python -m SimpleHTTPServer $port
-}
-
+alias www="http-server $@"
 
 #
 # colored ant
