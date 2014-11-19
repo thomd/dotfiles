@@ -530,11 +530,19 @@ Bundle 'ekalinin/Dockerfile.vim'
 Bundle 'tsaleh/vim-align'
 
 
+" coffee script support
+Bundle 'kchmck/vim-coffee-script'
+let coffee_compile_vert=1
+let coffee_watch_vert=1
+let coffee_run_vert=1
+autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
+autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
+
+
 " Attempt to determine the type of a file based on its name and possibly its
 " contents.  Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.
 filetype plugin indent on
-
 
 
 
