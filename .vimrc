@@ -534,7 +534,6 @@ Bundle 'tsaleh/vim-align'
 Bundle 'kchmck/vim-coffee-script'
 let coffee_compile_vert=1
 let coffee_watch_vert=1
-let coffee_run_vert=1
 autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 
