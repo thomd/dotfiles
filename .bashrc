@@ -12,33 +12,6 @@ export EDITOR="vim"
 
 export PATH="~/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 
-# ack
-#export ACK_COLOR_MATCH='green bold'
-#export ACK_COLOR_FILENAME='magenta underline bold'
-
-# Java environment
-if [ `uname` = Darwin ]; then
-  export JAVA_HOME=$(/usr/libexec/java_home)
-  export PATH="$PATH:$JAVA_HOME/bin"
-  #export PATH="$PATH:/Applications/eclipse"
-  #export REPO="~/.m2/repository"
-fi
-
-# homebrew python 2.7
-export PATH="$PATH:/usr/local/share/python"
-export PYTHONSTARTUP="$HOME/.pythonrc"
-
-# python wirtualenvwrapper
-export WORKON_HOME="$HOME/.virtualenvs"
-[ -f /usr/local/share/python/virtualenvwrapper_lazy.sh ] && source /usr/local/share/python/virtualenvwrapper_lazy.sh
-
-# html tidy
-export HTML_TIDY="$HOME/.tidyrc"
-
-# IO
-export PATH="$PATH:/develop/io/io/build/_build/binaries"
-
-# heroku
 export PATH="$PATH:/usr/local/heroku/bin"
 
 # npm
@@ -46,12 +19,6 @@ export PATH="$PATH:/usr/local/share/npm/bin"
 
 # mad(1)
 export MAD_PATH="$HOME/.mad"
-
-# postgresql data
-export PGDATA=/usr/local/var/postgres
-
-# groovy
-export GROOVY_HOME=/usr/local/opt/groovy/libexec
 
 #
 # list all folders in PATH environment variable more readable (non existent folders in red)
@@ -65,12 +32,8 @@ function paths {
 #
 # common aliases
 #
-if [ `uname` = Linux ]; then
-  alias l='ls -AlhG --color=auto'
-  alias ack="ack-grep"
-else
-  alias l='ls -AlhG'
-fi
+alias l='ls -AlhG --color=auto'
+alias ack="ack-grep"
 alias ..='cd ..'
 alias ...='cd ../..'
 alias h='history'
@@ -87,28 +50,9 @@ alias so='. ~/.bashrc'                                # source bashrc
 alias j='jobs -l'
 alias rmi='rm -i'
 
-# compress javascript using YUI Compressor
-alias yuicompressor="java -jar ~/Library/Java/Extensions/yuicompressor.jar --type js $1"
-
-# compress javascript using Google Closure compiler
-alias closurecompiler="java -jar ~/Library/Java/Extensions/compiler.jar $1"
-
-# http://portswigger.net/
-alias burp='java -jar /usr/local/burpsuite/burpsuite.jar &'
-
-# http://ditaa.sourceforge.net/
-alias ditaa='java -jar /usr/local/ditaa/ditaa0_9.jar $1'
-
 alias httpdump='sudo tcpdump -i en1 -n -s 0 -w - | \grep -a -o -E "Host\: .*|GET \/.*"'
 
 alias grep='GREP_COLOR="1;37;41" LANG=C grep --color=auto'
-
-alias tracegl='node ~/bin/tracegl.js -nolib -no:repl.js'
-
-alias brwe=brew  # fix brew typo
-
-# brew install hr
-alias hr="hr '-'"
 
 # git
 alias ungit="find . -name '.git' -exec rm -rf {} \;"
@@ -125,54 +69,15 @@ alias gr='git remote -v | column -t'
 alias gt='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup`'   # cd into git root folder
 alias gist='gist -c'
 
-# subversion
-alias svnadd='svn --force --depth infinity add .'
-alias svndiff='svn-colored-diff'
-alias svnlog='svn-colored-log'
-
-# rails
-alias rp='touch tmp/restart.txt'
-alias sc='./script/console'
-alias sg='./script/generate'
-alias sp='./script/plugin'
-alias ss='./script/server'
-alias tl='tail -f log/*.log'
-
 # network
-alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
-alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias ip='curl -H "User-Agent: curl" ipinfo.io'
-alias flush="dscacheutil -flushcache" # Flush DNS cache
+#alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
+#alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
+#alias ip='curl -H "User-Agent: curl" ipinfo.io'
+#alias flush="dscacheutil -flushcache" # Flush DNS cache
 
 # URL encode/decode
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1])"'
 alias urldecode='python -c "import sys, urllib as ul; print ul.unquote_plus(sys.argv[1])"'
-
-
-#
-# javascript JsLint Check
-#
-# download JavaScritpLint from www.javascriptlint.com
-#    cp jsl into /usr/local/bin
-#    cp jsl.conf into /etc/jsl/jsl.conf
-#
-function jslint() {
-  jsl -conf /etc/jsl/jsl.conf -process $1 # syntax check
-}
-
-# Rhino
-# put js.jar into ~/Library/Extensions
-# to enable up-arrow command completion in Rhino, put jline.jar (http://jline.sourceforge.net/) into ~/Library/Java/Extensions/
-#alias rhino="java jline.ConsoleRunner org.mozilla.javascript.tools.shell.Main"
-#alias rhinod="java org.mozilla.javascript.tools.debugger.Main"
-
-# Rhino Javascript to JavaClass Compiler
-alias jsc="java -jar ~/Library/Java/Extensions/jsc.jar $1"
-
-
-# Clojure REPL with jline
-# copy clojure.jar into ~/Library/Java/Extension
-alias clojure="java jline.ConsoleRunner clojure.main"
 
 # alternative base conversions with perl (from http://use.perl.org/~brian_d_foy/journal/36287)
 alias d2h="perl -e 'printf qq|%X\n|, int( shift )'"
@@ -187,17 +92,12 @@ alias o2h="perl -e 'printf qq|%X\n|, oct( shift )'"
 alias o2d="perl -e 'printf qq|%d\n|, oct( shift )'"
 alias o2b="perl -e 'printf qq|%b\n|, oct( shift )'"
 
-# calendar with the current date marked:
-alias cal='ncal -w | grep --color=auto -E "( |^)$(date +%e)( |$)|$"'
-
 # tree (from http://mama.indstate.edu/users/ice/tree/)
 alias tree="tree -C"
 
 # open markdown files in Marked.app
 alias md="open -a /Applications/Marked.app/ $1"
 
-# mapping observr (https://github.com/kevinburke/observr) to watchr (which is no longer maintained)
-alias watchr="observr"
 
 
 #
@@ -397,7 +297,7 @@ function prompt_ps1 {
 }
 
 #export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN]")$(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]") $(prompt_ps1 ">" $GREY)'
-export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN]") $(prompt_ps1 ">" $GREY)'
+export PS1='\h \n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN]") $(prompt_ps1 ">" $GREY)'
 export PS2=" $LIGHT_RED:$RESET "
 # TODO https://github.com/twolfson/sexy-bash-prompt
 
@@ -405,17 +305,6 @@ export PS2=" $LIGHT_RED:$RESET "
 # start a tiny web server serving the current directory
 #
 alias www="http-server $@"
-
-#
-# colored ant
-#
-function antc {
-  if [ -n "$1" ]; then
-    ant $1 | colored-ant.pl;
-  else
-    ant | colored-ant.pl;
-  fi;
-}
 
 #
 # automatically correct mistyped directory names
@@ -428,25 +317,6 @@ shopt -s cdspell
 #
 bind "\C-b":backward-word
 bind "\C-f":forward-word
-
-
-#
-# perlbrew
-#
-#[ -f /Users/thomd/perl5/perlbrew/etc/bashrc ] && source /Users/thomd/perl5/perlbrew/etc/bashrc
-
-
-#
-# stderred (https://github.com/sickill/stderred)
-# for the time being this is commented out as it breaks the 'open' command (see https://github.com/sickill/stderred/issues/11)
-#
-# export DYLD_INSERT_LIBRARIES=/usr/local/lib/stderred.dylib DYLD_FORCE_FLAT_NAMESPACE=1
-
-
-#
-# tmuxinator
-#
-#[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
 
 
 #
@@ -517,105 +387,3 @@ function mvu {
   fi
 }
 
-#
-# find directory/folder depth
-#
-function ffd {
-  if [ "$1" == "-v" ]; then
-    {
-      echo "folders depth"
-      find . -type d 2>/dev/null | awk -F'/' '{print NF -1}' | sort | uniq -c | sort -nk2
-    } | column -t
-  else
-    find . -type d 2>/dev/null | awk -F'/' '{print NF-1}' | sort -n | tail -1
-  fi
-}
-alias fdd=ffd
-
-#
-# Lighttable
-#
-export PATH=$PATH:/Applications/LightTable/
-
-
-#
-# Vagrant
-#
-if [ `uname` = Darwin ]; then
-
-  # virtualbox for vagrant
-  export PATH=$PATH:/Applications/VirtualBox.app/Contents/MacOS/
-
-  # vagrant-bash-completion (https://kura.io/vagrant-bash-completion/)
-  [ -f `brew --prefix`/etc/bash_completion.d/vagrant ] && source `brew --prefix`/etc/bash_completion.d/vagrant
-fi
-
-
-# open my side-projects file
-projects() {
-  ${EDITOR:-vi} "/develop/PROJECTS"
-}
-
-
-# cd to project root (determined .git folder)
-p() {
-  local root=`git root`
-  [ `pwd` = "$root" ] && echo -e "${GREY}this is project root"
-  cd "$root"
-}
-
-
-#
-# rbenv (brew install rbenv ruby-build)
-#
-export RBENV_ROOT=/usr/local/var/rbenv
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
-#
-# boot2docker & docker
-#
-export DOCKER_HOST=tcp://$(boot2docker ip 2>/dev/null):2375
-[ -f /usr/local/etc/bash_completion.d/docker ] && source /usr/local/etc/bash_completion.d/docker
-
-
-#
-# bash completions
-#
-
-#
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  . $(brew --prefix)/etc/bash_completion
-fi
-
-# Homebrew
-[ -f $(brew --repository)/Library/Contributions/brew_bash_completion.sh ] && source $(brew --repository)/Library/Contributions/brew_bash_completion.sh
-
-# git bash completion
-[ -f /usr/local/etc/bash_completion.d/git-completion.bash ] && source /usr/local/etc/bash_completion.d/git-completion.bash
-[ -f /usr/local/etc/bash_completion.d/git-flow-completion.bash ] && source /usr/local/etc/bash_completion.d/git-flow-completion.bash
-
-# Go lang
-if [ `uname` = Darwin ]; then
-  export PATH=$PATH:/usr/local/Cellar/go/1.2/libexec/bin
-  [ -f /usr/local/etc/bash_completion.d/go-completion.bash ] && source /usr/local/etc/bash_completion.d/go-completion.bash
-fi
-
-# play framework
-#if [ `uname` = Darwin ]; then
-  #[ -f /usr/local/etc/bash_completion.d/play_completion ] && source /usr/local/etc/bash_completion.d/play_completion
-#else
-  #export PATH=$PATH:/develop/play/play
-  #[ -f /etc/bash_completion.d/play_completion ] && source /etc/bash_completion.d/play_completion
-#fi
-
-# gradle build tool
-#[ -f /usr/local/etc/bash_completion.d/gradle ] && source /usr/local/etc/bash_completion.d/gradle
-
-# travis-ci
-[ -f /Users/thomd/.travis/travis.sh ] && source /Users/thomd/.travis/travis.sh
-
-# password store
-[ -f /usr/local/etc/bash_completion.d/password-store ] && source /usr/local/etc/bash_completion.d/password-store
-
-# grunt tasks
-eval "$(grunt --completion=bash)"
