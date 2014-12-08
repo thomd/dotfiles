@@ -33,7 +33,6 @@ function paths {
 # common aliases
 #
 alias l='ls -AlhG --color=auto'
-alias ack="ack-grep"
 alias ..='cd ..'
 alias ...='cd ../..'
 alias h='history'
@@ -116,7 +115,9 @@ VERY_RED="\033[38;5;196m"
 GREY="\033[1;30m"
 LIGHT_GREEN="\033[1;32m"
 GREEN="\033[0;32m"
-BLUE="\033[0;36m"
+BLUE="\033[0;34m"
+LIGHT_BLUE="\033[1;34m"
+YELLOW="\033[1;33m"
 
 alias colors='colortest -w -s -r'
 
@@ -200,9 +201,9 @@ function git_ps1 {
     fi
 
     if [ -n "$1" ]; then
-      printf "$1" "${b##refs/heads/}$r"
+      printf "$1 " "${b##refs/heads/}$r"
     else
-      printf " (%s)" "${b##refs/heads/}$r"
+      printf " (%s) " "${b##refs/heads/}$r"
     fi
   fi
 }
@@ -270,7 +271,7 @@ function scratch_ps1 {
   if [[ $PWD =~ ^$SCRATCH_HOME ]]; then
     echo -e "$color$dir$RESET"
   else
-    [[ $PWD == $HOME ]] && echo -e "$BLUE~$RESET" || echo -e "$BLUE$dir$RESET"
+    [[ $PWD == $HOME ]] && echo -e "$LIGHT_BLUE~$RESET" || echo -e "$LIGHT_BLUE$dir$RESET"
   fi
 }
 
@@ -297,7 +298,7 @@ function prompt_ps1 {
 }
 
 #export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN]")$(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]") $(prompt_ps1 ">" $GREY)'
-export PS1='\n$(job_ps1 \j $GREY)[\h] $(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN]") $(prompt_ps1 "$" $RED)'
+export PS1='\n$(job_ps1 \j $GREY)[\h] $(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN]")$(prompt_ps1 ">" $YELLOW)'
 export PS2=" $LIGHT_RED:$RESET "
 # TODO https://github.com/twolfson/sexy-bash-prompt
 

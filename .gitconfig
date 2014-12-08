@@ -40,9 +40,5 @@
   tool = vimdiff
 [github]
   user = thomd
-[push]
-  default = simple
 [url "https://"]
   insteadOf = git://
-[init]
-  templatedir = /usr/local/git/share/git-core/templates/
