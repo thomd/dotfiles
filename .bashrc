@@ -271,7 +271,7 @@ function scratch_ps1 {
   if [[ $PWD =~ ^$SCRATCH_HOME ]]; then
     echo -e "$color$dir$RESET"
   else
-    [[ $PWD == $HOME ]] && echo -e "$LIGHT_BLUE~$RESET" || echo -e "$LIGHT_BLUE$dir$RESET"
+    [[ $PWD == $HOME ]] && echo -e "$GREY~$RESET" || echo -e "$GREY$dir$RESET"
   fi
 }
 
