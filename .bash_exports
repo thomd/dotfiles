@@ -1,0 +1,64 @@
+# vim:ft=sh
+
+# colors (gist.github.com/thomd/7667642)
+export TERM=xterm-256color
+export CLICOLOR=1
+export LSCOLORS=ExCxxxDxBxxxxxxxxxxxxx # used by ls(1)
+export LS_COLORS='di=1;34:fi=0:ln=1;32:pi=33:so=0:bd=0:cd=0:or=0:mi=0:ex=1;31' # used by tree(1)
+
+# allow less(1) to display colors
+export LESS=-RFX
+
+# default editor (if not defined otherwise)
+export EDITOR="vim"
+
+export PATH="~/bin:/usr/local/bin:/usr/local/sbin:$PATH"
+
+# Java environment
+if [ `uname` = Darwin ]; then
+  export JAVA_HOME=$(/usr/libexec/java_home)
+  export PATH="$PATH:$JAVA_HOME/bin"
+  #export PATH="$PATH:/Applications/eclipse"
+  #export REPO="~/.m2/repository"
+fi
+
+# homebrew'd python 2.7
+export PATH="$PATH:/usr/local/share/python"
+export PYTHONSTARTUP="$HOME/.pythonrc"
+
+# python wirtualenvwrapper
+export WORKON_HOME="$HOME/.virtualenvs"
+[ -f /usr/local/share/python/virtualenvwrapper_lazy.sh ] && source /usr/local/share/python/virtualenvwrapper_lazy.sh
+
+# html tidy
+export HTML_TIDY="$HOME/.tidyrc"
+
+# IO
+export PATH="$PATH:/develop/io/io/build/_build/binaries"
+
+# heroku
+export PATH="$PATH:/usr/local/heroku/bin"
+
+# npm
+export PATH="$PATH:/usr/local/share/npm/bin"
+
+# mad(1)
+export MAD_PATH="$HOME/.mad"
+
+# postgresql data
+export PGDATA=/usr/local/var/postgres
+
+# groovy
+export GROOVY_HOME=/usr/local/opt/groovy/libexec
+
+# Lighttable
+export PATH=$PATH:/Applications/LightTable/
+
+# virtualbox for vagrant
+if [ `uname` = Darwin ]; then
+  export PATH=$PATH:/Applications/VirtualBox.app/Contents/MacOS/
+fi
+
+# boot2docker & docker
+export DOCKER_HOST=tcp://$(boot2docker ip 2>/dev/null):2375
+

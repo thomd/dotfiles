@@ -1,0 +1,133 @@
+# vim:ft=sh
+
+
+#
+# GIT info for prompt
+#
+# usage in PS1:
+#   $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN]")
+#
+function git_ps1 {
+  local g="$(git rev-parse --git-dir 2>/dev/null)"
+  if [ -n "$g" ]; then
+    local r
+    local b
+    if [ -d "$g/../.dotest" ]
+    then
+      r="|AM/REBASE"
+      b="$(git symbolic-ref HEAD 2>/dev/null)"
+    elif [ -f "$g/.dotest-merge/interactive" ]
+    then
+      r="|REBASE-i"
+      b="$(cat $g/.dotest-merge/head-name)"
+    elif [ -d "$g/.dotest-merge" ]
+    then
+      r="|REBASE-m"
+      b="$(cat $g/.dotest-merge/head-name)"
+    elif [ -f "$g/MERGE_HEAD" ]
+    then
+      r="|MERGING"
+      b="$(git symbolic-ref HEAD 2>/dev/null)"
+    else
+      if [ -f $g/BISECT_LOG ]
+      then
+        r="|BISECTING"
+      fi
+      if ! b="$(git symbolic-ref HEAD 2>/dev/null)"
+      then
+        b="$(cut -c1-7 $g/HEAD)..."
+      fi
+    fi
+
+    if [ -n "$1" ]; then
+      printf "$1" "${b##refs/heads/}$r"
+    else
+      printf " (%s)" "${b##refs/heads/}$r"
+    fi
+  fi
+}
+
+function parse_git_dirty {
+  [[ $(git status 2> /dev/null | tail -n1) != nothing\ to\ commit* ]] && echo "*"
+}
+
+function parse_git_stash {
+  [[ $(git stash list 2> /dev/null | tail -n1) != "" ]] && echo "^"
+}
+
+
+#
+# SVN info: show trunk- or branches-path in prompt for all repositories following the trunk/branches convention
+#
+# usage in PS1:
+#   $(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]")
+#
+function svn_ps1 {
+  local svn="$(svn info 2>/dev/null)"
+  if [ -n "$svn" ]; then
+    local rev="$(svn info 2>/dev/null | sed -ne 's#^Revision: ##p')"
+    local root="$(svn info 2>/dev/null | sed -ne 's#^Repository Root: ##p')"
+    local url="$(svn info 2>/dev/null | sed -ne 's#^URL: '"$root/"'##p' | sed -ne 's/^.*\(trunk\).*$/\1/p;s/^.*\(branches\/[^\/.]*\).*$/\1/p')"
+    local info="$url:$rev"
+    [[ $url == '' ]] && info="svn:$rev"    # if not trunk/branches
+    printf "$1$RESET" "$info"
+  fi
+}
+
+function parse_svn_dirty {
+    [[ $(svn status 2> /dev/null) != "" ]] && echo "*"
+}
+
+
+#
+# set color of scratch prompt
+#
+# usage in PS1:
+#   $(scratch_ps1 \W $RED)
+#
+function scratch_ps1 {
+  local args=($@)
+  local n=$((${#args[@]}-1))
+  local dir=${args[@]:0:$n}                                          # directory-names with spaces
+  local color=${args[@]:$n}                                          # color
+
+  if [[ $PWD =~ ^$SCRATCH_HOME ]]; then
+    echo -e "$color$dir$RESET"
+  else
+    [[ $PWD == $HOME ]] && echo -e "$BLUE~$RESET" || echo -e "$BLUE$dir$RESET"
+  fi
+}
+
+
+#
+# job prompt
+#
+# usage in PS1:
+#   $(job_ps1 \j $GREY)
+#
+function job_ps1 {
+  [ $1 -gt 0 ] && echo -e "$2[$1]$RESET "
+}
+
+
+#
+# show job-, scratch-, git- and svn-info in prompt
+#
+# usage in PS1:
+#   $(prompt_ps1 ">" $LIGHT_RED)
+#
+function prompt_ps1 {
+  echo -e "$2$1$RESET "
+}
+
+
+#  If there is an absolute must, I do `sudo bash` which makes me root but with thomd's environment
+if [[ $UID == 0 ]]; then
+  export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(prompt_ps1 "#" $RED)'
+else
+  #export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN]")$(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]") $(prompt_ps1 ">" $GREY)'
+  export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN]") $(prompt_ps1 ">" $GREY)'
+  export PS2=" $LIGHT_RED:$RESET "
+fi
+
+

@@ -1,0 +1,51 @@
+# vim:ft=sh
+
+# ssh
+complete -o default -o nospace -W "$(grep -i -e '^host ' ~/.ssh/config | awk '{print substr($0, index($0,$2))}' ORS=' ')" ssh scp sftp
+
+# vagrant bash (https://kura.io/vagrant-bash-completion/)
+if [ `uname` = Darwin ]; then
+  [ -f `brew --prefix`/etc/bash_completion.d/vagrant ] && source `brew --prefix`/etc/bash_completion.d/vagrant
+fi
+
+# boot2docker & docker
+[ -f /usr/local/etc/bash_completion.d/docker ] && source /usr/local/etc/bash_completion.d/docker
+
+# common bash completions
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
+
+# homebrew
+[ -f $(brew --repository)/Library/Contributions/brew_bash_completion.sh ] && source $(brew --repository)/Library/Contributions/brew_bash_completion.sh
+
+# git bash
+[ -f /usr/local/etc/bash_completion.d/git-completion.bash ] && source /usr/local/etc/bash_completion.d/git-completion.bash
+[ -f /usr/local/etc/bash_completion.d/git-flow-completion.bash ] && source /usr/local/etc/bash_completion.d/git-flow-completion.bash
+
+# go-lang completion
+if [ `uname` = Darwin ]; then
+  export PATH=$PATH:/usr/local/Cellar/go/1.2/libexec/bin
+  [ -f /usr/local/etc/bash_completion.d/go-completion.bash ] && source /usr/local/etc/bash_completion.d/go-completion.bash
+fi
+
+# play framework
+#if [ `uname` = Darwin ]; then
+  #[ -f /usr/local/etc/bash_completion.d/play_completion ] && source /usr/local/etc/bash_completion.d/play_completion
+#else
+  #export PATH=$PATH:/develop/play/play
+  #[ -f /etc/bash_completion.d/play_completion ] && source /etc/bash_completion.d/play_completion
+#fi
+
+# gradle build tool
+#[ -f /usr/local/etc/bash_completion.d/gradle ] && source /usr/local/etc/bash_completion.d/gradle
+
+# travis-ci
+[ -f /Users/thomd/.travis/travis.sh ] && source /Users/thomd/.travis/travis.sh
+
+# password store
+[ -f /usr/local/etc/bash_completion.d/password-store ] && source /usr/local/etc/bash_completion.d/password-store
+
+# grunt tasks
+eval "$(grunt --completion=bash)"
+
