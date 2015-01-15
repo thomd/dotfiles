@@ -19,6 +19,7 @@ export PATH="$PATH:/usr/local/share/npm/bin"
 
 # mad(1)
 export MAD_PATH="$HOME/.mad"
+export MAD_CONFIG="$HOME/.mad.conf"
 
 #
 # list all folders in PATH environment variable more readable (non existent folders in red)
@@ -55,7 +56,7 @@ alias grep='GREP_COLOR="1;37;41" LANG=C grep --color=auto'
 
 # git
 alias ungit="find . -name '.git' -exec rm -rf {} \;"
-alias gb='git branch'
+alias gb='git branch -a'
 alias gc='git commit -v'
 alias gd='git df'
 alias gl='git l'
