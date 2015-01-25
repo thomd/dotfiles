@@ -15,7 +15,7 @@ alias wd="pwd | tr -d '\n' | pbcopy; pwd"            # show cwd and copy
 alias m='mate .'
 alias v='vim'
 alias ff='open -a Firefox $1'
-alias t='tree -a -I ".git|.svn|node_modules|.gradle|tmp|.sass-cache"'
+alias t='tree -a -C -I ".git|.svn|node_modules|.gradle|tmp|.sass-cache"'
 alias d='cd ~/dotfiles && [ -n "$TMUX" ] && tmux rename-window "dotfiles"'
 alias dt='cd ~/Desktop'
 alias so='. ~/.bashrc'                                # source bashrc
@@ -112,9 +112,6 @@ alias o2b="perl -e 'printf qq|%b\n|, oct( shift )'"
 
 # calendar with the current date marked:
 alias cal='ncal -w | grep --color=auto -E "( |^)$(date +%e)( |$)|$"'
-
-# tree (from http://mama.indstate.edu/users/ice/tree/)
-alias tree="tree -C"
 
 # open markdown files in Marked.app
 alias md="open -a /Applications/Marked.app/ $1"
