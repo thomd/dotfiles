@@ -217,6 +217,16 @@ function parse_git_stash {
   [[ $(git stash list 2> /dev/null | tail -n1) != "" ]] && echo "^"
 }
 
+function parse_git_ahead-behind {
+  local s="$(git status -sb 2> /dev/null | awk '/ahead|behind/ {gsub(/^.*\[|\]/, "", $0); print $0}')"
+  if [ -n "$s" ]; then
+    echo -e " $s " | \
+      sed 's/ahead \([[:digit:]]\)/↱\x1b[0;32m\1\x1b[0m/g' | \
+      sed 's/behind \([[:digit:]]\)/↲\x1b[0;31m\1\x1b[0m/g' | \
+      sed 's/,//g'
+  fi
+}
+
 
 #
 # SVN info: show trunk- or branches-path in prompt for all repositories following the trunk/branches convention
@@ -299,7 +309,7 @@ function prompt_ps1 {
 }
 
 #export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN]")$(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]") $(prompt_ps1 ">" $GREY)'
-export PS1='\n$(job_ps1 \j $GREY)[\h] $(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN]")$(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]") $(prompt_ps1 ">" $YELLOW)'
+export PS1='\n$(job_ps1 \j $GREY)[\h] $(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN$RESET$(parse_git_ahead-behind)$GREEN]")$(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]") $(prompt_ps1 ">" $YELLOW)'
 #export PS1='\n$(job_ps1 \j $GREY)[\h] $(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN]")$(prompt_ps1 ">" $YELLOW)'
 export PS2=" $LIGHT_RED:$RESET "
 # TODO https://github.com/twolfson/sexy-bash-prompt
