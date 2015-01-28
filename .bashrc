@@ -67,6 +67,7 @@ alias g='git status -sb'
 alias eg='vim .git/config'
 alias gr='git remote -v | column -t'
 alias gt='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup`'   # cd into git root folder
+alias gf='git fetch'
 alias gist='gist -c'
 
 # network
