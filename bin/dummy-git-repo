@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+NAME=${1:-foo}
+mkdir $NAME
+cd $NAME
+git init -q
+touch "$NAME.txt"
+for commit in {1..6};
+do
+  echo "$NAME $commit" >> "$NAME.txt"
+  git add .
+  git ci -m "$NAME $commit"
+done
+
