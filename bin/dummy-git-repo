@@ -1,13 +1,23 @@
 #!/usr/bin/env bash
-NAME=${1:-foo}
-mkdir $NAME
-cd $NAME
+word_seq() {
+  if [[ -d $1 ]]; then
+    word_seq $(echo $1 | tr -d 0-9)$(( $(echo $1 | tr -d /a-z-) + 1 ))
+  else
+    echo $1
+  fi
+}
+name=${1:-foo}
+dir=$(word_seq "$name")
+commit=${2:-6}
+mkdir $dir
+cd $dir
 git init -q
-touch "$NAME.txt"
-for commit in {1..6};
+touch "$name.txt"
+while [ $commit -gt 0 ]
 do
-  echo "$NAME $commit" >> "$NAME.txt"
+  echo "$name $commit" >> "$name.txt"
   git add .
-  git ci -m "$NAME $commit"
+  git ci -m "$name $commit"
+  commit=$(( $commit - 1 ))
 done
 
