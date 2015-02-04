@@ -222,8 +222,8 @@ function parse_git_ahead-behind {
   local s="$(git status -sb 2> /dev/null | awk '/ahead|behind/ {gsub(/^.*\[|\]/, "", $0); print $0}')"
   if [ -n "$s" ]; then
     echo -e " $s " | \
-      sed 's/ahead \([[:digit:]]\)/↱\x1b[0;32m\1\x1b[0m/g' | \
-      sed 's/behind \([[:digit:]]\)/↲\x1b[0;31m\1\x1b[0m/g' | \
+      sed 's/ahead \([[:digit:]]\+\)/↱\x1b[0;32m\1\x1b[0m/g' | \
+      sed 's/behind \([[:digit:]]\+\)/↲\x1b[0;31m\1\x1b[0m/g' | \
       sed 's/,//g'
   fi
 }
