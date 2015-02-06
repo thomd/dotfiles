@@ -58,14 +58,14 @@ function parse_git_stash {
 function parse_git_ahead {
   local s="$(git status -sb 2> /dev/null | awk '/ahead/ {gsub(/^.*\[|\]/, "", $0); print $0}')"
   if [ -n "$s" ]; then
-    echo -e " $s" | sed 's/ahead \([[:digit:]]\)/↑\\033[0;32m\1\\033[0m/g' | sed 's/, behind [[:digit:]]//g'
+    echo -e " $s" | sed 's/ahead \([0-9][0-9]*\)/↑\\033[0;32m\1\\033[0m/g' | sed 's/, behind [0-9][0-9]*//g'
   fi
 }
 
 function parse_git_behind {
   local s="$(git status -sb 2> /dev/null | awk '/behind/ {gsub(/^.*\[|\]/, "", $0); print $0}')"
   if [ -n "$s" ]; then
-    echo -e " $s" | sed 's/behind \([[:digit:]]\)/↓\\033[0;31m\1\\033[0m/g' | sed 's/ahead [[:digit:]], //g'
+    echo -e " $s" | sed 's/behind \([0-9][0-9]*\)/↓\\033[0;31m\1\\033[0m/g' | sed 's/ahead [0-9][0-9]*, //g'
   fi
 }
 
