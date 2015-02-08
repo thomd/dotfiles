@@ -135,7 +135,7 @@ function projects {
 # cd to project root (determined .git folder)
 function p {
   local root=`git root`
-  [ `pwd` = "$root" ] && echo -e "${GREY}this is project root"
+  [ `pwd` = "$root" ] && echo -e "\033[1;30mthis is project root"
   cd "$root"
 }
 

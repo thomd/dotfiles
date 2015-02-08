@@ -1,15 +1,4 @@
 
-# colors
-RESET="\033[0m"
-RED="\033[0;31m"
-LIGHT_RED="\033[1;31m"
-VERY_RED="\033[38;5;196m"
-GREY="\033[1;30m"
-LIGHT_GREEN="\033[1;32m"
-GREEN="\033[0;32m"
-BLUE="\033[0;36m"
-
-
 # load shell dotfiles
 #   ~/.bash_exports      for exports of env variables and to extend $PATH
 #   ~/.bash_aliases      for aliases

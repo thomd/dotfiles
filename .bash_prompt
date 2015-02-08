@@ -1,17 +1,26 @@
-# vim:ft=sh
+# vim:ft=sh:tw=160
+
+# ascii colors
+#
+# RESET="\033[m"
+# RED="\033[0;31m"
+# LIGHT_RED="\033[1;31m"
+# VERY_RED="\033[38;5;196m"
+# GREY="\033[1;30m"
+# LIGHT_GREEN="\033[1;32m"
+# GREEN="\033[0;32m"
+# BLUE="\033[0;36m"
 
 
 #
-# GIT info for prompt
-#
-# usage in PS1:
-#   $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN]")
+# git info for prompt
 #
 function git_ps1 {
   local g="$(git rev-parse --git-dir 2>/dev/null)"
   if [ -n "$g" ]; then
     local r
     local b
+    local i
     if [ -d "$g/../.dotest" ]
     then
       r="|AM/REBASE"
@@ -42,7 +51,7 @@ function git_ps1 {
     if [ -n "$1" ]; then
       printf "$1" "${b##refs/heads/}$r"
     else
-      printf " (%s)" "${b##refs/heads/}$r"
+      printf "[%s]" "${b##refs/heads/}$r"
     fi
   fi
 }
@@ -58,23 +67,20 @@ function parse_git_stash {
 function parse_git_ahead {
   local s="$(git status -sb 2> /dev/null | awk '/ahead/ {gsub(/^.*\[|\]/, "", $0); print $0}')"
   if [ -n "$s" ]; then
-    echo -e " $s" | sed 's/ahead \([0-9][0-9]*\)/↑\\033[0;32m\1\\033[0m/g' | sed 's/, behind [0-9][0-9]*//g'
+    echo -e " $s" | sed 's/ahead \([0-9][0-9]*\)/↑\\033[0;32m\1/g' | sed 's/, behind [0-9][0-9]*//g'
   fi
 }
 
 function parse_git_behind {
   local s="$(git status -sb 2> /dev/null | awk '/behind/ {gsub(/^.*\[|\]/, "", $0); print $0}')"
   if [ -n "$s" ]; then
-    echo -e " $s" | sed 's/behind \([0-9][0-9]*\)/↓\\033[0;31m\1\\033[0m/g' | sed 's/ahead [0-9][0-9]*, //g'
+    echo -e " $s" | sed 's/behind \([0-9][0-9]*\)/↓\\033[0;31m\1/g' | sed 's/ahead [0-9][0-9]*, //g'
   fi
 }
 
 
 #
-# SVN info: show trunk- or branches-path in prompt for all repositories following the trunk/branches convention
-#
-# usage in PS1:
-#   $(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]")
+# svn info: show trunk- or branches-path in prompt for all repositories following the trunk/branches convention
 #
 function svn_ps1 {
   local svn="$(svn info 2>/dev/null)"
@@ -84,7 +90,7 @@ function svn_ps1 {
     local url="$(svn info 2>/dev/null | sed -ne 's#^URL: '"$root/"'##p' | sed -ne 's/^.*\(trunk\).*$/\1/p;s/^.*\(branches\/[^\/.]*\).*$/\1/p')"
     local info="$url:$rev"
     [[ $url == '' ]] && info="svn:$rev"    # if not trunk/branches
-    printf "$1$RESET" "$info"
+    printf "$1" "$info"
   fi
 }
 
@@ -94,54 +100,30 @@ function parse_svn_dirty {
 
 
 #
-# set color of scratch prompt
+# prompt job info
 #
-# usage in PS1:
-#   $(scratch_ps1 \W $RED)
-#
-function scratch_ps1 {
-  local args=($@)
-  local n=$((${#args[@]}-1))
-  local dir=${args[@]:0:$n}                                          # directory-names with spaces
-  local color=${args[@]:$n}                                          # color
+function job_ps1 {
+  [ $1 -gt 0 ] && echo -e "[$1] "
+}
 
-  if [[ $PWD =~ ^$SCRATCH_HOME ]]; then
-    echo -e "$color$dir$RESET"
+
+#
+# prompt delimiter
+#   If there is an absolute must, I do `sudo bash` which makes me root but with my environment
+#
+function delimiter_ps1 {
+  if [[ $UID == 0 ]]; then
+    echo -e "#"
   else
-    [[ $PWD == $HOME ]] && echo -e "$BLUE~$RESET" || echo -e "$BLUE$dir$RESET"
+    echo -e ">"
   fi
 }
 
 
-#
-# job prompt
-#
-# usage in PS1:
-#   $(job_ps1 \j $GREY)
-#
-function job_ps1 {
-  [ $1 -gt 0 ] && echo -e "$2[$1]$RESET "
-}
-
-
-#
-# show job-, scratch-, git- and svn-info in prompt
-#
-# usage in PS1:
-#   $(prompt_ps1 ">" $LIGHT_RED)
-#
-function prompt_ps1 {
-  echo -e "$2$1$RESET "
-}
-
-
-#  If there is an absolute must, I do `sudo bash` which makes me root but with thomd's environment
-if [[ $UID == 0 ]]; then
-  export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(prompt_ps1 "#" $RED)'
-else
-  #export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN]")$(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]") $(prompt_ps1 ">" $GREY)'
-  export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN$GREY$(parse_git_ahead)$GREEN$GREY$(parse_git_behind)$GREEN]") $(prompt_ps1 ">" $GREY)'
-  export PS2=" $LIGHT_RED:$RESET "
-fi
+export PS1='\n\[\e[1;30m\]$(job_ps1 \j)\
+$([[ $PWD =~ ^$SCRATCH_HOME ]] && echo -e "\[\e[0;31m\]" || echo -e "\[\e[0;36m\]")\W \
+$(git_ps1 "\[\e[0;32m\][%s\[\e[0;31m\]$(parse_git_dirty)\[\e[1;31m\]$(parse_git_stash)\[\e[1;30m\]$(parse_git_ahead)\[\e[1;30m\]$(parse_git_behind)\[\e[0;32m\]]") \
+\[\e[1;30m\]$(delimiter_ps1)\[\e[m\] '
+export PS2=' \[\e[1;30m\]:\[\e[m\] '
 
 
