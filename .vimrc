@@ -76,7 +76,7 @@ set nowrap
 
 " Highlight the first column after the text width
 "set colorcolumn=+1
-call matchadd('ColorColumn', '\%111v', 100)
+"call matchadd('ColorColumn', '\%111v', 100)
 
 " Split windows below and right -- default is above and left
 set splitbelow
