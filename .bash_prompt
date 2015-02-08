@@ -56,25 +56,25 @@ function git_ps1 {
   fi
 }
 
-function parse_git_dirty {
+function git_dirty {
   [[ $(git status 2> /dev/null | tail -n1) != nothing\ to\ commit* ]] && echo " ★"
 }
 
-function parse_git_stash {
+function git_stash {
   [[ $(git stash list 2> /dev/null | tail -n1) != "" ]] && echo "^"
 }
 
-function parse_git_ahead {
+function git_ahead {
   local s="$(git status -sb 2> /dev/null | awk '/ahead/ {gsub(/^.*\[|\]/, "", $0); print $0}')"
   if [ -n "$s" ]; then
-    echo -e " $s" | sed 's/ahead \([0-9][0-9]*\)/↑\\033[0;32m\1/g' | sed 's/, behind [0-9][0-9]*//g'
+    echo -e " $s" | sed "s/ahead \([0-9][0-9]*\)/↑$1\1/g" | sed 's/, behind [0-9][0-9]*//g'
   fi
 }
 
-function parse_git_behind {
+function git_behind {
   local s="$(git status -sb 2> /dev/null | awk '/behind/ {gsub(/^.*\[|\]/, "", $0); print $0}')"
   if [ -n "$s" ]; then
-    echo -e " $s" | sed 's/behind \([0-9][0-9]*\)/↓\\033[0;31m\1/g' | sed 's/ahead [0-9][0-9]*, //g'
+    echo -e " $s" | sed "s/behind \([0-9][0-9]*\)/↓$1\1/g" | sed 's/ahead [0-9][0-9]*, //g'
   fi
 }
 
@@ -122,7 +122,7 @@ function delimiter_ps1 {
 
 export PS1='\n\[\e[1;30m\]$(job_ps1 \j)\
 $([[ $PWD =~ ^$SCRATCH_HOME ]] && echo -e "\[\e[0;31m\]" || echo -e "\[\e[0;36m\]")\W \
-$(git_ps1 "\[\e[0;32m\][%s\[\e[0;31m\]$(parse_git_dirty)\[\e[1;31m\]$(parse_git_stash)\[\e[1;30m\]$(parse_git_ahead)\[\e[1;30m\]$(parse_git_behind)\[\e[0;32m\]]") \
+$(git_ps1 "\[\e[0;32m\][%s\[\e[0;31m\]$(git_dirty)\[\e[1;31m\]$(git_stash)\[\e[1;30m\]$(git_ahead "\[\e[0;32m\]")\[\e[1;30m\]$(git_behind "\[\e[0;31m\]")\[\e[0;32m\]]") \
 \[\e[1;30m\]$(delimiter_ps1)\[\e[m\] '
 export PS2=' \[\e[1;30m\]:\[\e[m\] '
 
