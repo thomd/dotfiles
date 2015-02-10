@@ -111,17 +111,6 @@ alias md="open -a /Applications/Marked.app/ $1"
 #
 # colors
 #
-RESET="\033[0m"
-RED="\033[0;31m"
-LIGHT_RED="\033[1;31m"
-VERY_RED="\033[38;5;196m"
-GREY="\033[1;30m"
-LIGHT_GREEN="\033[1;32m"
-GREEN="\033[0;32m"
-BLUE="\033[0;34m"
-LIGHT_BLUE="\033[1;34m"
-YELLOW="\033[1;33m"
-
 alias colors='colortest -w -s -r'
 
 
@@ -167,9 +156,6 @@ complete -o default -o nospace -W "$(grep -i -e '^host ' ~/.ssh/config | awk '{p
 
 #
 # GIT info for prompt
-#
-# usage in PS1:
-#   $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN]")
 #
 function git_ps1 {
   local g="$(git rev-parse --git-dir 2>/dev/null)"
@@ -236,9 +222,6 @@ function git_behind {
 #
 # SVN info: show trunk- or branches-path in prompt for all repositories following the trunk/branches convention
 #
-# usage in PS1:
-#   $(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]")
-#
 function svn_ps1 {
   local svn="$(svn info 2>/dev/null)"
   if [ -n "$svn" ]; then
@@ -247,7 +230,7 @@ function svn_ps1 {
     local url="$(svn info 2>/dev/null | sed -ne 's#^URL: '"$root/"'##p' | sed -ne 's/^.*\(trunk\).*$/\1/p;s/^.*\(branches\/[^\/.]*\).*$/\1/p')"
     local info="$url:$rev"
     [[ $url == '' ]] && info="svn:$rev"    # if not trunk/branches
-    printf "$1$RESET" "$info"
+    printf "$1" "$info"
   fi
 }
 
@@ -294,8 +277,11 @@ function delimiter_ps1 {
 }
 
 
-export PS1='\n\[\e[1;30m\]$(job_ps1 \j)$([[ $PWD =~ ^$SCRATCH_HOME ]] && echo -e "\[\e[38;5;196m\]" || echo -e "\[\e[38;5;244m\]")\W $(git_ps1 "\[\e[0;32m\][%s\[\e[0;31m\]$(git_dirty)\[\e[1;31m\]$(git_stash)\[\e[1;30m\]$(git_ahead "\[\e[0;32m\]")\[\e[1;30m\]$(git_behind "\[\e[0;31m\]")\[\e[0;32m\]]")\[\e[1;33m\]$(delimiter_ps1)\[\e[m\] '
+export PS1='\n\[\e[1;33m\]$(job_ps1 \j)$([[ $PWD =~ ^$SCRATCH_HOME ]] && echo -e "\[\e[38;5;196m\]" || echo -e "\[\e[38;5;244m\]")\W $(git_ps1 "\[\e[0;32m\][%s\[\e[0;31m\]$(git_dirty)\[\e[1;31m\]$(git_stash)\[\e[1;30m\]$(git_ahead "\[\e[0;32m\]")\[\e[1;30m\]$(git_behind "\[\e[0;31m\]")\[\e[0;32m\]]")\[\e[1;33m\]$(delimiter_ps1)\[\e[m\] '
 export PS2=' \[\e[1;30m\]:\[\e[m\] '
+
+
+
 
 #
 # start a tiny web server serving the current directory
