@@ -1,3 +1,4 @@
+# vim:tw=400
 
 # colors (gist.github.com/thomd/7667642)
 export TERM=xterm-256color
@@ -210,24 +211,27 @@ function git_ps1 {
   fi
 }
 
-function parse_git_dirty {
+function git_dirty {
   [[ $(git status 2> /dev/null | tail -n1) != nothing\ to\ commit* ]] && echo "*"
 }
 
-function parse_git_stash {
+function git_stash {
   [[ $(git stash list 2> /dev/null | tail -n1) != "" ]] && echo "^"
 }
 
-function parse_git_ahead-behind {
-  local s="$(git status -sb 2> /dev/null | awk '/ahead|behind/ {gsub(/^.*\[|\]/, "", $0); print $0}')"
+function git_ahead {
+  local s="$(git status -sb 2> /dev/null | awk '/ahead/ {gsub(/^.*\[|\]/, "", $0); print $0}')"
   if [ -n "$s" ]; then
-    echo -e " $s " | \
-      sed 's/ahead \([[:digit:]]\+\)/↱\x1b[0;32m\1\x1b[0m/g' | \
-      sed 's/behind \([[:digit:]]\+\)/↲\x1b[0;31m\1\x1b[0m/g' | \
-      sed 's/,//g'
+    echo -e " $s" | sed "s/ahead \([0-9][0-9]*\)/↑$1\1/g" | sed 's/, behind [0-9][0-9]*//g'
   fi
 }
 
+function git_behind {
+  local s="$(git status -sb 2> /dev/null | awk '/behind/ {gsub(/^.*\[|\]/, "", $0); print $0}')"
+  if [ -n "$s" ]; then
+    echo -e " $s" | sed "s/behind \([0-9][0-9]*\)/↓$1\1/g" | sed 's/ahead [0-9][0-9]*, //g'
+  fi
+}
 
 #
 # SVN info: show trunk- or branches-path in prompt for all repositories following the trunk/branches convention
@@ -268,52 +272,30 @@ function scratch {
 }
 alias s="scratch $@"
 
-#
-# set color of scratch prompt
-#
-# usage in PS1:
-#   $(scratch_ps1 \W $RED)
-#
-function scratch_ps1 {
-  local args=($@)
-  local n=$((${#args[@]}-1))
-  local dir=${args[@]:0:$n}                                          # directory-names with spaces
-  local color=${args[@]:$n}                                          # color
 
-  if [[ $PWD =~ ^$SCRATCH_HOME ]]; then
-    echo -e "$color$dir$RESET"
+#
+# prompt job info
+#
+function job_ps1 {
+  [ $1 -gt 0 ] && echo -e "[$1] "
+}
+
+
+#
+# prompt delimiter
+#   If there is an absolute must, I do `sudo bash` which makes me root but with my environment
+#
+function delimiter_ps1 {
+  if [[ $UID == 0 ]]; then
+    echo -e "#"
   else
-    [[ $PWD == $HOME ]] && echo -e "$GREY~$RESET" || echo -e "$GREY$dir$RESET"
+    echo -e ">"
   fi
 }
 
 
-#
-# job prompt
-#
-# usage in PS1:
-#   $(job_ps1 \j $GREY)
-#
-function job_ps1 {
-  [ $1 -gt 0 ] && echo -e "$2[$1]$RESET "
-}
-
-
-#
-# show job-, scratch-, git- and svn-info in prompt
-#
-# usage in PS1:
-#   $(prompt_ps1 ">" $LIGHT_RED)
-#
-function prompt_ps1 {
-  echo -e "$2$1$RESET "
-}
-
-#export PS1='\n$(job_ps1 \j $GREY)$(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN]")$(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]") $(prompt_ps1 ">" $GREY)'
-export PS1='\n$(job_ps1 \j $GREY)[\h] $(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN$RESET$(parse_git_ahead-behind)$GREEN]")$(svn_ps1 "$GREEN[%s$RED$(parse_svn_dirty)$GREEN]") $(prompt_ps1 ">" $YELLOW)'
-#export PS1='\n$(job_ps1 \j $GREY)[\h] $(scratch_ps1 \W $RED) $(git_ps1 "$GREEN[%s$RED$(parse_git_dirty)$GREEN$LIGHT_RED$(parse_git_stash)$GREEN]")$(prompt_ps1 ">" $YELLOW)'
-export PS2=" $LIGHT_RED:$RESET "
-# TODO https://github.com/twolfson/sexy-bash-prompt
+export PS1='\n\[\e[1;30m\]$(job_ps1 \j)$([[ $PWD =~ ^$SCRATCH_HOME ]] && echo -e "\[\e[38;5;196m\]" || echo -e "\[\e[38;5;244m\]")\W $(git_ps1 "\[\e[0;32m\][%s\[\e[0;31m\]$(git_dirty)\[\e[1;31m\]$(git_stash)\[\e[1;30m\]$(git_ahead "\[\e[0;32m\]")\[\e[1;30m\]$(git_behind "\[\e[0;31m\]")\[\e[0;32m\]]")\[\e[38;5;250m\]$(delimiter_ps1)\[\e[m\] '
+export PS2=' \[\e[1;30m\]:\[\e[m\] '
 
 #
 # start a tiny web server serving the current directory
