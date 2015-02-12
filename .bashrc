@@ -60,6 +60,7 @@ alias ungit="find . -name '.git' -exec rm -rf {} \;"
 alias gb='git branch -a'
 alias gc='git commit -v'
 alias gd='git df'
+alias gs='git sl'
 alias gl='git l'
 alias gln='git ln'
 alias gla='git la'

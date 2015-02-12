@@ -24,6 +24,7 @@
   root = !pwd
   ahead = log @{u}...HEAD --graph --decorate --left-right --boundary --pretty=format:'%Cred%h%Creset %d %s %Cgreen(%cr)%Creset %Cblue[%an]%Creset' --abbrev-commit --date=relative
   df = diff --color --color-words --abbrev
+  sl = stash list --pretty=format:'%C(blue)%h %C(red)%s'
 [color]
   ui = auto
 [color "branch"]
