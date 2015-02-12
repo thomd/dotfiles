@@ -54,6 +54,7 @@ alias rmi='rm -i'
 alias httpdump='sudo tcpdump -i en1 -n -s 0 -w - | \grep -a -o -E "Host\: .*|GET \/.*"'
 
 alias grep='GREP_COLOR="1;37;41" LANG=C grep --color=auto'
+alias hr='hr -'
 
 # git
 alias ungit="find . -name '.git' -exec rm -rf {} \;"
