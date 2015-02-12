@@ -63,3 +63,5 @@ fi
 # boot2docker & docker
 export DOCKER_HOST=tcp://$(boot2docker ip 2>/dev/null):2375
 
+# Apache Cordova
+export PATH="$PATH:/usr/local/android-sdk-macosx/platform-tools:/usr/local/android-sdk-macosx/tools"
