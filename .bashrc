@@ -41,7 +41,5 @@ shopt -s cdspell
 bind "\C-b":backward-word   # ctrl-b: word backward
 bind "\C-f":forward-word    # ctrl-f: word forward
 
-# rbenv (brew install rbenv ruby-build)
-export RBENV_ROOT=/usr/local/var/rbenv
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
+# show todos
+TODO_FORMAT=simple todo ls
