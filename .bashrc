@@ -41,5 +41,3 @@ shopt -s cdspell
 bind "\C-b":backward-word   # ctrl-b: word backward
 bind "\C-f":forward-word    # ctrl-f: word forward
 
-# show todos
-TODO_FORMAT=simple todo ls
