@@ -47,5 +47,7 @@ fi
 [ -f /usr/local/etc/bash_completion.d/password-store ] && source /usr/local/etc/bash_completion.d/password-store
 
 # grunt tasks
-eval "$(grunt --completion=bash)"
+#eval "$(grunt --completion=bash)"
 
+# gulp tasks
+eval "$(gulp --completion=bash)"
