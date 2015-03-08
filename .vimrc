@@ -218,6 +218,9 @@ nnoremap <leader>M :ccl<cr>
 " toggle rainbow parentheses
 nnoremap <leader>r :RainbowParenthesesToggle<cr>
 
+" comment-and-copy (to try things out without loosing ...)
+nnoremap yc yyP<Leader>ccj
+nnoremap dc yyP<Leader>cckcc
 
 
 "------------------------------------------------------------
