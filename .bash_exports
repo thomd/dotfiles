@@ -70,3 +70,7 @@ export PATH="$PATH:/usr/local/android-sdk-macosx/platform-tools:/usr/local/andro
 export RBENV_ROOT=/usr/local/var/rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
+# nvm - node version manager
+export NVM_DIR=$(brew --prefix)/var/nvm
+source $(brew --prefix nvm)/nvm.sh
+
