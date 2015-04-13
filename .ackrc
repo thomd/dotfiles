@@ -8,6 +8,9 @@
 --type-add=css=.sass,.scss,.less
 --type-add=js=.coffee,.ds
 
+# demandware specific files
+--type-add=dw=.js,.ds,.css,.scss,.isml
+
 # lexically sort filenames
 --sort-files
 
