@@ -395,10 +395,6 @@ Bundle 'mattn/emmet-vim'
 Bundle 'terryma/vim-multiple-cursors'
 
 
-" play framework
-Bundle 'thomd/vim-play-framework'
-
-
 " Surround.vim is about surroundings: parentheses, brackets, quotes, XML and tags
 Bundle 'tpope/vim-surround'
 
@@ -499,10 +495,6 @@ Bundle 'ervandew/supertab'
 let g:SuperTabDefaultCompletionType = 'context'
 
 
-" groovy support
-Bundle 'groovy.vim'
-
-
 " markdown support
 Bundle 'tpope/vim-markdown'
 " set some nicers colors in gitcommit dialog only
@@ -544,6 +536,16 @@ autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 " Scratch Window
 Bundle 'mtth/scratch.vim'
 
+
+" vim-javascript
+Bundle "pangloss/vim-javascript"
+let javascript_ignore_javaScriptdoc = 1
+
+
+" vim-jsx (React)
+Bundle "mxw/vim-jsx"
+" By default, JSX syntax highlighting is enabled only for files with the .jsx extension. For JSX in .js files, add:
+"let g:jsx_ext_required = 0
 
 
 " Attempt to determine the type of a file based on its name and possibly its
