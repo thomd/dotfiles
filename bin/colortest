@@ -361,5 +361,6 @@ else {
     print "\n";
     print "\n";
 }
+print "ascii code: [38;5;<x>";
 print "0m";
 exit;
