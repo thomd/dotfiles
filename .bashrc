@@ -5,6 +5,7 @@ export TERM=xterm-256color
 export CLICOLOR=1
 export LSCOLORS=ExCxxxDxBxxxxxxxxxxxxx # used by ls(1)
 export LS_COLORS='di=1;34:fi=0:ln=1;32:pi=33:so=0:bd=0:cd=0:or=0:mi=0:ex=1;31' # used by tree(1)
+[[ -f ~/.LESS_TERMCAP ]] && . ~/.LESS_TERMCAP
 
 # allow less(1) to display colors
 export LESS=-RFX
