@@ -17,3 +17,5 @@ eclipse/
 server.pid
 components/
 .sass-cache/
+.metadata
+DemandwareServer
