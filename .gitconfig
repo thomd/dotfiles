@@ -32,6 +32,10 @@
   remote = red
   current = green
   upstream = yellow
+[color "status"]
+  added = green
+  changed = yellow
+  untracked = red
 [core]
   excludesfile = /Users/thomd/.gitignore
   editor = vim
