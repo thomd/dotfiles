@@ -94,5 +94,7 @@
     "===",
     "!=",
     "!=="
-  ]
+  ],
+  "requireCamelCaseOrUpperCaseIdentifiers": true,
+  "validateIndentation": 2
 }
