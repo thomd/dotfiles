@@ -1,10 +1,13 @@
 {
-  "camelcase" : true,
-  "indent": 2,
-  "undef": true,
-  "unused": true,
-  "quotmark": "single",
-  "maxlen": 160,
-  "trailing": true,
-  "curly": true
+  "camelcase" : true,     // identifiers must be in camelCase
+  "curly": true,          // require {} for every new block or scope
+  "undef": true,          // prohibits the use of explicitly undeclared variables (for spotting leaking and mistyped variables)
+  "unused": true,         // warn when you define and never use your variables
+  "strict": true,         // require all functions to run in ECMAScript 5's strict mode
+  "browser": true,        // allow globals exposed by modern browsers (window, document, etc.)
+  "jquery": true,         // allow globals exposed by the jQuery JavaScript library
+  "browserify": true,     // allow globals available when using the Browserify tool to build a project
+  "globals": {            // allow custom globals
+    "amra": true
+  }
 }
