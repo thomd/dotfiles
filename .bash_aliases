@@ -129,6 +129,8 @@ alias colors='colortest -w -s -r'
 # start a tiny web server serving the current directory (see ~/bin/http-server)
 alias www="http-server $@"
 
+# irssi & tmux
+alias irssi='TERM=screen-256color irssi'
 
 
 
