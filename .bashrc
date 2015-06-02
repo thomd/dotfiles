@@ -42,7 +42,7 @@ bind "\C-b":backward-word   # ctrl-b: word backward
 bind "\C-f":forward-word    # ctrl-f: word forward
 
 # run TMUX on startup
-if [ -z "$TMUX" ]; then
-  tmux attach -t base || tmux new -s base
+if [[ $SHLVL == "1" ]]; then
+  tmux new-session -A -s "$USER"
 fi
 
