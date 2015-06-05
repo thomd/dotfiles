@@ -127,7 +127,7 @@ alias colors='colortest -w -s -r'
 #alias ssh=~/bin/ssh-host-color.sh
 
 # start a tiny web server serving the current directory (see ~/bin/http-server)
-alias www="http-server $@"
+alias www="tmux splitw -v -p 10 http-server $@; tmux selectp -t 1"
 
 # irssi & tmux
 alias irssi='TERM=screen-256color irssi'
