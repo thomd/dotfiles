@@ -9,9 +9,9 @@ fi
 alias ..='cd ..'
 alias ...='cd ../..'
 alias h='history'
-alias l.='ls -ld .[^.]*'                             # list dotfiles only
+alias l.='ls -ld .[^.]*'                              # list dotfiles only
 alias md='mkdir -p'
-alias wd="pwd | tr -d '\n' | pbcopy; pwd"            # show cwd and copy
+alias cwd="pwd | tr -d '\n' | pbcopy; pwd"            # show cwd and copy
 alias m='mate .'
 alias v='vim'
 alias ff='open -a Firefox $1'
