@@ -50,6 +50,33 @@ function mkcd {
 
 
 #
+# start a tiny web server in a separate tmux pane serving the current directory (see ~/bin/http-server)
+#
+function www {
+  if [ -n "$TMUX" ]; then
+    tmux splitw -v -p 10 "http-server $@";
+    tmux selectp -t 1;
+  else
+    http-server "$@";
+  fi
+}
+
+
+#
+# run arbitrary command in separate tmux pane
+#
+# EXAMPLE
+#
+#   > _ htop
+#   > _ sass --watch .:.
+#
+function _ {
+  tmux splitw -v -p 15 "$@";
+  tmux selectp -t 1;
+}
+
+
+#
 # mvd - move down
 # move all files & folders in current directory into a new folder one hierarchy down
 #
