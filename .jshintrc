@@ -1,8 +1,11 @@
+// vim:ft=javascript
 {
-  "camelcase" : true,     // identifiers must be in camelCase
+  "camelcase": true,      // identifiers must be in camelCase
+  "asi": true,            // suppress warnings about missing semicolons
   "curly": true,          // require {} for every new block or scope
   "undef": true,          // prohibits the use of explicitly undeclared variables (for spotting leaking and mistyped variables)
   "unused": true,         // warn when you define and never use your variables
+  "freeze": true,         // prohibit overwriting prototypes of native objects
   "strict": true,         // require all functions to run in ECMAScript 5's strict mode
   "browser": true,        // allow globals exposed by modern browsers (window, document, etc.)
   "jquery": true,         // allow globals exposed by the jQuery JavaScript library
