@@ -279,8 +279,9 @@ function delimiter_ps1 {
   fi
 }
 
+export MOUNTPOINT_VBOXSF="$HOME/host"
 
-export PS1='\n\[\e[1;33m\]$(job_ps1 \j)$([[ $PWD =~ ^$SCRATCH_HOME ]] && echo -e "\[\e[38;5;196m\]" || echo -e "\[\e[38;5;244m\]")\W $(git_ps1 "\[\e[0;32m\][%s\[\e[0;31m\]$(git_dirty)\[\e[38;5;208m\]$(git_stash)\[\e[1;30m\]$(git_ahead "\[\e[0;32m\]")\[\e[1;30m\]$(git_behind "\[\e[0;31m\]")\[\e[0;32m\]]")\[\e[1;33m\]$(delimiter_ps1)\[\e[m\] '
+export PS1='\n\[\e[1;33m\]$(job_ps1 \j)$(if [[ $PWD =~ ^$SCRATCH_HOME ]]; then echo -e "\[\e[38;5;196m\]"; elif [[ $PWD =~ ^$MOUNTPOINT_VBOXSF ]]; then echo -e "\[\e[38;5;208m\]"; else echo -e "\[\e[38;5;244m\]"; fi)\W $(git_ps1 "\[\e[0;32m\][%s\[\e[0;31m\]$(git_dirty)\[\e[38;5;208m\]$(git_stash)\[\e[1;30m\]$(git_ahead "\[\e[0;32m\]")\[\e[1;30m\]$(git_behind "\[\e[0;31m\]")\[\e[0;32m\]]")\[\e[1;33m\]$(delimiter_ps1)\[\e[m\] '
 export PS2=' \[\e[1;30m\]:\[\e[m\] '
 
 
