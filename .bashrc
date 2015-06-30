@@ -288,11 +288,6 @@ export PS2=' \[\e[1;30m\]:\[\e[m\] '
 
 
 #
-# start a tiny web server serving the current directory
-#
-alias www="http-server $@"
-
-#
 # automatically correct mistyped directory names
 #
 shopt -s cdspell
@@ -371,6 +366,33 @@ function mvu {
   else
     echo "usage: mvu <folder>"
   fi
+}
+
+
+#
+# start a tiny web server in a separate tmux pane serving the current directory (see ~/bin/http-server)
+#
+function www {
+  if [ -n "$TMUX" ]; then
+    tmux splitw -v -p 10 "http-server $@";
+    tmux selectp -t 1;
+  else
+    http-server "$@";
+  fi
+}
+
+
+#
+# run arbitrary command in separate tmux pane
+#
+# EXAMPLE
+#
+#   > _ htop
+#   > _ sass --watch .:.
+#
+function _ {
+  tmux splitw -v -p 15 "$@";
+  tmux selectp -t 1;
 }
 
 
