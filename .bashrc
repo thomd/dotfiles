@@ -373,11 +373,12 @@ function mvu {
 # start a tiny web server in a separate tmux pane serving the current directory (see ~/bin/http-server)
 #
 function www {
-  if [ -n "$TMUX" ]; then
-    tmux splitw -v -p 10 "http-server $@";
-    tmux selectp -t 1;
+  if [ -n "$TMUX" ]
+  then
+    tmux splitw -v -p 10 "http-server $@"
+    tmux selectp -t 1
   else
-    http-server "$@";
+    http-server "$@"
   fi
 }
 
@@ -391,8 +392,8 @@ function www {
 #   > _ sass --watch .:.
 #
 function _ {
-  tmux splitw -v -p 15 "$@";
-  tmux selectp -t 1;
+  tmux splitw -v -p 15 "$@"
+  tmux selectp -t 1
 }
 
 
