@@ -215,6 +215,9 @@ nnoremap M :cp<cr> zz
 nnoremap <leader>m :copen<cr>
 nnoremap <leader>M :ccl<cr>
 
+" comment-and-copy (to try things out without loosing ...)
+nmap yc yyP<leader>ccj
+
 " toggle rainbow parentheses
 nnoremap <leader>r :RainbowParenthesesToggle<cr>
 
