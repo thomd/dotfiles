@@ -221,9 +221,15 @@ nmap yc yyP<leader>ccj
 " toggle rainbow parentheses
 nnoremap <leader>r :RainbowParenthesesToggle<cr>
 
-" comment-and-copy (to try things out without loosing ...)
-nnoremap yc yyP<Leader>ccj
-nnoremap dc yyP<Leader>cckcc
+" toggle relative line numbers
+function! g:ToggleNuMode()
+  if(&relativenumber == 1)
+    set nornu
+  else
+    set rnu
+  endif
+endfunc
+map <leader>l :call g:ToggleNuMode()<cr>
 
 
 "------------------------------------------------------------
