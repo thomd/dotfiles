@@ -23,6 +23,9 @@ export PATH="$PATH:/usr/local/share/npm/bin"
 export MAD_PATH="$HOME/.mad"
 export MAD_CONFIG="$HOME/.mad.conf"
 
+# language of bash shell
+export LANG="en_US.utf-8"
+
 #
 # list all folders in PATH environment variable more readable (non existent folders in red)
 #
