@@ -43,3 +43,5 @@
   user = thomd
 [url "https://"]
   insteadOf = git://
+[http]
+	sslverify = false
