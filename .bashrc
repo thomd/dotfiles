@@ -24,7 +24,9 @@ export MAD_PATH="$HOME/.mad"
 export MAD_CONFIG="$HOME/.mad.conf"
 
 # language of bash shell
-export LANG="en_US.utf-8"
+export LANG="en_US.UTF-8"
+export LANGUAGE="en_US:en"
+export LC_ALL=C
 
 #
 # list all folders in PATH environment variable more readable (non existent folders in red)
