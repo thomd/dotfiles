@@ -19,3 +19,4 @@ components/
 .sass-cache/
 .metadata
 DemandwareServer
+.module-cache
