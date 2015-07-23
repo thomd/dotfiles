@@ -50,9 +50,6 @@ export WORKON_HOME="$HOME/.virtualenvs"
 # html tidy
 export HTML_TIDY="$HOME/.tidyrc"
 
-# IO
-export PATH="$PATH:/develop/io/io/build/_build/binaries"
-
 # heroku
 export PATH="$PATH:/usr/local/heroku/bin"
 
