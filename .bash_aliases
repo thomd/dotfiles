@@ -47,18 +47,17 @@ alias hr="hr '-'"
 
 # git
 alias ungit="find . -name '.git' -exec rm -rf {} \;"
-alias gb='git branch -a'
-alias gc='git commit -v'
-alias gd='git df'
-alias gl='git l'
-alias gln='git ln'
-alias gla='git la'
-alias glan='git lan'
+alias gb='git branch -a'                # "git branches"
+alias gd='git df'                       # "git diff"
+alias gl='git l'                        # "git log"
+alias gln='git ln'                      # "git log no-merges"
+alias gla='git la'                      # "git log all"
+alias glan='git lan'                    # "git log all no-merges"
 alias g='git status -sb'
-alias eg='vim .git/config'
-alias gr='git remote -v | column -t'
-alias gt='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup`'   # cd into git root folder
-alias gs='git sl'
+alias eg='vim .git/config'                                                          # "edit git"
+alias gr='git remote -v | column -t'                                                # "git remotes"
+alias gt='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup`'   # "git top"   (cd into root folder)
+alias gs='git show `gln | termenu -p | awk "{print \\$1}"`'                         # "git show"
 alias gist='gist -c'
 
 # subversion
