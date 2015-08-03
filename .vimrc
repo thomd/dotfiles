@@ -561,6 +561,10 @@ Bundle "mxw/vim-jsx"
 Bundle "andreimaxim/vim-io"
 
 
+" automatic resizing of Vim windows to the golden ratio
+Bundle 'roman/golden-ratio'
+
+
 " Attempt to determine the type of a file based on its name and possibly its
 " contents.  Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.
