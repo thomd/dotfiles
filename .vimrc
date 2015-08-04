@@ -542,6 +542,9 @@ autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 Bundle 'mtth/scratch.vim'
 
 
+" automatic resizing of Vim windows to the golden ratio
+Bundle 'roman/golden-ratio'
+
 
 " Attempt to determine the type of a file based on its name and possibly its
 " contents.  Use this to allow intelligent auto-indenting for each filetype,
