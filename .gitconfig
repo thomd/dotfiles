@@ -45,3 +45,5 @@
   insteadOf = git://
 [http]
 	sslverify = false
+[push]
+	default = simple
