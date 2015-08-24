@@ -239,3 +239,14 @@ function codepoint() {
 }
 
 
+# gitignore.io
+#
+# USAGE
+#
+#   gi list
+#   gi java > .gitignore
+#
+function gi() {
+  curl -L -s "https://www.gitignore.io/api/$@"
+}
+
