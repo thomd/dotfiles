@@ -46,3 +46,7 @@ if [[ $SHLVL == "1" ]]; then
   tmux new-session -A -s "$USER"
 fi
 
+# run gpg agent to allow to use preset passphrases
+eval $(gpg-agent --daemon)
+
+
