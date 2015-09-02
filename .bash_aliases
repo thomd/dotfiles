@@ -74,9 +74,6 @@ alias ss='./script/server'
 alias tl='tail -f log/*.log'
 
 # network
-alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
-alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias ip='curl -H "User-Agent: curl" ipinfo.io'
 alias flush="dscacheutil -flushcache" # Flush DNS cache
 
 # URL encode/decode

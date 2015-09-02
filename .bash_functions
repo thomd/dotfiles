@@ -250,3 +250,19 @@ function gi() {
   curl -L -s "https://www.gitignore.io/api/$@"
 }
 
+
+# get internal and external ips
+#
+#   external IP info is available via:
+#
+#     curl -H "User-Agent: curl" ipinfo.io | jq -r '.ip'
+#     curl -s httpbin.org/ip | jq -r '.origin'
+#     dig +short myip.opendns.com @resolver1.opendns.com
+#
+function ip() {
+  echo -e "\n\033[1;30minternal IPs:\033[0m"
+  ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'
+  echo -e "\n\033[1;30mexternal IP:\033[0m"
+  curl -sH "User-Agent: curl" ipinfo.io | jq -r '.ip'
+}
+
