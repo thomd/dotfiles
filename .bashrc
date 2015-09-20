@@ -49,4 +49,6 @@ fi
 # run gpg agent to allow to use preset passphrases
 eval $(gpg-agent --daemon)
 
+# run `archey` only after a system start
+[ ! -f '/tmp/archey' ] && archey && touch '/tmp/archey'
 
