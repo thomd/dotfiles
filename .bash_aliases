@@ -94,7 +94,7 @@ alias jsc="java -jar ~/Library/Java/Extensions/jsc.jar $1"
 # copy clojure.jar into ~/Library/Java/Extension
 alias clojure="java jline.ConsoleRunner clojure.main"
 
-# alternative base conversions with perl (from http://use.perl.org/~brian_d_foy/journal/36287)
+# alternative base conversions with perl
 alias d2h="perl -e 'printf qq|%X\n|, int( shift )'"
 alias d2o="perl -e 'printf qq|%o\n|, int( shift )'"
 alias d2b="perl -e 'printf qq|%b\n|, int( shift )'"
@@ -106,6 +106,19 @@ alias h2b="perl -e 'printf qq|%b\n|, hex( shift )'"
 alias o2h="perl -e 'printf qq|%X\n|, oct( shift )'"
 alias o2d="perl -e 'printf qq|%d\n|, oct( shift )'"
 alias o2b="perl -e 'printf qq|%b\n|, oct( shift )'"
+
+bin2hex() {
+  echo "obase=16;ibase=2; $1" | bc
+}
+alias b2h=bin2hex
+bin2dec() {
+  echo "ibase=2; $1" | bc
+}
+alias b2d=bin2dec
+bin2oct() {
+  echo "ibase=2;obase=8; $1" | bc
+}
+alias b2o=bin2oct
 
 # calendar with the current date marked:
 alias cal='ncal -w | grep --color=auto -E "( |^)$(date +%e)( |$)|$"'
