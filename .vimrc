@@ -565,6 +565,10 @@ Bundle "andreimaxim/vim-io"
 Bundle 'roman/golden-ratio'
 
 
+" vim jade template engine syntax highlighting and indention
+Bundle 'digitaltoad/vim-jade'
+
+
 " Attempt to determine the type of a file based on its name and possibly its
 " contents.  Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.
