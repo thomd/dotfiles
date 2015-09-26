@@ -11,11 +11,19 @@ for file in ~/.bash_{exports,aliases,prompt,functions,completions,private}; do
 done
 unset file
 
+
 # append history list of current session to HISTFILE (default: make HISTFILE get overwritten each time).
-#shopt -s histappend
+shopt -s histappend
 
 # verify a substituted history expansion (with '!!' or '!$') before executing
 shopt -s histverify
+
+# history forever
+#histfilefolder="$(date -u +%Y/%m)"
+#histfilename="$(date -u +%d.%H.%M.%S)"
+#mkdir -p "~/.history/$histfilefolder"
+#touch "~/.history/$histfilefolder/$histfilename"
+#export HISTFILE="~/.history/$(date -u +%Y/%m/)_$$"
 
 # increase the history size
 export HISTSIZE=1000
@@ -41,14 +49,14 @@ shopt -s cdspell
 bind "\C-b":backward-word   # ctrl-b: word backward
 bind "\C-f":forward-word    # ctrl-f: word forward
 
+# run gpg agent to allow to use preset passphrases
+eval $(gpg-agent --daemon)
+
 # run TMUX on startup
 if [[ $SHLVL == "1" ]]; then
   tmux new-session -A -s "$USER"
 fi
 
-# run gpg agent to allow to use preset passphrases
-eval $(gpg-agent --daemon)
-
 # run `archey` only after a system start
-[ ! -f '/tmp/archey' ] && archey && touch '/tmp/archey'
+#[ ! -f '/tmp/archey' ] && archey && touch '/tmp/archey'
 
