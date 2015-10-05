@@ -546,6 +546,13 @@ Bundle 'mtth/scratch.vim'
 Bundle 'roman/golden-ratio'
 
 
+" a better JSON
+Bundle 'elzr/vim-json'
+au FileType json setlocal foldmethod=syntax
+au FileType json normal zR
+au FileType json setlocal equalprg=jq\ '.'
+
+
 " Attempt to determine the type of a file based on its name and possibly its
 " contents.  Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.
