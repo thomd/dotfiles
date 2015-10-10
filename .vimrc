@@ -562,7 +562,7 @@ Bundle "andreimaxim/vim-io"
 
 
 " automatic resizing of Vim windows to the golden ratio
-Bundle 'roman/golden-ratio'
+"Bundle 'roman/golden-ratio'
 
 
 " vim jade template engine syntax highlighting and indention
