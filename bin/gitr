@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+REMOTE_LOCATION="/opt/repos/git"
+REPO_NAME=""
+REMOTE="local"
+
+usage() {
+  echo ""
+  echo "Usage: gitr [ -h ] [ -n projectname ]"
+  echo ""
+  echo "If no projectname is given, the name of the parent folder will be used as project name."
+  echo ""
+  echo "  -h             : print this screen"
+  echo "  -n name        : name of the project"
+  echo ""
+}
+
+while getopts n:h option
+do
+  case "${option}"
+  in
+    n) REPO_NAME=${OPTARG};;
+    h) usage
+      exit 1;;
+  esac
+done
+
+if [ -z $REPO_NAME ]; then
+  REPO_NAME=$(basename $PWD)
+fi
+
+git ls-remote "$REMOTE_LOCATION/$REPO_NAME.git" 2>/dev/null
+if test $? == 0; then
+  echo -e "\033[0;31mrepository $REMOTE_LOCATION/$REPO_NAME already exists.\033[m"
+  exit 1
+else
+  mkdir -p "$REMOTE_LOCATION/$REPO_NAME.git"
+  git init --bare "$REMOTE_LOCATION/$REPO_NAME.git"
+  git remote add $REMOTE "$REMOTE_LOCATION/$REPO_NAME.git"
+  git push -u --all $REMOTE
+fi
+
+
+
