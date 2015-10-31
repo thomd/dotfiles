@@ -364,7 +364,7 @@ Bundle 'scrooloose/nerdcommenter'
 
 
 " Show a VCS diff using Vim's sign column
-Bundle 'mhinz/vim-signify'
+"Bundle 'mhinz/vim-signify'
 
 
 " Fuzzy file, buffer, mru, tag, etc finder
@@ -395,7 +395,7 @@ Bundle 'terryma/vim-multiple-cursors'
 
 
 " play framework
-Bundle 'thomd/vim-play-framework'
+"Bundle 'thomd/vim-play-framework'
 
 
 " Surround.vim is about surroundings: parentheses, brackets, quotes, XML and tags
@@ -422,7 +422,7 @@ let NERDTreeMapOpenVSplit='v'
 
 
 " automatic closing of quotes, parenthesis, brackets, etc.
-Bundle 'Raimondi/delimitMate'
+"Bundle 'Raimondi/delimitMate'
 
 
 " git: syntax, indent, and filetype plugin files for gitcommit, gitconfig, gitrebase
@@ -474,7 +474,7 @@ let g:gundo_close_on_revert=1
 
 
 " Better Rainbow Parentheses
-Bundle 'kien/rainbow_parentheses.vim'
+"Bundle 'kien/rainbow_parentheses.vim'
 
 
 " bats support (bash testing framework)
@@ -482,7 +482,7 @@ Bundle 'rosstimson/bats.vim'
 
 
 " Make scrolling in Vim more pleasant
-Bundle 'terryma/vim-smooth-scroll'
+"Bundle 'terryma/vim-smooth-scroll'
 
 
 " Fold away lines not matching the last search pattern
@@ -490,7 +490,7 @@ Bundle 'vim-scripts/searchfold.vim'
 
 
 " HAML & SASS Syntax support in Vim
-Bundle 'tpope/vim-haml'
+"Bundle 'tpope/vim-haml'
 
 
 " Perform all your vim insert mode completions with Tab
@@ -499,7 +499,7 @@ let g:SuperTabDefaultCompletionType = 'context'
 
 
 " groovy support
-Bundle 'groovy.vim'
+"Bundle 'groovy.vim'
 
 
 " markdown support
@@ -533,11 +533,11 @@ Bundle 'tsaleh/vim-align'
 
 
 " coffee script support
-Bundle 'kchmck/vim-coffee-script'
-let coffee_compile_vert=1
-let coffee_watch_vert=1
-autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
-autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
+"Bundle 'kchmck/vim-coffee-script'
+"let coffee_compile_vert=1
+"let coffee_watch_vert=1
+"autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
+"autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 
 
 " Scratch Window
@@ -545,14 +545,14 @@ Bundle 'mtth/scratch.vim'
 
 
 " automatic resizing of Vim windows to the golden ratio
-Bundle 'roman/golden-ratio'
+"Bundle 'roman/golden-ratio'
 
 
 " a better JSON
-Bundle 'elzr/vim-json'
-au FileType json setlocal foldmethod=syntax
-au FileType json normal zR
-au FileType json setlocal equalprg=jq\ '.'
+"Bundle 'elzr/vim-json'
+"au FileType json setlocal foldmethod=syntax
+"au FileType json normal zR
+"au FileType json setlocal equalprg=jq\ '.'
 
 
 " Attempt to determine the type of a file based on its name and possibly its
