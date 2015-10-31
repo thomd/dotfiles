@@ -407,3 +407,8 @@ if [ -f /etc/bash_completion ]; then
  . /etc/bash_completion
 fi
 
+
+# gradle
+export GRADLE_HOME="/opt/gradle-2.8"
+export PATH=$GRADLE_HOME/bin:$PATH
+
