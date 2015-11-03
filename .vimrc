@@ -499,7 +499,7 @@ let g:SuperTabDefaultCompletionType = 'context'
 
 
 " groovy support
-"Bundle 'groovy.vim'
+Bundle 'groovy.vim'
 
 
 " markdown support
