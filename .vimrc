@@ -549,10 +549,10 @@ Bundle 'mtth/scratch.vim'
 
 
 " a better JSON
-"Bundle 'elzr/vim-json'
-"au FileType json setlocal foldmethod=syntax
-"au FileType json normal zR
-"au FileType json setlocal equalprg=jq\ '.'
+Bundle 'elzr/vim-json'
+au FileType json setlocal foldmethod=syntax
+au FileType json normal zR
+au FileType json setlocal equalprg=jq\ '.'
 
 
 " Attempt to determine the type of a file based on its name and possibly its
