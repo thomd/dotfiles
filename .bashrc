@@ -20,7 +20,7 @@ export PATH="$PATH:/usr/local/heroku/bin"
 export PATH="$PATH:/usr/local/share/npm/bin"
 
 # mad(1)
-export MAD_PATH="$HOME/.mad"
+export MAD_PATH="$HOME/.mad/"
 export MAD_CONFIG="$HOME/.mad.conf"
 
 # language of bash shell
