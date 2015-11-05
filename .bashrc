@@ -108,6 +108,8 @@ alias tree="tree -C"
 # open markdown files in Marked.app
 alias md="open -a /Applications/Marked.app/ $1"
 
+# xclip
+alias c="clipboard"
 
 
 #
