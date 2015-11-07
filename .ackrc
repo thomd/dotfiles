@@ -34,3 +34,7 @@
 
 # ignore case in the search strings if PATTERN contains no uppercase characters
 --smart-case
+
+# ignore minimized files
+--ignore-file=is:*.min.js
+--ignore-file=is:global_generated.js
