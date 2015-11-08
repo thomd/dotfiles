@@ -16,6 +16,9 @@ export PATH="~/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 
 export PATH="$PATH:/usr/local/heroku/bin"
 
+# maven
+export PATH="/opt/apache-maven-3.3.3/bin:$PATH"
+
 # npm
 export PATH="$PATH:/usr/local/share/npm/bin"
 
