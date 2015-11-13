@@ -1,6 +1,0 @@
-#!/usr/bin/env ruby
-# encoding: UTF-8
-
-usage = `echo $(top -l 1 | grep "CPU usage:")`
-idle = Float(usage.scan(/(\d+\.\d+)\% idle/)[0][0])
-print "#[fg=colour231,bg=colour196,bold] high CPU usage " if idle < 20
