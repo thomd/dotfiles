@@ -7,7 +7,7 @@ set -e
 
 if [ -z "$TMUX" ]; then
   # create a new tmux session
-  tmux
+  tmux -u
 else
   # Create a new session that shares all windows with an existing session, but has its own separate
   # notion of which window is current
@@ -16,6 +16,6 @@ else
   if [ -z "$session" ] ; then
     session=$(echo "$list" | head -1 | cut -d : -f 1)
   fi
-  tmux new-session -t $session
+  tmux -u new-session -t $session
 fi
 
