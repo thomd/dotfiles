@@ -364,7 +364,7 @@ Bundle 'scrooloose/nerdcommenter'
 
 
 " Show a VCS diff using Vim's sign column
-"Bundle 'mhinz/vim-signify'
+Bundle 'mhinz/vim-signify'
 
 
 " Fuzzy file, buffer, mru, tag, etc finder
