@@ -465,6 +465,7 @@ let g:ackprg="ack --noenv -H --nocolor --nogroup --column --smart-case --after=0
 
 " Zoom in/out of windows (toggle between one window and multi-window)
 Bundle 'ZoomWin'
+nnoremap <silent> <C-w>z :ZoomWin<CR>
 
 
 " visualize your Vim undo tree
