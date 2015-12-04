@@ -419,3 +419,7 @@ fi
 export GRADLE_HOME="/opt/gradle-2.8"
 export PATH=$GRADLE_HOME/bin:$PATH
 
+
+# rbenv (ruby)
+export PATH="$HOME/.rbenv/bin:$PATH"
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
