@@ -598,5 +598,15 @@ function RebaseActionToggle()
     execute "normal! ^cw" . transitions[result]
     execute "normal! ^"
 endfunction
-
 noremap <Cr> :call RebaseActionToggle()<Cr>
+
+
+" Show syntax highlighting groups for word under cursor
+nmap <leader>sy :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
