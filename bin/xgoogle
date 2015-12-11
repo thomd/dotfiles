@@ -5,7 +5,7 @@
 #
 # USAGE
 #
-#    xgoogle <searchquery> [<number-od-results> [<language>]]
+#    xgoogle <searchquery> [<number-of-results> [<language>]]
 #
 #
 # USECASES
