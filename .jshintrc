@@ -10,7 +10,7 @@
   "browser": true,        // allow globals exposed by modern browsers (window, document, etc.)
   "jquery": true,         // allow globals exposed by the jQuery JavaScript library
   "browserify": true,     // allow globals available when using the Browserify tool to build a project
-  "globals": {            // allow custom globals
-    "amra": true
-  }
+  "mocha": true,          // allow globals exposed by the "BDD" and "TDD" UIs of the Mocha unit testing framework.
+  "node": true,
+  "devel": true
 }
