@@ -549,6 +549,10 @@ Bundle 'mtth/scratch.vim'
 "Bundle 'roman/golden-ratio'
 
 
+" vim jade template engine syntax highlighting and indention
+Bundle 'digitaltoad/vim-jade'
+
+
 " a better JSON
 Bundle 'elzr/vim-json'
 au FileType json setlocal foldmethod=syntax
