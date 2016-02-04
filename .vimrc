@@ -320,7 +320,8 @@ silent! color wasabi256
 
 
 " airline - lean & mean status/tabline for vim that's light as air
-Bundle 'bling/vim-airline'
+Bundle 'vim-airline/vim-airline'
+Bundle 'vim-airline/vim-airline-themes'
 let g:airline_theme='powerlineish'
 
 " Automatically displays all buffers when there's only one tab open
