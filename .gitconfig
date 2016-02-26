@@ -22,7 +22,7 @@
   div = divergence
   cl = changelog
   root = !pwd
-  ahead = log @{u}...HEAD --graph --decorate --left-right --boundary --pretty=format:'%Cred%h%Creset %d %s %Cgreen(%cr)%Creset %Cblue[%an]%Creset' --abbrev-commit --date=relative
+  ahead = log @{u}...HEAD --graph --decorate --left-right --boundary --pretty=format:'%C(red)%h%C(reset) — %C(white)%s%C(reset)%C(green)%d%C(reset) - %C(bold blue)%an%C(reset) %C(yellow)(%cr)%C(reset)' --abbrev-commit --date=relative
   df = diff --color --color-words --abbrev
   g = grep --break --heading --line-number
   sl = stash list --pretty=format:'%C(blue)%gd %C(red)* %C(yellow)%s'
