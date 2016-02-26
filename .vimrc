@@ -570,6 +570,10 @@ Bundle "andreimaxim/vim-io"
 Bundle 'digitaltoad/vim-jade'
 
 
+" vim demandware
+"Bundle 'vim-demandware'
+
+
 " a better JSON
 Bundle 'elzr/vim-json'
 au FileType json setlocal foldmethod=syntax
