@@ -272,6 +272,9 @@ au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set f
 " add json syntax highlighting
 au BufNewFile,BufRead *.json set ft=javascript
 
+" add mozcmd (GCLI) syntax highlighting
+au BufNewFile,BufRead *.mozcmd set ft=javascript
+
 " format xml files (http://ku1ik.com/formatting-xml-in-vim-with-indent-command)
 au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 
