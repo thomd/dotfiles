@@ -210,10 +210,10 @@ noremap <S-Left> :tabp<CR>
 noremap <S-Right> :tabn<CR>
 
 " scan searchresults from quickfix window
-nnoremap m :cn<cr> zz
-nnoremap M :cp<cr> zz
-nnoremap <leader>m :copen<cr>
-nnoremap <leader>M :ccl<cr>
+"nnoremap m :cn<cr> zz
+"nnoremap M :cp<cr> zz
+"nnoremap <leader>m :copen<cr>
+"nnoremap <leader>M :ccl<cr>
 
 " comment-and-copy (to try things out without loosing ...)
 nmap yc yyP<leader>ccj
