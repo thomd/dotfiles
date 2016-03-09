@@ -2,8 +2,8 @@
 
 # TODO check if backup volume is mounted
 
-FROM="/develop/react"
-TO="/Volumes/Backup/imac/develop"
+FROM="/develop"
+TO="/Volumes/Backup/imac"
 
 mkdir -p $TO
 rsync -aP --delete --exclude .git/ --exclude node_modules/ --stats $FROM $TO
