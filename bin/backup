@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# TODO check if backup volume is mounted
+
+FROM="/develop/react"
+TO="/Volumes/Backup/imac/develop"
+
+mkdir -p $TO
+rsync -aP --delete --exclude .git/ --exclude node_modules/ --stats $FROM $TO
+
