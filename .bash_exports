@@ -29,7 +29,7 @@ export LESS=-RFX
 # default editor (if not defined otherwise)
 export EDITOR="vim"
 
-export PATH="~/bin:/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="/Users/thomd/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 
 # Java environment
 if [ `uname` = Darwin ]; then
@@ -64,9 +64,6 @@ export PGDATA=/usr/local/var/postgres
 
 # groovy
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
-
-# Lighttable
-export PATH=$PATH:/Applications/LightTable/
 
 # virtualbox for vagrant
 if [ `uname` = Darwin ]; then

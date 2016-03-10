@@ -356,15 +356,15 @@ autocmd VimEnter * call AirlineInit()
 
 
 " The ultimate snippet solution for Vim
-Bundle 'SirVer/ultisnips'
+"Bundle 'SirVer/ultisnips'
 " Snippets are separated from the engine.
-Plugin 'honza/vim-snippets'
+"Plugin 'honza/vim-snippets'
 " split window on :UltiSnipsEdit
-let g:UltiSnipsEditSplit="vertical"
+"let g:UltiSnipsEditSplit="vertical"
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
+"let g:UltiSnipsExpandTrigger="<tab>"
+"let g:UltiSnipsJumpForwardTrigger="<tab>"
+"let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 "let g:UltiSnipsListSnippets="<c-tab>"
 
 
