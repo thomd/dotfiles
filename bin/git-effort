@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# make a temporary file
+git_extra_mktemp() {
+  mktemp -t "$(basename "$0")".XXX
+}
+
 tmp=$(git_extra_mktemp)
 above=0
 # if the output won't be printed to tty, disable the color
@@ -31,7 +36,7 @@ tputq() {
 #
 
 hide_cursor() {
-  tputq civis 
+  tputq civis
 }
 
 #

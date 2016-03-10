@@ -9,6 +9,11 @@ GIT_MERGELOG_FORMAT="$(git config changelog.mergeformat)"
 GIT_EDITOR="$(git var GIT_EDITOR)"
 PROGNAME="git-changelog"
 
+# make a temporary file
+git_extra_mktemp() {
+  mktemp -t "$(basename "$0")".XXX
+}
+
 _usage() {
 cat << EOF
 usage: $PROGNAME options [file]
@@ -321,7 +326,7 @@ _exit() {
   # so we need to calculate the total column number(COL_NUM) of header first.
   # Why don't we just use the last column?
   # Because the body of CMD column may contain space and be treated as multiple fileds.
-  pid_list=( $(ps -f | 
+  pid_list=( $(ps -f |
     awk -v ppid=$$ 'NR == 1 {
       COL_NUM = NF
     }
@@ -414,10 +419,10 @@ main() {
     esac
     shift
   done
-  
+
   # The default log format unless already set
   [[ -z "$CUR_GIT_LOG_FORMAT" ]] && CUR_GIT_LOG_FORMAT="$GIT_LOG_FORMAT"
-  
+
   local _tag="$(_valueForKeyFakeAssocArray "start_tag" "${option[*]}")"
   if [[ -n "${_tag}" ]]; then
     start_tag="$(git describe --tags --abbrev=0 "${_tag}" 2>/dev/null)"
