@@ -5,8 +5,10 @@ REPO_NAME=""
 REMOTE="local"
 
 usage() {
+  echo "push local repository to a new created local remote repository ($REMOTE_LOCATION)"
   echo ""
-  echo "Usage: gitr [ -h ] [ -n projectname ]"
+  echo ""
+  echo "Usage: git local [ -h ] [ -n projectname ]"
   echo ""
   echo "If no projectname is given, the name of the parent folder will be used as project name."
   echo ""
@@ -25,13 +27,24 @@ do
   esac
 done
 
+if [ ! -d ".git" ]; then
+  echo -e "\033[0;31m"
+  echo -e "  local .git directory doesn't exist, aborting."
+  echo -e "  consider using 'git setup'"
+  echo -e "\033[m"
+  exit 1
+fi
+
 if [ -z $REPO_NAME ]; then
   REPO_NAME=$(basename $PWD)
 fi
 
 git ls-remote "$REMOTE_LOCATION/$REPO_NAME.git" 2>/dev/null
 if test $? == 0; then
-  echo -e "\033[0;31mrepository $REMOTE_LOCATION/$REPO_NAME already exists.\033[m"
+  echo -e "\033[0;31m"
+  echo -e "  repository $REMOTE_LOCATION/$REPO_NAME already exists."
+  echo -e "  consider providing a repository name using the '-n' option"
+  echo -e "\033[m"
   exit 1
 else
   mkdir -p "$REMOTE_LOCATION/$REPO_NAME.git"
