@@ -46,7 +46,6 @@ alias brwe=brew  # fix brew typo
 alias hr="hr '-'"
 
 # git
-alias ungit="find . -name '.git' -exec rm -rf {} \;"
 alias gb='git branch -a'                # "git branches"
 alias gd='git df'                       # "git diff"
 alias gsl='git sl'                      # "git shortlog"
