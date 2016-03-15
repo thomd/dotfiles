@@ -12,7 +12,7 @@ export LESS=-RFX
 
 export EDITOR="vim"
 
-export PATH="~/bin:/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="/home/debianuser/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 
 export PATH="$PATH:/usr/local/heroku/bin"
 
