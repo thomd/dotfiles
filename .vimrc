@@ -210,10 +210,10 @@ noremap <S-Left> :tabp<CR>
 noremap <S-Right> :tabn<CR>
 
 " scan searchresults from quickfix window
-nnoremap m :cn<cr> zz
-nnoremap M :cp<cr> zz
-nnoremap <leader>m :copen<cr>
-nnoremap <leader>M :ccl<cr>
+"nnoremap m :cn<cr> zz
+"nnoremap M :cp<cr> zz
+"nnoremap <leader>m :copen<cr>
+"nnoremap <leader>M :ccl<cr>
 
 " toggle rainbow parentheses
 nnoremap <leader>r :RainbowParenthesesToggle<cr>
