@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-C=$(git log -1 --oneline | awk '{print $4}')
-C=$(($C+1))
-echo foo $C >> foo.txt
-git add .
-git ci -m "added foo $C"
