@@ -10,10 +10,10 @@
   changes = diff --name-status -r
   diffstat = diff --stat -r
   diff-grep = !git-diff-grep
-  l = log --graph --pretty=format:'%C(red)%h%C(reset) - %C(white)%s%C(reset)%C(yellow)%d%C(reset) - %C(bold blue)<%an>%C(reset) %C(green)(%ar)%C(reset)' --date-order
-  ln = log --pretty=format:'%C(red)%h%C(reset) - %C(white)%s%C(reset)%C(yellow)%d%C(reset) - %C(bold blue)<%an>%C(reset) %C(green)(%ar)%C(reset)' --date-order --no-merges
-  la = log --graph --pretty=format:'%C(red)%h%C(reset) - %C(white)%s%C(reset)%C(yellow)%d%C(reset) - %C(bold blue)<%an>%C(reset) %C(green)(%ar)%C(reset)' --date-order --all
-  lan = log --pretty=format:'%C(red)%h%C(reset) - %C(white)%s%C(reset)%C(yellow)%d%C(reset) - %C(bold blue)<%an>%C(reset) %C(green)(%ar)%C(reset)' --date-order --all --no-merges
+  l = log --graph --pretty=format:'%C(red)%h%C(reset) — %C(white)%s%C(reset)%C(green)%d%C(reset) — %C(bold blue)%an%C(reset) %C(yellow)(%ar)%C(reset)' --date-order
+  ln = log --pretty=format:'%C(red)%h%C(reset) — %C(white)%s%C(reset)%C(green)%d%C(reset) — %C(bold blue)%an%C(reset) %C(yellow)(%ar)%C(reset)' --date-order --no-merges
+  la = log --graph --pretty=format:'%C(red)%h%C(reset) — %C(white)%s%C(reset)%C(green)%d%C(reset) — %C(bold blue)%an%C(reset) %C(yellow)(%ar)%C(reset)' --date-order --all
+  lan = log --pretty=format:'%C(red)%h%C(reset) — %C(white)%s%C(reset)%C(green)%d%C(reset) — %C(bold blue)%an%C(reset) %C(yellow)(%ar)%C(reset)' --date-order --all --no-merges
   type = cat-file -t
   dump = cat-file -p
   ls = ls-files
@@ -22,7 +22,7 @@
   div = divergence
   cl = changelog
   root = !pwd
-  ahead = log @{u}...HEAD --graph --decorate --left-right --boundary --pretty=format:'%Cred%h%Creset %d %s %Cgreen(%cr)%Creset %Cblue[%an]%Creset' --abbrev-commit --date=relative
+  ahead = log @{u}...HEAD --graph --decorate --left-right --boundary --pretty=format:'%C(red)%h%C(reset) — %C(white)%s%C(reset)%C(green)%d%C(reset) - %C(bold blue)%an%C(reset) %C(yellow)(%cr)%C(reset)' --abbrev-commit --date=relative
   df = diff --color --color-words --abbrev
   sl = stash list --pretty=format:'%C(blue)%gd %C(red)* %C(yellow)%s'
 [color]
