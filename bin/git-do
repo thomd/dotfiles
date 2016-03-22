@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# create a dummy commit
+# this is for testing git commands which requires some test commits
+#
+# USAGE
+#   git do [filename]
+#
+file=${1:-test}
+c=$(git log -1 --oneline | tr '-' ' ' | awk '{print $4}')
+c=$((${c}+1))
+echo $file-$c >> $file.txt
+git add .
+git ci -m "added $file-$c in $file.txt"
