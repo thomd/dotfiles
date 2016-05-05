@@ -276,3 +276,28 @@ EOF
   fi
 }
 
+
+# Truncate each line of the input to X characters
+# flag -s STRING (optional): add STRING when truncated
+# switch -l (optional): truncate from left instead of right
+# param 1: (optional, default 70) length to truncate to
+shorten() {
+	local helpstring="Truncate each line of the input to X characters\n\t-l              Shorten from left side\n\t-s STRING         replace truncated characters with STRING\n\n\t$ ls | shorten -s ... 15"
+	local ellip="" left=false
+	OPTIND=1
+	while getopts "hls:" opt; do
+		case $opt in
+			l) left=true ;;
+			s) ellip=$OPTARG ;;
+			h) echo -e $helpstring; return;;
+			*) return 1;;
+		esac
+	done
+	shift $((OPTIND-1))
+
+	if $left; then
+		cat | sed -E "s/.*(.{${1-70}})$/${ellip}\1/"
+	else
+		cat | sed -E "s/(.{${1-70}}).*$/\1${ellip}/"
+	fi
+}
