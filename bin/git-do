@@ -1,14 +1,42 @@
 #!/usr/bin/env bash
+set -e
 
-# create a dummy commit
-# this is for testing git commands which requires some test commits
-#
-# USAGE
-#   git do [filename]
-#
-file=${1:-test}
-c=$(git log -1 --oneline | tr '-' ' ' | awk '{print $4}')
-c=$((${c}+1))
-echo $file-$c >> $file.txt
+usage() {
+  echo "Create a dummy commit."
+  echo "This is helpful for testing git commands which requires some test commits."
+  echo ""
+  echo "If the last commit message starts with an uppercase letter, then the subsequent"
+  echo "commit messaged will use an uppercase letter sequence (only from A-Z)."
+  echo "You may init a git repository with 'git setup -m A'"
+  echo ""
+  echo ""
+  echo "Usage: git do [ filename ]"
+  echo ""
+  echo "  -h : print this screen"
+  echo ""
+}
+
+while getopts h option
+do
+  case "${option}"
+  in
+    h) usage
+      exit 1;;
+  esac
+done
+
+FILE=${1:-test}
+LAST_MSG=$(git log --oneline --all --pretty='%s' -1)
+
+if [[ $LAST_MSG =~ ^[A-Z]$ ]]; then
+  MSG=$(printf "%d" "'$LAST_MSG" | echo $(($(< /dev/stdin)+1)) | awk '{printf("%c",$1)}')
+  echo $MSG >> $FILE.txt
+else
+  COUNTER=$(echo $LAST_MSG | tr '-' ' ' | awk '{print $3}')
+  COUNTER=$((${COUNTER}+1))
+  MSG="added $FILE-$COUNTER in $FILE.txt"
+  echo $FILE-$COUNTER >> $FILE.txt
+fi
+echo $MSG
 git add .
-git ci -m "added $file-$c in $file.txt"
+git ci -m "$MSG"
