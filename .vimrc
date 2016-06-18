@@ -577,6 +577,10 @@ Bundle 'digitaltoad/vim-jade'
 "Bundle 'vim-demandware'
 
 
+" Scala
+"Bundle 'derekwyatt/vim-scala'
+
+
 " a better JSON
 Bundle 'elzr/vim-json'
 au FileType json setlocal foldmethod=syntax
