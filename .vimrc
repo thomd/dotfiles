@@ -553,6 +553,10 @@ Bundle 'mtth/scratch.vim'
 Bundle 'digitaltoad/vim-jade'
 
 
+" cucumber
+Bundle 'tpope/vim-cucumber'
+
+
 " a better JSON
 Bundle 'elzr/vim-json'
 au FileType json setlocal foldmethod=syntax

@@ -42,8 +42,10 @@
 [github]
   user = thomd
 [url "https://"]
-  insteadOf = git://
+	insteadOf = git://
 [http]
 	sslverify = false
 [push]
 	default = simple
+[url "https://github.com/"]
+	insteadOf = git@github.com:
