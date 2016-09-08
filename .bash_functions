@@ -128,7 +128,7 @@ function mvd {
 #
 function mvu {
   if [ ! -z "$1" ] && [ -d "$1" ]; then  # if argument given and folder exist
-    for f in $(ls "$1"); do
+    for f in $(ls -A "$1"); do
       mv "$1/$f" "$PWD"
     done
     rm -r "$1"
