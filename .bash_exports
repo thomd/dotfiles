@@ -60,24 +60,21 @@ export PATH="$PATH:/usr/local/share/npm/bin"
 export MAD_PATH="$HOME/.mad"
 
 # postgresql data
-export PGDATA=/usr/local/var/postgres
+export PGDATA="/usr/local/var/postgres"
 
 # groovy
-export GROOVY_HOME=/usr/local/opt/groovy/libexec
+export GROOVY_HOME="/usr/local/opt/groovy/libexec"
 
 # virtualbox for vagrant
 if [ `uname` = Darwin ]; then
-  export PATH=$PATH:/Applications/VirtualBox.app/Contents/MacOS/
+  export PATH="$PATH:/Applications/VirtualBox.app/Contents/MacOS/"
 fi
 
-# Apache Cordova
-export PATH="$PATH:/usr/local/android-sdk-macosx/platform-tools:/usr/local/android-sdk-macosx/tools"
-
 # rbenv (brew install rbenv ruby-build)
-export RBENV_ROOT=/usr/local/var/rbenv
+export RBENV_ROOT="/usr/local/var/rbenv"
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # nvm - node version manager
-export NVM_DIR=$(brew --prefix)/var/nvm
+export NVM_DIR="$(brew --prefix)/var/nvm"
 source $(brew --prefix nvm)/nvm.sh
 
