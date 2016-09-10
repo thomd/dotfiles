@@ -1,4 +1,4 @@
-TMUX_CURRENT_DIR=`pwd`
+tmux set-environment -g PWD $PWD
 tmux split-window $1
-tmux send-keys "cd $TMUX_CURRENT_DIR;clear" C-m
-# vim:ft=tmux
+tmux send-keys "cd $PWD;clear" C-m
+# vim:ft=sh
