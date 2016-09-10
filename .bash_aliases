@@ -18,6 +18,7 @@ alias ff='open -a Firefox $1'
 alias t='tree -a -C -I ".git|.svn|node_modules|.gradle|tmp|.sass-cache"'
 alias d='cd ~/dotfiles && [ -n "$TMUX" ] && tmux rename-window "dotfiles"'
 alias dt='cd ~/Desktop'
+alias dev='cd /develop/'
 alias so='. ~/.bashrc'                                # source bashrc
 alias j='jobs -l'
 alias rmi='rm -i'
