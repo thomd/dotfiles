@@ -12,7 +12,6 @@ alias h='history'
 alias l.='ls -ld .[^.]*'                              # list dotfiles only
 alias md='mkdir -p'
 alias cwd="pwd | tr -d '\n' | pbcopy; pwd"            # show cwd and copy
-alias m='mate .'
 alias v='vim'
 alias ff='open -a Firefox $1'
 alias t='tree -a -C -I ".git|.svn|node_modules|.gradle|tmp|.sass-cache"'
@@ -31,9 +30,6 @@ alias closurecompiler="java -jar ~/Library/Java/Extensions/compiler.jar $1"
 
 # http://portswigger.net/
 alias burp='java -jar /usr/local/burpsuite/burpsuite.jar &'
-
-# http://ditaa.sourceforge.net/
-alias ditaa='java -jar /usr/local/ditaa/ditaa0_9.jar $1'
 
 alias httpdump='sudo tcpdump -i en1 -n -s 0 -w - | \grep -a -o -E "Host\: .*|GET \/.*"'
 
@@ -66,14 +62,6 @@ alias svnadd='svn --force --depth infinity add .'
 alias svndiff='svn-colored-diff'
 alias svnlog='svn-colored-log'
 
-# rails
-alias rp='touch tmp/restart.txt'
-alias sc='./script/console'
-alias sg='./script/generate'
-alias sp='./script/plugin'
-alias ss='./script/server'
-alias tl='tail -f log/*.log'
-
 # network
 alias flush="dscacheutil -flushcache" # Flush DNS cache
 
@@ -81,15 +69,8 @@ alias flush="dscacheutil -flushcache" # Flush DNS cache
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1])"'
 alias urldecode='python -c "import sys, urllib as ul; print ul.unquote_plus(sys.argv[1])"'
 
-# Rhino
-# put js.jar into ~/Library/Extensions
-# to enable up-arrow command completion in Rhino, put jline.jar (http://jline.sourceforge.net/) into ~/Library/Java/Extensions/
-#alias rhino="java jline.ConsoleRunner org.mozilla.javascript.tools.shell.Main"
-#alias rhinod="java org.mozilla.javascript.tools.debugger.Main"
-
 # Rhino Javascript to JavaClass Compiler
 alias jsc="java -jar ~/Library/Java/Extensions/jsc.jar $1"
-
 
 # Clojure REPL with jline
 # copy clojure.jar into ~/Library/Java/Extension
@@ -127,14 +108,8 @@ alias cal='ncal -w | grep --color=auto -E "( |^)$(date +%e)( |$)|$"'
 # open markdown files in Marked.app
 alias md="open -a /Applications/Marked.app/ $1"
 
-# mapping observr (https://github.com/kevinburke/observr) to watchr (which is no longer maintained)
-alias watchr="observr"
-
 # print all colors
 alias colors='colortest -w -s -r'
-
-# ssh-host-color (from https://gist.github.com/956095)
-#alias ssh=~/bin/ssh-host-color.sh
 
 # irssi & tmux
 alias irssi='TERM=screen-256color irssi'
