@@ -583,6 +583,10 @@ Bundle 'digitaltoad/vim-jade'
 
 " Typescript
 Bundle 'leafgarland/typescript-vim'
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+autocmd BufWritePost *.ts silent make
+autocmd BufNewFile,BufReadPost *.ts setl foldmethod=indent nofoldenable
 
 
 " a better JSON
