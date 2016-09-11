@@ -1,4 +1,0 @@
-tmux set-environment -g PWD $PWD
-tmux split-window $1
-tmux send-keys "cd $PWD;clear" C-m
-# vim:ft=sh
