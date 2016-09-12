@@ -258,8 +258,9 @@ function parse_svn_dirty {
 # create temporary scratch directory [inspired by http://ku1ik.com/2012/05/04/scratch-dir.html]
 #
 export SCRATCH_HOME="$HOME/scratch"
-[[ -h $SCRATCH_HOME && ! -d $SCRATCH_HOME ]] && rm $SCRATCH_HOME     # delete scratch link if scratch folder doesn't exist anymore
-function scratch {
+[[ -h $SCRATCH_HOME && ! -d $SCRATCH_HOME ]] && rm $SCRATCH_HOME     # delete scratch link if /tmp scratch folder doesn't exist anymore
+
+function scratch_new {
   local NEW="/tmp/scratch-`date +'%s'`"                              # scratch folder with timestamp in /tmp. will be deleted after system reboot
   mkdir -p $NEW                                                      # create scratch folder
   ln -nfs $NEW $SCRATCH_HOME                                         # symlink to scratch folder
@@ -268,7 +269,19 @@ function scratch {
     tmux rename-window 'scratch';                                    # set tmux window
   fi
 }
-alias s="scratch $@"
+
+function scratch_into {
+  if [ -h "$SCRATCH_HOME" ]; then
+    cd $SCRATCH_HOME
+  else
+    scratch_new
+  fi
+}
+
+alias sn="scratch_new"                                               # new empty scratch folder
+alias s="scratch_into"                                               # cd into current scratch folder or create a new one
+
+
 
 
 #
