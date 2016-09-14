@@ -44,6 +44,7 @@ alias hr="hr '-'"
 
 # git
 alias gb='git branch -a'                # "git branches"
+alias gbs='git branch-status'
 alias gd='git df'                       # "git diff"
 alias gsl='git sl'                      # "git shortlog"
 alias gl='git l'                        # "git log"
