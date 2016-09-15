@@ -71,6 +71,7 @@ alias hr='hr -'
 # git
 alias ungit="find . -name '.git' -exec rm -rf {} \;"
 alias gb='git branch -a'
+alias gbs='git branch-status'
 alias gc='git commit -v'
 alias gd='git df'
 alias gs='git sl'
