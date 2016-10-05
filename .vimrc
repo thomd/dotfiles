@@ -601,6 +601,11 @@ au FileType json setlocal equalprg=jq\ '.'
 Bundle 'auto_autoread.vim'
 
 
+" Make the yanked region apparent
+Bundle 'machakann/vim-highlightedyank'
+map y <Plug>(highlightedyank)
+
+
 " Attempt to determine the type of a file based on its name and possibly its
 " contents.  Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.
