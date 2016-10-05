@@ -196,7 +196,7 @@ nnoremap <leader>gs :Git status -sb<cr>
 
 " toggle NERDTree
 map <silent> <leader>n :NERDTreeToggle<cr>
-map <silent> <leader>nn :NERDTreeFind<cr>
+map <silent> <leader>m :NERDTreeFind<cr>
 
 " move lines
 nnoremap - :m .+1<CR>==
