@@ -22,6 +22,9 @@ alias so='. ~/.bashrc'                                # source bashrc
 alias j='jobs -l'
 alias rmi='rm -i'
 
+# code
+alias code='code --locale=en $@'
+
 # compress javascript using YUI Compressor
 alias yuicompressor="java -jar ~/Library/Java/Extensions/yuicompressor.jar --type js $1"
 
