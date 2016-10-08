@@ -51,3 +51,6 @@ fi
 
 # gulp tasks
 eval "$(gulp --completion=bash)"
+
+# aws cli completion
+complete -C '/usr/local/bin/aws_completer' aws
