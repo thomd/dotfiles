@@ -4,12 +4,12 @@
 complete -o default -o nospace -W "$(grep -i -e '^host ' ~/.ssh/config | awk '{print substr($0, index($0,$2))}' ORS=' ')" ssh scp sftp
 
 # vagrant bash (https://kura.io/vagrant-bash-completion/)
-if [ `uname` = Darwin ]; then
-  [ -f `brew --prefix`/etc/bash_completion.d/vagrant ] && source `brew --prefix`/etc/bash_completion.d/vagrant
-fi
+#if [ `uname` = Darwin ]; then
+  #[ -f `brew --prefix`/etc/bash_completion.d/vagrant ] && source `brew --prefix`/etc/bash_completion.d/vagrant
+#fi
 
 # boot2docker & docker
-[ -f /usr/local/etc/bash_completion.d/docker ] && source /usr/local/etc/bash_completion.d/docker
+#[ -f /usr/local/etc/bash_completion.d/docker ] && source /usr/local/etc/bash_completion.d/docker
 
 # common bash completions
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
@@ -24,10 +24,10 @@ fi
 [ -f /usr/local/etc/bash_completion.d/git-flow-completion.bash ] && source /usr/local/etc/bash_completion.d/git-flow-completion.bash
 
 # go-lang completion
-if [ `uname` = Darwin ]; then
-  export PATH=$PATH:/usr/local/Cellar/go/1.2/libexec/bin
-  [ -f /usr/local/etc/bash_completion.d/go-completion.bash ] && source /usr/local/etc/bash_completion.d/go-completion.bash
-fi
+#if [ `uname` = Darwin ]; then
+  #export PATH=$PATH:/usr/local/Cellar/go/1.2/libexec/bin
+  #[ -f /usr/local/etc/bash_completion.d/go-completion.bash ] && source /usr/local/etc/bash_completion.d/go-completion.bash
+#fi
 
 # play framework
 #if [ `uname` = Darwin ]; then
@@ -41,7 +41,7 @@ fi
 #[ -f /usr/local/etc/bash_completion.d/gradle ] && source /usr/local/etc/bash_completion.d/gradle
 
 # travis-ci
-[ -f /Users/thomd/.travis/travis.sh ] && source /Users/thomd/.travis/travis.sh
+#[ -f /Users/thomd/.travis/travis.sh ] && source /Users/thomd/.travis/travis.sh
 
 # password store
 [ -f /usr/local/etc/bash_completion.d/password-store ] && source /usr/local/etc/bash_completion.d/password-store
@@ -50,7 +50,7 @@ fi
 #eval "$(grunt --completion=bash)"
 
 # gulp tasks
-eval "$(gulp --completion=bash)"
+#eval "$(gulp --completion=bash)"
 
 # aws cli completion
-complete -C '/usr/local/bin/aws_completer' aws
+#complete -C '/usr/local/bin/aws_completer' aws

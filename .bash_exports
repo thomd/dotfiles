@@ -76,5 +76,12 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # nvm - node version manager
 export NVM_DIR="$(brew --prefix)/var/nvm"
-source $(brew --prefix nvm)/nvm.sh
+# lazy sourcing of nvm
+function nvm {
+  if [ -z $NVM_SOURCED ]; then
+    export NVM_SOURCED=true
+    source $(brew --prefix nvm)/nvm.sh
+  fi
+  nvm $@
+}
 
