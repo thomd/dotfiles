@@ -306,3 +306,8 @@ shorten() {
 		cat | sed -E "s/(.{${1-70}}).*$/\1${ellip}/"
 	fi
 }
+
+
+# ----- sourcing external scripts -----
+[ -r "/usr/local/lib/fzf-marks.plugin.bash" ] && source "/usr/local/lib/fzf-marks.plugin.bash"
+
