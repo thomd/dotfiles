@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -e
 
+#
+# create a dummy commit for educational training
+#
+# thomduerr@gmail.com
+#
+
 usage() {
   echo "Create a dummy commit."
   echo "This is helpful for testing git commands which requires some test commits."

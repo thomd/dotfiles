@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
+set -e
+
+#
+# create local remote repository and push
+#
+# thomduerr@gmail.com
+#
 
 REMOTE_LOCATION="/opt/repos/git"
-REPO_NAME=""
-REMOTE="local"
+REPO_NAME=$(basename $PWD)
+REMOTE_ALIAS="local"
 
 usage() {
   echo "push local repository to a new created local remote repository ($REMOTE_LOCATION)"
@@ -35,10 +42,6 @@ if [ ! -d ".git" ]; then
   exit 1
 fi
 
-if [ -z $REPO_NAME ]; then
-  REPO_NAME=$(basename $PWD)
-fi
-
 git ls-remote "$REMOTE_LOCATION/$REPO_NAME.git" 2>/dev/null
 if test $? == 0; then
   echo -e "\033[0;31m"
@@ -49,8 +52,8 @@ if test $? == 0; then
 else
   mkdir -p "$REMOTE_LOCATION/$REPO_NAME.git"
   git init --bare "$REMOTE_LOCATION/$REPO_NAME.git"
-  git remote add $REMOTE "$REMOTE_LOCATION/$REPO_NAME.git"
-  git push -u --all $REMOTE
+  git remote add $REMOTE_ALIAS "$REMOTE_LOCATION/$REPO_NAME.git"
+  git push -u --all $REMOTE_ALIAS
 fi
 
 
