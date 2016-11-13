@@ -26,7 +26,7 @@ do
 done
 
 FILE=${1:-test}
-LAST_MSG=$(git log --oneline --all --pretty='%s' -1)
+LAST_MSG=$(git log --oneline --all --no-merges --pretty='%s' -1)
 
 if [[ $LAST_MSG =~ ^[A-Z]$ ]]; then
   MSG=$(printf "%d" "'$LAST_MSG" | echo $(($(< /dev/stdin)+1)) | awk '{printf("%c",$1)}')
