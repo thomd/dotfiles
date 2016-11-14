@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -e
 
 #
 # create local remote repository and push
