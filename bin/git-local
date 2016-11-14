@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -e
 
 #
 # create local remote repository and push
@@ -55,6 +54,4 @@ else
   git remote add $REMOTE_ALIAS "$REMOTE_LOCATION/$REPO_NAME.git"
   git push -u --all $REMOTE_ALIAS
 fi
-
-
 
