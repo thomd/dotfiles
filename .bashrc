@@ -438,3 +438,7 @@ export PATH=$GRADLE_HOME/bin:$PATH
 # rbenv (ruby)
 export PATH="$HOME/.rbenv/bin:$PATH"
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+
+# source fzf-marks
+[ -r "/opt/fzf-marks/fzf-marks.plugin.bash" ] && source "/opt/fzf-marks/fzf-marks.plugin.bash"
