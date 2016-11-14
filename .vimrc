@@ -222,6 +222,16 @@ nnoremap <leader>r :RainbowParenthesesToggle<cr>
 " comment-and-copy (to try things out without loosing ...)
 nmap yc yyP<leader>ccj
 
+" toggle relative line numbers
+function! g:ToggleNuMode()
+  if(&relativenumber == 1)
+    set nornu
+  else
+    set rnu
+  endif
+endfunc
+map <leader>l :call g:ToggleNuMode()<cr>
+
 
 "------------------------------------------------------------
 " AUTOCOMMANDS
