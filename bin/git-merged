@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+
+merges=$(git log --merges --pretty="%h")
+for ref in $merges; do
+  echo $(git log --pretty="%s" $ref -1):
+  first=$(git log --pretty="%h" $ref^1 -1)
+  second=$(git log --pretty="%h" $ref^2 -1)
+  common=$(git merge-base $first $second)
+  git log $common..$second --pretty="%s"
+done

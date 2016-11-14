@@ -1,4 +1,34 @@
 #!/usr/bin/env bash
+set -e
+
+#
+# faster git init
+#
+# thomduerr@gmail.com
+#
+
+MSG="initial commit"
+
+usage() {
+  echo "init a git repository and commit all contents as first commit."
+  echo "it is also possible to commit an empty working directory"
+  echo ""
+  echo "Usage: git setup [ -h ] [ -m ]"
+  echo ""
+  echo "  -h : print this screen"
+  echo "  -m : custom commit message; default: '$MSG'"
+  echo ""
+}
+
+while getopts m:h option
+do
+  case "${option}"
+  in
+    m) MSG=${OPTARG};;
+    h) usage
+      exit 1;;
+  esac
+done
 
 gitdirexists(){
     if [ -d ".git" ]; then
@@ -7,10 +37,4 @@ gitdirexists(){
     fi
 }
 
-dir=$(test -z "$*" && echo "." || echo "$*")
-mkdir -p "$dir" \
-  && cd "$dir" \
-  && gitdirexists \
-  && git init \
-  && git add . \
-  && git commit --allow-empty -m 'Initial commit'
+gitdirexists && git init && git add . && git commit --allow-empty -m "$MSG"
