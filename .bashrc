@@ -442,3 +442,9 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # source fzf-marks
 [ -r "/opt/fzf-marks/fzf-marks.plugin.bash" ] && source "/opt/fzf-marks/fzf-marks.plugin.bash"
+
+PATH="/home/debianuser/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/debianuser/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/debianuser/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/debianuser/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/debianuser/perl5"; export PERL_MM_OPT;
