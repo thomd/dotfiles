@@ -8,8 +8,9 @@ complete -o default -o nospace -W "$(grep -i -e '^host ' ~/.ssh/config | awk '{p
   #[ -f `brew --prefix`/etc/bash_completion.d/vagrant ] && source `brew --prefix`/etc/bash_completion.d/vagrant
 #fi
 
-# boot2docker & docker
-#[ -f /usr/local/etc/bash_completion.d/docker ] && source /usr/local/etc/bash_completion.d/docker
+# docker-machine & docker
+[ -f /usr/local/etc/bash_completion.d/docker-completion.d ] && source /usr/local/etc/bash_completion.d/docker-completion.d
+[ -f /usr/local/etc/bash_completion.d/docker-machine-completion.d ] && source /usr/local/etc/bash_completion.d/docker-machine-completion.d
 
 # common bash completions
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
