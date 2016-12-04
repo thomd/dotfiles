@@ -42,6 +42,11 @@ alias brwe=brew  # fix brew typo
 # brew install hr
 alias hr="hr '-'"
 
+# docker
+alias d="docker $@"
+alias dm="docker-machine $@"
+alias dc="docker-compose $@"
+
 # git
 alias gb='git branch -a'                # "git branches"
 alias gbs='git branch-status'
