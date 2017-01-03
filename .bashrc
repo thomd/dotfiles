@@ -165,12 +165,10 @@ umask 0022
 #
 complete -o default -o nospace -W "$(grep -i -e '^host ' ~/.ssh/config | awk '{print substr($0, index($0,$2))}' ORS=' ')" ssh scp sftp
 
-# Change the color of the terminal during ssh
-ssh() {
-  dbus-send --session /net/sf/roxterm/Options net.sf.roxterm.Options.SetColourScheme string:$ROXTERM_ID string:Tango
-  /usr/bin/ssh $@
-  dbus-send --session /net/sf/roxterm/Options net.sf.roxterm.Options.SetColourScheme string:$ROXTERM_ID string:Default
-}
+#
+# ssh-host-color (from https://gist.github.com/956095)
+#
+# alias ssh=~/bin/ssh-host-color.sh
 
 
 #
