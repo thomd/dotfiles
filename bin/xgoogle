@@ -21,12 +21,17 @@ require 'open-uri'
 require 'nokogiri'
 
 q   = ARGV[0].gsub(/ /, '%20')
-num = ARGV[1] || '100'
+num = ARGV[1] || '10'
 hl  = ARGV[2] || 'en'
 
-serp = Nokogiri::HTML(open("http://www.google.com/search?num=#{num}&hl=#{hl}&q=#{q}"))
+url = "http://www.google.com/search?num=#{num}&hl=#{hl}&q=#{q}"
 
-serp.css("li.g h3 a").each do |ser|
+puts "Searching #{url}:"
+puts ""
+
+serp = Nokogiri::HTML(open(url))
+
+serp.css(".g h3 a").each do |ser|
   url = ser['href'].match(/url\?q=(.*)&sa=/)
   puts url[1] unless url.nil?
 end
