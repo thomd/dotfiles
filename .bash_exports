@@ -44,8 +44,8 @@ export PATH="$PATH:/usr/local/share/python"
 export PYTHONSTARTUP="$HOME/.pythonrc"
 
 # python wirtualenvwrapper
-export WORKON_HOME="$HOME/.virtualenvs"
-[ -f /usr/local/share/python/virtualenvwrapper_lazy.sh ] && source /usr/local/share/python/virtualenvwrapper_lazy.sh
+#export WORKON_HOME="$HOME/.virtualenvs"
+#[ -f /usr/local/share/python/virtualenvwrapper_lazy.sh ] && source /usr/local/share/python/virtualenvwrapper_lazy.sh
 
 # html tidy
 export HTML_TIDY="$HOME/.tidyrc"
