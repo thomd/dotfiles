@@ -55,3 +55,8 @@ fi
 
 # aws cli completion
 #complete -C '/usr/local/bin/aws_completer' aws
+
+# npm completion
+# create completion script via:
+#   npm completion > /usr/local/etc/bash_completion.d/npm
+[ -f /usr/local/etc/bash_completion.d/npm ] && source /usr/local/etc/bash_completion.d/npm
