@@ -46,6 +46,7 @@
   trustctime = false
 [merge]
   tool = vimdiff
+	conflictstyle = diff3
 [github]
   user = thomd
 [push]
