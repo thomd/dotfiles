@@ -35,7 +35,7 @@ def main():
     httpd = ServerClass(('127.0.0.1', port), MyHTTPRequestHandler)
 
     sa = httpd.socket.getsockname()
-    print "Serving HTTP on", sa[0], "port", sa[1], "..."
+    print "Serving http://%s:%s" % (sa[0], sa[1])
 
     httpd.serve_forever()
 
