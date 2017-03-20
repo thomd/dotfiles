@@ -20,7 +20,7 @@ export PATH="$PATH:/usr/local/heroku/bin"
 export PATH="/opt/apache-maven-3.3.3/bin:$PATH"
 
 # npm
-export PATH="$PATH:/usr/local/share/npm/bin"
+export PATH="$PATH:/opt/node-current/bin"
 
 # mad(1)
 export MAD_PATH="$HOME/.mad/"
