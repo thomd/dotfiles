@@ -6,6 +6,25 @@ import sys
 import signal
 import BaseHTTPServer
 import SimpleHTTPServer
+import socket
+
+default_host = '127.0.0.1'
+default_port = 8000
+
+def next_open_port(port):
+    '''try to find the next open port by recursive checks
+    '''
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    try:
+        s.bind((default_host, port))
+        s.close()
+    except socket.error as e:
+        if e.errno == 98:
+            s.close()
+            port = next_open_port(port + 1)
+
+    return port
 
 def trap_sigint():
     '''exit on interrupt (Ctrl-C)
@@ -30,9 +49,10 @@ def main():
     if sys.argv[1:]:
         port = int(sys.argv[1])
     else:
-        port = 8000
+        port = default_port
+    port = next_open_port(port)
     ServerClass  = BaseHTTPServer.HTTPServer
-    httpd = ServerClass(('127.0.0.1', port), MyHTTPRequestHandler)
+    httpd = ServerClass((default_host, port), MyHTTPRequestHandler)
 
     sa = httpd.socket.getsockname()
     print "Serving http://%s:%s" % (sa[0], sa[1])
