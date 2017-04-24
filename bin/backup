@@ -29,6 +29,7 @@ rsync -a --delete --stats \
   --exclude Music/ \
   --exclude Pictures/ \
   --exclude Public/ \
+  --exclude .Trash/ \
   --exclude .virutalbox-vms/ \
   --exclude .vagrant.d/ \
   --exclude .docker/ \
@@ -39,12 +40,14 @@ rsync -a --delete --stats \
   --exclude .gradle/ \
   --exclude .jenkins/ \
   --exclude .m2/ \
+  --exclude .p2/ \
   --exclude .atom/ \
   --exclude .gem/ \
   --exclude .ivy2/ \
   --exclude .cordova/ \
   --exclude .heroku/ \
   --exclude .yeoman/ \
+  --exclude .mcf/ \
   $FROM $TO
 
 
