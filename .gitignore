@@ -22,7 +22,7 @@ components/
 DemandwareServer
 .module-cache
 *.class
-
+.alm
 # Codenvy files
 .codenvy/misc.xml
 .vfs/
