@@ -468,12 +468,6 @@ let g:buffergator_sort_regime = 'mru'               " most recently used
 Bundle 'othree/html5.vim'
 
 
-" ack in vim
-Bundle 'ack.vim'
-" Skip normal config, show filenames, no color, one result per line, show column numbers, smart case
-let g:ackprg="ack --noenv -H --nocolor --nogroup --column --smart-case --after=0 --before=0"
-
-
 " Zoom in/out of windows (toggle between one window and multi-window)
 Bundle 'ZoomWin'
 
@@ -482,10 +476,6 @@ Bundle 'ZoomWin'
 Bundle 'sjl/gundo.vim'
 let g:gundo_preview_bottom=1
 let g:gundo_close_on_revert=1
-
-
-" Better Rainbow Parentheses
-Bundle 'kien/rainbow_parentheses.vim'
 
 
 " bats support (bash testing framework)
@@ -539,14 +529,6 @@ Bundle 'ekalinin/Dockerfile.vim'
 Bundle 'tsaleh/vim-align'
 
 
-" coffee script support
-"Bundle 'kchmck/vim-coffee-script'
-"let coffee_compile_vert=1
-"let coffee_watch_vert=1
-"autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
-"autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
-
-
 " Scratch Window
 Bundle 'mtth/scratch.vim'
 
@@ -582,12 +564,16 @@ Bundle 'digitaltoad/vim-jade'
 "Bundle 'derekwyatt/vim-scala'
 
 
-" Typescript
+" Typescript Syntax-Highlightinh and Syntax Check
 Bundle 'leafgarland/typescript-vim'
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 autocmd BufWritePost *.ts silent make
 autocmd BufNewFile,BufReadPost *.ts setl foldmethod=indent nofoldenable
+
+
+" Typescript Syntax Check and Code Completion
+Bundle 'Quramy/tsuquyomi'
 
 
 " a better JSON
