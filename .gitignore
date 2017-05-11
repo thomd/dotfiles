@@ -19,3 +19,4 @@ components/
 .sass-cache/
 build
 npm-debug.log
+.next
