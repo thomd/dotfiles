@@ -19,7 +19,7 @@ alias so='. ~/.bashrc'                                # source bashrc
 alias j='jobs -l'
 alias rmi='rm -i'
 
-# code
+# VS Code
 alias code='code --locale=en $@'
 
 # compress javascript using YUI Compressor
