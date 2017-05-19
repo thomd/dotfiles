@@ -9,8 +9,8 @@ complete -o default -o nospace -W "$(grep -i -e '^host ' ~/.ssh/config | awk '{p
 #fi
 
 # docker-machine & docker
-[ -f /usr/local/etc/bash_completion.d/docker-completion.d ] && source /usr/local/etc/bash_completion.d/docker-completion.d
-[ -f /usr/local/etc/bash_completion.d/docker-machine-completion.d ] && source /usr/local/etc/bash_completion.d/docker-machine-completion.d
+[ -f /usr/local/etc/bash_completion.d/docker-completion.sh ] && source /usr/local/etc/bash_completion.d/docker-completion.sh
+[ -f /usr/local/etc/bash_completion.d/docker-machine-completion.sh ] && source /usr/local/etc/bash_completion.d/docker-machine-completion.sh
 
 # common bash completions
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
