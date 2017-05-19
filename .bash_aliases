@@ -120,7 +120,8 @@ alias colors='colortest -w -s -r'
 # irssi & tmux
 alias irssi='TERM=screen-256color irssi'
 
-
+# npm-scripter
+alias nps="npm-scripter $@"
 
 
 
