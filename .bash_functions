@@ -212,7 +212,7 @@ function cdf {
 
 # set docker environment
 function dockerenv {
-  local name=$(docker-machine active 2>&1)
+  local name=$(docker-machine ls | awk '$4 == "Running" {print $1}')
   [ "${name}" != "No active host found" ] && eval "$(docker-machine env $name)" || echo -e "\033[0;31m\n  No active docker machine\033[0m"
 }
 
