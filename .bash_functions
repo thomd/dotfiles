@@ -51,7 +51,7 @@ function antc {
 # mkdir & cd
 #
 function mkcd {
-  mkdir -p "$@" && cd "$_"
+  mkdir -p "${1-temp}" && cd "$_"
 }
 
 
