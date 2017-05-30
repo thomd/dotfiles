@@ -50,7 +50,7 @@ bind "\C-b":backward-word   # ctrl-b: word backward
 bind "\C-f":forward-word    # ctrl-f: word forward
 
 # run gpg agent to allow to use preset passphrases
-eval $(gpg-agent --daemon)
+#eval $(gpg-agent --daemon)
 
 # run TMUX on startup
 if [[ $SHLVL == "1" ]]; then
