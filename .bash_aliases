@@ -39,6 +39,11 @@ alias tracegl='node ~/bin/tracegl.js -nolib -no:repl.js'
 
 alias brwe=brew  # fix brew typo
 
+# install brew-aliases with `brew tap homebrew/aliases`
+brew alias i='!HOMEBREW_NO_AUTO_UPDATE=1 brew install'
+brew alias u='!HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade'
+
+
 # brew install hr
 alias hr="hr '-'"
 
