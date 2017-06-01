@@ -51,7 +51,8 @@ alias hr="hr '-'"
 alias d="docker $@"
 alias dm="docker-machine $@"
 alias dc="docker-compose $@"
-alias de="dockerenv"
+alias denv="dockerenv"
+alias drm="docker ps -aq | xargs docker rm"
 
 # git
 alias gb='git branch -a'                # "git branches"
