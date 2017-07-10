@@ -120,6 +120,7 @@ alias c="clipboard"
 
 # npm-scripter
 alias nps="npm-scripter $@"
+alias npms="npm-scripter $@"
 
 #
 # source private environment variables (e.g. user:password)
