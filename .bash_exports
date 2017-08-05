@@ -35,8 +35,6 @@ export PATH="/Users/thomd/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 if [ `uname` = Darwin ]; then
   export JAVA_HOME=$(/usr/libexec/java_home)
   export PATH="$PATH:$JAVA_HOME/bin"
-  #export PATH="$PATH:/Applications/eclipse"
-  #export REPO="~/.m2/repository"
 fi
 
 # python REPl
@@ -83,4 +81,8 @@ function nvm {
   fi
   nvm $@
 }
+
+# go lang
+export GOPATH="/develop/go"
+export PATH="$PATH:$GOPATH/bin"
 
