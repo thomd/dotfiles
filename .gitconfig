@@ -55,3 +55,5 @@
   insteadOf = git://
 [init]
   templatedir = /usr/local/git/share/git-core/templates/
+[rerere]
+	enabled = true
