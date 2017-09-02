@@ -50,7 +50,7 @@
 [github]
   user = thomd
 [push]
-  default = simple
+	default = matching
 [url "https://"]
   insteadOf = git://
 [init]
