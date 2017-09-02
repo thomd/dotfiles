@@ -58,3 +58,9 @@ echo -e "\n\n\033[32mbackup: $FROM\033[0m"
 rsync -a --delete --stats $FROM $TO
 
 
+FROM="/Users/thomd/Pictures"
+TO="/Volumes/Backup/Pictures"
+mkdir -p $TO
+echo -e "\n\n\033[32mbackup: $FROM\033[0m"
+rsync -a --delete --stats $FROM $TO
+
