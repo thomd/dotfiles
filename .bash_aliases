@@ -53,6 +53,10 @@ alias dm="docker-machine $@"
 alias dc="docker-compose $@"
 alias denv="dockerenv"
 alias drm="docker ps -aq | xargs docker rm"
+dclean() {
+  docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
+  docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
+}
 
 # git
 alias gb='git branch -a'                # "git branches"
