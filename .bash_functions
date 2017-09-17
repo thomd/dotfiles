@@ -56,14 +56,14 @@ function mkcd {
 
 
 #
-# start a tiny web server in a separate tmux pane serving the current directory (see ~/bin/http-server)
+# start a tiny web server in a separate tmux pane serving the current directory (see ~/bin/www-server)
 #
 function www {
   if [ -n "$TMUX" ]; then
-    tmux splitw -v -p 10 "http-server $@";
+    tmux splitw -v -p 10 "www-server $@";
     tmux selectp -t 1;
   else
-    http-server "$@";
+    www-server "$@";
   fi
 }
 
