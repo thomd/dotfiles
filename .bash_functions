@@ -317,5 +317,10 @@ shorten() {
 
 
 # ----- sourcing external scripts -----
+#
+# download
+#
+#   cd /usr/local/lib && wget https://raw.githubusercontent.com/thomd/fzf-marks/master/fzf-marks.plugin.bash
+#
 [ -r "/usr/local/lib/fzf-marks.plugin.bash" ] && source "/usr/local/lib/fzf-marks.plugin.bash"
 

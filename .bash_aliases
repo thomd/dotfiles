@@ -13,7 +13,7 @@ alias l.='ls -ld .[^.]*'                              # list dotfiles only
 alias md='mkdir -p'
 alias cwd="pwd | tr -d '\n' | pbcopy; pwd"            # show cwd and copy
 alias v='vim'
-alias ff='open -a Firefox $1'
+
 alias t='tree -a -C -I ".git|.svn|node_modules|.gradle|tmp|.sass-cache"'
 alias so='. ~/.bashrc'                                # source bashrc
 alias j='jobs -l'
@@ -22,22 +22,12 @@ alias rmi='rm -i'
 # VS Code
 alias code='code --locale=en $@'
 
-# compress javascript using YUI Compressor
-alias yuicompressor="java -jar ~/Library/Java/Extensions/yuicompressor.jar --type js $1"
-
-# compress javascript using Google Closure compiler
-alias closurecompiler="java -jar ~/Library/Java/Extensions/compiler.jar $1"
-
 # http://portswigger.net/
 alias burp='java -jar /usr/local/burpsuite/burpsuite.jar &'
 
 alias httpdump='sudo tcpdump -i en1 -n -s 0 -w - | \grep -a -o -E "Host\: .*|GET \/.*"'
 
 alias grep='GREP_COLOR="1;37;41" LANG=C grep --color=auto'
-
-alias tracegl='node ~/bin/tracegl.js -nolib -no:repl.js'
-
-alias brwe=brew  # fix brew typo
 
 # install brew-aliases with `brew tap homebrew/aliases`
 brew alias i='!HOMEBREW_NO_AUTO_UPDATE=1 brew install'
@@ -74,24 +64,12 @@ alias gt='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup`
 alias gs='git show `gln | termenu -p | awk "{print \\$1}"`'                         # "git show"
 alias gist='gist -c'
 
-# subversion
-alias svnadd='svn --force --depth infinity add .'
-alias svndiff='svn-colored-diff'
-alias svnlog='svn-colored-log'
-
 # network
 alias flush="dscacheutil -flushcache" # Flush DNS cache
 
 # URL encode/decode
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1])"'
 alias urldecode='python -c "import sys, urllib as ul; print ul.unquote_plus(sys.argv[1])"'
-
-# Rhino Javascript to JavaClass Compiler
-alias jsc="java -jar ~/Library/Java/Extensions/jsc.jar $1"
-
-# Clojure REPL with jline
-# copy clojure.jar into ~/Library/Java/Extension
-alias clojure="java jline.ConsoleRunner clojure.main"
 
 # alternative base conversions with perl
 alias d2h="perl -e 'printf qq|%X\n|, int( shift )'"
@@ -122,14 +100,8 @@ alias b2o=bin2oct
 # calendar with the current date marked:
 alias cal='ncal -w | grep --color=auto -E "( |^)$(date +%e)( |$)|$"'
 
-# open markdown files in Marked.app
-alias md="open -a /Applications/Marked.app/ $1"
-
 # print all colors
 alias colors='colortest -w -s -r'
-
-# irssi & tmux
-alias irssi='TERM=screen-256color irssi'
 
 # npm-scripter
 alias npms="npm-scripter $@"

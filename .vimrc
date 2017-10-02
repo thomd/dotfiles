@@ -588,8 +588,8 @@ Bundle 'auto_autoread.vim'
 
 
 " Make the yanked region apparent
-Bundle 'machakann/vim-highlightedyank'
-map y <Plug>(highlightedyank)
+"Bundle 'machakann/vim-highlightedyank'
+"map y <Plug>(highlightedyank)
 
 
 " go lang
