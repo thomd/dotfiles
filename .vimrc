@@ -296,6 +296,21 @@ endfunction
 au BufRead,BufNewFile *.{md,markdown,mkd,txt} call s:setWrapping()
 
 
+"-------------------------------------------------------------
+" COMMANDS
+"
+"
+" Create Todo List from TODO, FIXME,
+"
+"   :Todo
+"
+" Open File from Todo List
+"
+"   <leader><ENTER>
+"
+:set wildignore+=node_modules/**,.git/**
+command Todo noautocmd vimgrep /TODO\|FIXME/j ** | cw
+autocmd! FileType qf nnoremap <buffer> <leader><Enter> <C-w><Enter><C-w>L
 
 
 "------------------------------------------------------------
