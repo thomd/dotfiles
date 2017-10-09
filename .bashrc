@@ -52,6 +52,11 @@ bind "\C-f":forward-word    # ctrl-f: word forward
 # run gpg agent to allow to use preset passphrases
 #eval $(gpg-agent --daemon)
 
+# run ssh agent
+eval "$(ssh-agent -s)"
+ssh-add -K ~/.ssh/github
+
+
 # run TMUX on startup
 if [[ $SHLVL == "1" ]]; then
   tmux new-session -A -s "$USER"
