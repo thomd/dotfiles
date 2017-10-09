@@ -4,8 +4,7 @@ set -e
 
 brew up
 brew tap homebrew/aliases
-brew install tmux
-brew install tree jq hr fzf ack wget htop
+brew install tmux tree jq hr fzf ack wget htop
 brew install git git-flow bash-completion
 
 # to see which versions are currently installed:
