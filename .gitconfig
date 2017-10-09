@@ -39,7 +39,7 @@
   changed = yellow
   untracked = red
 [core]
-  excludesfile = /Users/thomd/.gitignore
+  excludesfile = ~/.gitignore
   editor = vim
   # make `git rebase` safer on osx
   # see http://www.git-tower.com/blog/make-git-rebase-safe-on-osx
@@ -53,7 +53,5 @@
 	default = matching
 [url "https://"]
   insteadOf = git://
-[init]
-  templatedir = /usr/local/git/share/git-core/templates/
 [rerere]
 	enabled = true
