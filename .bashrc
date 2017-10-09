@@ -53,8 +53,8 @@ bind "\C-f":forward-word    # ctrl-f: word forward
 #eval $(gpg-agent --daemon)
 
 # run ssh agent
-eval "$(ssh-agent -s)"
-ssh-add -K ~/.ssh/github
+eval "$(ssh-agent -s)" > /dev/null
+ssh-add -K ~/.ssh/github 2> /dev/null
 
 
 # run TMUX on startup
