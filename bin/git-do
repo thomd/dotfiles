@@ -20,31 +20,40 @@ usage() {
   echo ""
   echo "Usage: git do [ filename ]"
   echo ""
+  echo "  -n : number of do's"
   echo "  -h : print this screen"
   echo ""
 }
 
-while getopts h option
+DO=1
+while getopts hn: option
 do
   case "${option}"
   in
     h) usage
       exit 1;;
+    n)
+      DO="$OPTARG"
+      shift 2
+      ;;
   esac
 done
 
 FILE=${1:-test.txt}
-LAST_MSG=$(git log --oneline --all --no-merges --pretty='%s' -1)
 
-if [[ $LAST_MSG =~ ^[A-Z]$ ]]; then
-  MSG=$(printf "%d" "'$LAST_MSG" | echo $(($(< /dev/stdin)+1)) | awk '{printf("%c",$1)}')
-  echo $MSG >> $FILE
-else
-  COUNTER=$(echo $LAST_MSG | tr '-' ' ' | awk '{print $3}')
-  COUNTER=$((${COUNTER}+1))
-  MSG="added $FILE-$COUNTER in $FILE"
-  echo $FILE-$COUNTER >> $FILE
-fi
-echo $MSG
-git add .
-git ci -m "$MSG"
+for (( i=1; i<=$DO; i++ ));
+do
+  LAST_MSG=$(git log --oneline --all --no-merges --pretty='%s' -1)
+
+  if [[ $LAST_MSG =~ ^[A-Z]$ ]]; then
+    MSG=$(printf "%d" "'$LAST_MSG" | echo $(($(< /dev/stdin)+1)) | awk '{printf("%c",$1)}')
+    echo $MSG >> $FILE
+  else
+    COUNTER=$(echo $LAST_MSG | tr '-' ' ' | awk '{print $3}')
+    COUNTER=$((${COUNTER}+1))
+    MSG="added $FILE-$COUNTER in $FILE"
+    echo $FILE-$COUNTER >> $FILE
+  fi
+  git add .
+  git ci -m "$MSG"
+done
