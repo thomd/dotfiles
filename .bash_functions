@@ -56,6 +56,14 @@ function mkcd {
 
 
 #
+# create git repository & cd
+#
+function gcd {
+  git init "${1-temp}" && cd "$_"
+}
+
+
+#
 # start a tiny web server in a separate tmux pane serving the current directory (see ~/bin/www-server)
 #
 function www {
