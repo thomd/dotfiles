@@ -31,6 +31,7 @@ sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machi
 
 # apps
 brew tap caskroom/cask
+brew cask install google-chrome
 brew cask install iterm2
 brew cask install visual-studio-code
 
