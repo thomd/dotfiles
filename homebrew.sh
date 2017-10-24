@@ -40,11 +40,7 @@ sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machi
 
 
 
-# company settings
-npm config set proxy http://proxy3:8080
-npm config set strict-ssl false
-export http_proxy=http://proxy3:8080
-export https_proxy=http://proxy3:8080
+
 
 
 # update personal addresses in
