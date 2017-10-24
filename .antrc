@@ -1,2 +1,0 @@
-ANT_OPTS="-Xmx256M -Dant.logger.defaults=${HOME}/.antcolors"
-ANT_ARGS="-logger org.apache.tools.ant.listener.AnsiColorLogger"
