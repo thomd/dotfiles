@@ -8,6 +8,13 @@ brew tap homebrew/aliases
 brew install tmux tree jq hr fzf ack wget htop
 brew install git git-flow bash-completion
 
+# nodejs
+brew install nvm
+mkdir ~/.nvm
+export NVM_DIR=$HOME/.nvm
+. /usr/local/opt/nvm/nvm.sh
+nvm install --lts
+
 # to see which versions are currently installed:
 #   /usr/libexec/java_home -V
 #
@@ -23,7 +30,8 @@ sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machi
 
 
 # apps
-brew install caskroom/cask/brew-cask
+brew tap caskroom/cask
+brew cask install iterm2
 brew cask install visual-studio-code
 
 
