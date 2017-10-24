@@ -2,6 +2,7 @@
 set -e
 [ -n "$HOMEBREW_DEBUG" ] && set -x
 
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew up
 brew tap homebrew/aliases
 brew install tmux tree jq hr fzf ack wget htop
