@@ -15,6 +15,7 @@ source ./homebrew.sh
 # github
 # 
 # generate new SSH key (https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/) or use existing
+ssh-keygen -t rsa -b 4096 -C "tomduerr@gmail.com"
 eval $(ssh-agent -s)
 ssh-add ~/.ssh/github
 
