@@ -5,7 +5,7 @@ set -e
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew up
 brew tap homebrew/aliases
-brew install tmux tree jq hr fzf ack wget htop git git-flow bash-completion curl
+brew install tmux tree jq hr fzf ack wget htop git git-flow bash-completion curl vim
 
 # nodejs
 brew install nvm
