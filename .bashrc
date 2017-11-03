@@ -5,8 +5,9 @@
 #   ~/.bash_prompt       bash prompt
 #   ~/.bash_functions    for daily work functions
 #   ~/.bash_completions  bash completions
+#   ~/.bash_company      company specific settings, e.g. proxy
 #   ~/.bash_private      for private environment variables (e.g. user:password)
-for file in ~/.bash_{exports,aliases,prompt,functions,completions,docker,private}; do
+for file in ~/.bash_{exports,aliases,prompt,completions,functions,company}; do
   [ -r "$file" ] && source "$file"
 done
 unset file
@@ -58,9 +59,9 @@ ssh-add -K ~/.ssh/github 2> /dev/null
 
 
 # run TMUX on startup
-if [[ $SHLVL == "1" ]]; then
-  tmux new-session -A -s "$USER"
-fi
+#if [[ $SHLVL == "1" ]]; then
+#  tmux new-session -A -s "$USER"
+#fi
 
 # run `archey` only after a system start
 #[ ! -f '/tmp/archey' ] && archey && touch '/tmp/archey'

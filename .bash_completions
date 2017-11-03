@@ -1,7 +1,7 @@
 # vim:ft=sh
 
 # ssh
-complete -o default -o nospace -W "$(grep -i -e '^host ' ~/.ssh/config | awk '{print substr($0, index($0,$2))}' ORS=' ')" ssh scp sftp
+#complete -o default -o nospace -W "$(grep -i -e '^host ' ~/.ssh/config | awk '{print substr($0, index($0,$2))}' ORS=' ')" ssh scp sftp
 
 # vagrant bash (https://kura.io/vagrant-bash-completion/)
 #if [ `uname` = Darwin ]; then
@@ -9,8 +9,7 @@ complete -o default -o nospace -W "$(grep -i -e '^host ' ~/.ssh/config | awk '{p
 #fi
 
 # docker-machine & docker
-[ -f /usr/local/etc/bash_completion.d/docker-completion.sh ] && source /usr/local/etc/bash_completion.d/docker-completion.sh
-[ -f /usr/local/etc/bash_completion.d/docker-machine-completion.sh ] && source /usr/local/etc/bash_completion.d/docker-machine-completion.sh
+[ -f /usr/local/etc/bash_completion.d/docker.sh ] && source /usr/local/etc/bash_completion.d/docker.sh
 
 # common bash completions
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
@@ -18,7 +17,7 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
 fi
 
 # homebrew
-[ -f $(brew --repository)/Library/Contributions/brew_bash_completion.sh ] && source $(brew --repository)/Library/Contributions/brew_bash_completion.sh
+#[ -f $(brew --repository)/Library/Contributions/brew_bash_completion.sh ] && source $(brew --repository)/Library/Contributions/brew_bash_completion.sh
 
 # git bash
 [ -f /usr/local/etc/bash_completion.d/git-completion.bash ] && source /usr/local/etc/bash_completion.d/git-completion.bash
@@ -45,7 +44,7 @@ fi
 #[ -f /Users/thomd/.travis/travis.sh ] && source /Users/thomd/.travis/travis.sh
 
 # password store
-[ -f /usr/local/etc/bash_completion.d/pass ] && source /usr/local/etc/bash_completion.d/pass
+#[ -f /usr/local/etc/bash_completion.d/pass ] && source /usr/local/etc/bash_completion.d/pass
 
 # grunt tasks
 #eval "$(grunt --completion=bash)"
@@ -57,9 +56,9 @@ fi
 #complete -C '/usr/local/bin/aws_completer' aws
 
 # mad pages
-[ -f /usr/local/etc/bash_completion.d/mad ] && source /usr/local/etc/bash_completion.d/mad
+#[ -f /usr/local/etc/bash_completion.d/mad ] && source /usr/local/etc/bash_completion.d/mad
 
 # npm completion
 # create completion script via:
 #   npm completion > /usr/local/etc/bash_completion.d/npm
-[ -f /usr/local/etc/bash_completion.d/npm ] && source /usr/local/etc/bash_completion.d/npm
+#[ -f /usr/local/etc/bash_completion.d/npm ] && source /usr/local/etc/bash_completion.d/npm
