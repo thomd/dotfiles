@@ -12,9 +12,7 @@
 [ -f /usr/local/etc/bash_completion.d/docker.sh ] && source /usr/local/etc/bash_completion.d/docker.sh
 
 # common bash completions
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  . $(brew --prefix)/etc/bash_completion
-fi
+#[ -f /usr/local/etc/bash_completion ] && source /usr/local/etc/bash_completion
 
 # homebrew
 #[ -f $(brew --repository)/Library/Contributions/brew_bash_completion.sh ] && source $(brew --repository)/Library/Contributions/brew_bash_completion.sh

@@ -59,9 +59,9 @@ ssh-add -K ~/.ssh/github 2> /dev/null
 
 
 # run TMUX on startup
-#if [[ $SHLVL == "1" ]]; then
-#  tmux new-session -A -s "$USER"
-#fi
+if [[ $SHLVL == "1" ]]; then
+  tmux new-session -A -s "$USER"
+fi
 
 # run `archey` only after a system start
 #[ ! -f '/tmp/archey' ] && archey && touch '/tmp/archey'

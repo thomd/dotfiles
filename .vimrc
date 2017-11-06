@@ -338,14 +338,9 @@ let g:airline_left_sep=''
 let g:airline_left_alt_sep='|'
 let g:airline_right_sep=''
 let g:airline_right_alt_sep='|'
-"let g:airline_left_sep = '⮀'
-"let g:airline_left_alt_sep = '⮁'
-"let g:airline_right_sep = '⮂'
-"let g:airline_right_alt_sep = '⮃'
-let g:airline_symbols.branch = '⭠'
-"let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.readonly = '⭤'             " default: 'RO'
-let g:airline_symbols.linenr = '⭡'
+let g:airline_symbols.branch = '⎇ '
+let g:airline_symbols.readonly = 'RO'
+let g:airline_symbols.linenr = '☰'
 
 " Add a red '*' for modified buffers
 function! AirlineInit()

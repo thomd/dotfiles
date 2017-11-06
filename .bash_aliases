@@ -29,11 +29,6 @@ alias httpdump='sudo tcpdump -i en1 -n -s 0 -w - | \grep -a -o -E "Host\: .*|GET
 
 alias grep='GREP_COLOR="1;37;41" LANG=C grep --color=auto'
 
-# install brew-aliases with `brew tap homebrew/aliases`
-brew alias i='!HOMEBREW_NO_AUTO_UPDATE=1 brew install'
-brew alias u='!HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade'
-
-
 # brew install hr
 alias hr="hr '-'"
 

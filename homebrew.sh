@@ -9,8 +9,8 @@ brew install tmux tree jq hr fzf ack wget htop git git-flow bash-completion curl
 
 # nodejs
 brew install nvm
-mkdir ~/.nvm
-export NVM_DIR=$HOME/.nvm
+mkdir /usr/local/nvm
+export NVM_DIR=/usr/local/nvm
 . /usr/local/opt/nvm/nvm.sh
 nvm install --lts
 

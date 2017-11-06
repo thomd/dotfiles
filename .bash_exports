@@ -48,7 +48,8 @@ export PYTHONSTARTUP="$HOME/.pythonrc"
 export MAD_PATH="$HOME/.mad"
 
 # nvm - node version manager
-export NVM_DIR="/Users/duerr/.nvm"
+export NVM_DIR="/usr/local/nvm"
+export PATH=/usr/local/nvm/versions/node/`cat /usr/local/nvm/alias/default`/bin:$PATH
 # lazy sourcing of nvm
 function nvm {
   if [ -z $NVM_SOURCED ]; then
