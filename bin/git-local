@@ -5,8 +5,7 @@
 #
 # thomduerr@gmail.com
 #
-
-REMOTE_LOCATION="/opt/repos/git"
+REMOTE_LOCATION="$HOME/git"
 REPO_NAME=$(basename $PWD)
 REMOTE_ALIAS="local"
 
