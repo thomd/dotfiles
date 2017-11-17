@@ -25,7 +25,8 @@ alias code='code --locale=en $@'
 # http://portswigger.net/
 alias burp='java -jar /usr/local/burpsuite/burpsuite.jar &'
 
-alias httpdump='sudo tcpdump -i en1 -n -s 0 -w - | \grep -a -o -E "Host\: .*|GET \/.*"'
+alias sniff="sudo ngrep -d 'en0' -t '^(GET|POST) ' 'tcp and port 80'"
+alias httpdump="sudo tcpdump -i en0 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
 
 alias grep='GREP_COLOR="1;37;41" LANG=C grep --color=auto'
 
@@ -44,6 +45,18 @@ dclean() {
 }
 
 # git
+function g {
+if [[ $# > 0 ]]; then
+  git "$@"
+else
+  echo -e "\n\033[1;30mLast commit: $(time_since_last_commit) ago\033[0m"
+  git status --short --branch
+fi
+}
+function time_since_last_commit() {
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  git log -1 --pretty=format:"%ar" | sed 's/\([0-9]*\) \(.\).*/\1\2/'
+}
 alias gb='git branch -a'                # "git branches"
 alias gbs='git branch-status'
 alias gd='git df'                       # "git diff"
@@ -52,7 +65,6 @@ alias gl='git l'                        # "git log"
 alias gln='git ln'                      # "git log no-merges"
 alias gla='git la'                      # "git log all"
 alias glan='git lan'                    # "git log all no-merges"
-alias g='git status -sb'
 alias eg='vim .git/config'                                                          # "edit git"
 alias gr='git remote -v | column -t'                                                # "git remotes"
 alias gt='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup`'   # "git top"   (cd into root folder)

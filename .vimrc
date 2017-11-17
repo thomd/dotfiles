@@ -561,14 +561,14 @@ Bundle 'digitaltoad/vim-jade'
 
 " Typescript Syntax-Highlightinh and Syntax Check
 Bundle 'leafgarland/typescript-vim'
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
-autocmd BufWritePost *.ts silent make
+"autocmd QuickFixCmdPost [^l]* nested cwindow
+"autocmd QuickFixCmdPost    l* nested lwindow
+"autocmd BufWritePost *.ts silent make
 autocmd BufNewFile,BufReadPost *.ts setl foldmethod=indent nofoldenable
 
 
 " Typescript Syntax Check and Code Completion
-Bundle 'Quramy/tsuquyomi'
+"Bundle 'Quramy/tsuquyomi'
 
 
 " a better JSON

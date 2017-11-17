@@ -16,6 +16,10 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 # fzf-marks
 cd /usr/local/lib && wget https://raw.githubusercontent.com/thomd/fzf-marks/master/fzf-marks.plugin.bash
 
+# vim UltiSnips
+cd ~/.vim
+git clone https://github.com/thomd/ultisnips-snippets.git UltiSnips
+
 # github
 #
 # generate new SSH key (https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/) or use existing

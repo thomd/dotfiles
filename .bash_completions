@@ -54,7 +54,7 @@
 #complete -C '/usr/local/bin/aws_completer' aws
 
 # mad pages
-#[ -f /usr/local/etc/bash_completion.d/mad ] && source /usr/local/etc/bash_completion.d/mad
+[ -f /usr/local/etc/bash_completion.d/mad ] && source /usr/local/etc/bash_completion.d/mad
 
 # npm completion
 # create completion script via:
