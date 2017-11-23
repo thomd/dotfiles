@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+[ ! -f dw.json ] && cat <<DW > dw.json
+{
+    "hostname": "${1-dev31-web-netrada}.demandware.net",
+    "username": "tduerr",
+    "password": "${2-password}",
+    "cartridge": [
+      "app_storefront_core",
+      "app_storefront_controllers",
+      "app_storefront_pipelines"
+    ],
+    "code-version": "${3-version}"
+}
+DW
