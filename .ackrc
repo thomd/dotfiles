@@ -8,6 +8,10 @@
 --type-add=css=.sass,.scss,.less
 --type-add=js=.coffee,.ds
 
+# typescript
+--type-set=ts:ext:ts
+--type-set=tsdef:match:/.+\.d\.ts/
+
 # lexically sort filenames
 --sort-files
 
