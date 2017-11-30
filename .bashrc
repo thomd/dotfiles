@@ -5,9 +5,9 @@
 #   ~/.bash_prompt       bash prompt
 #   ~/.bash_functions    for daily work functions
 #   ~/.bash_completions  bash completions
-#   ~/.bash_company      company specific settings, e.g. proxy
+#   ~/.bash_proxy        company specific settings
 #   ~/.bash_private      for private environment variables (e.g. user:password)
-for file in ~/.bash_{exports,aliases,prompt,completions,functions,company}; do
+for file in ~/.bash_{exports,aliases,prompt,functions,proxy,completions}; do
   [ -r "$file" ] && source "$file"
 done
 unset file
@@ -55,7 +55,7 @@ bind "\C-f":forward-word    # ctrl-f: word forward
 
 # run ssh agent
 eval "$(ssh-agent -s)" > /dev/null
-ssh-add -K ~/.ssh/github 2> /dev/null
+#ssh-add -K ~/.ssh/github 2> /dev/null
 
 
 # run TMUX on startup
@@ -66,3 +66,4 @@ fi
 # run `archey` only after a system start
 #[ ! -f '/tmp/archey' ] && archey && touch '/tmp/archey'
 
+[ -f /usr/local/etc/bash_completion ] && source /usr/local/etc/bash_completion

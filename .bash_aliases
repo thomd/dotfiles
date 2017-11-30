@@ -15,7 +15,6 @@ alias cwd="pwd | tr -d '\n' | pbcopy; pwd"            # show cwd and copy
 alias v='vim'
 
 alias t='tree -a -C -I ".git|.svn|node_modules|.gradle|tmp|.sass-cache"'
-alias so='. ~/.bashrc'                                # source bashrc
 alias j='jobs -l'
 alias rmi='rm -i'
 
@@ -112,6 +111,7 @@ alias colors='colortest -w -s -r'
 
 # npm-scripter
 alias npms="npm-scripter $@"
+alias nps="npm-scripter $@"
 
 
 

@@ -26,5 +26,6 @@ git clone https://github.com/thomd/ultisnips-snippets.git UltiSnips
 ssh-keygen -t rsa -b 4096 -C "tomduerr@gmail.com"
 eval $(ssh-agent -s)
 ssh-add ~/.ssh/github
+ssh-add ~/.ssh/bitbucket
 
 

@@ -1,18 +1,10 @@
-# vim:ft=sh
+#!/usr/bin/env bash
 
 # ssh
 #complete -o default -o nospace -W "$(grep -i -e '^host ' ~/.ssh/config | awk '{print substr($0, index($0,$2))}' ORS=' ')" ssh scp sftp
 
-# vagrant bash (https://kura.io/vagrant-bash-completion/)
-#if [ `uname` = Darwin ]; then
-  #[ -f `brew --prefix`/etc/bash_completion.d/vagrant ] && source `brew --prefix`/etc/bash_completion.d/vagrant
-#fi
-
 # docker-machine & docker
 [ -f /usr/local/etc/bash_completion.d/docker.sh ] && source /usr/local/etc/bash_completion.d/docker.sh
-
-# common bash completions
-#[ -f /usr/local/etc/bash_completion ] && source /usr/local/etc/bash_completion
 
 # homebrew
 #[ -f $(brew --repository)/Library/Contributions/brew_bash_completion.sh ] && source $(brew --repository)/Library/Contributions/brew_bash_completion.sh
@@ -27,28 +19,8 @@
   #[ -f /usr/local/etc/bash_completion.d/go-completion.bash ] && source /usr/local/etc/bash_completion.d/go-completion.bash
 #fi
 
-# play framework
-#if [ `uname` = Darwin ]; then
-  #[ -f /usr/local/etc/bash_completion.d/play_completion ] && source /usr/local/etc/bash_completion.d/play_completion
-#else
-  #export PATH=$PATH:/develop/play/play
-  #[ -f /etc/bash_completion.d/play_completion ] && source /etc/bash_completion.d/play_completion
-#fi
-
-# gradle build tool
-#[ -f /usr/local/etc/bash_completion.d/gradle ] && source /usr/local/etc/bash_completion.d/gradle
-
-# travis-ci
-#[ -f /Users/thomd/.travis/travis.sh ] && source /Users/thomd/.travis/travis.sh
-
 # password store
 #[ -f /usr/local/etc/bash_completion.d/pass ] && source /usr/local/etc/bash_completion.d/pass
-
-# grunt tasks
-#eval "$(grunt --completion=bash)"
-
-# gulp tasks
-#eval "$(gulp --completion=bash)"
 
 # aws cli completion
 #complete -C '/usr/local/bin/aws_completer' aws
@@ -59,4 +31,8 @@
 # npm completion
 # create completion script via:
 #   npm completion > /usr/local/etc/bash_completion.d/npm
-#[ -f /usr/local/etc/bash_completion.d/npm ] && source /usr/local/etc/bash_completion.d/npm
+[ -f /usr/local/etc/bash_completion.d/npm ] && source /usr/local/etc/bash_completion.d/npm
+
+# common bash completions
+#[ -f /usr/local/etc/bash_completion ] && source /usr/local/etc/bash_completion
+
