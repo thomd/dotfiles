@@ -12,6 +12,10 @@
 --type-set=ts:ext:ts
 --type-set=tsdef:match:/.+\.d\.ts/
 
+# cucumber
+--type-set=feature:ext:feature
+--type-set=step:match:.*\.steps\.ts$
+
 # lexically sort filenames
 --sort-files
 
