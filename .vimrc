@@ -267,17 +267,11 @@ au FileType python set expandtab shiftwidth=4 softtabstop=4 tabstop=4 autoindent
 au FileType javascript set tabstop=2 shiftwidth=2 expandtab autoindent textwidth=100
 au FileType snippets set tabstop=8 shiftwidth=8 expandtab autoindent textwidth=100
 
-" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
-au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
-
 " add json syntax highlighting
 au BufNewFile,BufRead *.json set ft=javascript
 
-" add mozcmd (GCLI) syntax highlighting
-au BufNewFile,BufRead *.mozcmd set ft=javascript
-
 " format xml files (http://ku1ik.com/formatting-xml-in-vim-with-indent-command)
-au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+"au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 
 " enable xml syntax folding
 let g:xml_syntax_folding=1
@@ -474,7 +468,7 @@ let g:gundo_close_on_revert=1
 
 
 " bats support (bash testing framework)
-Bundle 'rosstimson/bats.vim'
+"Bundle 'rosstimson/bats.vim'
 
 
 " Make scrolling in Vim more pleasant
@@ -486,7 +480,7 @@ Bundle 'vim-scripts/searchfold.vim'
 
 
 " HAML & SASS Syntax support in Vim
-Bundle 'tpope/vim-haml'
+"Bundle 'tpope/vim-haml'
 
 
 " Perform all your vim insert mode completions with Tab
@@ -543,32 +537,13 @@ Bundle "mxw/vim-jsx"
 Bundle "andreimaxim/vim-io"
 
 
-" automatic resizing of Vim windows to the golden ratio
-"Bundle 'roman/golden-ratio'
-
-
 " vim jade template engine syntax highlighting and indention
-Bundle 'digitaltoad/vim-jade'
-
-
-" vim demandware
-"Bundle 'vim-demandware'
-
-
-" Scala
-"Bundle 'derekwyatt/vim-scala'
+"Bundle 'digitaltoad/vim-jade'
 
 
 " Typescript Syntax-Highlightinh and Syntax Check
-Bundle 'leafgarland/typescript-vim'
-"autocmd QuickFixCmdPost [^l]* nested cwindow
-"autocmd QuickFixCmdPost    l* nested lwindow
-"autocmd BufWritePost *.ts silent make
+Bundle 'HerringtonDarkholme/yats.vim'
 autocmd BufNewFile,BufReadPost *.ts setl foldmethod=indent nofoldenable
-
-
-" Typescript Syntax Check and Code Completion
-"Bundle 'Quramy/tsuquyomi'
 
 
 " a better JSON
@@ -583,15 +558,15 @@ Bundle 'auto_autoread.vim'
 
 
 " Make the yanked region apparent
-"Bundle 'machakann/vim-highlightedyank'
-"map y <Plug>(highlightedyank)
+Bundle 'machakann/vim-highlightedyank'
+map y <Plug>(highlightedyank)
 
 
 " go lang
 "
 "    run :GoInstallBinaries after installation
 "
-Bundle 'fatih/vim-go'
+"Bundle 'fatih/vim-go'
 
 
 " Attempt to determine the type of a file based on its name and possibly its
