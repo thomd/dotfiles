@@ -4,6 +4,9 @@ set -e
 PROXY="http://proxy3:8080"
 ON="\033[0;32m✓\033[0m"
 OFF="\033[0;31m✖\033[0m"
+grey() {
+  echo -e "\033[1;30m"$@"\033[0m"
+}
 
 proxy_on() {
   npm config set proxy $PROXY
@@ -15,18 +18,17 @@ proxy_on() {
 proxy_off() {
   npm config delete proxy
   npm config delete https-proxy
-  #git config --global --unset http.proxy
-  git config --global --remove-section http
-  #git config --global --unset https.proxy
-  git config --global --remove-section https
-}
-
-grey() {
-  echo -e "\033[1;30m"$@"\033[0m"
+  if [ -n "$(git config --global --get http.proxy)" ]; then
+    git config --global --remove-section http
+  fi
+  if [ -n "$(git config --global --get https.proxy)" ]; then
+    git config --global --remove-section https
+  fi
 }
 
 proxy_print() {
-
+    echo ""
+    echo " $(grey 'Proxy Settings:')"
     echo ""
 
     local ENV_PROXY=$(env | grep -i http_proxy)
@@ -64,9 +66,7 @@ case "$1" in
     echo -e "\n $(grey 'Usage: proxy [on|off]')"
     exit 1
     ;;
-   * )
-    echo ""
-    echo " $(grey 'Proxy Settings:')"
+  * )
     proxy_print
 esac
 exit 0
