@@ -5,13 +5,14 @@
 #   ~/.bash_prompt       bash prompt
 #   ~/.bash_functions    for daily work functions
 #   ~/.bash_completions  bash completions
-#   ~/.bash_proxy        company specific settings
 #   ~/.bash_private      for private environment variables (e.g. user:password)
-for file in ~/.bash_{exports,aliases,prompt,functions,proxy,completions}; do
+for file in ~/.bash_{exports,aliases,prompt,functions,completions}; do
   [ -r "$file" ] && source "$file"
 done
 unset file
 
+WIFI=$(networksetup -getairportnetwork en0 | awk '{print $4}')
+[ "$WIFI" != "Tingeltangelbob" ] && source .bash_proxy
 
 # append history list of current session to HISTFILE (default: make HISTFILE get overwritten each time).
 shopt -s histappend

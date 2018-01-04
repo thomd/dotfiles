@@ -1,0 +1,6 @@
+# proxy
+export http_proxy=http://proxy3:8080
+export https_proxy=http://proxy3:8080
+
+# node ssl issuse
+export NODE_TLS_REJECT_UNAUTHORIZED=0

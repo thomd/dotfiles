@@ -46,12 +46,12 @@
   trustctime = false
 [merge]
   tool = vimdiff
-	conflictstyle = diff3
+  conflictstyle = diff3
 [github]
   user = thomd
 [push]
-	default = matching
+  default = matching
 [url "https://"]
   insteadOf = git://
 [rerere]
-	enabled = true
+  enabled = true
