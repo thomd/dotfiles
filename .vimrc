@@ -537,8 +537,8 @@ Bundle "mxw/vim-jsx"
 Bundle "andreimaxim/vim-io"
 
 
-" vim jade template engine syntax highlighting and indention
-"Bundle 'digitaltoad/vim-jade'
+" vim pug (aka jade) template engine syntax highlighting and indention
+Bundle 'digitaltoad/vim-pug'
 
 
 " Typescript Syntax-Highlightinh and Syntax Check
@@ -555,6 +555,11 @@ au FileType json setlocal equalprg=jq\ '.'
 
 " autoread
 Bundle 'auto_autoread.vim'
+
+
+" Vim-Todo-Lists
+Bundle 'aserebryakov/vim-todo-lists'
+let g:VimTodoListsMoveItems = 0
 
 
 " Make the yanked region apparent
