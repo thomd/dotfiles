@@ -1,17 +1,5 @@
 # vim:ft=sh:tw=160
 
-# ascii colors
-#
-# RESET="\033[m"
-# RED="\033[0;31m"
-# LIGHT_RED="\033[1;31m"
-# VERY_RED="\033[38;5;196m"
-# GREY="\033[1;30m"
-# LIGHT_GREEN="\033[1;32m"
-# GREEN="\033[0;32m"
-# BLUE="\033[0;36m"
-
-
 #
 # git info for prompt
 #
@@ -76,26 +64,6 @@ function git_behind {
   if [ -n "$s" ]; then
     echo -e " $s" | sed "s/behind \([0-9][0-9]*\)/↓$1\1/g" | sed 's/ahead [0-9][0-9]*, //g'
   fi
-}
-
-
-#
-# svn info: show trunk- or branches-path in prompt for all repositories following the trunk/branches convention
-#
-function svn_ps1 {
-  local svn="$(svn info 2>/dev/null)"
-  if [ -n "$svn" ]; then
-    local rev="$(svn info 2>/dev/null | sed -ne 's#^Revision: ##p')"
-    local root="$(svn info 2>/dev/null | sed -ne 's#^Repository Root: ##p')"
-    local url="$(svn info 2>/dev/null | sed -ne 's#^URL: '"$root/"'##p' | sed -ne 's/^.*\(trunk\).*$/\1/p;s/^.*\(branches\/[^\/.]*\).*$/\1/p')"
-    local info="$url:$rev"
-    [[ $url == '' ]] && info="svn:$rev"    # if not trunk/branches
-    printf "$1" "$info"
-  fi
-}
-
-function parse_svn_dirty {
-    [[ $(svn status 2> /dev/null) != "" ]] && echo "*"
 }
 
 
