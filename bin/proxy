@@ -28,7 +28,7 @@ proxy_off() {
 
 proxy_print() {
     echo ""
-    echo " $(grey 'Proxy Settings:')"
+    echo " $(grey 'Proxy Settings')"
     echo ""
 
     local ENV_PROXY=$(env | grep -i http_proxy)
