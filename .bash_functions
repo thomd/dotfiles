@@ -16,9 +16,8 @@ function paths {
 export SCRATCH_HOME="$HOME/scratch"
 export SCRATCH_TEMP="/private/tmp/scratch-"
 [[ -h $SCRATCH_HOME && ! -d $SCRATCH_HOME ]] && rm $SCRATCH_HOME     # delete scratch link if /tmp scratch folder doesn't exist anymore
-
 function scratch_new {
-  export SCRATCH_TEMP="/private/tmp/scratch-`date +'%s'`"            # scratch folder with timestamp within /tmp. will be deleted after system reboot
+  export SCRATCH_TEMP="/private/tmp/scratch-`date +'%s'`/scratch"    # scratch folder with timestamp within /tmp. will be deleted after system reboot
   mkdir -p $SCRATCH_TEMP                                             # create scratch folder
   ln -nfs $SCRATCH_TEMP $SCRATCH_HOME                                # symlink to scratch folder
   cd $SCRATCH_HOME                                                   # cd into scratch folder
