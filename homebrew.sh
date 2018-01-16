@@ -38,8 +38,8 @@ sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docke
 sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
 
 
-
-
+# lightweight text editor (http://coteditor.com/)
+brew cask install coteditor
 
 
 
