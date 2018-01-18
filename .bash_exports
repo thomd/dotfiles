@@ -60,6 +60,6 @@ function nvm {
 }
 
 # go
-export GOPATH="~/go"
+export GOPATH="/Users/duerr/go"
 export PATH="$PATH:$GOPATH/bin"
 
