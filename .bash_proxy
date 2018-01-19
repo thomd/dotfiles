@@ -12,6 +12,15 @@ proxy() {
     echo -e "\033[1;30m"$@"\033[0m"
   }
 
+  proxy_env_on() {
+
+    # environment
+    export HTTP_PROXY=$1
+    export HTTPS_PROXY=$1
+    export http_proxy=$1
+    export https_proxy=$1
+  }
+
   proxy_on() {
 
     # environment
@@ -77,12 +86,15 @@ proxy() {
     fi
   }
 
+
   case "$1" in
+    default )
+      shift
+      proxy_env_on "http://${1:-$DEFAULT_PROXY}"
+      ;;
     on )
       shift
-      local HOST=${1:-proxy3:8080}
-      local PROXY="http://$HOST"
-      proxy_on "$PROXY"
+      proxy_on "http://${1:-$DEFAULT_PROXY}"
       proxy_print
       ;;
     off )
@@ -96,3 +108,6 @@ proxy() {
       proxy_print
   esac
 }
+
+# set proxy as default
+proxy default
