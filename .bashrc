@@ -69,3 +69,7 @@ fi
 #[ ! -f '/tmp/archey' ] && archey && touch '/tmp/archey'
 
 [ -f /usr/local/etc/bash_completion ] && source /usr/local/etc/bash_completion
+
+# language
+export LANG=en_US.UTF-8
+export LC_ALL=$LANG

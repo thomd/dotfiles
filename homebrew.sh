@@ -42,6 +42,9 @@ sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machi
 brew cask install coteditor
 
 
+sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'
+chsh -s /usr/local/bin/bash
+
 
 # update personal addresses in
 #   .npmrc
