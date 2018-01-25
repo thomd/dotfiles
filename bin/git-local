@@ -49,6 +49,7 @@ if [ ! -d ".git" ]; then
   exit 1
 fi
 
+set +e
 git ls-remote "$REMOTE_LOCATION/$REPO_NAME.git" 2>/dev/null
 if test $? == 0; then
   echo -e "\033[0;31m"
