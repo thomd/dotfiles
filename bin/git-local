@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
+set -e
+[ -n "$GITLOCAL_DEBUG" ] && set -x
 
 #
 # create local remote repository and push
-#
-# thomduerr@gmail.com
 #
 
 REMOTE_LOCATION="/opt/repos/git"
@@ -11,26 +11,30 @@ REPO_NAME=$(basename $PWD)
 REMOTE_ALIAS="local"
 
 usage() {
-  echo "push local repository to a new created local remote repository ($REMOTE_LOCATION)"
-  echo ""
-  echo ""
-  echo "Usage: git local [ -h ] [ -n projectname ]"
-  echo ""
-  echo "If no projectname is given, the name of the parent folder will be used as project name."
-  echo ""
-  echo "  -h             : print this screen"
-  echo "  -p name        : name of the project"
-  echo "  -r name        : name of the remote"
-  echo ""
+  echo -e "\033[1;30m"
+  echo -e "  push local repository to a new created local remote repository ($REMOTE_LOCATION)"
+  echo -e ""
+  echo -e ""
+  echo -e "  \033[0;37mUsage:"
+  echo -e "    \033[1;30mgit local [options]"
+  echo -e ""
+  echo -e "  \033[0;37mOptions:"
+  echo -e "    \033[1;30m-h         : print this screen"
+  echo -e "    -p <name>  : name of the project (default: name of CWD)"
+  echo -e "    -r <name>  : name of the remote"
+  echo -e "    -f         : force new local remote repository (deletes possible existing with same project name)"
+  echo -e "\033[m"
 }
 
-while getopts p:r:h option
+while getopts p:r:fh option
 do
   case "${option}"
   in
     p) REPO_NAME=${OPTARG}
       ;;
     r) REMOTE_ALIAS=${OPTARG}
+      ;;
+    f) rm -fr "$REMOTE_LOCATION/$REPO_NAME.git"
       ;;
     h) usage
       exit 1
@@ -41,7 +45,6 @@ done
 if [ ! -d ".git" ]; then
   echo -e "\033[0;31m"
   echo -e "  local .git directory doesn't exist, aborting."
-  echo -e "  consider using 'git setup'"
   echo -e "\033[m"
   exit 1
 fi
@@ -50,8 +53,8 @@ git ls-remote "$REMOTE_LOCATION/$REPO_NAME.git" 2>/dev/null
 if test $? == 0; then
   echo -e "\033[0;31m"
   echo -e "  repository $REMOTE_LOCATION/$REPO_NAME already exists."
-  echo -e "  consider providing a repository name using the '-n' option"
   echo -e "\033[m"
+  usage
   exit 1
 else
   mkdir -p "$REMOTE_LOCATION/$REPO_NAME.git"
