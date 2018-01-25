@@ -60,3 +60,6 @@ fi
 # run `archey` only after a system start
 #[ ! -f '/tmp/archey' ] && archey && touch '/tmp/archey'
 
+# language
+export LANG="en_US.UTF-8"
+export LC_ALL=$LANG

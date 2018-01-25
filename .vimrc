@@ -614,6 +614,10 @@ map y <Plug>(highlightedyank)
 Bundle 'fatih/vim-go'
 
 
+" nginx
+Bundle 'chr4/nginx.vim'
+
+
 " Attempt to determine the type of a file based on its name and possibly its
 " contents.  Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.

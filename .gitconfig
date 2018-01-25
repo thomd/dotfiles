@@ -33,7 +33,11 @@
 [color "branch"]
   remote = red
   current = green
+  local = green bold
   upstream = yellow
+[color "diff"]
+  old = red bold
+  new = green bold
 [color "status"]
   added = green
   changed = yellow
@@ -44,13 +48,14 @@
   # make `git rebase` safer on osx
   # see http://www.git-tower.com/blog/make-git-rebase-safe-on-osx
   trustctime = false
+  pager = /usr/local/bin/diff-highlight | less
 [merge]
   tool = vimdiff
-	conflictstyle = diff3
+  conflictstyle = diff3
 [github]
   user = thomd
 [push]
-	default = matching
+  default = matching
 [url "https://"]
   insteadOf = git://
 [init]

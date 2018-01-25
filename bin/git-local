@@ -19,17 +19,22 @@ usage() {
   echo "If no projectname is given, the name of the parent folder will be used as project name."
   echo ""
   echo "  -h             : print this screen"
-  echo "  -n name        : name of the project"
+  echo "  -p name        : name of the project"
+  echo "  -r name        : name of the remote"
   echo ""
 }
 
-while getopts n:h option
+while getopts p:r:h option
 do
   case "${option}"
   in
-    n) REPO_NAME=${OPTARG};;
+    p) REPO_NAME=${OPTARG}
+      ;;
+    r) REMOTE_ALIAS=${OPTARG}
+      ;;
     h) usage
-      exit 1;;
+      exit 1
+      ;;
   esac
 done
 
