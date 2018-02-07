@@ -11,10 +11,6 @@ for file in ~/.bash_{exports,aliases,prompt,proxy,functions,completions}; do
 done
 unset file
 
-# proxy settings for company
-WIFI=$(networksetup -getairportnetwork en0 | awk '{print $4}')
-[ "$WIFI" != "Tingeltangelbob" ] && source ~/.bash_proxy
-
 # append history list of current session to HISTFILE (default: make HISTFILE get overwritten each time).
 shopt -s histappend
 

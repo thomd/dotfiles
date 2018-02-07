@@ -3,7 +3,7 @@
 proxy() {
 
   # default proxy
-  local DEFAULT_PROXY="proxy3:8080"
+  local DEFAULT_PROXY="10.255.252.84:8080"
 
   # some colors
   local ON="\033[0;32m✓\033[0m"
@@ -109,5 +109,6 @@ proxy() {
   esac
 }
 
-# set proxy as default
-proxy default
+# set proxy at work
+WIFI=$(networksetup -getairportnetwork en0 | awk '{print $4}')
+[ "$WIFI" != "Tingeltangelbob" ] && proxy default
