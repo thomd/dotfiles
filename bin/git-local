@@ -23,10 +23,11 @@ usage() {
   echo -e "    -p <name>  : name of the project (default: name of CWD)"
   echo -e "    -r <name>  : name of the remote"
   echo -e "    -f         : force new local remote repository (deletes possible existing with same project name)"
+  echo -e "    -d         : delete the local remote repository"
   echo -e "\033[m"
 }
 
-while getopts p:r:fh option
+while getopts p:r:fdh option
 do
   case "${option}"
   in
@@ -35,6 +36,12 @@ do
     r) REMOTE_ALIAS=${OPTARG}
       ;;
     f) rm -fr "$REMOTE_LOCATION/$REPO_NAME.git"
+      ;;
+    d) rm -fr "$REMOTE_LOCATION/$REPO_NAME.git"
+      echo -e "\033[0;31m"
+      echo -e "  local repository '$REPO_NAME' was deleted"
+      echo -e "\033[m"
+      exit 1
       ;;
     h) usage
       exit 1
