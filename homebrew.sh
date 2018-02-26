@@ -7,6 +7,8 @@ brew up
 brew tap homebrew/aliases
 brew install tmux tree jq hr fzf ack wget htop git git-flow bash-completion curl vim
 
+
+
 # nodejs
 brew install nvm
 mkdir /usr/local/nvm
@@ -14,11 +16,17 @@ export NVM_DIR=/usr/local/nvm
 . /usr/local/opt/nvm/nvm.sh
 nvm install --lts
 
+
+
 # apps
 brew tap caskroom/cask
 brew cask install google-chrome
 brew cask install iterm2
 brew cask install visual-studio-code
+brew cask install keepassxc
+brew cask install coteditor
+
+
 
 # java
 #
@@ -27,6 +35,8 @@ brew cask install visual-studio-code
 #
 brew cask install java
 export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+
+
 
 # docker
 #
@@ -37,9 +47,6 @@ brew install docker docker-compose docker-machine xhyve docker-machine-driver-xh
 sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
 sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
 
-
-# lightweight text editor (http://coteditor.com/)
-brew cask install coteditor
 
 
 sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'

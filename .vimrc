@@ -559,7 +559,7 @@ Bundle 'auto_autoread.vim'
 
 " Vim-Todo-Lists
 Bundle 'aserebryakov/vim-todo-lists'
-let g:VimTodoListsMoveItems = 0
+let g:VimTodoListsMoveItems = 1
 
 
 " Make the yanked region apparent
