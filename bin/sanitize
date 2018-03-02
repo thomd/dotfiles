@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$SANITIZE_DEBUG" ] && set -x
+
+main() {
+  ls | {
+    while read file; do
+      extension="${file##*.}"
+      basename="${file%.*}"
+      basename=`echo "$basename" | tr 'A-ZÄÜÖ' 'a-zäüö'`      # upper- to lower-case and umlaute
+      basename=`echo "$basename" | sed 's/ß/ss/g'`            # ligatur
+      basename=`echo "$basename" | sed 's/ä/ae/g'`            # umlaut
+      basename=`echo "$basename" | sed 's/ö/ou/g'`            # umlaut
+      basename=`echo "$basename" | sed 's/ü/ue/g'`            # umlaut
+      basename=`echo "$basename" | sed 's/[^a-z0-9]/-/g'`     # replace all non-numbers and non-alphas to dash
+      basename=`echo "$basename" | sed 's/-\{1,\}/-/g'`       # squeeze dashes
+      newfile="$basename.$extension"
+      if [ "-d" == "$1" ] || [ "--dry-run" == "$1" ]; then
+        echo -e "\033[0;30m$file\033[m -> \033[0;30m$newfile\033[m"
+      else
+        mv "$file" "$newfile"
+      fi
+    done
+  }
+}
+
+
+main $1
+exit 0
