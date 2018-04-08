@@ -459,6 +459,7 @@ Bundle 'othree/html5.vim'
 
 " Zoom in/out of windows (toggle between one window and multi-window)
 Bundle 'ZoomWin'
+nmap <unique> <c-w>z <Plug>ZoomWin
 
 
 " visualize your Vim undo tree
@@ -576,6 +577,10 @@ map y <Plug>(highlightedyank)
 
 " Jenkinsfile DSL vim syntax
 Bundle 'martinda/Jenkinsfile-vim-syntax'
+
+
+" diff two directories
+Bundle 'will133/vim-dirdiff'
 
 
 " Attempt to determine the type of a file based on its name and possibly its
