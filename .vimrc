@@ -583,6 +583,19 @@ Bundle 'martinda/Jenkinsfile-vim-syntax'
 Bundle 'will133/vim-dirdiff'
 
 
+" REST Client vial-http
+Bundle 'baverman/vial'
+Bundle 'baverman/vial-http'
+
+
+" calendar
+Bundle 'itchyny/calendar.vim'
+
+
+" cursor-word
+Bundle 'itchyny/vim-cursorword'
+
+
 " Attempt to determine the type of a file based on its name and possibly its
 " contents.  Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.
