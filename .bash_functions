@@ -281,10 +281,10 @@ external IP info is available via:
 >  dig +short myip.opendns.com @resolver1.opendns.com
 EOF
   else
-    echo -e "\n\033[1;30minternal IPs:\033[0m"
-    ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'
-    echo -e "\n\033[1;30mexternal IP:\033[0m"
-    curl -sH "User-Agent: curl" ipinfo.io | jq -r '.ip'
+    echo -e "\n \033[1;30mInternal IPs:\033[0m\n"
+    ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print "   $1"'
+    echo -e "\n \033[1;30mExternal IP:\033[0m\n"
+    curl -sH "User-Agent: curl" ipinfo.io | jq -r '. | "   \(.ip)"'
   fi
 }
 
