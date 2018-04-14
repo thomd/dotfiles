@@ -7,6 +7,9 @@ brew up
 brew tap homebrew/aliases
 brew install tmux tree jq hr fzf ack wget htop git git-flow bash-completion curl vim httpie
 
+# jj(1)
+brew tap tidwall/jj
+brew install jj
 
 
 # nodejs
