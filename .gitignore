@@ -16,7 +16,6 @@ npm-debug.log
 .classpath
 eclipse/
 server.pid
-components/
 .sass-cache/
 .metadata
 DemandwareServer
