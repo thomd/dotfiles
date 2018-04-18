@@ -110,5 +110,5 @@ proxy() {
 }
 
 # set proxy at work
-WIFI=$(networksetup -getairportnetwork en0 | awk '{print $4}')
-[ "$WIFI" != "Tingeltangelbob" ] && proxy default
+#WIFI=$(networksetup -getairportnetwork en0 | awk '{print $4}')
+#[ "$WIFI" != "Tingeltangelbob" ] && proxy default
