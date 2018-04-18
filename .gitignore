@@ -2,7 +2,6 @@
 *.bak
 *.old
 *.swp
-.project
 .settings
 .svn
 log/*
