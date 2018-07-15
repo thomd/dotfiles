@@ -24,4 +24,5 @@ git for-each-ref --format="%(refname:short) %(upstream:short)" refs | \
       fi
   done
 } | sort | column -t -s'#'
+echo ""
 

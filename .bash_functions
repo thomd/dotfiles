@@ -202,7 +202,10 @@ function certnames {
 }
 
 
-# cd to the path of the front Finder window
+# cd to the path of the currently opened Finder window
+#
+#   vice versa: to open the current working directory in the Finder enter `open .`
+#
 function cdf {
   target=`osascript -e 'tell application "Finder" to get POSIX path of (target of front Finder window as text)'`
   cd "$target"

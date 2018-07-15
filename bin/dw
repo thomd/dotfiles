@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-[ ! -f dw.json ] && cat <<DW > dw.json
+if [ -f dw.json ]; then
+  jq -r 'reduce .cartridge[] as $c (""; . + ":" + $c)' dw.json | pbcopy
+else
+  [ ! -f dw.json ] && cat <<DW > dw.json
 {
     "hostname": "${1-dev31-web-netrada}.demandware.net",
     "username": "tduerr",
@@ -10,6 +13,7 @@
       "app_storefront_controllers",
       "app_storefront_pipelines"
     ],
-    "code-version": "${3-version}"
+    "code-version": "${3-version1}"
 }
 DW
+fi

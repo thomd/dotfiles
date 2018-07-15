@@ -6,6 +6,7 @@ if [ `uname` = Linux ]; then
 else
   alias l='ls -AlhG'
 fi
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias h='history'
@@ -21,16 +22,10 @@ alias rmi='rm -i'
 # VS Code
 alias code='code --locale=en $@'
 
-# http://portswigger.net/
-alias burp='java -jar /usr/local/burpsuite/burpsuite.jar &'
-
 alias sniff="sudo ngrep -d 'en0' -t '^(GET|POST) ' 'tcp and port 80'"
 alias httpdump="sudo tcpdump -i en0 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
 
 alias grep='GREP_COLOR="1;37;41" LANG=C grep --color=auto'
-
-# brew install hr
-alias hr="hr '-'"
 
 # docker
 alias d="docker $@"
@@ -48,7 +43,8 @@ function g {
 if [[ $# > 0 ]]; then
   git "$@"
 else
-  echo -e "\n\033[1;30mLast commit: $(time_since_last_commit) ago\033[0m"
+  git branch-status
+  #echo -e "\nLast commit: \033[1;30m$(time_since_last_commit) ago\033[0m\n"
   git status --short --branch
 fi
 }
@@ -56,7 +52,7 @@ function time_since_last_commit() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
   git log -1 --pretty=format:"%ar" | sed 's/\([0-9]*\) \(.\).*/\1\2/'
 }
-alias gb='git branch -a'                # "git branches"
+alias gb='git branch -a -vv'            # "git branches"
 alias gbs='git branch-status'
 alias gd='git df'                       # "git diff"
 alias gsl='git sl'                      # "git shortlog"
@@ -69,9 +65,6 @@ alias gr='git remote -v | column -t'                                            
 alias gt='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup`'   # "git top"   (cd into root folder)
 alias gs='git show `gln | termenu -p | awk "{print \\$1}"`'                         # "git show"
 alias gist='gist -c'
-
-# network
-alias flush="dscacheutil -flushcache" # Flush DNS cache
 
 # URL encode/decode
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1])"'
@@ -113,5 +106,7 @@ alias colors='colortest -w -s -r'
 alias npms="npm-scripter $@"
 alias nps="npm-scripter $@"
 
+# meld diff-tool (istall: https://yousseb.github.io/meld/)
+alias meld="open -W -a Meld --args $@"
 
 
