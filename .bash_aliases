@@ -29,6 +29,7 @@ alias grep='GREP_COLOR="1;37;41" LANG=C grep --color=auto'
 
 # docker
 alias d="docker $@"
+alias di="docker image $@"
 alias dm="docker-machine $@"
 alias dc="docker-compose $@"
 alias denv="dockerenv"

@@ -158,12 +158,6 @@ function ffd {
 }
 
 
-# open my side-projects file
-function projects {
-  ${EDITOR:-vi} "/develop/PROJECTS"
-}
-
-
 # cd to project root (determined .git folder)
 function p {
   local root=`git root`

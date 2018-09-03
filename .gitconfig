@@ -47,8 +47,6 @@
 [merge]
   tool = vimdiff
   conflictstyle = diff3
-[github]
-  user = thomd
 [push]
   default = matching
 [url "https://"]
