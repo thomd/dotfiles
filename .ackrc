@@ -1,7 +1,7 @@
 # set filetypes
 --type-set=prop=.properties
 --type-set=markdown=.markdown,.md,.mdown
---type-set=txt=.txt,.todo,.faq
+--type-set=txt=.txt,.todo,.faq,.properties
 --type-set=scss=.sass,.scss
 
 # add type aliases

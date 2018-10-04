@@ -110,4 +110,5 @@ alias nps="npm-scripter $@"
 # meld diff-tool (istall: https://yousseb.github.io/meld/)
 alias meld="open -W -a Meld --args $@"
 
-
+# csvfix
+alias csv="csvfix $@"
