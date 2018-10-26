@@ -24,3 +24,4 @@ DemandwareServer
 # Codenvy files
 .codenvy/misc.xml
 .vfs/
+.bash_private

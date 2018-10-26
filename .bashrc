@@ -6,7 +6,7 @@
 #   ~/.bash_functions    for daily work functions
 #   ~/.bash_completions  bash completions
 #   ~/.bash_private      for private environment variables (e.g. user:password)
-for file in ~/.bash_{exports,aliases,prompt,proxy,functions,completions}; do
+for file in ~/.bash_{exports,aliases,prompt,proxy,functions,completions,private}; do
   [ -r "$file" ] && source "$file"
 done
 unset file
