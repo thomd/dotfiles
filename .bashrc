@@ -1,16 +1,4 @@
 
-# load shell dotfiles
-#   ~/.bash_exports      for exports of env variables and to extend $PATH
-#   ~/.bash_aliases      for aliases
-#   ~/.bash_prompt       bash prompt
-#   ~/.bash_functions    for daily work functions
-#   ~/.bash_completions  bash completions
-#   ~/.bash_private      for private environment variables (e.g. user:password)
-for file in ~/.bash_{exports,aliases,prompt,proxy,functions,completions,private}; do
-  [ -r "$file" ] && source "$file"
-done
-unset file
-
 # append history list of current session to HISTFILE (default: make HISTFILE get overwritten each time).
 shopt -s histappend
 
@@ -51,21 +39,31 @@ bind "\C-f":forward-word    # ctrl-f: word forward
 # run gpg agent to allow to use preset passphrases
 #eval $(gpg-agent --daemon)
 
-# run ssh agent
-eval "$(ssh-agent -s)" > /dev/null
-#ssh-add -K ~/.ssh/github 2> /dev/null
-
+# start ssh agent
+if [ -z "$SSH_AGENT_PID" ] ; then
+    eval `ssh-agent -s` > /dev/null
+    ssh-add -K 2>/dev/null
+    [ -r "~/.ssh/github" ] && ssh-add ~/.ssh/github 2>/dev/null
+fi
 
 # run TMUX on startup
 if [[ $SHLVL == "1" ]]; then
   tmux new-session -A -s "$USER"
 fi
 
-# run `archey` only after a system start
-#[ ! -f '/tmp/archey' ] && archey && touch '/tmp/archey'
-
-[ -f /usr/local/etc/bash_completion ] && source /usr/local/etc/bash_completion
-
 # language
 export LANG=en_US.UTF-8
 export LC_ALL=$LANG
+
+# load shell dotfiles
+#   ~/.bash_exports      for exports of env variables and to extend $PATH
+#   ~/.bash_aliases      for aliases
+#   ~/.bash_prompt       bash prompt
+#   ~/.bash_functions    for daily work functions
+#   ~/.bash_completions  bash completions
+#   ~/.bash_private      for private environment variables (e.g. user:password)
+for file in ~/.bash_{exports,aliases,prompt,proxy,functions,completions,private}; do
+  [ -r "$file" ] && source "$file"
+done
+unset file
+
