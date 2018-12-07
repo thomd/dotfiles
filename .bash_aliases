@@ -15,7 +15,7 @@ alias md='mkdir -p'
 alias cwd="pwd | tr -d '\n' | pbcopy; pwd"            # show cwd and copy
 alias v='vim'
 
-alias t='tree -a -C -I ".git|.svn|node_modules|.gradle|tmp|.sass-cache"'
+alias t='tree -a -C -I ".git|.svn|node_modules|.gradle|tmp|.sass-cache|.cache"'
 alias j='jobs -l'
 alias rmi='rm -i'
 
