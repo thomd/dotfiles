@@ -531,7 +531,7 @@ let javascript_ignore_javaScriptdoc = 1
 " vim-jsx (React)
 Bundle "mxw/vim-jsx"
 " By default, JSX syntax highlighting is enabled only for files with the .jsx extension. For JSX in .js files, add:
-"let g:jsx_ext_required = 0
+let g:jsx_ext_required = 0
 
 
 " io lang
