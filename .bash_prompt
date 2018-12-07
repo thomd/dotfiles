@@ -66,6 +66,14 @@ function git_behind {
   fi
 }
 
+function git_user_color {
+  if [[ $(git config --get user.email) == "thomduerr@gmail.com" ]]; then
+    echo -e "\e[38;5;222m"  # yellow
+  else
+    echo -e "\e[0;32m"      # green
+  fi
+}
+
 
 #
 # prompt job info
@@ -87,10 +95,9 @@ function delimiter_ps1 {
   fi
 }
 
-
 export PS1='\n\[\e[1;30m\]$(job_ps1 \j)\
 $([[ ( $SCRATCH_HOME && $PWD =~ ^$SCRATCH_HOME ) || ( $SCRATCH_TEMP && $PWD =~ ^$SCRATCH_TEMP ) ]] && echo -e "\[\e[0;31m\]" || echo -e "\[\e[0;36m\]")\W \
-$(git_ps1 "\[\e[0;32m\][%s\[\e[0;31m\]$(git_dirty)\[\e[38;5;220m\]$(git_stash)\[\e[1;30m\]$(git_behind "\[\e[0;31m\]")\[\e[1;30m\]$(git_ahead "\[\e[0;32m\]")\[\e[0;32m\]]") \
+$(git_ps1 "$(git_user_color)[%s\[\e[0;31m\]$(git_dirty)\[\e[38;5;220m\]$(git_stash)\[\e[1;30m\]$(git_behind "\[\e[0;31m\]")\[\e[1;30m\]$(git_ahead "\[\e[0;32m\]")$(git_user_color)]") \
 \[\e[1;30m\]$(delimiter_ps1)\[\e[m\] '
 export PS2=' \[\e[1;30m\]:\[\e[m\] '
 
