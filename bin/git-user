@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+usage() {
+  echo -e "\n \e[0;30musage:\e[0m\n"
+  echo "   git user [thomd|thduerr]"
+}
+
+current_user() {
+  if [ $(git config --get user.email) == "thomduerr@gmail.com" ]; then
+    echo "\e[38;5;222mthomd\e[0m"
+  else
+    echo "\e[0;32mthduerr\e[0m"
+  fi
+}
+
+user() {
+  local user=$(current_user)
+  echo -e "\n \e[0;30mcurrent user:\e[0m\n"
+  [ -n "$user" ] && echo -e "   ${user}"
+  echo "   $(git config --get user.name)"
+  echo "   $(git config --get user.email)"
+}
+
+[ -z "$1" ] && usage && user && exit 1
+
+if [ "$1" == "thomd" ]; then
+  git config user.name "Thomas Dürr"
+  git config user.email thomduerr@gmail.com
+  #ssh-add -D 2> /dev/null
+  #ssh-add ~/.ssh/github
+  user
+fi
+
+# use git user defined in global git config
+if [ "$1" == "thduerr" ]; then
+  git config --unset user.name
+  git config --unset user.email
+  #ssh-add -D 2> /dev/null
+  #ssh-add -K ~/.ssh/id_rsa
+  user
+fi
+
