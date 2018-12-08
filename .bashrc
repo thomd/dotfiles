@@ -43,7 +43,6 @@ bind "\C-f":forward-word    # ctrl-f: word forward
 if [ -z "$SSH_AGENT_PID" ] ; then
     eval `ssh-agent -s` > /dev/null
     ssh-add -K 2>/dev/null
-    [ -r "~/.ssh/github" ] && ssh-add ~/.ssh/github 2>/dev/null
 fi
 
 # run TMUX on startup
