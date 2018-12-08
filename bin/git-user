@@ -26,8 +26,8 @@ user() {
 if [ "$1" == "thomd" ]; then
   git config user.name "Thomas Dürr"
   git config user.email thomduerr@gmail.com
-  #ssh-add -D 2> /dev/null
-  #ssh-add ~/.ssh/github
+  ssh-add -D 2> /dev/null
+  ssh-add ~/.ssh/github
   user
 fi
 
@@ -35,8 +35,8 @@ fi
 if [ "$1" == "thduerr" ]; then
   git config --unset user.name
   git config --unset user.email
-  #ssh-add -D 2> /dev/null
-  #ssh-add -K ~/.ssh/id_rsa
+  ssh-add -D 2> /dev/null
+  ssh-add -K ~/.ssh/id_rsa
   user
 fi
 
