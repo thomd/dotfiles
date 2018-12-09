@@ -2,7 +2,6 @@
 *.bak
 *.old
 *.swp
-.project
 .settings
 .svn
 log/*
@@ -27,3 +26,4 @@ DemandwareServer
 # Codenvy files
 .codenvy/misc.xml
 .vfs/
+.cache
