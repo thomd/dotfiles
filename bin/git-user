@@ -5,11 +5,15 @@ usage() {
   echo "   git user [thomd|thduerr]"
 }
 
+ORANGE="\e[38;5;222m"
+GREEN="\e[0;32m"
+NONE="\e[0m"
+
 current_user() {
   if [ $(git config --get user.email) == "thomduerr@gmail.com" ]; then
-    echo "\e[38;5;222mthomd\e[0m"
+    echo "${ORANGE}thomd${NONE}"
   else
-    echo "\e[0;32mthduerr\e[0m"
+    echo "${GREEN}thduerr${NONE}"
   fi
 }
 
@@ -21,7 +25,16 @@ user() {
   echo "   $(git config --get user.email)"
 }
 
-[ -z "$1" ] && usage && user && exit 1
+identity() {
+  echo -e "\n \e[0;30midentity:\e[0m\n"
+  if [ $(ssh-add -l | awk '{gsub(/.*\//, "", $3); print $3}') == "github" ]; then
+    ssh-add -E md5 -l 2>&1 | perl -pe "s/(.*MD5:)(.*?) (.*)/   \1${ORANGE}\2\e[0m \3/g"
+  else
+    ssh-add -E md5 -l 2>&1 | perl -pe "s/(.*MD5:)(.*?) (.*)/   \1${GREEN}\2\e[0m \3/g"
+  fi
+}
+
+[ -z "$1" ] && usage && identity && user && exit 1
 
 if [ "$1" == "thomd" ]; then
   git config user.name "Thomas Dürr"
