@@ -64,8 +64,6 @@ alias glan='git lan'                    # "git log all no-merges"
 alias eg='vim .git/config'                                                          # "edit git"
 alias gr='git remote -v | column -t'                                                # "git remotes"
 alias gt='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup`'   # "git top"   (cd into root folder)
-alias gs='git show `gln | termenu -p | awk "{print \\$1}"`'                         # "git show"
-alias gist='gist -c'
 
 # URL encode/decode
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1])"'
