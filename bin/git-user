@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
+ORANGE="\e[38;5;222m"
+GREEN="\e[0;32m"
+NONE="\e[0m"
+
 usage() {
   echo -e "\n \e[0;30musage:\e[0m\n"
   echo "   git user [thomd|thduerr]"
 }
-
-ORANGE="\e[38;5;222m"
-GREEN="\e[0;32m"
-NONE="\e[0m"
 
 current_user() {
   if [ $(git config --get user.email) == "thomduerr@gmail.com" ]; then
@@ -28,9 +28,9 @@ user() {
 identity() {
   echo -e "\n \e[0;30midentity:\e[0m\n"
   if [ $(ssh-add -l | awk '{gsub(/.*\//, "", $3); print $3}') == "github" ]; then
-    ssh-add -E md5 -l 2>&1 | perl -pe "s/(.*MD5:)(.*?) (.*)/   \1${ORANGE}\2\e[0m \3/g"
+    ssh-add -E md5 -l 2>&1 | sed 's/^/   /' | perl -pe "s/(.*MD5:)(.*?) (.*)/\1${ORANGE}\2\e[0m \3/g"
   else
-    ssh-add -E md5 -l 2>&1 | perl -pe "s/(.*MD5:)(.*?) (.*)/   \1${GREEN}\2\e[0m \3/g"
+    ssh-add -E md5 -l 2>&1 | sed 's/^/   /' | perl -pe "s/(.*MD5:)(.*?) (.*)/\1${GREEN}\2\e[0m \3/g"
   fi
 }
 
