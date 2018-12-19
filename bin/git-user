@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+ORANGE="\e[38;5;222m"
+GREEN="\e[0;32m"
+NONE="\e[0m"
+
+usage() {
+  echo -e "\n \e[0;30musage:\e[0m\n"
+  echo "   git user [thomd|thduerr]"
+}
+
+current_user() {
+  if [ $(git config --get user.email) == "thomduerr@gmail.com" ]; then
+    echo "${ORANGE}thomd${NONE}"
+  else
+    echo "${GREEN}thduerr${NONE}"
+  fi
+}
+
+user() {
+  local user=$(current_user)
+  echo -e "\n \e[0;30mcurrent user:\e[0m\n"
+  [ -n "$user" ] && echo -e "   ${user}"
+  echo "   $(git config --get user.name)"
+  echo "   $(git config --get user.email)"
+}
+
+identity() {
+  echo -e "\n \e[0;30midentity:\e[0m\n"
+  ssh-add -E md5 -l | awk '{print $2 " " $3}' | while read id; do
+    local keyname=$(echo $id | awk '{gsub(/.*\//, "", $2); print $2}')
+    if [ "$keyname" == "github_thomd" ]; then
+      echo $id | sed 's/^/   /' | perl -pe "s/(.*MD5:)(.*?) (.*)/\1${ORANGE}\2\e[0m \3/g"
+    elif [ "$keyname" == "github_thduerr" ]; then
+      echo $id | sed 's/^/   /' | perl -pe "s/(.*MD5:)(.*?) (.*)/\1${GREEN}\2\e[0m \3/g"
+    else
+      echo $id | sed 's/^/   /'
+    fi
+  done
+}
+
+[ -z "$1" ] && usage && identity && user && exit 1
+
+if [ "$1" == "thomd" ]; then
+  git config user.name "Thomas Dürr"
+  git config user.email thomduerr@gmail.com
+  #ssh-add -D 2> /dev/null
+  echo ""
+  ssh-add ~/.ssh/github_thomd 2>&1 | sed 's/^/   /'
+  user
+fi
+
+# use git user defined in global git config
+if [ "$1" == "thduerr" ]; then
+  git config --unset user.name
+  git config --unset user.email
+  #ssh-add -D 2> /dev/null
+  echo ""
+  ssh-add -K ~/.ssh/github_thduerr 2>&1 | sed 's/^/   /'
+  user
+fi
+
