@@ -2,11 +2,12 @@
 
 ORANGE="\e[38;5;222m"
 GREEN="\e[0;32m"
+GREY="\e[0;30m"
 NONE="\e[0m"
 
 usage() {
-  echo -e "\n \e[0;30musage:\e[0m\n"
-  echo "   git user [thomd|thduerr]"
+  echo -e "\n ${GREY}usage:${NONE}\n"
+  echo -e "   git user [${ORANGE}thomd${NONE}|${GREEN}thduerr${NONE}]"
 }
 
 current_user() {
@@ -19,14 +20,14 @@ current_user() {
 
 user() {
   local user=$(current_user)
-  echo -e "\n \e[0;30mcurrent user:\e[0m\n"
+  echo -e "\n ${GREY}current user:${NONE}\n"
   [ -n "$user" ] && echo -e "   ${user}"
   echo "   $(git config --get user.name)"
   echo "   $(git config --get user.email)"
 }
 
 identity() {
-  echo -e "\n \e[0;30midentity:\e[0m\n"
+  echo -e "\n ${GREY}identity:${NONE}\n"
   if [ $(ssh-add -l | awk '{gsub(/.*\//, "", $3); print $3}') == "github" ]; then
     ssh-add -E md5 -l 2>&1 | sed 's/^/   /' | perl -pe "s/(.*MD5:)(.*?) (.*)/\1${ORANGE}\2\e[0m \3/g"
   else
