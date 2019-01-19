@@ -524,25 +524,24 @@ Bundle 'mtth/scratch.vim'
 
 
 " vim-javascript
-Bundle "pangloss/vim-javascript"
+Bundle 'pangloss/vim-javascript'
 let javascript_ignore_javaScriptdoc = 1
 
 
 " vim-jsx (React)
-Bundle "mxw/vim-jsx"
-" By default, JSX syntax highlighting is enabled only for files with the .jsx extension. For JSX in .js files, add:
-let g:jsx_ext_required = 0
+Bundle 'chemzqm/vim-jsx-improve'
+" let g:jsx_ext_required = 0
 
 
 " io lang
-Bundle "andreimaxim/vim-io"
+Bundle 'andreimaxim/vim-io'
 
 
 " vim pug (aka jade) template engine syntax highlighting and indention
 Bundle 'digitaltoad/vim-pug'
 
 
-" Typescript Syntax-Highlightinh and Syntax Check
+" Typescript Syntax-Highlighting and Syntax Check
 Bundle 'HerringtonDarkholme/yats.vim'
 autocmd BufNewFile,BufReadPost *.ts setl foldmethod=indent nofoldenable
 
