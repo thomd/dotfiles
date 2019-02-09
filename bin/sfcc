@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$DEBUG" ] && set -x
+
+commands=`{ IFS=:; ls -H $PATH; } | grep ^sfcc- | sort | uniq | sort`
+
+usage() {
+  echo -e "\n  Usage: `basename $0` [command]\n"
+  echo -e "  Commands:\n"
+  while read command; do
+    echo "    $command";
+  done <<< $commands
+}
+
+[ -z "$1" ] && usage && exit 1
+
+eval "sfcc-$@"
+

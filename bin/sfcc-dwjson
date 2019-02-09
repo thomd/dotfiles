@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$DEBUG" ] && set -x
+
+case "$1" in
+  dwjson)
+    start
+    ;;
+  log)
+    stop
+    ;;
+  *)
+    echo "Usage: $0 {dwjson|log}" && exit 1
+esac
+
+dwjson() {
+  if [ -f dw.json ]; then
+    jq -r 'reduce .cartridge[] as $c (""; . + ":" + $c)' dw.json | pbcopy
+  else
+    [ ! -f dw.json ] && cat <<DW > dw.json
+{
+    "hostname": "${1-dev31-web-netrada}.demandware.net",
+    "username": "tduerr",
+    "password": "${2-password}",
+    "cartridge": [
+      "app_storefront_core",
+      "app_storefront_controllers",
+      "app_storefront_pipelines"
+    ],
+    "code-version": "${3-version1}"
+}
+DW
+  fi
+}
+
+log() {
+  echo $@
+}
