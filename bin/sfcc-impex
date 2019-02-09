@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$DEBUG" ] && set -x
+
+#
+# download files from Impex folder
+# (XML files will be formatted automatically)
+#
+# USAGE
+#
+#    sfcc impex [options] [path] [filename-pattern]
+#
+# OPTIONS
+#
+#    -n          # dry-run (list files only)
+#    -c N        # limit number of file to N
+#
+
+host=$SFCC_DL_HOST
+basepath="/on/demandware.servlet/webdav/Sites/Impex/"
+user=$SFCC_DL_USER
+folder=""
+
+while test $# -ne 0; do
+  arg=$1
+  shift
+  case $arg in
+    -n|--dry-run)
+      dryrun=1
+      ;;
+    -c|--count)
+      count=$1
+      shift
+      ;;
+    *)
+      if [ $# -eq 1 ]; then
+        folder=$arg
+        arg=$1
+        shift
+        filepattern=$arg
+      else
+        folder=$arg
+      fi
+      ;;
+  esac
+done
+
+curl -s -u "$user" "https://${host}${basepath}${folder}" \
+  | sed -n '/.*<a href="\(.*\)"><tt>.*/p' \
+  | sed 's/.*<a href="\(.*\)"><tt>.*/\1/g' \
+  | ( [[ $filepattern ]] && sed -n /$filepattern/p || cat ) \
+  | ( [[ $count ]] && head -n $count || cat ) \
+  > url.lst
+
+if [ $dryrun ]; then
+  less url.lst
+  exit 0
+fi
+
+while read url; do
+  echo $url | sed 's/.*\/\(.*\)/\1/g'
+  curl -s -u "$user" -O "https://${host}${url}"
+done < url.lst
+
+for file in `find . -name "*.xml"`; do
+  xml fo $file > temp
+  mv temp $file
+done
+
+cleanup() {
+  rm url.lst
+}
+trap cleanup EXIT
+
+exit 0

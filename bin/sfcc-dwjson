@@ -2,22 +2,14 @@
 set -e
 [ -n "$DEBUG" ] && set -x
 
-case "$1" in
-  dwjson)
-    start
-    ;;
-  log)
-    stop
-    ;;
-  *)
-    echo "Usage: $0 {dwjson|log}" && exit 1
-esac
+#
+# create a dw.json file
+#
 
-dwjson() {
-  if [ -f dw.json ]; then
-    jq -r 'reduce .cartridge[] as $c (""; . + ":" + $c)' dw.json | pbcopy
-  else
-    [ ! -f dw.json ] && cat <<DW > dw.json
+if [ -f dw.json ]; then
+  jq -r 'reduce .cartridge[] as $c (""; . + ":" + $c)' dw.json | sed 's/^://g' |  pbcopy
+else
+  [ ! -f dw.json ] && cat <<DW > dw.json
 {
     "hostname": "${1-dev31-web-netrada}.demandware.net",
     "username": "tduerr",
@@ -30,9 +22,4 @@ dwjson() {
     "code-version": "${3-version1}"
 }
 DW
-  fi
-}
-
-log() {
-  echo $@
-}
+fi

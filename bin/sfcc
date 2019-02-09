@@ -2,13 +2,20 @@
 set -e
 [ -n "$DEBUG" ] && set -x
 
+GREY="\e[0;30m"
+NONE="\e[0m"
+
 commands=`{ IFS=:; ls -H $PATH; } | grep ^sfcc- | sort | uniq | sort`
 
 usage() {
-  echo -e "\n  Usage: `basename $0` [command]\n"
-  echo -e "  Commands:\n"
+  echo -e "\n  ${GREY}Usage:${NONE} `basename $0` [command]\n"
+  echo -e "  ${GREY}Commands:${NONE}\n"
   while read command; do
-    echo "    $command";
+    { if [[ $(file -b `which $command`) =~ 'ASCII text' ]]; then
+      echo -e "    $command   ${GREY}$(cat `which $command` | sed -n '/^# /p' | sed -n 1p)${NONE}"
+    else
+      echo -e "    $command"
+    fi } | column -t -s '#'
   done <<< $commands
 }
 
