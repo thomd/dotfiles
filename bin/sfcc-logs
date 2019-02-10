@@ -3,23 +3,22 @@ set -e
 [ -n "$DEBUG" ] && set -x
 
 #
-# download files from Impex folder
-# (XML files will be formatted automatically)
+# download files from Logs folder
 #
 # USAGE
 #
-#    sfcc impex [options] [path] [filename-pattern]
+#    sfcc logs [options] [filename-pattern]
 #
 # OPTIONS
 #
-#    -n          dry-run (list files only)
-#    -c N        limit number of file to N
+#    -n        dry-run (list files only)
+#    -t N      N days ago (default: today)
 #
 
 host=$SFCC_DL_HOST
-basepath="/on/demandware.servlet/webdav/Sites/Impex/"
+basepath="/on/demandware.servlet/webdav/Sites/Logs/"
 user=$SFCC_DL_USER
-folder=""
+ago=0
 
 while test $# -ne 0; do
   arg=$1
@@ -32,32 +31,25 @@ while test $# -ne 0; do
     -n|--dry-run)
       dryrun=1
       ;;
-    -c|--count)
-      count=$1
+    -t|--days-ago)
+      ago=$1
       shift
       ;;
     *)
-      if [ $# -eq 1 ]; then
-        folder=$arg
-        arg=$1
-        shift
-        filepattern=$arg
-      else
-        folder=$arg
-      fi
+      filepattern=$arg
       ;;
   esac
 done
 
-curl -s -u "$user" "https://${host}${basepath}${folder}" \
+curl -s -u "$user" "https://${host}${basepath}" \
   | sed -n '/.*<a href="\(.*\)"><tt>.*/p' \
   | sed 's/.*<a href="\(.*\)"><tt>.*/\1/g' \
+  | sed -n /$(date -v -${ago}d +"%Y%m%d")/p \
   | ( [[ $filepattern ]] && sed -n /$filepattern/p || cat ) \
-  | ( [[ $count ]] && head -n $count || cat ) \
   > url.lst
 
 if [ $dryrun ]; then
-  less url.lst
+  less url.lst | sed "s/\(${filepattern}\)/$(tput sgr 0 1)$(tput setaf 2)\1$(tput sgr0)/g"
   exit 0
 fi
 
@@ -65,11 +57,6 @@ while read url; do
   echo $url | sed 's/.*\/\(.*\)/\1/g'
   curl -s -u "$user" -O "https://${host}${url}"
 done < url.lst
-
-for file in `find . -name "*.xml"`; do
-  xml fo $file > temp
-  mv temp $file
-done
 
 cleanup() {
   rm url.lst

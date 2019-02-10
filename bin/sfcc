@@ -11,12 +11,10 @@ usage() {
   echo -e "\n  ${GREY}Usage:${NONE} `basename $0` [command]\n"
   echo -e "  ${GREY}Commands:${NONE}\n"
   while read command; do
-    { if [[ $(file -b `which $command`) =~ 'ASCII text' ]]; then
-      echo -e "    $command   ${GREY}$(cat `which $command` | sed -n '/^# /p' | sed -n 1p)${NONE}"
-    else
-      echo -e "    $command"
-    fi } | column -t -s '#'
-  done <<< $commands
+    subcommand=`echo $command | sed 's/sfcc-//g'`
+    description=$([[ $(file -b `which $command`) =~ 'ASCII text' ]] && cat `which $command` | sed -n '/^# /p' | sed -n 1p || echo "")
+    echo -e "    ${subcommand}${GREY}${description}${NONE}"
+  done <<< $commands | column -t -s '#'
 }
 
 [ -z "$1" ] && usage && exit 1
