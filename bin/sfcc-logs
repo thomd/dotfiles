@@ -11,7 +11,7 @@ set -e
 #
 # OPTIONS
 #
-#    -n        dry-run (list files only)
+#    -n        dry-run (list files & folders only)
 #    -t N      N days ago (default: today)
 #
 
@@ -25,7 +25,9 @@ while test $# -ne 0; do
   shift
   case $arg in
     -h|--help)
-      cat $0 | sed -n '/^#/p' | sed 1d | sed 's/#/ /g'
+      cat $0 | sed -n '/^#/p' | sed 1d | sed 's/#/ /g' \
+        | perl -pe "s/Logs folder/$(tput setaf 2)${SFCC_DL_HOST}$(tput sgr0) Logs folder/" \
+        | perl -pe "s/(USAGE|OPTIONS)/$(tput setaf 0)\1$(tput sgr0)/"
       exit 1
       ;;
     -n|--dry-run)
@@ -41,7 +43,7 @@ while test $# -ne 0; do
   esac
 done
 
-curl -s -u "$user" "https://${host}${basepath}" \
+curl -sN -u "$user" "https://${host}${basepath}" \
   | sed -n '/.*<a href="\(.*\)"><tt>.*/p' \
   | sed 's/.*<a href="\(.*\)"><tt>.*/\1/g' \
   | sed -n /$(date -v -${ago}d +"%Y%m%d")/p \
