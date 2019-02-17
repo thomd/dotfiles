@@ -1,0 +1,18 @@
+# vim:ft=sh
+
+# ----- python ----------------------------------------------------------------
+
+# Requiring an active virtual environment for pip
+#   source: https://docs.python-guide.org/dev/pip-virtualenv/
+export PIP_REQUIRE_VIRTUALENV=true
+gpip() {                                      # enforce global install
+  PIP_REQUIRE_VIRTUALENV=false pip "$@"
+}
+
+# virtualenvwrapper
+export WORKON_HOME=$HOME/.virtualenvs
+[ -f /usr/local/bin/virtualenvwrapper_lazy.sh ] && source /usr/local/bin/virtualenvwrapper_lazy.sh
+
+# python REPl
+export PYTHONSTARTUP="$HOME/.pythonrc"
+

@@ -37,13 +37,6 @@ if [ `uname` = Darwin ]; then
   export PATH="$PATH:$JAVA_HOME/bin"
 fi
 
-# python REPl
-export PYTHONSTARTUP="$HOME/.pythonrc"
-
-# python wirtualenvwrapper
-#export WORKON_HOME="$HOME/.virtualenvs"
-#[ -f /usr/local/share/python/virtualenvwrapper_lazy.sh ] && source /usr/local/share/python/virtualenvwrapper_lazy.sh
-
 # mad(1)
 export MAD_PATH="$HOME/.mad"
 

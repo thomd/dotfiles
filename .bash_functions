@@ -312,14 +312,6 @@ shorten() {
 }
 
 
-# Requiring an active virtual environment for pip
-#   source: https://docs.python-guide.org/dev/pip-virtualenv/
-export PIP_REQUIRE_VIRTUALENV=true
-gpip() {                                      # enforce global install
-  PIP_REQUIRE_VIRTUALENV=false pip "$@"
-}
-
-
 # ----- sourcing external scripts -----
 #
 # download
