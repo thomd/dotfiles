@@ -39,23 +39,3 @@ fi
 
 # mad(1)
 export MAD_PATH="$HOME/.mad"
-
-# nvm - node version manager
-export NVM_DIR="/usr/local/nvm"
-export PATH=/usr/local/nvm/versions/node/`cat /usr/local/nvm/alias/default`/bin:$PATH
-# lazy sourcing of nvm
-function nvm {
-  if [ -z $NVM_SOURCED ]; then
-    export NVM_SOURCED=true
-    source /usr/local/opt/nvm/nvm.sh
-  fi
-  nvm $@
-}
-
-# go
-export GOPATH="/Users/duerr/go"
-export PATH="$PATH:$GOPATH/bin"
-export GOBIN="$GOPATH/bin"
-
-# rust
-export PATH="$HOME/.cargo/bin:$PATH"
