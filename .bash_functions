@@ -316,7 +316,7 @@ shorten() {
 #   source: https://docs.python-guide.org/dev/pip-virtualenv/
 export PIP_REQUIRE_VIRTUALENV=true
 gpip() {                                      # enforce global install
-  PIP_REQUIRE_VIRTUALENV="" pip "$@"
+  PIP_REQUIRE_VIRTUALENV=false pip "$@"
 }
 
 
