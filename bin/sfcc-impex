@@ -16,6 +16,11 @@ set -e
 #    -n          dry-run (list files & folders only)
 #    -c N        limit number of file to N
 #
+# EXAMPLES
+#
+#    sfcc impex log import-catalog-stg
+#    sfcc impex archive/catalog StoreFront
+#
 
 host=$SFCC_DL_HOST
 basepath="/on/demandware.servlet/webdav/Sites/Impex/"
@@ -29,7 +34,7 @@ while test $# -ne 0; do
     -h|--help)
       cat $0 | sed -n '/^#/p' | sed 1d | sed 's/#/ /g' \
         | perl -pe "s/Impex/$(tput setaf 2)${SFCC_DL_HOST}$(tput sgr0) Impex/" \
-        | perl -pe "s/(USAGE|OPTIONS)/$(tput setaf 0)\1$(tput sgr0)/"
+        | perl -pe "s/(USAGE|OPTIONS|EXAMPLES)/$(tput setaf 0)\1$(tput sgr0)/"
       exit 1
       ;;
     -v|--verbose)
