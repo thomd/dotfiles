@@ -49,7 +49,7 @@
   tool = vimdiff
   conflictstyle = diff3
 [push]
-  default = matching
+  default = current
 [url "https://"]
   insteadOf = git://
 [rerere]
