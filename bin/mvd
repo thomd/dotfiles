@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$DEBUG" ] && set -x
+
+#
+# mvd - move all files & folders in current directory down into a new folder
+#
+# USAGE
+#
+#    mvd <new-folder>
+#
+# EXAMPLE
+#
+#  > tree
+#  .
+#  ├── .bar
+#  └── baz
+#
+#  > mvd foo
+#  > tree
+#  .
+#  └── foo
+#      ├── .bar
+#      └── baz
+#
+function mvd {
+  if [ "$(ls -A)" ]; then
+    local tmp=`mktemp -d mvdXXXX`
+    mkdir -p "$tmp"
+    for f in $(ls -A); do
+      [ "$f" != "$tmp" ] && mv "$f" "$tmp"
+    done
+    mv "$tmp" "$1"
+    chmod +rx "$1"
+  else
+    echo -e "\n  $(tput setaf 0)this folder is empty$(tput sgr0)"
+  fi
+}
+
+function usage {
+  cat $0 | sed -n '/^#/p' | sed 1d | sed 's/#/ /g' \
+    | perl -pe "s/Impex/$(tput setaf 2)${SFCC_DL_HOST}$(tput sgr0) Impex/" \
+    | perl -pe "s/(USAGE|EXAMPLE)/$(tput setaf 0)\1$(tput sgr0)/"
+  exit 1
+}
+
+while test $# -ne 0; do
+  arg=$1
+  shift
+  case $arg in
+    -h|--help)
+      usage
+      ;;
+    *)
+      mvd $arg
+      exit 0
+      ;;
+  esac
+done
+
+usage
+

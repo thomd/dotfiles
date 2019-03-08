@@ -82,68 +82,6 @@ function _ {
 
 
 #
-# mvd - move down
-# move all files & folders in current directory into a new folder one hierarchy down
-#
-# EXAMPLE
-#
-#   > tree
-#   .
-#   ├── .bar
-#   └── baz
-#
-#   > mvd foo
-#   > tree
-#   .
-#   └── foo
-#       ├── .bar
-#       └── baz
-#
-function mvd {
-  if [ ! -z "$1" ] && [ "$(ls -A)" ]; then  # if argument given and folder not empty
-    local tmp=`mktemp -d mvdXXXX`
-    mkdir -p "$tmp"
-    for f in $(ls -A); do
-      [ "$f" != "$tmp" ] && mv "$f" "$tmp"
-    done
-    mv "$tmp" "$1"
-  else
-    echo "usage: mvd <folder>"
-  fi
-}
-
-
-#
-# mvu - move up
-# move all files & folders in a folder one hierarchy up and deletes the - now empty - folder
-#
-# EXAMPLE
-#
-#   > tree
-#   .
-#   └── foo
-#       ├── .bar
-#       └── baz
-#
-#   > mvu foo
-#   > tree
-#   .
-#   ├── .bar
-#   └── baz
-#
-function mvu {
-  if [ ! -z "$1" ] && [ -d "$1" ]; then  # if argument given and folder exist
-    for f in $(ls -A "$1"); do
-      mv "$1/$f" "$PWD"
-    done
-    rm -r "$1"
-  else
-    echo "usage: mvu <folder>"
-  fi
-}
-
-
-#
 # find folder depth
 #
 function ffd {
