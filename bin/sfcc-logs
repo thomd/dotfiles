@@ -60,6 +60,9 @@ while read url; do
   curl -s -u "$user" -O "https://${host}${url}"
 done < url.lst
 
+# TODO
+# https://unix.stackexchange.com/questions/57940/trap-int-term-exit-really-necessary
+# https://www.shellscript.sh/trap.html
 cleanup() {
   rm url.lst
 }

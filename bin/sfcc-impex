@@ -62,7 +62,8 @@ done
 
 if [ $verbose ]; then
   echo -e "https://${host}${basepath}${folder}"
-  curl -I -s -u "$user" "https://${host}${basepath}${folder}" | head -n 1
+  curl -I -s -u "$user" "https://${host}${basepath}${folder}"
+  exit 0
 fi
 
 curl -sN -u "$user" "https://${host}${basepath}${folder}" \
