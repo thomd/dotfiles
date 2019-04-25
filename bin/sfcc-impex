@@ -83,9 +83,9 @@ while read url; do
   curl -s -u "$user" -O "https://${host}${url}"
 done < url.lst
 
+# TODO: format directly after download and only if a flag -f,--format is set and only if it is a xml file
 for file in `find . -name "*.xml"`; do
-  xml fo $file > temp
-  mv temp $file
+  xml fo $file > temp && mv temp $file || echo $file >> fo-error.txt
 done
 
 cleanup() {
