@@ -22,6 +22,13 @@ set -e
 #    sfcc impex archive/catalog StoreFront
 #
 
+# TODO:
+# 1. make dry-run by default, download with -d,--download flag
+# 2. make url.lst uniqe per process to allow parallel processes
+# 3. make multiple curl downloads in parallel (to speed up overall download time)
+# 4. add cleanup step when process finished
+
+
 host=$SFCC_DL_HOST
 basepath="/on/demandware.servlet/webdav/Sites/Impex/"
 user=$SFCC_DL_USER
