@@ -86,8 +86,11 @@ if [ $dryrun ]; then
 fi
 
 while read url; do
-  echo $url | sed 's/.*\/\(.*\)/\1/g'
-  curl -s -u "$user" -O "https://${host}${url}"
+  file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
+  if [ ! -f $file ]; then
+    echo $file
+    curl -s -u "$user" -O "https://${host}${url}"
+  fi
 done < url.lst
 
 # TODO: format directly after download and only if a flag -f,--format is set and only if it is a xml file
