@@ -73,6 +73,7 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # nvm - node version manager
 export NVM_DIR="/usr/local/var/nvm"
+export PATH=/usr/local/var/nvm/versions/node/`cat /usr/local/var/nvm/alias/default`/bin:$PATH
 # lazy sourcing of nvm
 function nvm {
   if [ -z $NVM_SOURCED ]; then
