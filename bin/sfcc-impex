@@ -27,7 +27,8 @@ set -e
 # 2. make url.lst uniqe per process to allow parallel processes
 # 3. make multiple curl downloads in parallel (to speed up overall download time)
 # 4. add cleanup step when process finished
-
+# 5. --histogram 2019-04-25: display number of downloaded files per hour
+# 6. sometimes a downloaded xml file returns a html-transmission-error page. Theses files should not be saved.
 
 host=$SFCC_DL_HOST
 basepath="/on/demandware.servlet/webdav/Sites/Impex/"
@@ -85,17 +86,19 @@ if [ $dryrun ]; then
   exit 0
 fi
 
-while read url; do
+total=`wc -l url.lst | awk '{print $1}'`
+i=0
+while ((i++)); read -r url; do
   file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
+  echo "[$i/$total] $file"
   if [ ! -f $file ]; then
-    echo $file
     curl -s -u "$user" -O "https://${host}${url}"
   fi
 done < url.lst
 
 # TODO: format directly after download and only if a flag -f,--format is set and only if it is a xml file
 for file in `find . -name "*.xml"`; do
-  xml fo $file > temp && mv temp $file || echo $file >> fo-error.txt
+  xml fo $file > temp && mv temp $file || echo $file >> fo-error.txt
 done
 
 cleanup() {
