@@ -264,6 +264,7 @@ autocmd BufWritePre * :call TrimTrailingWhiteSpace()
 au FileType xhtml,xml,html set textwidth=0
 au FileType make set noexpandtab shiftwidth=8
 au FileType python set expandtab shiftwidth=4 softtabstop=4 tabstop=4 autoindent
+au FileType go set noexpandtab shiftwidth=4 softtabstop=4 tabstop=4 autoindent
 au FileType javascript set tabstop=2 shiftwidth=2 expandtab autoindent textwidth=100
 au FileType snippets set tabstop=8 shiftwidth=8 expandtab autoindent textwidth=100
 
