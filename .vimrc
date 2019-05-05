@@ -572,7 +572,7 @@ map y <Plug>(highlightedyank)
 "
 "    run :GoInstallBinaries after installation
 "
-"Bundle 'fatih/vim-go'
+Bundle 'fatih/vim-go'
 
 
 " Jenkinsfile DSL vim syntax
