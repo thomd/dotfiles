@@ -14,6 +14,10 @@ set -e
 #    -n        dry-run (list files & folders only)
 #    -t N      N days ago (default: today)
 #
+# EXAMPLES
+#
+#    sfcc logs -t 1 custom           // download custom logfiles from yesterday
+#
 
 host=$SFCC_DL_HOST
 basepath="/on/demandware.servlet/webdav/Sites/Logs/"
@@ -27,7 +31,7 @@ while test $# -ne 0; do
     -h|--help)
       cat $0 | sed -n '/^#/p' | sed 1d | sed 's/#/ /g' \
         | perl -pe "s/Logs folder/$(tput setaf 2)${SFCC_DL_HOST}$(tput sgr0) Logs folder/" \
-        | perl -pe "s/(USAGE|OPTIONS)/$(tput setaf 0)\1$(tput sgr0)/"
+        | perl -pe "s/(USAGE|OPTIONS|EXAMPLES)/$(tput setaf 0)\1$(tput sgr0)/"
       exit 1
       ;;
     -n|--dry-run)
