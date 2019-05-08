@@ -14,7 +14,7 @@ set -e
 #    -d          download
 #    -c N        limit number of file to N
 #    -p          plot day histogram
-#    -P DATE     plot hour histogram for DATE
+#    -P DATE     plot hour histogram for DATE (default: today)
 #
 # EXAMPLES
 #
@@ -24,8 +24,8 @@ set -e
 #    sfcc impex -p "2019-05-03"
 #
 
-host=$SFCC_DL_HOST
 basepath="/on/demandware.servlet/webdav/Sites/Impex/"
+host=$SFCC_DL_HOST
 user=$SFCC_DL_USER
 folder=""
 
@@ -33,19 +33,19 @@ folder=""
 histogram() {
   local max_value=`cat $1 | sort -n | tail -1 | awk '{print $1}'`
   local label_width=$2
-  local num_cols="$(( `tput cols` - label_width - `echo -n $max_value | wc -c` - 7 ))"
+  local num_cols="$(( `tput cols` - label_width - `echo -n $max_value | wc -c` - 10 ))"
   local step="$(( $max_value / $num_cols + 1 ))"
   if [ $step == 0 ]; then step=1; fi
 
   cat $datafile \
-    | awk -v S="$step" -v Y=`tput setaf 3` -v R=`tput sgr0` -v G=`tput setaf 0` '{printf("\n%s %s", $2, Y); for(i=0; i<$1; i+=S){printf("#")}; if ($1 > 0) {printf(" %s(%s)", G, $1)}; printf("%s", R)}' \
+    | awk -v S="$step" -v Y=`tput setaf 3` -v R=`tput sgr0` -v G=`tput setaf 0` '{printf("\n  %s %s", $2, Y); for(i=0; i<$1; i+=S){printf("#")}; if ($1 > 0) {printf(" %s(%s)", G, $1)}; printf("%s", R)}' \
     | sort -n
 }
 
 daily_plot() {
   local datafile=`mktemp ./daily-plot-XXXXX`
   trap "rm $datafile" EXIT
-  cat data | perl -pe 's/^(\d{4}-\d{2}-\d{2}).*/\1/g' | sort | uniq -c > $datafile
+  ls | grep -e "\.xml$" | perl -pe 's/^(\d{4}-\d{2}-\d{2}).*/\1/g' | sort | uniq -c > $datafile
   histogram $datafile 10
 }
 
@@ -54,7 +54,7 @@ hourly_plot() {
   local datafile=`mktemp ./hourly-plot-XXXXX`
   local datafile2=`mktemp ./hourly-plot-XXXXX-2`
   trap "rm $datafile $datafile2" EXIT
-  cat data | grep "^$1" | perl -pe 's/^'${1}'T(\d{2}).*/\1/g' | sort | uniq -c > $datafile2
+  ls | grep -e "\.xml$" | grep "^$1" | perl -pe 's/^'${1}'T(\d{2}).*/\1/g' | sort | uniq -c > $datafile2
 
   # fill empty hours
   for i in {00..23}; do
@@ -71,15 +71,12 @@ hourly_plot() {
 
 
 
-urlfile=`mktemp ./url-XXXXX`
-trap "rm $urlfile" EXIT
-
 while test $# -ne 0; do
   arg=$1
   shift
   case $arg in
     -h|--help)
-      cat $0 | sed -n '/^#/p' | sed 1d | sed 's/#/ /g' \
+      cat $0 | sed -n '/^#/p' | sed '/^##/d' | sed 1d | sed 's/#/ /g' \
         | perl -pe "s/Impex/$(tput setaf 2)${SFCC_DL_HOST}$(tput sgr0) Impex/" \
         | perl -pe "s/(USAGE|OPTIONS|EXAMPLES)/$(tput setaf 0)\1$(tput sgr0)/"
       exit 1
@@ -89,7 +86,7 @@ while test $# -ne 0; do
       exit 0
       ;;
     -p|--hour-histogram)
-      hourly_plot $1
+      hourly_plot ${1:-`date +"%Y-%m-%d"`}
       exit 0
       ;;
     -d|--download)
@@ -112,12 +109,21 @@ while test $# -ne 0; do
   esac
 done
 
+urlfile=`mktemp ./url-XXXXX`
+trap "rm $urlfile" EXIT
+
 curl -sN -u "$user" "https://${host}${basepath}${folder}" \
   | sed -n '/.*<a href="\(.*\)"><tt>.*/p' \
   | sed 's/.*<a href="\(.*\)"><tt>.*/\1/g' \
   | ( [[ $filepattern ]] && sed -n /$filepattern/p || cat ) \
   | ( [[ $count ]] && head -n $count || cat ) \
-  | tee $urlfile
+  > $urlfile
+
+if [ -z $folder ]; then
+  cat $urlfile | perl -pe 's/(Impex\/)(.*)$/\1'$(tput setaf 2)'\2'$(tput sgr0)'/g'
+else
+  cat $urlfile | perl -pe 's/(Impex\/'${folder//\//\\/}'\/)(.*)$/\1'$(tput setaf 2)'\2'$(tput sgr0)'/g'
+fi
 
 if [ $download ]; then
   total=`wc -l $urlfile | awk '{print $1}'`
@@ -137,8 +143,8 @@ fi
 
 exit 0
 
-# TODO:
-# 1. make multiple curl downloads in parallel (to speed up overall download time)
-# 2. sometimes a downloaded xml file returns a html-transmission-error page. Theses files should not be saved.
-# 3. add flag for direct download (if I know the exact file, I don't need to download the whole file list)
-
+## TODO:
+## 1. make multiple curl downloads in parallel (to speed up overall download time)
+## 2. sometimes a downloaded xml file returns a html-transmission-error page. Theses files should not be saved.
+## 3. add flag for direct download (if I know the exact file, I don't need to download the whole file list)
+## 4. add option to set instance
