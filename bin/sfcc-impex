@@ -3,8 +3,7 @@ set -e
 [ -n "$DEBUG" ] && set -x
 
 #
-# download files from Impex folder.
-# XML files will be formatted automatically.
+# download files from Impex folder
 #
 # USAGE
 #
@@ -12,28 +11,68 @@ set -e
 #
 # OPTIONS
 #
-#    -v          verbose
-#    -n          dry-run (list files & folders only)
+#    -d          download
 #    -c N        limit number of file to N
+#    -p          plot day histogram
+#    -P DATE     plot hour histogram for DATE
 #
 # EXAMPLES
 #
-#    sfcc impex log import-catalog-stg
-#    sfcc impex archive/catalog StoreFront
+#    sfcc impex -d log import-catalog-2019
+#    sfcc impex archive/catalog
+#    sfcc impex -P
+#    sfcc impex -p "2019-05-03"
 #
-
-# TODO:
-# 1. make dry-run by default, download with -d,--download flag
-# 2. make url.lst uniqe per process to allow parallel processes
-# 3. make multiple curl downloads in parallel (to speed up overall download time)
-# 4. add cleanup step when process finished
-# 5. --histogram 2019-04-25: display number of downloaded files per hour
-# 6. sometimes a downloaded xml file returns a html-transmission-error page. Theses files should not be saved.
 
 host=$SFCC_DL_HOST
 basepath="/on/demandware.servlet/webdav/Sites/Impex/"
 user=$SFCC_DL_USER
 folder=""
+
+
+histogram() {
+  local max_value=`cat $1 | sort -n | tail -1 | awk '{print $1}'`
+  local label_width=$2
+  local num_cols="$(( `tput cols` - label_width - `echo -n $max_value | wc -c` - 7 ))"
+  local step="$(( $max_value / $num_cols + 1 ))"
+  if [ $step == 0 ]; then step=1; fi
+
+  cat $datafile \
+    | awk -v S="$step" -v Y=`tput setaf 3` -v R=`tput sgr0` -v G=`tput setaf 0` '{printf("\n%s %s", $2, Y); for(i=0; i<$1; i+=S){printf("#")}; if ($1 > 0) {printf(" %s(%s)", G, $1)}; printf("%s", R)}' \
+    | sort -n
+}
+
+daily_plot() {
+  local datafile=`mktemp ./daily-plot-XXXXX`
+  trap "rm $datafile" EXIT
+  cat data | perl -pe 's/^(\d{4}-\d{2}-\d{2}).*/\1/g' | sort | uniq -c > $datafile
+  histogram $datafile 10
+}
+
+hourly_plot() {
+  echo -e "\n$1:"
+  local datafile=`mktemp ./hourly-plot-XXXXX`
+  local datafile2=`mktemp ./hourly-plot-XXXXX-2`
+  trap "rm $datafile $datafile2" EXIT
+  cat data | grep "^$1" | perl -pe 's/^'${1}'T(\d{2}).*/\1/g' | sort | uniq -c > $datafile2
+
+  # fill empty hours
+  for i in {00..23}; do
+    n=`awk '/'${i}'$/ {print $2}' $datafile2`
+    cn=`awk '/'${i}'$/ {print $0}' $datafile2`
+    if [ "$i" == "$n" ]; then
+      echo $cn
+    else
+      echo 0 $i
+    fi
+  done > $datafile
+  histogram $datafile 2
+}
+
+
+
+urlfile=`mktemp ./url-XXXXX`
+trap "rm $urlfile" EXIT
 
 while test $# -ne 0; do
   arg=$1
@@ -45,11 +84,16 @@ while test $# -ne 0; do
         | perl -pe "s/(USAGE|OPTIONS|EXAMPLES)/$(tput setaf 0)\1$(tput sgr0)/"
       exit 1
       ;;
-    -v|--verbose)
-      verbose=1
+    -P|--day-histogram)
+      daily_plot
+      exit 0
       ;;
-    -n|--dry-run)
-      dryrun=1
+    -p|--hour-histogram)
+      hourly_plot $1
+      exit 0
+      ;;
+    -d|--download)
+    download=1
       ;;
     -c|--count)
       count=$1
@@ -68,42 +112,33 @@ while test $# -ne 0; do
   esac
 done
 
-if [ $verbose ]; then
-  echo -e "https://${host}${basepath}${folder}"
-  curl -I -s -u "$user" "https://${host}${basepath}${folder}"
-  exit 0
-fi
-
 curl -sN -u "$user" "https://${host}${basepath}${folder}" \
   | sed -n '/.*<a href="\(.*\)"><tt>.*/p' \
   | sed 's/.*<a href="\(.*\)"><tt>.*/\1/g' \
   | ( [[ $filepattern ]] && sed -n /$filepattern/p || cat ) \
   | ( [[ $count ]] && head -n $count || cat ) \
-  > url.lst
+  | tee $urlfile
 
-if [ $dryrun ]; then
-  less url.lst
-  exit 0
+if [ $download ]; then
+  total=`wc -l $urlfile | awk '{print $1}'`
+  i=0
+  while ((i++)); read -r url; do
+    file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
+    echo "[$i/$total] $file"
+    if [ ! -f $file ]; then
+      curl -s -u "$user" -O "https://${host}${url}"
+      if [ ${file: -4} == ".xml" ]; then
+        echo "formatting $file"
+        xml fo $file > temp && mv temp $file || echo $file >> fo-error.txt
+      fi
+    fi
+  done < $urlfile
 fi
 
-total=`wc -l url.lst | awk '{print $1}'`
-i=0
-while ((i++)); read -r url; do
-  file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
-  echo "[$i/$total] $file"
-  if [ ! -f $file ]; then
-    curl -s -u "$user" -O "https://${host}${url}"
-  fi
-done < url.lst
-
-# TODO: format directly after download and only if a flag -f,--format is set and only if it is a xml file
-for file in `find . -name "*.xml"`; do
-  xml fo $file > temp && mv temp $file || echo $file >> fo-error.txt
-done
-
-cleanup() {
-  rm url.lst
-}
-trap cleanup EXIT
-
 exit 0
+
+# TODO:
+# 1. make multiple curl downloads in parallel (to speed up overall download time)
+# 2. sometimes a downloaded xml file returns a html-transmission-error page. Theses files should not be saved.
+# 3. add flag for direct download (if I know the exact file, I don't need to download the whole file list)
+
