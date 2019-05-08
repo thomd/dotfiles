@@ -130,11 +130,10 @@ if [ $download ]; then
   i=0
   while ((i++)); read -r url; do
     file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
-    echo "[$i/$total] $file"
+    echo "$(tput setaf 3)[$i/$total]$(tput sgr0) $file"
     if [ ! -f $file ]; then
       curl -s -u "$user" -O "https://${host}${url}"
       if [ ${file: -4} == ".xml" ]; then
-        echo "formatting $file"
         xml fo $file > temp && mv temp $file || echo $file >> fo-error.txt
       fi
     fi
