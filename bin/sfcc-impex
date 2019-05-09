@@ -119,12 +119,6 @@ curl -sN -u "$user" "https://${host}${basepath}${folder}" \
   | ( [[ $count ]] && head -n $count || cat ) \
   > $urlfile
 
-if [ -z $folder ]; then
-  cat $urlfile | perl -pe 's/(Impex\/)(.*)$/\1'$(tput setaf 2)'\2'$(tput sgr0)'/g'
-else
-  cat $urlfile | perl -pe 's/(Impex\/'${folder//\//\\/}'\/)(.*)$/\1'$(tput setaf 2)'\2'$(tput sgr0)'/g'
-fi
-
 if [ $download ]; then
   total=`wc -l $urlfile | awk '{print $1}'`
   i=0
@@ -138,6 +132,12 @@ if [ $download ]; then
       fi
     fi
   done < $urlfile
+else
+  if [ -z $folder ]; then
+    cat $urlfile | perl -pe 's/(Impex\/)(.*)$/\1'$(tput setaf 2)'\2'$(tput sgr0)'/g'
+  else
+    cat $urlfile | perl -pe 's/(Impex\/'${folder//\//\\/}'\/)(.*)$/\1'$(tput setaf 2)'\2'$(tput sgr0)'/g'
+  fi
 fi
 
 exit 0
@@ -147,3 +147,4 @@ exit 0
 ## 2. sometimes a downloaded xml file returns a html-transmission-error page. Theses files should not be saved.
 ## 3. add flag for direct download (if I know the exact file, I don't need to download the whole file list)
 ## 4. add option to set instance
+## 5. add flag -a for zipping & archiving old files
