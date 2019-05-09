@@ -16,9 +16,8 @@ set -e
 #    -c N        limit number of file to N
 #    -p          plot day histogram
 #    -P DATE     plot hour histogram for DATE (default: today)
-#    -i          list instances
-#    -i NAME     use NAME as instances
-#    -I NAME     set NAME as default instances
+#    -I          list instances
+#    -i NAME     use NAME as instances (and set as default)
 #
 # EXAMPLES
 #
@@ -29,8 +28,12 @@ set -e
 #
 
 basepath="/on/demandware.servlet/webdav/Sites/Impex/"
-host=$SFCC_DL_HOST
-user=$SFCC_DL_USER
+if [ -f .instance ]; then
+  host_envname="SFCC_DL_HOST_$(cat .instance)"
+  host=${!host_envname}
+  user_envname="SFCC_DL_USER_$(cat .instance)"
+  user=${!user_envname}
+fi
 folder=""
 
 
@@ -74,17 +77,21 @@ hourly_plot() {
 }
 
 list_instances() {
-  env | grep SFCC_DL_HOST | perl -pe 's/^SFCC_DL_HOST_(.*)=(.*)$/'`tput setaf 2`' \1'`tput sgr0`' \2/g' | column -t
+  local instance=`cat .instance`
+  echo ''
+  env \
+    | grep SFCC_DL_HOST \
+    | perl -pe 's/^SFCC_DL_HOST_(.*)=(.*)$/\1 \2/g' \
+    | awk -v I="$instance" -v Y=`tput setaf 3` -v G=`tput setaf 2` -v R=`tput sgr0` '{M=" ";C=Y;if(I == $1){M="*";C=G};printf(" %s %s%s%s#%s\n"), M, C, $1, R, $2 }' \
+    | column -t -s '#'
 }
 
-# arg parsing
 while test $# -ne 0; do
   arg=$1
   shift
   case $arg in
     -h|--help)
       cat $0 | sed -n '/^#/p' | sed '/^##/d' | sed 1d | sed 's/#/ /g' \
-        | perl -pe "s/Impex/$(tput setaf 2)${SFCC_DL_HOST}$(tput sgr0) Impex/" \
         | perl -pe "s/(USAGE|OPTIONS|EXAMPLES)/$(tput setaf 0)\1$(tput sgr0)/"
       exit 1
       ;;
@@ -92,9 +99,17 @@ while test $# -ne 0; do
       daily_plot
       exit 0
       ;;
-    -i|--instance)
+    -I|--instances)
       list_instances
       exit 0
+      ;;
+    -i|--instance)
+      echo $1 > .instance
+      host_envname="SFCC_DL_HOST_$1"
+      host=${!host_envname}
+      user_envname="SFCC_DL_USER_$1"
+      user=${!user_envname}
+      shift
       ;;
     -p|--hour-histogram)
       hourly_plot ${1:-`date +"%Y-%m-%d"`}
@@ -149,6 +164,7 @@ if [ $download ]; then
     fi
   done < $urlfile
 else
+  echo -e "\n$(tput setaf 2)${host}$(tput sgr0)\n"
   if [ -z $folder ]; then
     cat $urlfile | perl -pe 's/(Impex\/)(.*)$/\1'$(tput setaf 2)'\2'$(tput sgr0)'/g'
   else
@@ -161,6 +177,3 @@ exit 0
 ## TODO:
 ## 1. make multiple curl downloads in parallel (to speed up overall download time)
 ## 2. sometimes a downloaded xml file returns a html-transmission-error page. Theses files should not be saved.
-## 3. add flag for direct download (if I know the exact file, I don't need to download the whole file list)
-## 4. add option to set instance
-## 5. add flag -a for zipping & archiving old files
