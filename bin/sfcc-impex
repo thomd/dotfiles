@@ -11,7 +11,8 @@ set -e
 #
 # OPTIONS
 #
-#    -d          download
+#    -d          download (only new files)
+#    -f          force download
 #    -c N        limit number of file to N
 #    -p          plot day histogram
 #    -P DATE     plot hour histogram for DATE (default: today)
@@ -92,6 +93,9 @@ while test $# -ne 0; do
     -d|--download)
     download=1
       ;;
+    -f|--force)
+    force_download=1
+      ;;
     -c|--count)
       count=$1
       shift
@@ -125,7 +129,7 @@ if [ $download ]; then
   while ((i++)); read -r url; do
     file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
     echo "$(tput setaf 3)[$i/$total]$(tput sgr0) $file"
-    if [ ! -f $file ]; then
+    if [ ! -f $file ] || [ $force_download ]; then
       curl -s -u "$user" -O "https://${host}${url}"
       if [ ${file: -4} == ".xml" ]; then
         xml fo $file > temp && mv temp $file || echo $file >> fo-error.txt
