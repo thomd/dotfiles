@@ -16,6 +16,9 @@ set -e
 #    -c N        limit number of file to N
 #    -p          plot day histogram
 #    -P DATE     plot hour histogram for DATE (default: today)
+#    -i          list instances
+#    -i NAME     use NAME as instances
+#    -I NAME     set NAME as default instances
 #
 # EXAMPLES
 #
@@ -70,8 +73,11 @@ hourly_plot() {
   histogram $datafile 2
 }
 
+list_instances() {
+  env | grep SFCC_DL_HOST | perl -pe 's/^SFCC_DL_HOST_(.*)=(.*)$/'`tput setaf 2`' \1'`tput sgr0`' \2/g' | column -t
+}
 
-
+# arg parsing
 while test $# -ne 0; do
   arg=$1
   shift
@@ -84,6 +90,10 @@ while test $# -ne 0; do
       ;;
     -P|--day-histogram)
       daily_plot
+      exit 0
+      ;;
+    -i|--instance)
+      list_instances
       exit 0
       ;;
     -p|--hour-histogram)
