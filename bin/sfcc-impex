@@ -27,11 +27,12 @@ set -e
 #    sfcc impex -p "2019-05-03"
 #
 
+config="$HOME/.sfcc-impex"
 basepath="/on/demandware.servlet/webdav/Sites/Impex/"
-if [ -f .instance ]; then
-  host_envname="SFCC_DL_HOST_$(cat .instance)"
+if [ -f $config ]; then
+  host_envname="SFCC_DL_HOST_$(cat $config)"
   host=${!host_envname}
-  user_envname="SFCC_DL_USER_$(cat .instance)"
+  user_envname="SFCC_DL_USER_$(cat $config)"
   user=${!user_envname}
 fi
 folder=""
@@ -77,7 +78,7 @@ hourly_plot() {
 }
 
 list_instances() {
-  local instance=`cat .instance`
+  local instance=`cat $config`
   echo ''
   env \
     | grep SFCC_DL_HOST \
@@ -104,7 +105,7 @@ while test $# -ne 0; do
       exit 0
       ;;
     -i|--instance)
-      echo $1 > .instance
+      echo $1 > ${config}
       host_envname="SFCC_DL_HOST_$1"
       host=${!host_envname}
       user_envname="SFCC_DL_USER_$1"
