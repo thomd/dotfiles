@@ -11,8 +11,8 @@ set -e
 #
 # OPTIONS
 #
-#    -d        downlaod
-#    -t N      N days ago (default: today)
+#    -d          downlaod
+#    -t N        N days ago (default: today)
 #    -I          list instances
 #    -i NAME     use NAME as instances (and set as default)
 #
@@ -86,9 +86,16 @@ curl -sN -u "$user" "https://${host}${basepath}" \
   > $urlfile
 
 if [ $download ]; then
-  while read url; do
-    echo $url | sed 's/.*\/\(.*\)/\1/g'
-    curl -s -u "$user" -O "https://${host}${url}"
+  total=`wc -l $urlfile | awk '{print $1}'`
+  i=0
+  while ((i++)); read -r url; do
+    file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
+    if [ ! -f $file ]; then
+      echo "$(tput setaf 2)[$i/$total]$(tput sgr0) $file"
+      curl -s -u "$user" -O "https://${host}${url}"
+    else
+      echo "[$i/$total] $file"
+    fi
   done < $urlfile
 else
   echo -e "\n$(tput setaf 2)${host}$(tput sgr0)\n"
