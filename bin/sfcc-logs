@@ -13,16 +13,33 @@ set -e
 #
 #    -d        downlaod
 #    -t N      N days ago (default: today)
+#    -I          list instances
+#    -i NAME     use NAME as instances (and set as default)
 #
 # EXAMPLES
 #
 #    sfcc logs -t 1 custom           // download custom logfiles from yesterday
 #
 
-host=$SFCC_DL_HOST
+config="$HOME/.sfcc-logs"
 basepath="/on/demandware.servlet/webdav/Sites/Logs/"
-user=$SFCC_DL_USER
+if [ -f $config ]; then
+  host_envname="SFCC_HOST_$(cat $config)"
+  host=${!host_envname}
+  user_envname="SFCC_USER_$(cat $config)"
+  user=${!user_envname}
+fi
 ago=0
+
+list_instances() {
+  local instance=`cat $config`
+  echo ''
+  env \
+    | grep SFCC_HOST \
+    | perl -pe 's/^SFCC_HOST_(.*)=(.*)$/\1 \2/g' \
+    | awk -v I="$instance" -v G=`tput setaf 2` -v R=`tput sgr0` '{M=" ";if(I == $1){M="*"};printf(" %s %s%s%s#%s\n"), M, G, $1, R, $2 }' \
+    | column -t -s '#'
+}
 
 while test $# -ne 0; do
   arg=$1
@@ -30,9 +47,20 @@ while test $# -ne 0; do
   case $arg in
     -h|--help)
       cat $0 | sed -n '/^#/p' | sed 1d | sed 's/#/ /g' \
-        | perl -pe "s/Logs folder/$(tput setaf 2)${SFCC_DL_HOST}$(tput sgr0) Logs folder/" \
         | perl -pe "s/(USAGE|OPTIONS|EXAMPLES)/$(tput setaf 0)\1$(tput sgr0)/"
       exit 1
+      ;;
+    -I|--instances)
+      list_instances
+      exit 0
+      ;;
+    -i|--instance)
+      echo $1 > ${config}
+      host_envname="SFCC_HOST_$1"
+      host=${!host_envname}
+      user_envname="SFCC_USER_$1"
+      user=${!user_envname}
+      shift
       ;;
     -d|--download)
       download=1
