@@ -75,23 +75,24 @@ while test $# -ne 0; do
   esac
 done
 
+urlfile=`mktemp ./url-XXXXX`
+trap "rm $urlfile" EXIT
+
 curl -sN -u "$user" "https://${host}${basepath}" \
   | sed -n '/.*<a href="\(.*\)"><tt>.*/p' \
   | sed 's/.*<a href="\(.*\)"><tt>.*/\1/g' \
   | sed -n /$(date -v -${ago}d +"%Y%m%d")/p \
   | ( [[ $filepattern ]] && sed -n /$filepattern/p || cat ) \
-  > url.lst
-
-if [ $dryrun ]; then
-  less url.lst | sed "s/\(${filepattern}\)/$(tput sgr 0 1)$(tput setaf 2)\1$(tput sgr0)/g"
-  exit 0
-fi
+  > $urlfile
 
 if [ $download ]; then
   while read url; do
     echo $url | sed 's/.*\/\(.*\)/\1/g'
     curl -s -u "$user" -O "https://${host}${url}"
-  done < url.lst
+  done < $urlfile
+else
+  echo -e "\n$(tput setaf 2)${host}$(tput sgr0)\n"
+  less $urlfile | sed "s/\(${filepattern}\)/$(tput sgr 0 1)$(tput setaf 2)\1$(tput sgr0)/g"
 fi
 
 exit 0
