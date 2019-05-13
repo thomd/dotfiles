@@ -11,7 +11,7 @@ set -e
 #
 # OPTIONS
 #
-#    -n        dry-run (list files & folders only)
+#    -d        downlaod
 #    -t N      N days ago (default: today)
 #
 # EXAMPLES
@@ -34,8 +34,8 @@ while test $# -ne 0; do
         | perl -pe "s/(USAGE|OPTIONS|EXAMPLES)/$(tput setaf 0)\1$(tput sgr0)/"
       exit 1
       ;;
-    -n|--dry-run)
-      dryrun=1
+    -d|--download)
+      download=1
       ;;
     -t|--days-ago)
       ago=$1
@@ -59,17 +59,11 @@ if [ $dryrun ]; then
   exit 0
 fi
 
-while read url; do
-  echo $url | sed 's/.*\/\(.*\)/\1/g'
-  curl -s -u "$user" -O "https://${host}${url}"
-done < url.lst
-
-# TODO
-# https://unix.stackexchange.com/questions/57940/trap-int-term-exit-really-necessary
-# https://www.shellscript.sh/trap.html
-cleanup() {
-  rm url.lst
-}
-trap cleanup EXIT
+if [ $download ]; then
+  while read url; do
+    echo $url | sed 's/.*\/\(.*\)/\1/g'
+    curl -s -u "$user" -O "https://${host}${url}"
+  done < url.lst
+fi
 
 exit 0
