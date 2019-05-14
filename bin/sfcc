@@ -6,8 +6,6 @@ commands=`{ IFS=:; ls -H $PATH; } | grep ^sfcc- | sort | uniq | sort`
 
 usage() {
   echo -e "\n  $(tput setaf 0)Usage:$(tput sgr0) `basename $0` [command]\n"
-  echo -e "  $(tput setaf 0)Active Instance:$(tput sgr0)\n"
-  echo -e "    $(tput setaf 2)${SFCC_DL_HOST}$(tput sgr0)\n"
   echo -e "  $(tput setaf 0)Commands:$(tput sgr0)\n"
   while read command; do
     subcommand=`echo $command | sed 's/sfcc-//g'`
