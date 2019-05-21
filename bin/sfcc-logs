@@ -12,6 +12,7 @@ set -e
 # OPTIONS
 #
 #    -d          downlaod
+#    -f          force download
 #    -t N        N days ago (default: today)
 #    -I          list instances
 #    -i NAME     use NAME as instances (and set as default)
@@ -65,6 +66,9 @@ while test $# -ne 0; do
     -d|--download)
       download=1
       ;;
+    -f|--force)
+      force_download=1
+      ;;
     -t|--days-ago)
       ago=$1
       shift
@@ -90,7 +94,7 @@ if [ $download ]; then
   i=0
   while ((i++)); read -r url; do
     file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
-    if [ ! -f $file ]; then
+    if [ ! -f $file ] || [ $force_download ]; then
       echo "$(tput setaf 2)[$i/$total]$(tput sgr0) $file"
       curl -s -u "$user" -O "https://${host}${url}"
     else

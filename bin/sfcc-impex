@@ -128,10 +128,10 @@ while test $# -ne 0; do
       exit 0
       ;;
     -d|--download)
-    download=1
+      download=1
       ;;
     -f|--force)
-    force_download=1
+      force_download=1
       ;;
     -c|--count)
       count=$1
