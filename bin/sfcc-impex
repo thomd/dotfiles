@@ -18,6 +18,7 @@ set -e
 #    -P DATE     plot hour histogram for DATE (default: today)
 #    -I          list instances
 #    -i NAME     use NAME as instances (and set as default)
+#    -z D        zip files older than D days (default 10 days)
 #
 # EXAMPLES
 #
@@ -87,6 +88,12 @@ list_instances() {
     | column -t -s '#'
 }
 
+archive() {
+  local days=${1-10}
+  find . -type f -mtime +$days -exec zip -u `basename $PWD`.zip {} +
+  find . -type f -mtime +$days -delete
+}
+
 while test $# -ne 0; do
   arg=$1
   shift
@@ -114,6 +121,10 @@ while test $# -ne 0; do
       ;;
     -p|--hour-histogram)
       hourly_plot ${1:-`date +"%Y-%m-%d"`}
+      exit 0
+      ;;
+    -z|--zip)
+      archive $1
       exit 0
       ;;
     -d|--download)
