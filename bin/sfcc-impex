@@ -12,6 +12,7 @@ set -e
 # OPTIONS
 #
 #    -d          download (only new files)
+#    -k          delete
 #    -f          force download
 #    -c N        limit number of file to N
 #    -p          plot day histogram
@@ -130,6 +131,9 @@ while test $# -ne 0; do
     -d|--download)
       download=1
       ;;
+    -k|--kill)
+      delete=1
+      ;;
     -f|--force)
       force_download=1
       ;;
@@ -174,6 +178,14 @@ if [ $download ]; then
     else
       echo "[$i/$total] $file"
     fi
+  done < $urlfile
+elif [ $delete ]; then
+  total=`wc -l $urlfile | awk '{print $1}'`
+  i=0
+  while ((i++)); read -r url; do
+    file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
+    echo "$(tput setaf 1)[$i/$total]$(tput sgr0) $file"
+    curl -s -u "$user" -X DELETE "https://${host}${url}"
   done < $urlfile
 else
   echo -e "\n$(tput setaf 2)${host}$(tput sgr0)\n"
