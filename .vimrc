@@ -30,7 +30,10 @@ set tabstop=8
 set expandtab
 set shiftwidth=2
 set softtabstop=2
-"
+
+" always change to the current file's directory
+set autochdir
+
 " Spacing and tabbing
 " Use shiftwidth and tabstop smartly
 set smarttab
