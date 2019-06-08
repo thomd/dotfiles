@@ -12,22 +12,16 @@ alias ...='cd ../..'
 alias h='history'
 alias l.='ls -ld .[^.]*'                              # list dotfiles only
 alias md='mkdir -p'
-alias cwd="pwd | tr -d '\n' | pbcopy; pwd"            # show cwd and copy
 alias v='vim'
 
 alias t='tree -a -C -I ".git|.svn|node_modules|.gradle|tmp|.sass-cache|.cache"'
 alias j='jobs -l'
 alias rmi='rm -i'
 
-# VS Code
-alias code='code --locale=en $@'
-
-alias sniff="sudo ngrep -d 'en0' -t '^(GET|POST) ' 'tcp and port 80'"
-alias httpdump="sudo tcpdump -i en0 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
-
 alias grep='GREP_COLOR="1;37;41" LANG=C grep --color=auto'
 
-# docker
+
+# ----- docker ------------------------------------------------------------------------------------
 alias d="docker $@"
 alias di="docker image $@"
 alias dm="docker-machine $@"
@@ -39,7 +33,8 @@ dclean() {
   docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
 }
 
-# git
+
+# ----- git ---------------------------------------------------------------------------------------
 function g {
 if [[ $# > 0 ]]; then
   git "$@"
@@ -65,7 +60,8 @@ alias eg='vim .git/config'                                                      
 alias gr='git remote -v | column -t'                                                # "git remotes"
 alias gt='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup`'   # "git top"   (cd into root folder)
 
-# URL encode/decode
+
+# ----- encoding & decoding -----------------------------------------------------------------------
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1])"'
 alias urldecode='python -c "import sys, urllib as ul; print ul.unquote_plus(sys.argv[1])"'
 
@@ -95,14 +91,16 @@ bin2oct() {
 }
 alias b2o=bin2oct
 
+
+# ----- tools -------------------------------------------------------------------------------------
+
 # calendar with the current date marked:
-alias cal='ncal -w | grep --color=auto -E "( |^)$(date +%e)( |$)|$"'
+alias calender='ncal -w | grep --color=auto -E "( |^)$(date +%e)( |$)|$"'
 
 # print all colors
 alias colors='colortest -w -s -r'
 
 # npm-scripter
-alias npms="npm-scripter $@"
 alias nps="npm-scripter $@"
 
 # meld diff-tool (istall: https://yousseb.github.io/meld/)
@@ -110,3 +108,10 @@ alias meld="open -W -a Meld --args $@"
 
 # csvfix
 alias csv="csvfix $@"
+
+# VS Code
+alias code='code --locale=en $@'
+
+alias sniff="sudo ngrep -d 'en0' -t '^(GET|POST) ' 'tcp and port 80'"
+alias httpdump="sudo tcpdump -i en0 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
+
