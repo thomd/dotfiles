@@ -19,7 +19,7 @@ set -e
 #    -P DATE     plot hour histogram for DATE (default: today)
 #    -I          list instances
 #    -i NAME     use NAME as instances (and set as default)
-#    -z D        zip files older than D days (default 10 days)
+#    -z D        zip & delete files older than D days (default 10 days)
 #
 # EXAMPLES
 #
