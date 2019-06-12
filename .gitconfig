@@ -45,6 +45,7 @@
   # make `git rebase` safer on osx
   # see http://www.git-tower.com/blog/make-git-rebase-safe-on-osx
   trustctime = false
+	autocrlf = false
 [merge]
   tool = vimdiff
   conflictstyle = diff3
