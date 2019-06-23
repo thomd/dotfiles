@@ -31,8 +31,17 @@ function scratch_into {
   fi
 }
 
-alias sn="scratch_new"                                               # new empty scratch folder
+function scratch_go {                                                # setup a temporary go environment
+  if [ -d "src" ] && [ -d "pkg" ] && [ -d "bin" ]; then
+    export GOPATH=`pwd`
+    export GOBIN="$GOPATH/bin"
+    export PATH="$PATH:$GOBIN"
+  fi
+}
+
 alias s="scratch_into"                                               # cd into current scratch folder or create a new one
+alias sn="scratch_new"                                               # new empty scratch folder
+alias sg="scratch_go"
 
 #
 # colored ant
