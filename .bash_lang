@@ -34,8 +34,8 @@ function nvm {
 # ----- go --------------------------------------------------------------------
 
 export GOPATH="/Users/duerr/go"
-export PATH="$PATH:$GOPATH/bin"
 export GOBIN="$GOPATH/bin"
+export PATH="$PATH:$GOBIN"
 
 
 # ----- rust ------------------------------------------------------------------
