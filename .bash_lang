@@ -33,7 +33,7 @@ function nvm {
 
 # ----- go --------------------------------------------------------------------
 
-export GOPATH="/Users/duerr/go"
+export GOPATH="/Users/duerr/develop/go"
 export GOBIN="$GOPATH/bin"
 export PATH="$PATH:$GOBIN"
 
