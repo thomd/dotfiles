@@ -19,7 +19,7 @@ set -e
 #    -P DATE     plot hour histogram for DATE (default: today)
 #    -I          list instances
 #    -i NAME     use NAME as instances (and set as default)
-#    -z D        zip & delete files older than D days (default 10 days)
+#    -z D        zip & delete files older than D days (default 7 days)
 #
 # EXAMPLES
 #
@@ -90,7 +90,7 @@ list_instances() {
 }
 
 archive() {
-  local days=${1-10}
+  local days=${1-7}
   find . -type f -mtime +$days -exec zip -u `basename $PWD`.zip {} +
   find . -type f -mtime +$days -delete
 }
