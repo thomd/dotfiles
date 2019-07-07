@@ -17,6 +17,7 @@ set -e
 #    -c N        limit number of file to N
 #    -p          plot day histogram
 #    -P DATE     plot hour histogram for DATE (default: today)
+#    -T          plot duration histogram (time between file-generation and import)
 #    -I          list instances
 #    -i NAME     use NAME as instances (and set as default)
 #    -z D        zip & delete files older than D days (default 7 days)
@@ -52,6 +53,19 @@ histogram() {
     | sort -n
 }
 
+duration_plot() {
+  echo -e "\n Time [in minutes] from file-generation to import\n\n $1:"
+  local datafile=`mktemp ./daily-plot-XXXXX`
+  trap "rm $datafile" EXIT
+  for f in `ls | grep -e "\.xml$" | grep "^$1"`; do
+    local from=$(echo $f | perl -pe 's/^(.*?)_.*/\1/g')
+    local to=$(echo $f | perl -pe 's/.*_(.*?)\.xml$/\1/g')
+    local duration=$(( $(date -j -f "%Y-%m-%d-%H%M%S" $to +%s) - $(date -j -f "%Y-%m-%dT%H%M%S" $from +%s) ))
+    echo "scale=0;$duration/60" | bc
+  done | sort | uniq -c > $datafile
+  histogram $datafile 10
+}
+
 daily_plot() {
   local datafile=`mktemp ./daily-plot-XXXXX`
   trap "rm $datafile" EXIT
@@ -60,7 +74,7 @@ daily_plot() {
 }
 
 hourly_plot() {
-  echo -e "\n$1:"
+  echo -e "\n $1:"
   local datafile=`mktemp ./hourly-plot-XXXXX`
   local datafile2=`mktemp ./hourly-plot-XXXXX-2`
   trap "rm $datafile $datafile2" EXIT
@@ -103,6 +117,10 @@ while test $# -ne 0; do
       cat $0 | sed -n '/^#/p' | sed '/^##/d' | sed 1d | sed 's/#/ /g' \
         | perl -pe "s/(USAGE|OPTIONS|EXAMPLES)/$(tput setaf 0)\1$(tput sgr0)/"
       exit 1
+      ;;
+    -T|--duration-histogram)
+      duration_plot ${1:-`date +"%Y-%m-%d"`}
+      exit 0
       ;;
     -P|--day-histogram)
       daily_plot
