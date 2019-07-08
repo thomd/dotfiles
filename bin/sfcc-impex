@@ -15,9 +15,9 @@ set -e
 #    -k          delete
 #    -f          force download
 #    -c N        limit number of file to N
-#    -p          plot day histogram
-#    -P DATE     plot hour histogram for DATE (default: today)
-#    -T          plot duration histogram (time between file-generation and import)
+#    -P          plot day histogram
+#    -p DATE     plot hour histogram for DATE (default: today)
+#    -t DATE     plot duration histogram (time between file-generation and import)
 #    -I          list instances
 #    -i NAME     use NAME as instances (and set as default)
 #    -z D        zip & delete files older than D days (default 7 days)
@@ -118,7 +118,7 @@ while test $# -ne 0; do
         | perl -pe "s/(USAGE|OPTIONS|EXAMPLES)/$(tput setaf 0)\1$(tput sgr0)/"
       exit 1
       ;;
-    -T|--duration-histogram)
+    -t|--duration-histogram)
       duration_plot ${1:-`date +"%Y-%m-%d"`}
       exit 0
       ;;
