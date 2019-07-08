@@ -221,7 +221,3 @@ else
 fi
 
 exit 0
-
-## TODO:
-## 1. make multiple curl downloads in parallel (to speed up overall download time)
-## 2. sometimes a downloaded xml file returns a html-transmission-error page. Theses files should not be saved.
