@@ -15,19 +15,19 @@ set -e
 #    -k          delete
 #    -f          force download
 #    -c N        limit number of file to N
-#    -P          plot day histogram
-#    -p DATE     plot hour histogram for DATE (default: today)
-#    -t DATE     plot duration histogram (time between file-generation and import)
+#    -P          day histogram
+#    -p DATE     hour histogram for DATE [default: today]
+#    -t DATE     duration histogram for DATE (time between file-generation and import) [default: today]
 #    -I          list instances
 #    -i NAME     use NAME as instances (and set as default)
-#    -z D        zip & delete files older than D days (default 7 days)
+#    -z D        zip & delete files older than D days [default: 7 days]
 #
 # EXAMPLES
 #
 #    sfcc impex -d log import-catalog-2019
 #    sfcc impex archive/catalog
 #    sfcc impex -P
-#    sfcc impex -p "2019-05-03"
+#    sfcc impex -p 2019-05-03
 #
 
 config="$HOME/.sfcc-impex"
@@ -103,10 +103,16 @@ list_instances() {
     | column -t -s '#'
 }
 
-archive() {
+archive-and-delete() {
   local days=${1-7}
-  find . -type f -mtime +$days -exec zip -u `basename $PWD`.zip {} +
-  find . -type f -mtime +$days -delete
+  for file in `find . -name "*.xml"`; do
+    local d=$(date -v -${days}d +"%s")
+    local cd=$(date -j -f "%Y-%m-%d" ${file:2:10} +"%s")
+    if [ $(( $cd - $d )) -lt 0 ]; then
+      zip "`basename $PWD`-${file:2:10}.zip" $file
+      rm $file
+    fi
+  done
 }
 
 while test $# -ne 0; do
@@ -143,7 +149,7 @@ while test $# -ne 0; do
       exit 0
       ;;
     -z|--zip)
-      archive $1
+      archive-and-delete $1
       exit 0
       ;;
     -d|--download)
