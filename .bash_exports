@@ -43,3 +43,7 @@ export MAD_PATH="$HOME/.mad"
 # Android SDK
 export ANDROID_SDK="/Users/duerr/Library/Android/sdk"
 export PATH="$PATH:/Users/duerr/Library/Android/sdk/platform-tools"
+
+# Homebrew
+export HOMEBREW_NO_EMOJI=1
+
