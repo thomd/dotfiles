@@ -18,6 +18,7 @@ set -e
 #    -I            list instances
 #    -i NAME       use NAME as instances (and set as default)
 #    --no-color    do not print colors to stdout
+#    --folder N    save files in filename prefix folders of length N
 #
 # EXAMPLES
 #
@@ -79,6 +80,11 @@ while test $# -ne 0; do
     --no-color)
       no_color=1
       ;;
+    --folder)
+      target_folder=1
+      target_folder_length=$1
+      shift
+      ;;
     -c|--count)
       count=$1
       shift
@@ -118,6 +124,11 @@ if [ $download ]; then
         echo "[$i/$total] $file"
       fi
       curl -s -u "$user" -O "https://${host}${url}"
+      if [ $target_folder ]; then
+        target_folder_name=`echo $file | perl -pe 's/(^\d{1,'${target_folder_length}'})(.*)/\1/'`
+        mkdir -p $target_folder_name
+        mv $file `echo $file | perl -pe 's/(^\d{1,'${target_folder_length}'})(.*)/\1\/\2/'`
+      fi
       if [ ${file: -4} == ".xml" ]; then
         xml fo $file > temp && mv temp $file || echo $file >> fo-error.txt
       fi
