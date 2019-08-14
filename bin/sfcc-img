@@ -1,0 +1,137 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$DEBUG" ] && set -x
+
+#
+# download static image files from Catalogs folder
+#
+# USAGE
+#
+#    sfcc img [options] [path] [filename-pattern]
+#
+# OPTIONS
+#
+#    -d          download (only new files)
+#    -k          delete
+#    -f          force download
+#    -c N        limit number of file to N
+#    -I          list instances
+#    -i NAME     use NAME as instances (and set as default)
+#
+# EXAMPLES
+#
+#    sfcc img -d default/images/tennis-point 00604403771000
+#
+
+config="$HOME/.sfcc-img"
+catalog="master-catalog"
+basepath="/on/demandware.servlet/webdav/Sites/Catalogs/${catalog}/"
+if [ -f $config ]; then
+  host_envname="SFCC_HOST_$(cat $config)"
+  host=${!host_envname}
+  user_envname="SFCC_USER_$(cat $config)"
+  user=${!user_envname}
+fi
+folder=""
+
+
+list_instances() {
+  local instance=`cat $config`
+  echo ''
+  env \
+    | grep SFCC_HOST \
+    | perl -pe 's/^SFCC_HOST_(.*)=(.*)$/\1 \2/g' \
+    | awk -v I="$instance" -v G=`tput setaf 2` -v R=`tput sgr0` '{M=" ";if(I == $1){M="*"};printf(" %s %s%s%s#%s\n"), M, G, $1, R, $2 }' \
+    | column -t -s '#'
+}
+
+while test $# -ne 0; do
+  arg=$1
+  shift
+  case $arg in
+    -h|--help)
+      cat $0 | sed -n '/^#/p' | sed '/^##/d' | sed 1d | sed 's/#/ /g' \
+        | perl -pe "s/(USAGE|OPTIONS|EXAMPLES)/$(tput setaf 0)\1$(tput sgr0)/"
+      exit 1
+      ;;
+    -I|--instances)
+      list_instances
+      exit 0
+      ;;
+    -i|--instance)
+      echo $1 > ${config}
+      host_envname="SFCC_HOST_$1"
+      host=${!host_envname}
+      user_envname="SFCC_USER_$1"
+      user=${!user_envname}
+      shift
+      ;;
+    -d|--download)
+      download=1
+      ;;
+    -k|--kill)
+      delete=1
+      ;;
+    -f|--force)
+      force_download=1
+      ;;
+    -c|--count)
+      count=$1
+      shift
+      ;;
+    *)
+      if [ $# -eq 1 ]; then
+        folder=$arg
+        arg=$1
+        shift
+        filepattern=$arg
+      else
+        folder=$arg
+      fi
+      ;;
+  esac
+done
+
+urlfile=`mktemp ./url-XXXXX`
+trap "rm $urlfile" EXIT
+
+curl -sN -u "$user" "https://${host}${basepath}${folder}" \
+  | sed -n '/.*<a href="\(.*\)"><tt>.*/p' \
+  | sed 's/.*<a href="\(.*\)"><tt>.*/\1/g' \
+  | ( [[ $filepattern ]] && sed -n /$filepattern/p || cat ) \
+  | ( [[ $count ]] && head -n $count || cat ) \
+  > $urlfile
+
+if [ $download ]; then
+  total=`wc -l $urlfile | awk '{print $1}'`
+  i=0
+  while ((i++)); read -r url; do
+    file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
+    if [ ! -f $file ] || [ $force_download ]; then
+      echo "$(tput setaf 2)[$i/$total]$(tput sgr0) $file"
+      curl -s -u "$user" -O "https://${host}${url}"
+      if [ ${file: -4} == ".xml" ]; then
+        xml fo $file > temp && mv temp $file || echo $file >> fo-error.txt
+      fi
+    else
+      echo "[$i/$total] $file"
+    fi
+  done < $urlfile
+elif [ $delete ]; then
+  total=`wc -l $urlfile | awk '{print $1}'`
+  i=0
+  while ((i++)); read -r url; do
+    file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
+    echo "$(tput setaf 1)[$i/$total]$(tput sgr0) $file"
+    curl -s -u "$user" -X DELETE "https://${host}${url}"
+  done < $urlfile
+else
+  echo -e "\n$(tput setaf 2)${host}$(tput sgr0)\n"
+  if [ -z $folder ]; then
+    cat $urlfile | perl -pe 's/(Catalogs\/'${catalog}')(.*)$/\1'$(tput setaf 2)'\2'$(tput sgr0)'/g'
+  else
+    cat $urlfile | perl -pe 's/(Catalogs\/'${catalog}'\/'${folder//\//\\/}'\/)(.*)$/\1'$(tput setaf 2)'\2'$(tput sgr0)'/g'
+  fi
+fi
+
+exit 0

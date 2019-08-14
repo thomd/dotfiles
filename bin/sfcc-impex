@@ -17,15 +17,14 @@ set -e
 #    -c N        limit number of file to N
 #    -P          day histogram
 #    -p DATE     hour histogram for DATE [default: today]
-#    -t DATE     duration histogram for DATE (time between file-generation and import) [default: today]
 #    -I          list instances
 #    -i NAME     use NAME as instances (and set as default)
 #    -z D        zip & delete files older than D days [default: 7 days]
 #
 # EXAMPLES
 #
-#    sfcc impex -d log import-catalog-2019
 #    sfcc impex archive/catalog
+#    sfcc impex -d log import-catalog-20190617
 #    sfcc impex -P
 #    sfcc impex -p 2019-05-03
 #
