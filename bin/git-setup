@@ -2,31 +2,34 @@
 set -e
 
 #
-# faster git init
+# Faster git init
+# ---------------
 #
-# thomduerr@gmail.com
+# Init a git repository and commit all contents as first commit.
+# It is also possible to commit an empty working directory
+#
+# USAGE
+#
+#    git setup [option]
+#
+# OPTIONS
+#
+#    -m     custom commit message (default 'initial commit')
 #
 
 MSG="initial commit"
-
-usage() {
-  echo "init a git repository and commit all contents as first commit."
-  echo "it is also possible to commit an empty working directory"
-  echo ""
-  echo "Usage: git setup [ -h ] [ -m ]"
-  echo ""
-  echo "  -h : print this screen"
-  echo "  -m : custom commit message; default: '$MSG'"
-  echo ""
-}
 
 while getopts m:h option
 do
   case "${option}"
   in
-    m) MSG=${OPTARG};;
-    h) usage
+    h)
+      cat $0 | sed -n '/^#/p' | sed '/^##/d' | sed 1d \
+        | perl -0pe "s/^# (.*)\n# -+/# $(tput bold)\1$(tput sgr0)/m" \
+        | perl -pe "s/(USAGE|OPTIONS|EXAMPLES)/$(tput setaf 0)\1$(tput sgr0)/" \
+        | sed 's/#/ /g'
       exit 1;;
+    m) MSG=${OPTARG};;
   esac
 done
 
