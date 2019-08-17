@@ -1,59 +1,76 @@
 #!/usr/bin/env bash
 set -e
+[ -n "$DEBUG" ] && set -x
 
 #
-# create a dummy commit for educational training
+# Create a dummy commit
+# ---------------------
 #
-# thomduerr@gmail.com
+# This is helpful for testing git commands which requires some test commits.
 #
-
-usage() {
-  echo "Create a dummy commit."
-  echo "This is helpful for testing git commands which requires some test commits."
-  echo ""
-  echo "If the last commit message starts with an uppercase letter, then the subsequent"
-  echo "commit messaged will use an uppercase letter sequence (only from A-Z)."
-  echo "You may init a git repository with 'git setup -m A'"
-  echo ""
-  echo "Default filename is 'test.txt'"
-  echo ""
-  echo ""
-  echo "Usage: git do [ filename ]"
-  echo ""
-  echo "  -n : number of do's"
-  echo "  -h : print this screen"
-  echo ""
-}
+# If the last commit message starts with an uppercase letter, then the subsequent
+# commit messaged will use an uppercase letter sequence (only from A-Z).
+# You may init a git repository with 'git setup -m A'
+#
+# USAGE
+#
+#    git do [options] [filename]
+#
+# OPTIONS
+#
+#    -n N     number of do's
+#    -f       create new file by adding index to default of given file
+#
+# EXAMPLES
+#
+#    git do -n 3
+#    git do myfile.txt
+#    git do -f
+#    git do -f -n 5 myfile.txt
+#
 
 DO=1
-while getopts hn: option
-do
-  case "${option}"
-  in
-    h) usage
+FILE="test.txt"
+
+while test $# -ne 0; do
+  arg=$1
+  shift
+  case $arg in
+    -h|--help)
+      cat $0 | sed -n '/^#/p' | sed '/^##/d' | sed 1d \
+        | perl -0pe "s/^# (.*)\n# -+/# $(tput bold)\1$(tput sgr0)/m" \
+        | perl -pe "s/(USAGE|OPTIONS|EXAMPLES)/$(tput setaf 0)\1$(tput sgr0)/" \
+        | sed 's/#/ /g'
       exit 1;;
-    n)
-      DO="$OPTARG"
-      shift 2
+    -f)
+      DO_NEW_FILE=1
+      ;;
+    -n)
+      DO=$1
+      shift
+      ;;
+    *)
+      FILE=$arg
       ;;
   esac
 done
 
-FILE=${1:-test.txt}
+for (( i=1; i<=$DO; i++ )); do
+  if [ $DO_NEW_FILE ]; then
+    while [ -f $FILE ]; do
+      FILE=`echo $FILE | perl -pe 's/(\d+)/$1+1/eg' | perl -pe 's/^(\w+)\.(\w+)/$1-1.$2/g'`
+    done
+  fi
 
-for (( i=1; i<=$DO; i++ ));
-do
   LAST_MSG=$(git log --oneline --all --no-merges --pretty='%s' -1)
 
   if [[ $LAST_MSG =~ ^[A-Z]$ ]]; then
     MSG=$(printf "%d" "'$LAST_MSG" | echo $(($(< /dev/stdin)+1)) | awk '{printf("%c",$1)}')
-    echo $MSG >> $FILE
   else
-    COUNTER=$(echo $LAST_MSG | tr '-' ' ' | awk '{print $3}')
-    COUNTER=$((${COUNTER}+1))
-    MSG="added $FILE-$COUNTER in $FILE"
-    echo $FILE-$COUNTER >> $FILE
+    MSG=$FILE
   fi
+  echo $MSG >> $FILE
+
   git add .
   git ci -m "$MSG"
 done
