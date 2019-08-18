@@ -62,7 +62,7 @@ for (( i=1; i<=$DO; i++ )); do
     done
   fi
 
-  LAST_MSG=$(git log --oneline --all --no-merges --pretty='%s' -1)
+  LAST_MSG=$(git log --oneline --all --no-merges --pretty='%s' --topo-order -1)
 
   if [[ $LAST_MSG =~ ^[A-Z]$ ]]; then
     MSG=$(printf "%d" "'$LAST_MSG" | echo $(($(< /dev/stdin)+1)) | awk '{printf("%c",$1)}')

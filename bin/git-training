@@ -15,18 +15,24 @@ set -e
 # REPOSITORIES
 #
 #    cherry-pick          cherry-pick some branches from develop to create a release/v2
+#    diff                 diff two branches
 #
+
+usage() {
+  cat $0 | sed -n '/^#/p' | sed '/^##/d' | sed 1d \
+    | perl -0pe "s/^# (.*)\n# -+/# $(tput bold)\1$(tput sgr0)/m" \
+    | perl -pe "s/(USAGE|REPOSITORIES)/$(tput setaf 0)\1$(tput sgr0)/" \
+    | sed 's/#/ /g'
+}
 
 while test $# -ne 0; do
   arg=$1
   shift
   case $arg in
     -h|--help)
-      cat $0 | sed -n '/^#/p' | sed '/^##/d' | sed 1d \
-        | perl -0pe "s/^# (.*)\n# -+/# $(tput bold)\1$(tput sgr0)/m" \
-        | perl -pe "s/(USAGE|REPOSITORIES)/$(tput setaf 0)\1$(tput sgr0)/" \
-        | sed 's/#/ /g'
-      exit 1;;
+      usage
+      exit 1
+      ;;
     *)
       REPO=$arg
       ;;
@@ -106,12 +112,35 @@ create-cherry-pick-repo() {
   # ... now merge foo and baz, but not bar, into release/v2
 }
 
+create-diff-repo() {
+#
+#         D---E     [HEAD -> develop]
+#        /
+#   A---B---C---F   [master]
+#
+  [ ! -d ".git" ] && git-setup -m A
+  git-do
+  git branch develop
+  git-do
+  git checkout develop
+  git-do -n 2
+  git checkout master
+  git-do
+  git checkout develop
+}
+
 case $REPO in
   cherry-pick)
     create-cherry-pick-repo
+    exit 0
+    ;;
+  diff)
+    create-diff-repo
+    exit 0
     ;;
   *)
-    echo "training repo '${REPO}' does not exist"
+    usage
+    exit 1
     ;;
 esac
 
