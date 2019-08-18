@@ -12,10 +12,10 @@
   diffstat = diff --stat -r
   diff-grep = !git-diff-grep
   sl = shortlog --format='%C(yellow)%s'
-  l = log --graph --pretty=format:'%C(red)%h%C(reset) — %C(white)%s%C(reset)%C(green)%d%C(reset) — %C(bold blue)%an%C(reset) %C(yellow)(%ar)%C(reset)' --date-order
-  ln = log --pretty=format:'%C(red)%h%C(reset) — %C(white)%s%C(reset)%C(green)%d%C(reset) — %C(bold blue)%an%C(reset) %C(yellow)(%ar)%C(reset)' --date-order --no-merges
-  la = log --graph --pretty=format:'%C(red)%h%C(reset) — %C(white)%s%C(reset)%C(green)%d%C(reset) — %C(bold blue)%an%C(reset) %C(yellow)(%ar)%C(reset)' --date-order --all
-  lan = log --pretty=format:'%C(red)%h%C(reset) — %C(white)%s%C(reset)%C(green)%d%C(reset) — %C(bold blue)%an%C(reset) %C(yellow)(%ar)%C(reset)' --date-order --all --no-merges
+  l = log --graph --pretty=format:'%C(red)%h%C(reset) — %C(white)%s%C(reset)%C(green)%d%C(reset) — %C(bold blue)%an%C(reset) %C(yellow)(%ar)%C(reset)'
+  ln = log --pretty=format:'%C(red)%h%C(reset) — %C(white)%s%C(reset)%C(green)%d%C(reset) — %C(bold blue)%an%C(reset) %C(yellow)(%ar)%C(reset)' --no-merges
+  la = log --graph --pretty=format:'%C(red)%h%C(reset) — %C(white)%s%C(reset)%C(green)%d%C(reset) — %C(bold blue)%an%C(reset) %C(yellow)(%ar)%C(reset)' --all
+  lan = log --pretty=format:'%C(red)%h%C(reset) — %C(white)%s%C(reset)%C(green)%d%C(reset) — %C(bold blue)%an%C(reset) %C(yellow)(%ar)%C(reset)' --all --no-merges
   type = cat-file -t
   dump = cat-file -p
   ls = ls-files
