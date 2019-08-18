@@ -33,7 +33,7 @@ while test $# -ne 0; do
   esac
 done
 
-cherry-pick-repo() {
+create-cherry-pick-repo() {
   [ ! -d ".git" ] && git-setup
 
   # create a develop branch
@@ -52,23 +52,23 @@ cherry-pick-repo() {
 
   # create a feature/foo branch and do 2 commits
   git checkout -b feature/foo develop
-  git-do -f -n 2 foo.txt
+  git-do -f -n 2
 
   # create a feature/bar branch and do 3 commits
   git checkout -b feature/bar develop
-  git-do -f -n 3 bar.txt
+  git-do -f -n 3
 
   # create a feature/baz branch and do 1 commit
   git checkout -b feature/baz develop
-  git-do -f -n 1 baz.txt
+  git-do -f
 
   # do 2 commits in feature/foo branch
   git checkout feature/foo
-  git-do -f -n 2 foo.txt
+  git-do -f -n 2
 
   # do 1 commit in feature/baz branch
   git checkout feature/baz
-  git-do -f baz.txt
+  git-do -f
 
   # feature/foo was reviewed. Merge into develop branch
   git checkout develop
@@ -77,11 +77,11 @@ cherry-pick-repo() {
 
   # do 2 commits in feature/baz branch
   git checkout feature/baz
-  git-do -f -n 2 baz.txt
+  git-do -f -n 2
 
   # do 1 commit in feature/bar branch
   git checkout feature/bar
-  git-do -f bar.txt
+  git-do -f
 
   # feature/baz was reviewed. Merge into develop branch
   git checkout develop
@@ -90,7 +90,7 @@ cherry-pick-repo() {
 
   # do 1 commit in feature/bar branch
   git checkout feature/bar
-  git-do -f bar.txt
+  git-do -f -n 2
 
   # feature/bar was reviewed. Merge into develop branch
   git checkout develop
@@ -108,7 +108,7 @@ cherry-pick-repo() {
 
 case $REPO in
   cherry-pick)
-    cherry-pick-repo
+    create-cherry-pick-repo
     ;;
   *)
     echo "training repo '${REPO}' does not exist"

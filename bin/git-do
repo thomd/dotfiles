@@ -19,7 +19,7 @@ set -e
 # OPTIONS
 #
 #    -n N     number of do's
-#    -f       create new file by adding index to default of given file
+#    -f       create new file by adding index to default file or to the given file
 #
 # EXAMPLES
 #
@@ -30,7 +30,7 @@ set -e
 #
 
 DO=1
-FILE="test.txt"
+FILE="$(git rev-parse --abbrev-ref HEAD | sed 's/\//-/g').txt"
 
 while test $# -ne 0; do
   arg=$1
@@ -58,7 +58,7 @@ done
 for (( i=1; i<=$DO; i++ )); do
   if [ $DO_NEW_FILE ]; then
     while [ -f $FILE ]; do
-      FILE=`echo $FILE | perl -pe 's/(\d+)/$1+1/eg' | perl -pe 's/^(\w+)\.(\w+)/$1-1.$2/g'`
+      FILE=`echo $FILE | perl -pe 's/(\d+)/$1+1/eg' | perl -pe 's/^([a-z-]+)\.(\w+)/$1-1.$2/g'`
     done
   fi
 
