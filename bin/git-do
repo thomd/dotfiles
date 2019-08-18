@@ -3,8 +3,8 @@ set -e
 [ -n "$DEBUG" ] && set -x
 
 #
-# Create a dummy commit
-# ---------------------
+# Create dummy commits
+# --------------------
 #
 # This is helpful for testing git commands which requires some test commits.
 #
@@ -74,3 +74,4 @@ for (( i=1; i<=$DO; i++ )); do
   git add .
   git ci -m "$MSG"
 done
+

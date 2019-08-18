@@ -1,0 +1,117 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$DEBUG" ] && set -x
+
+#
+# Create a training repository
+# ----------------------------
+#
+# For educational purposes
+#
+# USAGE
+#
+#    git training [REPO]
+#
+# REPOSITORIES
+#
+#    cherry-pick          cherry-pick some branches from develop to create a release/v2
+#
+
+while test $# -ne 0; do
+  arg=$1
+  shift
+  case $arg in
+    -h|--help)
+      cat $0 | sed -n '/^#/p' | sed '/^##/d' | sed 1d \
+        | perl -0pe "s/^# (.*)\n# -+/# $(tput bold)\1$(tput sgr0)/m" \
+        | perl -pe "s/(USAGE|REPOSITORIES)/$(tput setaf 0)\1$(tput sgr0)/" \
+        | sed 's/#/ /g'
+      exit 1;;
+    *)
+      REPO=$arg
+      ;;
+  esac
+done
+
+cherry-pick-repo() {
+  [ ! -d ".git" ] && git-setup
+
+  # create a develop branch
+  git checkout -b develop
+  git-do -n 2
+
+  # current develop branch is release/v1
+  git checkout -b release/v1
+  echo "v1" > version.txt
+  git add version.txt
+  git commit -m "bumped to version v1"
+  git checkout master
+  git merge release/v1
+  git checkout develop
+  git merge release/v1
+
+  # create a feature/foo branch and do 2 commits
+  git checkout -b feature/foo develop
+  git-do -f -n 2 foo.txt
+
+  # create a feature/bar branch and do 3 commits
+  git checkout -b feature/bar develop
+  git-do -f -n 3 bar.txt
+
+  # create a feature/baz branch and do 1 commit
+  git checkout -b feature/baz develop
+  git-do -f -n 1 baz.txt
+
+  # do 2 commits in feature/foo branch
+  git checkout feature/foo
+  git-do -f -n 2 foo.txt
+
+  # do 1 commit in feature/baz branch
+  git checkout feature/baz
+  git-do -f baz.txt
+
+  # feature/foo was reviewed. Merge into develop branch
+  git checkout develop
+  git merge --no-edit --no-ff feature/foo
+  git branch -d feature/foo
+
+  # do 2 commits in feature/baz branch
+  git checkout feature/baz
+  git-do -f -n 2 baz.txt
+
+  # do 1 commit in feature/bar branch
+  git checkout feature/bar
+  git-do -f bar.txt
+
+  # feature/baz was reviewed. Merge into develop branch
+  git checkout develop
+  git merge --no-edit --no-ff feature/baz
+  git branch -d feature/baz
+
+  # do 1 commit in feature/bar branch
+  git checkout feature/bar
+  git-do -f bar.txt
+
+  # feature/bar was reviewed. Merge into develop branch
+  git checkout develop
+  git merge --no-edit --no-ff feature/bar
+  git branch -d feature/bar
+
+  # create a release branch
+  git checkout -b release/v2 master
+  echo "v2" > version.txt
+  git add version.txt
+  git commit -m "bumped to version v2"
+
+  # ... now merge foo and baz, but not bar, into release/v2
+}
+
+case $REPO in
+  cherry-pick)
+    cherry-pick-repo
+    ;;
+  *)
+    echo "training repo '${REPO}' does not exist"
+    ;;
+esac
+
