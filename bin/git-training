@@ -14,9 +14,7 @@ set -e
 #
 # REPOSITORIES
 #
-#    cherry-pick          cherry-pick some branches from develop to create a release/v2
-#    diff                 diff two branches
-#
+#    flow            repo with master-, develop-, feature- and release branches
 
 usage() {
   cat $0 | sed -n '/^#/p' | sed '/^##/d' | sed 1d \
@@ -39,7 +37,7 @@ while test $# -ne 0; do
   esac
 done
 
-create-cherry-pick-repo() {
+create-flow-repo() {
   [ ! -d ".git" ] && git-setup
 
   # create a develop branch
@@ -109,14 +107,17 @@ create-cherry-pick-repo() {
   git add version.txt
   git commit -m "bumped to version v2"
 
-  # ... now merge foo and baz, but not bar, into release/v2
+  git log --graph --pretty=format:'%C(red)%h%C(reset) — %C(white)%s%C(reset)%C(green)%d%C(reset) — %C(bold blue)%an%C(reset) %C(yellow)(%ar)%C(reset)' --all
 }
 
-create-diff-repo() {
+
+create-branch-repo() {
 #
-#         D---E     [HEAD -> develop]
-#        /
-#   A---B---C---F   [master]
+#    branch          repo with two branches
+#
+#                               D---E     [HEAD -> develop]
+#                              /
+#                         A---B---C---F   [master]
 #
   [ ! -d ".git" ] && git-setup -m A
   git-do
@@ -127,15 +128,42 @@ create-diff-repo() {
   git checkout master
   git-do
   git checkout develop
+  git log --graph --pretty=format:'%C(red)%h%C(reset) — %C(white)%s%C(reset)%C(green)%d%C(reset) — %C(bold blue)%an%C(reset) %C(yellow)(%ar)%C(reset)' --all
 }
 
+
+create-merge-repo() {
+#
+#    merge           repo with a merge-commit
+#
+#                         A---B---C---D---E-------J---K    [HEAD -> master]
+#                                  \             /
+#                                   F---G---H---I
+#
+  [ ! -d ".git" ] && git-setup -m A
+  git-do -n 2
+  git branch develop
+  git-do -n 2
+  git checkout develop
+  git-do -n 4
+  git checkout master
+  git merge --no-ff develop -m "J"
+  git-do
+  git log --graph --pretty=format:'%C(red)%h%C(reset) — %C(white)%s%C(reset)%C(green)%d%C(reset) — %C(bold blue)%an%C(reset) %C(yellow)(%ar)%C(reset)' --all
+}
+
+
 case $REPO in
-  cherry-pick)
-    create-cherry-pick-repo
+  flow)
+    create-flow-repo
     exit 0
     ;;
-  diff)
-    create-diff-repo
+  branch)
+    create-branch-repo
+    exit 0
+    ;;
+  merge)
+    create-merge-repo
     exit 0
     ;;
   *)
