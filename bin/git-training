@@ -23,6 +23,11 @@ usage() {
     | sed 's/#/ /g'
 }
 
+summary() {
+  cat $0 | awk -v REPO=$1 '$0 ~ REPO, /^}$/ {print $0}' | awk -v G=$(tput setaf 0) -v R=$(tput sgr0) '/^#/ {print G $0 R}'
+  git log --graph --pretty=format:'%C(red)%h%C(reset) — %C(white)%s%C(reset)%C(green)%d%C(reset) — %C(bold blue)%an%C(reset) %C(yellow)(%ar)%C(reset)' --all
+}
+
 while test $# -ne 0; do
   arg=$1
   shift
@@ -128,7 +133,8 @@ create-branch-repo() {
   git checkout master
   git-do
   git checkout develop
-  git log --graph --pretty=format:'%C(red)%h%C(reset) — %C(white)%s%C(reset)%C(green)%d%C(reset) — %C(bold blue)%an%C(reset) %C(yellow)(%ar)%C(reset)' --all
+
+  summary ${FUNCNAME[0]}
 }
 
 
@@ -149,7 +155,53 @@ create-merge-repo() {
   git checkout master
   git merge --no-ff develop -m "J"
   git-do
-  git log --graph --pretty=format:'%C(red)%h%C(reset) — %C(white)%s%C(reset)%C(green)%d%C(reset) — %C(bold blue)%an%C(reset) %C(yellow)(%ar)%C(reset)' --all
+
+  summary ${FUNCNAME[0]}
+}
+
+
+create-revision-repo() {
+#
+#    rev             repo to test revision syntax
+#
+#                         G   H   I   J
+#                          \ /     \ /
+#                           D   E   F
+#                            \  |  /
+#                             \ | /
+#                              \|/
+#                               B   C
+#                                \ /
+#                                 A
+#
+  [ ! -d ".git" ] && git-setup
+  git checkout -b G master
+  git-do -m G
+  git checkout -b H master
+  git-do -m H
+  git checkout -b E master
+  git-do -m E
+  git checkout -b I master
+  git-do -m I
+  git checkout -b J master
+  git-do -m J
+  git checkout -b C master
+  git-do -m C
+
+  git checkout I
+  git merge --no-ff -m "F" J
+  git branch -d J
+
+  git checkout G
+  git merge --no-ff -m "D" H
+  git branch -d H
+  git merge --no-ff -m "B" E I
+  git branch -d E
+  git branch -d I
+  git merge --no-ff -m "A" C
+  git branch -d C
+
+  summary ${FUNCNAME[0]}
 }
 
 
@@ -164,6 +216,10 @@ case $REPO in
     ;;
   merge)
     create-merge-repo
+    exit 0
+    ;;
+  rev)
+    create-revision-repo
     exit 0
     ;;
   *)

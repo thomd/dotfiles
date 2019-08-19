@@ -10,7 +10,8 @@ set -e
 #
 # If the last commit message starts with an uppercase letter, then the subsequent
 # commit messaged will use an uppercase letter sequence (only from A-Z).
-# You may init a git repository with 'git setup -m A'
+#
+# Init a git repository with 'git setup -m A' to have letter sequenced commit messages.
 #
 # USAGE
 #
@@ -20,13 +21,14 @@ set -e
 #
 #    -n N     number of do's
 #    -f       create new file by adding index to default file or to the given file
+#    -m MSG   commit message (default is letter-sequence or file-name)
 #
 # EXAMPLES
 #
 #    git do -n 3
-#    git do myfile.txt
+#    git do foo.txt
 #    git do -f
-#    git do -f -n 5 myfile.txt
+#    git do -f -n 5 foo.txt
 #
 
 DO=1
@@ -49,6 +51,10 @@ while test $# -ne 0; do
       DO=$1
       shift
       ;;
+    -m)
+      CUSTOM_MSG=$1
+      shift
+      ;;
     *)
       FILE=$arg
       ;;
@@ -64,10 +70,14 @@ for (( i=1; i<=$DO; i++ )); do
 
   LAST_MSG=$(git log --oneline --all --pretty='%s' --topo-order -1)
 
-  if [[ $LAST_MSG =~ ^[A-Z]$ ]]; then
-    MSG=$(printf "%d" "'$LAST_MSG" | echo $(($(< /dev/stdin)+1)) | awk '{printf("%c",$1)}')
+  if [ ! $CUSTOM_MSG ]; then
+    if [[ $LAST_MSG =~ ^[A-Z]$ ]]; then
+      MSG=$(printf "%d" "'$LAST_MSG" | echo $(($(< /dev/stdin)+1)) | awk '{printf("%c",$1)}')
+    else
+      MSG=$FILE
+    fi
   else
-    MSG=$FILE
+    MSG=$CUSTOM_MSG
   fi
   echo $MSG >> $FILE
 
