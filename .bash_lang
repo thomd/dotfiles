@@ -19,15 +19,32 @@ export PYTHONSTARTUP="$HOME/.pythonrc"
 
 # ----- node ------------------------------------------------------------------
 
-export NVM_DIR="/usr/local/nvm"
 export PATH=/usr/local/nvm/versions/node/`cat /usr/local/nvm/alias/default`/bin:$PATH
-# lazy sourcing of nvm
-function nvm {
-  if [ -z $NVM_SOURCED ]; then
-    export NVM_SOURCED=true
-    source /usr/local/opt/nvm/nvm.sh
-  fi
+
+lazy_source_nvm() {
+  unset -f nvm node npm npx
+  export NVM_DIR="/usr/local/nvm"
+  source /usr/local/opt/nvm/nvm.sh
+}
+
+nvm() {
+  lazy_source_nvm
   nvm $@
+}
+
+node() {
+  lazy_source_nvm
+  node $@
+}
+
+npm() {
+  lazy_source_nvm
+  npm $@
+}
+
+npx() {
+  lazy_source_nvm
+  npx $@
 }
 
 
