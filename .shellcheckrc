@@ -1,0 +1,4 @@
+shell=bash
+
+# https://github.com/koalaman/shellcheck/wiki/Checks
+#disable=SC2034

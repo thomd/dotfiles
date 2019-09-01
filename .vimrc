@@ -214,10 +214,10 @@ noremap <S-Left> :tabp<CR>
 noremap <S-Right> :tabn<CR>
 
 " scan searchresults from quickfix window
-"nnoremap m :cn<cr> zz
-"nnoremap M :cp<cr> zz
-"nnoremap <leader>m :copen<cr>
-"nnoremap <leader>M :ccl<cr>
+nnoremap <C-j> :cn<CR> zz
+nnoremap <C-k> :cp<CR> zz
+nnoremap <leader>m :copen<CR>
+nnoremap <leader>M :ccl<CR>
 
 " comment-and-copy (to try things out without loosing ...)
 nmap yc yyP<leader>ccj
@@ -537,10 +537,6 @@ Bundle 'chemzqm/vim-jsx-improve'
 " let g:jsx_ext_required = 0
 
 
-" io lang
-Bundle 'andreimaxim/vim-io'
-
-
 " vim pug (aka jade) template engine syntax highlighting and indention
 Bundle 'digitaltoad/vim-pug'
 
@@ -609,6 +605,15 @@ Bundle 'jparise/vim-graphql'
 
 " Dark blue color scheme
 Bundle 'cocopon/iceberg.vim'
+
+
+" Shellcheck (Bash Linter)
+Bundle 'itspriddle/vim-shellcheck'
+set makeprg=shellcheck\ -f\ gcc\ %
+au BufWritePost *.sh :silent make | redraw!
+au QuickFixCmdPost [^l]* nested cwindow
+au QuickFixCmdPost    l* nested lwindow
+au BufWritePost *.sh :ShellCheck
 
 
 " Attempt to determine the type of a file based on its name and possibly its
