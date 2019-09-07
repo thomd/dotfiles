@@ -2,7 +2,7 @@
 
 # ----- python ----------------------------------------------------------------
 
-# Requiring an active virtual environment for pip
+# In order to make sure that you install packages to your active virtual environment when you use `pip install`
 #   source: https://docs.python-guide.org/dev/pip-virtualenv/
 export PIP_REQUIRE_VIRTUALENV=true
 gpip() {                                      # enforce global install
@@ -14,7 +14,7 @@ export WORKON_HOME=$HOME/.virtualenvs
 [ -f /usr/local/bin/virtualenvwrapper_lazy.sh ] && source /usr/local/bin/virtualenvwrapper_lazy.sh
 
 # python REPl
-export PYTHONSTARTUP="$HOME/.pythonrc"
+#export PYTHONSTARTUP="$HOME/.pythonrc"
 
 
 # ----- node ------------------------------------------------------------------
