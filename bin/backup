@@ -3,64 +3,333 @@
 # TODO check if backup volume is mounted
 
 
-FROM="/develop"
-TO="/Volumes/Backup/imac"
+FROM="/develop/"
+TO="/Volumes/Backup/imac/develop"
 mkdir -p $TO
-echo -e "\n\n\033[32mbackup: $FROM\033[0m"
+echo -e "\n\nbackup: \033[32m$FROM\033[0m"
 rsync -a --delete --stats \
-  --exclude .git/ \
-  --exclude node_modules/ \
+  --exclude ".git" \
+  --exclude "node_modules" \
   $FROM $TO
 
 
-FROM="/Users/thomd"
-TO="/Volumes/Backup/imac/Users"
+FROM="/Users/thomd/"
+TO="/Volumes/Backup/imac/Users/thomd"
 mkdir -p $TO
-echo -e "\n\n\033[32mbackup: $FROM\033[0m"
+echo -e "\n\nbackup: \033[32m$FROM\033[0m"
 rsync -a --delete --stats \
-  --exclude .git/ \
-  --exclude node_modules/ \
-  --exclude Applications/ \
-  --exclude Downloads/ \
-  --exclude Dropbox/ \
-  --exclude Library/ \
-  --exclude Mail/ \
-  --exclude Movies/ \
-  --exclude Music/ \
-  --exclude Pictures/ \
-  --exclude Public/ \
-  --exclude .Trash/ \
-  --exclude .virutalbox-vms/ \
-  --exclude .vagrant.d/ \
-  --exclude .docker/ \
-  --exclude .npm/ \
-  --exclude .node-gyp/ \
-  --exclude .cpan/ \
-  --exclude .cabal/ \
-  --exclude .gradle/ \
-  --exclude .jenkins/ \
-  --exclude .m2/ \
-  --exclude .p2/ \
-  --exclude .atom/ \
-  --exclude .gem/ \
-  --exclude .ivy2/ \
-  --exclude .cordova/ \
-  --exclude .heroku/ \
-  --exclude .yeoman/ \
-  --exclude .mcf/ \
+  --exclude "/.CFUserTextEncoding" \
+  --exclude "/.DS_Store" \
+  --exclude "/.FontForge" \
+  --exclude "/.NERDTreeBookmarks" \
+  --exclude "/.Rhistory" \
+  --exclude "/.Trash" \
+  --exclude "/.Xauthority" \
+  --exclude "/.Xcode" \
+  --exclude "/.ackrc" \
+  --exclude "/.android" \
+  --exclude "/.antcolors" \
+  --exclude "/.antrc" \
+  --exclude "/.atom" \
+  --exclude "/.aws" \
+  --exclude "/.babel.json" \
+  --exclude "/.bash_aliases" \
+  --exclude "/.bash_completions" \
+  --exclude "/.bash_docker" \
+  --exclude "/.bash_exports" \
+  --exclude "/.bash_functions" \
+  --exclude "/.bash_history" \
+  --exclude "/.bash_private" \
+  --exclude "/.bash_profile" \
+  --exclude "/.bash_prompt" \
+  --exclude "/.bashrc" \
+  --exclude "/.birthday.json" \
+  --exclude "/.bookmarks" \
+  --exclude "/.boot2docker" \
+  --exclude "/.bower" \
+  --exclude "/.bowerrc" \
+  --exclude "/.brew-aliases" \
+  --exclude "/.bundle" \
+  --exclude "/.bundler" \
+  --exclude "/.cabal" \
+  --exclude "/.cache" \
+  --exclude "/.caprc" \
+  --exclude "/.cgdb" \
+  --exclude "/.cheat" \
+  --exclude "/.colordiffrc" \
+  --exclude "/.config" \
+  --exclude "/.cordova" \
+  --exclude "/.cpan" \
+  --exclude "/.csvfix" \
+  --exclude "/.cups" \
+  --exclude "/.curlrc" \
+  --exclude "/.dbshell" \
+  --exclude "/.dhexrc" \
+  --exclude "/.digrc" \
+  --exclude "/.distlib" \
+  --exclude "/.dnsyo-resovers-list.yaml" \
+  --exclude "/.docker" \
+  --exclude "/.dockercfg" \
+  --exclude "/.dropbox" \
+  --exclude "/.dropbox-master" \
+  --exclude "/.eclipse" \
+  --exclude "/.electron" \
+  --exclude "/.emacs.d" \
+  --exclude "/.fetchmailrc" \
+  --exclude "/.flickr" \
+  --exclude "/.fontconfig" \
+  --exclude "/.forever" \
+  --exclude "/.fpp" \
+  --exclude "/.ftcurlish.json" \
+  --exclude "/.gdb_history" \
+  --exclude "/.gdbinit" \
+  --exclude "/.gem" \
+  --exclude "/.gemrc" \
+  --exclude "/.ghc" \
+  --exclude "/.gist" \
+  --exclude "/.gitconfig" \
+  --exclude "/.gitignore" \
+  --exclude "/.gitk" \
+  --exclude "/.gitshots" \
+  --exclude "/.gnupg" \
+  --exclude "/.gnuplot_history" \
+  --exclude "/.gost" \
+  --exclude "/.gradle" \
+  --exclude "/.groovy" \
+  --exclude "/.grunt-init" \
+  --exclude "/.guard_history" \
+  --exclude "/.gvimrc" \
+  --exclude "/.heroku" \
+  --exclude "/.hgignore_global" \
+  --exclude "/.hgrc" \
+  --exclude "/.hotel" \
+  --exclude "/.hsandbox" \
+  --exclude "/.htoprc" \
+  --exclude "/.httpie" \
+  --exclude "/.hyper.js" \
+  --exclude "/.hyper_plugins" \
+  --exclude "/.io_history" \
+  --exclude "/.iorc" \
+  --exclude "/.ipython" \
+  --exclude "/.irb-history" \
+  --exclude "/.irb_history" \
+  --exclude "/.irbhistory" \
+  --exclude "/.irbrc" \
+  --exclude "/.irbrc_rails" \
+  --exclude "/.irssi" \
+  --exclude "/.ivy2" \
+  --exclude "/.javarepl.history" \
+  --exclude "/.jenkins" \
+  --exclude "/.jline-clojure.main.history" \
+  --exclude "/.jline-org.mozilla.javascript.tools.shell.Main.history" \
+  --exclude "/.jscsrc" \
+  --exclude "/.jshintrc" \
+  --exclude "/.lein" \
+  --exclude "/.lesshst" \
+  --exclude "/.lighttable" \
+  --exclude "/.lnav" \
+  --exclude "/.local" \
+  --exclude "/.m2" \
+  --exclude "/.mad" \
+  --exclude "/.mcabber" \
+  --exclude "/.mcf" \
+  --exclude "/.mitmproxy" \
+  --exclude "/.mitmproxy_old" \
+  --exclude "/.mongorc.js" \
+  --exclude "/.mozcmd" \
+  --exclude "/.mplayer" \
+  --exclude "/.msmtp.log" \
+  --exclude "/.msmtprc" \
+  --exclude "/.mutt" \
+  --exclude "/.my.cnf" \
+  --exclude "/.mysql_history" \
+  --exclude "/.nanorc" \
+  --exclude "/.netlify" \
+  --exclude "/.netrc" \
+  --exclude "/.newspaper_scraper" \
+  --exclude "/.ngircd" \
+  --exclude "/.ngrok" \
+  --exclude "/.ngrok2" \
+  --exclude "/.node-gyp" \
+  --exclude "/.node_history" \
+  --exclude "/.node_repl_history" \
+  --exclude "/.now.json" \
+  --exclude "/.npm" \
+  --exclude "/.npmrc" \
+  --exclude "/.oh-my-zsh" \
+  --exclude "/.oracle_jre_usage" \
+  --exclude "/.orpie" \
+  --exclude "/.otto.d" \
+  --exclude "/.p2" \
+  --exclude "/.pdbrc" \
+  --exclude "/.perlbrew" \
+  --exclude "/.pip" \
+  --exclude "/.plugman" \
+  --exclude "/.pm2" \
+  --exclude "/.pow" \
+  --exclude "/.powconfig" \
+  --exclude "/.pry_history" \
+  --exclude "/.python_history" \
+  --exclude "/.pythonhist" \
+  --exclude "/.pythonrc" \
+  --exclude "/.quokka" \
+  --exclude "/.rdebugrc" \
+  --exclude "/.recently-used.xbel" \
+  --exclude "/.rediscli_history" \
+  --exclude "/.rnd" \
+  --exclude "/.rspec" \
+  --exclude "/.rstudio-desktop" \
+  --exclude "/.ruby_inline" \
+  --exclude "/.s3_service_bucket" \
+  --exclude "/.s3cfg" \
+  --exclude "/.screenrc" \
+  --exclude "/.scss-lint.yml" \
+  --exclude "/.sh_history" \
+  --exclude "/.since" \
+  --exclude "/.sonar" \
+  --exclude "/.sqlite_history" \
+  --exclude "/.sqliterc" \
+  --exclude "/.srl" \
+  --exclude "/.subgit" \
+  --exclude "/.subversion" \
+  --exclude "/.terminfo" \
+  --exclude "/.termit" \
+  --exclude "/.tgdb" \
+  --exclude "/.tigrc" \
+  --exclude "/.tmux" \
+  --exclude "/.tmux-osx.conf" \
+  --exclude "/.tmux.conf" \
+  --exclude "/.tmuxinator" \
+  --exclude "/.todo-db.json" \
+  --exclude "/.tooling" \
+  --exclude "/.tor" \
+  --exclude "/.travis" \
+  --exclude "/.tsd-cache" \
+  --exclude "/.v8flags.5.1.281.83.2c3360db20704b77ab8170f65ec928fb.json" \
+  --exclude "/.v8flags.5.5.372.41.thomd.json" \
+  --exclude "/.v8flags.5.5.372.43.2c3360db20704b77ab8170f65ec928fb.json" \
+  --exclude "/.v8flags.5.5.372.43.thomd.json" \
+  --exclude "/.v8flags.5.8.283.41.2c3360db20704b77ab8170f65ec928fb.json" \
+  --exclude "/.v8flags.5.8.283.41.thomd.json" \
+  --exclude "/.v8flags.6.0.286.52.2c3360db20704b77ab8170f65ec928fb.json" \
+  --exclude "/.v8flags.6.0.286.52.thomd.json" \
+  --exclude "/.v8flags.6.0.287.53.2c3360db20704b77ab8170f65ec928fb.json" \
+  --exclude "/.v8flags.6.0.287.53.thomd.json" \
+  --exclude "/.vagrant" \
+  --exclude "/.vagrant.d" \
+  --exclude "/.vim" \
+  --exclude "/.viminfo" \
+  --exclude "/.viminfo.tmp" \
+  --exclude "/.viminfy.tmp" \
+  --exclude "/.viminfz.tmp" \
+  --exclude "/.vimrc" \
+  --exclude "/.virtualenvs" \
+  --exclude "/.virutalbox-vms" \
+  --exclude "/.vscode" \
+  --exclude "/.w3m" \
+  --exclude "/.wgetrc" \
+  --exclude "/.wireshark" \
+  --exclude "/.wireshark-etc" \
+  --exclude "/.xonsh_history.json" \
+  --exclude "/.xonsh_man_completions" \
+  --exclude "/.yo-rc-global.json" \
+  --exclude "/.zcompdump-imac-5.0.2" \
+  --exclude "/.zprofile" \
+  --exclude "/.zsh-update" \
+  --exclude "/.zsh_history" \
+  --exclude "/.zshrc" \
+  --exclude "/.zshrc.pre-oh-my-zsh" \
+  --exclude "/Applications" \
+  --exclude "/Downloads" \
+  --exclude "/Public" \
+  --exclude "/Sites" \
+  --exclude "/archive.wpr" \
+  --exclude "/cache" \
+  --exclude "/changed" \
+  --exclude "/develop" \
+  --exclude "/docker" \
+  --exclude "/dotfiles" \
+  --exclude "/git" \
+  --exclude "/npm-packages-offline-cache" \
+  --exclude "/parser_table.py" \
+  --exclude "/site" \
+  --exclude "/temp" \
+  --exclude "/scratch" \
+  --exclude "/Library/Mobile Documents.1055276304" \
+  --exclude "/Library/Application Support/SyncServices" \
+  --exclude "/Library/Saved Application State" \
   $FROM $TO
 
 
-FROM="/opt/repos"
-TO="/Volumes/Backup/imac"
+exit 0
+FROM="/opt/repos/"
+TO="/Volumes/Backup/imac/repos"
 mkdir -p $TO
-echo -e "\n\n\033[32mbackup: $FROM\033[0m"
+echo -e "\n\nbackup: \033[32m$FROM\033[0m"
 rsync -a --delete --stats $FROM $TO
 
 
-FROM="/Users/thomd/Pictures"
-TO="/Volumes/Backup/Pictures"
+FROM="/Users/katja/"
+TO="/Volumes/Backup/imac/Users/katja"
 mkdir -p $TO
-echo -e "\n\n\033[32mbackup: $FROM\033[0m"
-rsync -a --delete --stats $FROM $TO
+echo -e "\n\nbackup: \033[32m$FROM\033[0m"
+rsync -a --delete --stats \
+  --exclude "/.CFUserTextEncoding" \
+  --exclude "/.DS_Store" \
+  --exclude "/.Trash" \
+  --exclude "/.bash_history" \
+  --exclude "/.bash_profile" \
+  --exclude "/.bashrc" \
+  --exclude "/.cups" \
+  --exclude "/.gitconfig" \
+  --exclude "/.gitignore" \
+  --exclude "/.mcf" \
+  --exclude "/.oracle_jre_usage" \
+  --exclude "/.subversion" \
+  --exclude "/.viminfo" \
+  --exclude "/Applications" \
+  --exclude "/Documents" \
+  --exclude "/Movies" \
+  --exclude "/Public" \
+  --exclude "/Sites" \
+  --exclude "/Library/Application Support/SyncServices" \
+  $FROM $TO
 
+
+FROM="/Users/emma/"
+TO="/Volumes/Backup/imac/Users/emma"
+mkdir -p $TO
+echo -e "\n\nbackup: \033[32m$FROM\033[0m"
+rsync -a --delete --stats \
+  --exclude "/.CFUserTextEncoding" \
+  --exclude "/.DS_Store" \
+  --exclude "/.Trash" \
+  --exclude "/.bash_history" \
+  --exclude "/.cups" \
+  --exclude "/.oracle_jre_usage" \
+  --exclude "/Applications" \
+  --exclude "/Public" \
+  --exclude "/Sites" \
+  --exclude "/Library/Application Support/SyncServices" \
+  $FROM $TO
+
+
+FROM="/Users/lotta/"
+TO="/Volumes/Backup/imac/Users/lotta"
+mkdir -p $TO
+echo -e "\n\nbackup: \033[32m$FROM\033[0m"
+rsync -a --delete --stats \
+  --exclude "/.CFUserTextEncoding" \
+  --exclude "/.DS_Store" \
+  --exclude "/.Trash" \
+  --exclude "/.atom" \
+  --exclude "/.bash_history" \
+  --exclude "/.cups" \
+  --exclude "/.mcf" \
+  --exclude "/.oracle_jre_usage" \
+  --exclude "/Applications" \
+  --exclude "/Public" \
+  --exclude "/Sites" \
+  --exclude "/Spunk" \
+  --exclude "/Library/Application Support/SyncServices" \
+  $FROM $TO
