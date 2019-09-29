@@ -21,6 +21,7 @@ set -e
 #    -I          list instances
 #    -i NAME     use NAME as instances (and set as default)
 #    -z D        zip & delete files older than D days [default: 7 days]
+#    --no-color    do not print colors to stdout
 #
 # EXAMPLES
 #
@@ -154,6 +155,9 @@ while test $# -ne 0; do
       archive-and-delete $1
       exit 0
       ;;
+    --no-color)
+      no_color=1
+      ;;
     -d|--download)
       download=1
       ;;
@@ -204,7 +208,11 @@ if [ $download ]; then
   while ((i++)); read -r url; do
     file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
     if [ ! -f $file ] || [ $force_download ]; then
-      echo "$(tput setaf 2)[$i/$total]$(tput sgr0) $file"
+      if [ -z $no_color ]; then
+        echo "$(tput setaf 2)[$i/$total]$(tput sgr0) $file"
+      else
+        echo "[$i/$total] $file"
+      fi
       curl -s -u "$user" -O "https://${host}${url}"
       if [ ${file: -4} == ".xml" ]; then
         xml fo $file > temp && mv temp $file || echo $file >> fo-error.txt
@@ -218,15 +226,23 @@ elif [ $delete ]; then
   i=0
   while ((i++)); read -r url; do
     file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
-    echo "$(tput setaf 1)[$i/$total]$(tput sgr0) $file"
+    if [ -z $no_color ]; then
+      echo "$(tput setaf 1)[$i/$total]$(tput sgr0) $file"
+    else
+      echo "[$i/$total] $file"
+    fi
     curl -s -u "$user" -X DELETE "https://${host}${url}"
   done < $urlfile
 else
   echo -e "\n$(tput setaf 2)${host}$(tput sgr0)\n"
-  if [ -z $folder ]; then
-    cat $urlfile | perl -pe 's/(Impex\/)(.*)$/\1'$(tput setaf 2)'\2'$(tput sgr0)'/g'
+  if [ -z $no_color ]; then
+    if [ -z $folder ]; then
+      cat $urlfile | perl -pe 's/(Impex\/)(.*)$/\1'$(tput setaf 2)'\2'$(tput sgr0)'/g'
+    else
+      cat $urlfile | perl -pe 's/(Impex\/'${folder//\//\\/}'\/)(.*)$/\1'$(tput setaf 2)'\2'$(tput sgr0)'/g'
+    fi
   else
-    cat $urlfile | perl -pe 's/(Impex\/'${folder//\//\\/}'\/)(.*)$/\1'$(tput setaf 2)'\2'$(tput sgr0)'/g'
+    cat $urlfile
   fi
 fi
 
