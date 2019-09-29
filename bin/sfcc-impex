@@ -12,7 +12,8 @@ set -e
 # OPTIONS
 #
 #    -d          download (only new files)
-#    -k          delete
+#    -k          delete using filename-pattern
+#    -K          delete a specific file
 #    -f          force download
 #    -c N        limit number of file to N
 #    -P          day histogram
@@ -27,6 +28,8 @@ set -e
 #    sfcc impex -d log import-catalog-20190617
 #    sfcc impex -P
 #    sfcc impex -p 2019-05-03
+#    sfcc impex -k archive/catalog 2019-05-03              // delete all files matchin a pattern in archive/catalog
+#    sfcc impex -K archive/catalog/2019-09-25.xml          // delete a specific file
 #
 
 config="$HOME/.sfcc-impex"
@@ -157,6 +160,9 @@ while test $# -ne 0; do
     -k|--kill)
       delete=1
       ;;
+    -K)
+      deleteFile=$1
+      ;;
     -f|--force)
       force_download=1
       ;;
@@ -176,6 +182,11 @@ while test $# -ne 0; do
       ;;
   esac
 done
+
+if [ $deleteFile ]; then
+  echo "$(tput setaf 1)[X]$(tput sgr0) ${deleteFile}"
+  curl -s -u "${user}" -X DELETE "https://${host}${deleteFile}"
+fi
 
 urlfile=`mktemp ./url-XXXXX`
 trap "rm $urlfile" EXIT
