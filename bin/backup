@@ -3,8 +3,8 @@
 # TODO check if backup volume is mounted
 
 
-FROM="/develop"
-TO="/Volumes/Backup/imac"
+FROM="/Users/duerr/develop"
+TO="/Volumes/UserData/duerr/MacBook-Backup"
 mkdir -p $TO
 echo -e "\n\n\033[32mbackup: $FROM\033[0m"
 rsync -a --delete --stats \
@@ -13,53 +13,16 @@ rsync -a --delete --stats \
   $FROM $TO
 
 
-FROM="/Users/thomd"
-TO="/Volumes/Backup/imac/Users"
+FROM="/Users/duerr/Documents"
+TO="/Volumes/UserData/duerr/MacBook-Backup"
 mkdir -p $TO
 echo -e "\n\n\033[32mbackup: $FROM\033[0m"
 rsync -a --delete --stats \
-  --exclude .git/ \
-  --exclude node_modules/ \
-  --exclude Applications/ \
-  --exclude Downloads/ \
-  --exclude Dropbox/ \
-  --exclude Library/ \
-  --exclude Mail/ \
-  --exclude Movies/ \
-  --exclude Music/ \
-  --exclude Pictures/ \
-  --exclude Public/ \
-  --exclude .Trash/ \
-  --exclude .virutalbox-vms/ \
-  --exclude .vagrant.d/ \
-  --exclude .docker/ \
-  --exclude .npm/ \
-  --exclude .node-gyp/ \
-  --exclude .cpan/ \
-  --exclude .cabal/ \
-  --exclude .gradle/ \
-  --exclude .jenkins/ \
-  --exclude .m2/ \
-  --exclude .p2/ \
-  --exclude .atom/ \
-  --exclude .gem/ \
-  --exclude .ivy2/ \
-  --exclude .cordova/ \
-  --exclude .heroku/ \
-  --exclude .yeoman/ \
-  --exclude .mcf/ \
   $FROM $TO
 
 
-FROM="/opt/repos"
-TO="/Volumes/Backup/imac"
-mkdir -p $TO
-echo -e "\n\n\033[32mbackup: $FROM\033[0m"
-rsync -a --delete --stats $FROM $TO
-
-
-FROM="/Users/thomd/Pictures"
-TO="/Volumes/Backup/Pictures"
+FROM="/Users/duerr/git"
+TO="/Volumes/UserData/duerr/MacBook-Backup"
 mkdir -p $TO
 echo -e "\n\n\033[32mbackup: $FROM\033[0m"
 rsync -a --delete --stats $FROM $TO
