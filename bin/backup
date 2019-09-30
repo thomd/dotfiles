@@ -2,9 +2,10 @@
 
 # TODO check if backup volume is mounted
 
+BACKUP="Backup"
 
 FROM="/develop/"
-TO="/Volumes/Backup/imac/develop"
+TO="/Volumes/${BACKUP}/imac/develop"
 mkdir -p $TO
 echo -e "\n\nbackup: \033[32m$FROM\033[0m"
 rsync -a --delete --stats \
@@ -14,7 +15,7 @@ rsync -a --delete --stats \
 
 
 FROM="/Users/thomd/"
-TO="/Volumes/Backup/imac/Users/thomd"
+TO="/Volumes/${BACKUP}/imac/Users/thomd"
 mkdir -p $TO
 echo -e "\n\nbackup: \033[32m$FROM\033[0m"
 rsync -a --delete --stats \
@@ -261,16 +262,15 @@ rsync -a --delete --stats \
   $FROM $TO
 
 
-exit 0
 FROM="/opt/repos/"
-TO="/Volumes/Backup/imac/repos"
+TO="/Volumes/${BACKUP}/imac/repos"
 mkdir -p $TO
 echo -e "\n\nbackup: \033[32m$FROM\033[0m"
 rsync -a --delete --stats $FROM $TO
 
 
 FROM="/Users/katja/"
-TO="/Volumes/Backup/imac/Users/katja"
+TO="/Volumes/${BACKUP}/imac/Users/katja"
 mkdir -p $TO
 echo -e "\n\nbackup: \033[32m$FROM\033[0m"
 rsync -a --delete --stats \
@@ -297,7 +297,7 @@ rsync -a --delete --stats \
 
 
 FROM="/Users/emma/"
-TO="/Volumes/Backup/imac/Users/emma"
+TO="/Volumes/${BACKUP}/imac/Users/emma"
 mkdir -p $TO
 echo -e "\n\nbackup: \033[32m$FROM\033[0m"
 rsync -a --delete --stats \
@@ -315,7 +315,7 @@ rsync -a --delete --stats \
 
 
 FROM="/Users/lotta/"
-TO="/Volumes/Backup/imac/Users/lotta"
+TO="/Volumes/${BACKUP}/imac/Users/lotta"
 mkdir -p $TO
 echo -e "\n\nbackup: \033[32m$FROM\033[0m"
 rsync -a --delete --stats \
