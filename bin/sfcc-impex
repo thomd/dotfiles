@@ -229,7 +229,7 @@ download() {
     fi
     curl -s -u "$user" -O "https://${host}${url}"
     if [ ${file: -4} == ".xml" ]; then
-      xml fo $file > temp && mv temp $file || echo $file >> fo-error.txt
+      xml fo $file > "_$file" && mv "_$file" $file || echo $file >> fo-error.txt
     fi
   else
     echo "[$i/$total] $file"
