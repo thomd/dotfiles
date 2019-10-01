@@ -11,17 +11,18 @@ set -e
 #
 # OPTIONS
 #
-#    -d          download (only new files)
-#    -k          delete using filename-pattern
-#    -K          delete a specific file
-#    -f          force download
-#    -c N        limit number of file to N
-#    -P          day histogram
-#    -p DATE     hour histogram for DATE [default: today]
-#    -I          list instances
-#    -i NAME     use NAME as instances (and set as default)
-#    -z D        zip & delete files older than D days [default: 7 days]
+#    -d            download (only new files)
+#    -k            delete using filename-pattern
+#    -K            delete a specific file
+#    -f            force download (if file already exists in CWD)
+#    -c N          limit number of file to N
+#    -P            day histogram
+#    -p DATE       hour histogram for DATE [default: today]
+#    -I            list instances
+#    -i NAME       use NAME as instances (and set as default)
+#    -z D          zip & delete files older than D days [default: 7 days]
 #    --no-color    do not print colors to stdout
+#    -n NUM        number of parallel downloads [default: 1, max: 8]
 #
 # EXAMPLES
 #
@@ -118,6 +119,8 @@ archive-and-delete() {
   done
 }
 
+parallel=1
+
 while test $# -ne 0; do
   arg=$1
   shift
@@ -161,6 +164,13 @@ while test $# -ne 0; do
     -d|--download)
       download=1
       ;;
+    -n)
+      parallel=$1
+      if [ $parallel -lt 1 -o $parallel -gt 8 ]; then
+        echo "maximum of $(tput setaf 1)8$(tput sgr0) parallel downloads"
+        exit 1
+      fi
+      ;;
     -k|--kill)
       delete=1
       ;;
@@ -201,28 +211,38 @@ curl -sN -u "$user" "https://${host}${basepath}${folder}" \
   | ( [[ $filepattern ]] && sed -n /$filepattern/p || cat ) \
   | ( [[ $count ]] && head -n $count || cat ) \
   > $urlfile
+total=`wc -l $urlfile | awk '{print $1}'`
 
-if [ $download ]; then
-  total=`wc -l $urlfile | awk '{print $1}'`
-  i=0
-  while ((i++)); read -r url; do
-    file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
-    if [ ! -f $file ] || [ $force_download ]; then
-      if [ -z $no_color ]; then
-        echo "$(tput setaf 2)[$i/$total]$(tput sgr0) $file"
-      else
-        echo "[$i/$total] $file"
-      fi
-      curl -s -u "$user" -O "https://${host}${url}"
-      if [ ${file: -4} == ".xml" ]; then
-        xml fo $file > temp && mv temp $file || echo $file >> fo-error.txt
-      fi
+download_count=0
+download() {
+  local url=$1
+  local total=$2
+  local i=$3
+  local user=$4
+  local host=$5
+  local file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
+  if [ ! -f $file ] || [ $force_download ]; then
+    if [ -z $no_color ]; then
+      echo "$(tput setaf 2)[$i/$total]$(tput sgr0) $file"
     else
       echo "[$i/$total] $file"
     fi
+    curl -s -u "$user" -O "https://${host}${url}"
+    if [ ${file: -4} == ".xml" ]; then
+      xml fo $file > temp && mv temp $file || echo $file >> fo-error.txt
+    fi
+  else
+    echo "[$i/$total] $file"
+  fi
+}
+export -f download
+
+if [ $download ]; then
+  while mapfile -t -n${parallel} ary && ((${#ary[@]})); do
+    download_count=$(($download_count+1))
+    printf '%s\n' "${ary[@]}" | xargs -n1 -P${parallel} -I {} sh -c "download {} ${total} $((${download_count}*${parallel})) ${user} ${host}"
   done < $urlfile
 elif [ $delete ]; then
-  total=`wc -l $urlfile | awk '{print $1}'`
   i=0
   while ((i++)); read -r url; do
     file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
