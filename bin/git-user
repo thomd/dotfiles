@@ -27,7 +27,7 @@ user() {
 }
 
 identity() {
-  echo -e "\n ${GREY}identity:${NONE}\n"
+  echo -e "\n\n ${GREY}current identity:${NONE}\n"
   if [ $(ssh-add -l | awk '{gsub(/.*\//, "", $3); print $3}') == "github" ]; then
     ssh-add -E md5 -l 2>&1 | sed 's/^/   /' | perl -pe "s/(.*MD5:)(.*?) (.*)/\1${ORANGE}\2\e[0m \3/g"
   else
