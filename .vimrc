@@ -616,6 +616,10 @@ au QuickFixCmdPost    l* nested lwindow
 au BufWritePost *.sh :ShellCheck
 
 
+" Coffee Script
+Bundle 'kchmck/vim-coffee-script'
+
+
 " Attempt to determine the type of a file based on its name and possibly its
 " contents.  Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.
