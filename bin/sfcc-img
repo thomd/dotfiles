@@ -12,7 +12,7 @@ set -e
 # OPTIONS
 #
 #    -d            download (only new files)
-#    -k            delete
+#    --delete      delete
 #    -f            force download
 #    -c N          limit number of file to N
 #    -I            list instances
@@ -47,6 +47,13 @@ list_instances() {
     | column -t -s '#'
 }
 
+
+yesno() {
+  read -p "$1 [y/N] " response
+  [[ $response == "y" || $response == "Y" ]] || exit 1
+}
+
+
 while test $# -ne 0; do
   arg=$1
   shift
@@ -71,7 +78,7 @@ while test $# -ne 0; do
     -d|--download)
       download=1
       ;;
-    -k|--kill)
+    --delete)
       delete=1
       ;;
     -f|--force)
@@ -137,6 +144,7 @@ if [ $download ]; then
     fi
   done < $urlfile
 elif [ $delete ]; then
+  yesno "delete?"
   total=`wc -l $urlfile | awk '{print $1}'`
   i=0
   while ((i++)); read -r url; do

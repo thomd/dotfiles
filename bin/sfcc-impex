@@ -12,8 +12,8 @@ set -e
 # OPTIONS
 #
 #    -d            download (only new files)
-#    -k            delete using filename-pattern
-#    -K            delete a specific file
+#    --delete      delete using filename-pattern
+#    --Delete      delete a specific file
 #    -f            force download (if file already exists in CWD)
 #    -c N          limit number of file to N
 #    -P            day histogram
@@ -43,6 +43,12 @@ if [ -f $config ]; then
   user=${!user_envname}
 fi
 folder=""
+
+
+yesno() {
+  read -p "$1 [y/N] " response
+  [[ $response == "y" || $response == "Y" ]] || exit 1
+}
 
 
 histogram() {
@@ -171,10 +177,10 @@ while test $# -ne 0; do
         exit 1
       fi
       ;;
-    -k|--kill)
+    --delete)
       delete=1
       ;;
-    -K)
+    --Delete)
       deleteFile=$1
       ;;
     -f|--force)
@@ -198,6 +204,7 @@ while test $# -ne 0; do
 done
 
 if [ $deleteFile ]; then
+  yesno "delete?"
   echo "$(tput setaf 1)[X]$(tput sgr0) ${deleteFile}"
   curl -s -u "${user}" -X DELETE "https://${host}${deleteFile}"
 fi
@@ -243,6 +250,7 @@ if [ $download ]; then
     printf '%s\n' "${ary[@]}" | xargs -n1 -P${parallel} -I {} sh -c "download {} ${total} $((${download_count}*${parallel})) ${user} ${host}"
   done < $urlfile
 elif [ $delete ]; then
+  yesno "delete?"
   i=0
   while ((i++)); read -r url; do
     file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
