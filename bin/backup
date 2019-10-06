@@ -92,7 +92,6 @@ rsync -a --delete --stats \
   --exclude "/.gitignore" \
   --exclude "/.gitk" \
   --exclude "/.gitshots" \
-  --exclude "/.gnupg" \
   --exclude "/.gnuplot_history" \
   --exclude "/.gost" \
   --exclude "/.gradle" \
