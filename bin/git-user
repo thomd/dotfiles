@@ -28,7 +28,7 @@ user() {
 
 identity() {
   echo -e "\n\n ${GREY}current identity:${NONE}\n"
-  if [ $(ssh-add -l | awk '{gsub(/.*\//, "", $3); print $3}') == "github" ]; then
+  if [ $(ssh-add -l | awk '{gsub(/.*\//, "", $3); print $3}') == "github_thomd" ]; then
     ssh-add -E md5 -l 2>&1 | sed 's/^/   /' | perl -pe "s/(.*MD5:)(.*?) (.*)/\1${ORANGE}\2\e[0m \3/g"
   else
     ssh-add -E md5 -l 2>&1 | sed 's/^/   /' | perl -pe "s/(.*MD5:)(.*?) (.*)/\1${GREEN}\2\e[0m \3/g"
@@ -42,7 +42,7 @@ if [ "$1" == "thomd" ]; then
   git config user.email thomduerr@gmail.com
   ssh-add -D 2> /dev/null
   echo ""
-  ssh-add ~/.ssh/github 2>&1 | sed 's/^/ /'
+  ssh-add ~/.ssh/github_thomd 2>&1 | sed 's/^/ /'
   identity
   user
 fi
@@ -53,7 +53,7 @@ if [ "$1" == "thduerr" ]; then
   git config --unset user.email
   ssh-add -D 2> /dev/null
   echo ""
-  ssh-add -K ~/.ssh/id_rsa 2>&1 | sed 's/^/ /'
+  ssh-add -K ~/.ssh/github_thduerr 2>&1 | sed 's/^/ /'
   identity
   user
 fi
