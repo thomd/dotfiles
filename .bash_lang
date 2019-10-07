@@ -50,11 +50,14 @@ npx() {
 
 # ----- go --------------------------------------------------------------------
 
-export GOPATH="/Users/duerr/develop/go"
+export GOPATH="/Users/$USER/develop/go"
 export GOBIN="$GOPATH/bin"
 export PATH="$PATH:$GOBIN"
 
 
 # ----- rust ------------------------------------------------------------------
 
-export PATH="$HOME/.cargo/bin:$PATH"
+if [ -d $HOME/.cargo ]; then
+  export PATH="$HOME/.cargo/bin:$PATH"
+fi
+

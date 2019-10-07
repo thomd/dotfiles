@@ -44,18 +44,6 @@ alias sn="scratch_new"                                               # new empty
 alias sg="scratch_go"
 
 #
-# colored ant
-#
-function antc {
-  if [ -n "$1" ]; then
-    ant $1 | colored-ant.pl;
-  else
-    ant | colored-ant.pl;
-  fi;
-}
-
-
-#
 # mkdir & cd
 #
 function mkcd {
@@ -160,23 +148,6 @@ function dockerenv {
 }
 
 
-# create a ZIP archive of a file or folder
-function zipf {
-  zip -r "$1".zip "$1";
-}
-
-
-# create a new basic java project using gradle
-function newjava {
-  mkdir -p "$@" && cd "$@"
-  gradle setupBuild --type java-library
-  perl -i -lne 'print $_;print "apply plugin: \x27eclipse\x27" if(/apply/);' build.gradle
-  gradle eclipse
-  rm -fr src/main/java/Library.java
-  rm -fr src/test/java/LibraryTest.java
-}
-
-
 # Escape UTF-8 characters into their 3-byte format
 function escape() {
   printf "\\\x%s" $(printf "$@" | xxd -p -c1 -u)
@@ -192,18 +163,6 @@ function unidecode() {
 # Get a character’s Unicode code point
 function codepoint() {
   perl -e "use utf8; print sprintf('U+%04X', ord(\"$@\"))"
-}
-
-
-# gitignore.io
-#
-# USAGE
-#
-#   gi list
-#   gi java > .gitignore
-#
-function gi() {
-  curl -L -s "https://www.gitignore.io/api/$@"
 }
 
 
