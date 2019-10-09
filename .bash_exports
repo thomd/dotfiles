@@ -26,18 +26,26 @@ export LS_COLORS='di=1;34:fi=0:ln=1;32:pi=33:so=0:bd=0:cd=0:or=0:mi=0:ex=1;31' #
 # allow less(1) to display colors
 export LESS=-RFX
 
+
 # default editor (if not defined otherwise)
 export EDITOR="vim"
 
-export PATH="/Users/$USER/bin:/usr/local/bin:$PATH"
+
+# extend paths from `/etc/paths`
+if [ -d /usr/local/opt/python/libexec/bin ]; then # from `brew install python`
+  export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+fi
+export PATH="/Users/$USER/bin:$PATH"
+
 
 # mad(1)
 export MAD_PATH="$HOME/.mad"
+
 
 # Android SDK
 export ANDROID_SDK="/Users/$USER/Library/Android/sdk"
 export PATH="$PATH:/Users/$USER/Library/Android/sdk/platform-tools"
 
+
 # Homebrew
 export HOMEBREW_NO_EMOJI=1
-
