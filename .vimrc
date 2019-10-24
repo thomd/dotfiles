@@ -620,6 +620,11 @@ au BufWritePost *.sh :ShellCheck
 Bundle 'kchmck/vim-coffee-script'
 
 
+" Black - a prettyfier for Python
+Bundle 'ambv/black'
+autocmd BufWritePre *.py execute ':Black'
+
+
 " Attempt to determine the type of a file based on its name and possibly its
 " contents.  Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.
