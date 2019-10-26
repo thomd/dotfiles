@@ -42,7 +42,7 @@ if [ "$1" == "thomd" ]; then
   git config user.email thomduerr@gmail.com
   ssh-add -D 2> /dev/null
   echo ""
-  ssh-add ~/.ssh/github_thomd 2>&1 | sed 's/^/ /'
+  ssh-add -K ~/.ssh/github_thomd 2>&1 | sed 's/^/ /'
   identity
   user
 fi
