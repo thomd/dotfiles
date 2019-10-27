@@ -27,7 +27,7 @@ user() {
 }
 
 identity() {
-  echo -e "\n\n ${GREY}current identity:${NONE}\n"
+  echo -e "\n ${GREY}current identity:${NONE}\n"
   if [ $(ssh-add -l | awk '{gsub(/.*\//, "", $3); print $3}') == "github_thomd" ]; then
     ssh-add -E md5 -l 2>&1 | sed 's/^/   /' | perl -pe "s/(.*MD5:)(.*?) (.*)/\1${ORANGE}\2\e[0m \3/g"
   else
@@ -38,22 +38,20 @@ identity() {
 [ -z "$1" ] && usage && identity && user && exit 1
 
 if [ "$1" == "thomd" ]; then
-  git config user.name "Thomas Dürr"
-  git config user.email thomduerr@gmail.com
+  git config user.name "Thomas Dürr" 2> /dev/null
+  git config user.email "thomduerr@gmail.com" 2> /dev/null
   ssh-add -D 2> /dev/null
-  echo ""
-  ssh-add -K ~/.ssh/github_thomd 2>&1 | sed 's/^/ /'
+  ssh-add -K ~/.ssh/github_thomd 2> /dev/null
   identity
   user
 fi
 
 # use git user defined in global git config
 if [ "$1" == "thduerr" ]; then
-  git config --unset user.name
-  git config --unset user.email
+  git config --unset user.name 2> /dev/null
+  git config --unset user.email 2> /dev/null
   ssh-add -D 2> /dev/null
-  echo ""
-  ssh-add -K ~/.ssh/github_thduerr 2>&1 | sed 's/^/ /'
+  ssh-add -K ~/.ssh/github_thduerr 2> /dev/null
   identity
   user
 fi
