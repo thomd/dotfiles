@@ -6,7 +6,7 @@ set -e
 # create local remote repository and push
 #
 
-REMOTE_LOCATION="$HOME/git"
+REMOTE_LOCATION="$HOME/.git"
 REPO_NAME=$(basename $PWD)
 REMOTE_ALIAS="local"
 

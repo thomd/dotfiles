@@ -21,9 +21,6 @@
   #[ -f /usr/local/etc/bash_completion.d/go-completion.bash ] && source /usr/local/etc/bash_completion.d/go-completion.bash
 #fi
 
-# password store
-#[ -f /usr/local/etc/bash_completion.d/pass ] && source /usr/local/etc/bash_completion.d/pass
-
 # aws cli completion
 #complete -C '/usr/local/bin/aws_completer' aws
 
@@ -35,18 +32,6 @@
 #   npm completion > /usr/local/etc/bash_completion.d/npm
 [ -f /usr/local/etc/bash_completion.d/npm ] && source /usr/local/etc/bash_completion.d/npm
 
-# common bash completions
-#[ -f /usr/local/etc/bash_completion ] && source /usr/local/etc/bash_completion
-
 # heroku autocomplete setup
-HEROKU_AC_BASH_SETUP_PATH=/Users/duerr/Library/Caches/heroku/autocomplete/bash_setup && test -f $HEROKU_AC_BASH_SETUP_PATH && source $HEROKU_AC_BASH_SETUP_PATH;
+HEROKU_AC_BASH_SETUP_PATH=/Users/$USER/Library/Caches/heroku/autocomplete/bash_setup && test -f $HEROKU_AC_BASH_SETUP_PATH && source $HEROKU_AC_BASH_SETUP_PATH;
 
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[ -f /usr/local/nvm/versions/node/v10.16.3/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.bash ] && . /usr/local/nvm/versions/node/v10.16.3/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.bash
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[ -f /usr/local/nvm/versions/node/v10.16.3/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash ] && . /usr/local/nvm/versions/node/v10.16.3/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[ -f /usr/local/nvm/versions/node/v10.16.3/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.bash ] && . /usr/local/nvm/versions/node/v10.16.3/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.bash

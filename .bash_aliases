@@ -23,10 +23,6 @@ alias grep='GREP_COLOR="1;37;41" LANG=C grep --color=auto'
 
 # ----- docker ------------------------------------------------------------------------------------
 alias d="docker $@"
-alias di="docker image $@"
-alias dm="docker-machine $@"
-alias dc="docker-compose $@"
-alias denv="dockerenv"
 alias drm="docker ps -aq | xargs docker rm"
 dclean() {
   docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
