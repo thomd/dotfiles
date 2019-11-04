@@ -49,3 +49,8 @@ export PATH="$PATH:/Users/$USER/Library/Android/sdk/platform-tools"
 
 # Homebrew
 export HOMEBREW_NO_EMOJI=1
+
+
+# Python Virtualenv
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+
