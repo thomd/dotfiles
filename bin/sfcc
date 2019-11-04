@@ -2,7 +2,7 @@
 set -e
 [ -n "$DEBUG" ] && set -x
 
-commands=`{ IFS=:; ls -H $PATH; } | grep ^sfcc- | sort | uniq | sort`
+commands=`{ IFS=:; ls -H $PATH 2>/dev/null; } | grep ^sfcc- | sort | uniq | sort`
 
 usage() {
   echo -e "\n  $(tput setaf 0)Usage:$(tput sgr0) `basename $0` [command]\n"
