@@ -52,5 +52,5 @@ export HOMEBREW_NO_EMOJI=1
 
 
 # Python Virtualenv
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+export VIRTUALENVWRAPPER_PYTHON=`which python`
 
