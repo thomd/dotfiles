@@ -34,6 +34,13 @@ set -e
 #    sfcc impex -K archive/catalog/2019-09-25.xml          // delete a specific file
 #
 
+
+## credentials for instances are sourced in a exports file like e.g.:
+##
+## export SFCC_HOST_dev01="<instance>.demandware.net"
+## export SFCC_USER_dev01="<user>:<password>"
+
+
 config="$HOME/.sfcc-impex"
 basepath="/on/demandware.servlet/webdav/Sites/Impex/"
 if [ -f $config ]; then
