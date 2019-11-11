@@ -87,7 +87,7 @@ echo -e "\n$(tput setaf 2)${host}$(tput sgr0)\n"
 errorfile="${host}_$(date +"%Y%m%d_%H%M%S").error"
 pagefile=`mktemp ./page-XXXXX`
 urlfile=`mktemp ./url-XXXXX`
-#trap "rm $pagefile $urlfile" EXIT
+trap "rm $pagefile $urlfile" EXIT
 
 /usr/local/opt/curl/bin/curl -vsN -u "$user" "https://${host}${basepath}" 2>$errorfile >$pagefile
 status=$?
