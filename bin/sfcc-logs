@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -e
 [ -n "$DEBUG" ] && set -x
 
 #
@@ -11,11 +10,12 @@ set -e
 #
 # OPTIONS
 #
-#    -d          downlaod
-#    -f          force download
-#    -t N        N days ago (default: today)
-#    -I          list instances
-#    -i NAME     use NAME as instances (and set as default)
+#    -d              downlaod
+#    -f              force download
+#    -t [N|all]      N days ago (default: today)
+#    -I              list instances
+#    -i NAME         use NAME as instances (and set as default)
+#    -v              write curl verbise into log
 #
 # EXAMPLES
 #
@@ -51,11 +51,11 @@ while test $# -ne 0; do
         | perl -pe "s/(USAGE|OPTIONS|EXAMPLES)/$(tput setaf 0)\1$(tput sgr0)/"
       exit 1
       ;;
-    -I|--instances)
+    -I)
       list_instances
       exit 0
       ;;
-    -i|--instance)
+    -i)
       echo $1 > ${config}
       host_envname="SFCC_HOST_$1"
       host=${!host_envname}
@@ -63,13 +63,16 @@ while test $# -ne 0; do
       user=${!user_envname}
       shift
       ;;
-    -d|--download)
+    -d)
       download=1
       ;;
-    -f|--force)
+    -v)
+      verbose=1
+      ;;
+    -f)
       force_download=1
       ;;
-    -t|--days-ago)
+    -t)
       ago=$1
       shift
       ;;
@@ -79,13 +82,25 @@ while test $# -ne 0; do
   esac
 done
 
-urlfile=`mktemp ./url-XXXXX`
-trap "rm $urlfile" EXIT
+echo -e "\n$(tput setaf 2)${host}$(tput sgr0)\n"
 
-curl -sN -u "$user" "https://${host}${basepath}" \
-  | sed -n '/.*<a href="\(.*\)"><tt>.*/p' \
+errorfile="${host}_$(date +"%Y%m%d_%H%M%S").error"
+pagefile=`mktemp ./page-XXXXX`
+urlfile=`mktemp ./url-XXXXX`
+#trap "rm $pagefile $urlfile" EXIT
+
+/usr/local/opt/curl/bin/curl -vsN -u "$user" "https://${host}${basepath}" 2>$errorfile >$pagefile
+status=$?
+if [ $status == 0 ]; then
+  [ -f $errorfile ] && rm $errorfile
+else
+  echo "$(tput setaf 1)error$(tput sgr0)"
+fi
+
+cat $pagefile \
+  | sed -n '/.*<a href=".*\.log"><tt>.*/p' \
   | sed 's/.*<a href="\(.*\)"><tt>.*/\1/g' \
-  | sed -n /$(date -v -${ago}d +"%Y%m%d")/p \
+  | ( [[ $ago != 'all' ]] && sed -n /$(date -v -${ago}d +"%Y%m%d")/p || cat ) \
   | ( [[ $filepattern ]] && sed -n /$filepattern/p || cat ) \
   > $urlfile
 
@@ -94,15 +109,25 @@ if [ $download ]; then
   i=0
   while ((i++)); read -r url; do
     file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
+    counter_color="$(tput setaf 0)"
     if [ ! -f $file ] || [ $force_download ]; then
-      echo "$(tput setaf 2)[$i/$total]$(tput sgr0) $file"
-      curl -s -u "$user" -O "https://${host}${url}"
-    else
-      echo "[$i/$total] $file"
+      if [ $verbose ]; then
+        logname="$(basename ${url%.*})_${host}_$(date +"%Y%m%d_%H%M%S").error"
+        /usr/local/opt/curl/bin/curl -v -s -u "$user" -O "https://${host}${url}" 2> $logname
+      else
+        /usr/local/opt/curl/bin/curl -s -u "$user" -O "https://${host}${url}"
+      fi
+      status=$?
+      if [ $status == 0 ]; then
+        counter_color=$(tput setaf 2)
+        [ -f $logname ] && rm $logname
+      else
+        counter_color=$(tput setaf 1)
+      fi
     fi
+    echo "${counter_color}[$i/$total]$(tput sgr0) $file"
   done < $urlfile
 else
-  echo -e "\n$(tput setaf 2)${host}$(tput sgr0)\n"
   less $urlfile | sed "s/\(${filepattern}\)/$(tput sgr 0 1)$(tput setaf 2)\1$(tput sgr0)/g"
 fi
 
