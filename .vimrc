@@ -589,6 +589,8 @@ Bundle 'baverman/vial-http'
 
 " calendar
 Bundle 'itchyny/calendar.vim'
+let g:calendar_first_day = 'monday'
+let g:calendar_week_number = 1
 
 
 " cursor-word
