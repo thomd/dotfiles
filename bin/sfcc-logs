@@ -15,7 +15,6 @@
 #    -t [N|all]      N days ago (default: today)
 #    -I              list instances
 #    -i NAME         use NAME as instances (and set as default)
-#    -v              write curl verbise into log
 #
 # EXAMPLES
 #
@@ -66,9 +65,6 @@ while test $# -ne 0; do
     -d)
       download=1
       ;;
-    -v)
-      verbose=1
-      ;;
     -f)
       force_download=1
       ;;
@@ -111,12 +107,8 @@ if [ $download ]; then
     file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
     counter_color="$(tput setaf 0)"
     if [ ! -f $file ] || [ $force_download ]; then
-      if [ $verbose ]; then
-        logname="$(basename ${url%.*})_${host}_$(date +"%Y%m%d_%H%M%S").error"
-        /usr/local/opt/curl/bin/curl -v -s -u "$user" -O "https://${host}${url}" 2> $logname
-      else
-        /usr/local/opt/curl/bin/curl -s -u "$user" -O "https://${host}${url}"
-      fi
+      logname="$(basename ${url%.*})_${host}_$(date +"%Y%m%d_%H%M%S").error"
+      /usr/local/opt/curl/bin/curl -v -s -u "$user" -O "https://${host}${url}" 2> $logname
       status=$?
       if [ $status == 0 ]; then
         counter_color=$(tput setaf 2)
