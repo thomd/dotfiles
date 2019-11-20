@@ -18,7 +18,8 @@
 #
 # EXAMPLES
 #
-#    sfcc logs -t 1 custom           // download custom logfiles from yesterday
+#    sfcc logs -d monitoring             // download monitoring logfiles from today
+#    sfcc logs -d -t all                 // download all available logfiles
 #
 
 config="$HOME/.sfcc-logs"
