@@ -57,3 +57,5 @@
   enabled = true
 [advice]
   ignoredHook = false
+[diff]
+  noprefix = true
