@@ -5,6 +5,10 @@ set -e
 #
 # download files from Impex folder
 #
+# files in /webdav/Sites/Impex/ are saved for 40 days
+# files in /webdav/Sites/Impex/src/instance/ are saved for 20 days
+#
+#
 # USAGE
 #
 #    sfcc impex [options] [path] [filename-pattern]

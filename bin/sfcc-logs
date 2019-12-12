@@ -4,6 +4,9 @@
 #
 # download files from Logs folder
 #
+# files in /webdav/Sites/Logs/log_archive/ are saved for 30 Days
+#
+#
 # USAGE
 #
 #    sfcc logs [options] [filename-pattern]
