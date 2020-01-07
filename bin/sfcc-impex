@@ -286,3 +286,4 @@ else
 fi
 
 exit 0
+## TODO: show status message on error (e.g. wrong password)
