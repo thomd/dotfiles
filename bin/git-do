@@ -3,8 +3,8 @@ set -e
 [ -n "$DEBUG" ] && set -x
 
 #
-# Create dummy commits
-# --------------------
+# Do some dummy commits
+# ---------------------
 #
 # This is helpful for testing git commands which requires some test commits.
 #
