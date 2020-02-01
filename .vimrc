@@ -627,6 +627,12 @@ Bundle 'ambv/black'
 autocmd BufWritePre *.py execute ':Black'
 
 
+" Vim Autosave
+Bundle '907th/vim-auto-save'
+let g:auto_save = 1              " enable AutoSave on Vim startup
+"let g:auto_save_silent = 1       " do not display the auto-save notification
+
+
 " Attempt to determine the type of a file based on its name and possibly its
 " contents.  Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.
