@@ -21,6 +21,9 @@ alias rmi='rm -i'
 alias grep='GREP_COLOR="1;37;41" LANG=C grep --color=auto'
 
 
+# ----- ranger ------------------------------------------------------------------------------------
+alias lr="ranger"
+
 # ----- docker ------------------------------------------------------------------------------------
 alias d="docker $@"
 alias drm="docker ps -aq | xargs docker rm"
