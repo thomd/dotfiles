@@ -159,6 +159,20 @@ function codepoint() {
 }
 
 
+# start jupyter lab
+function jy() {
+  workon jupyter;
+  jupyter lab;
+}
+
+
+# start ipython
+function py() {
+  workon ipython;
+  ipython;
+}
+
+
 # get internal and external ips
 #
 #   external IP info is available via:
