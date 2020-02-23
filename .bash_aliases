@@ -61,8 +61,8 @@ alias gt='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup`
 
 
 # ----- encoding & decoding -----------------------------------------------------------------------
-alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1])"'
-alias urldecode='python -c "import sys, urllib as ul; print ul.unquote_plus(sys.argv[1])"'
+alias urlencode='python -c "import sys;from urllib.parse import quote;print(quote(sys.argv[1] if sys.stdin.isatty() else sys.stdin.readline().strip()))"'
+alias urldecode='python -c "import sys;from urllib.parse import unquote;print(unquote(sys.argv[1] if sys.stdin.isatty() else sys.stdin.readline().strip()))"'
 
 # alternative base conversions with perl
 alias d2h="perl -e 'printf qq|%X\n|, int( shift )'"
@@ -81,10 +81,12 @@ bin2hex() {
   echo "obase=16;ibase=2; $1" | bc
 }
 alias b2h=bin2hex
+
 bin2dec() {
   echo "ibase=2; $1" | bc
 }
 alias b2d=bin2dec
+
 bin2oct() {
   echo "ibase=2;obase=8; $1" | bc
 }
