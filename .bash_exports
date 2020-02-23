@@ -54,3 +54,6 @@ export HOMEBREW_NO_EMOJI=1
 # Python Virtualenv
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
 
+
+# ripgrep configuration file
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"

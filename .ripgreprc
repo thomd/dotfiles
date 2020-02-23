@@ -1,0 +1,13 @@
+# don't let ripgrep vomit really long lines to my terminal, and show a preview.
+--max-columns=160
+--max-columns-preview
+
+# custom types
+--type-add
+html:*.isml
+
+# Using glob patterns to include/exclude files or folders
+--glob=!git/*
+
+# Because who cares about case!?
+--smart-case
