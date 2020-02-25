@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$DEBUG" ] && set -x
+
+#
+# get instance password from ENV
+#
+# USAGE
+#
+#    sfcc pw
+#
+c=10
+env | grep SFCC_USER_stg | awk -F':' '{print $2}' | pbcopy
+printf "\n  $(tput setaf 0)Copied password to clipboard. Will clear in $(tput setaf 2) %.2s seconds$(tput sgr0)\n" "$c"
+(sleep $c; echo -n '' | pbcopy) &
