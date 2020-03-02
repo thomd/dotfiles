@@ -6,8 +6,11 @@
 --type-add
 html:*.isml
 
-# Using glob patterns to include/exclude files or folders
+# using glob patterns to include/exclude files or folders
 --glob=!git/*
 
-# Because who cares about case!?
+# because who cares about case!?
 --smart-case
+
+# of course we search in hidden files
+--hidden
