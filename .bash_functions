@@ -169,12 +169,12 @@ function jy() {
 # start ipython
 function py() {
   {
-    workon ipython 2>/dev/null
+    workon ipython
   } || {
     mkvirtualenv -p python3 ipython
   }
   {
-    ipython 2>/dev/null
+    ipython
   } || {
     pip install ipython
     ipython
