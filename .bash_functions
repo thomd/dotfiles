@@ -168,10 +168,18 @@ function jy() {
 
 # start ipython
 function py() {
-  workon ipython;
-  ipython;
+  {
+    workon ipython 2>/dev/null
+  } || {
+    mkvirtualenv -p python3 ipython
+  }
+  {
+    ipython 2>/dev/null
+  } || {
+    pip install ipython
+    ipython
+  }
 }
-
 
 # get internal and external ips
 #
