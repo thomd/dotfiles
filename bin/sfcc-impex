@@ -277,8 +277,10 @@ else
   if [ -z $no_color ]; then
     if [ -z $folder ]; then
       cat $urlfile | perl -pe 's/(Impex\/)(.*)$/\1'$(tput setaf 2)'\2'$(tput sgr0)'/g'
+      echo -e "\n  $(tput setaf 2)${total}$(tput sgr0) folders"
     else
       cat $urlfile | perl -pe 's/(Impex\/'${folder//\//\\/}'\/)(.*)$/\1'$(tput setaf 2)'\2'$(tput sgr0)'/g'
+      echo -e "\n  $(tput setaf 2)${total}$(tput sgr0) files"
     fi
   else
     cat $urlfile
