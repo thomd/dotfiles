@@ -256,10 +256,14 @@ download() {
 export -f download
 
 if [ $download ]; then
-  while mapfile -t -n${parallel} ary && ((${#ary[@]})); do
+  while ((i++)); read -r url; do
     download_count=$(($download_count+1))
-    printf '%s\n' "${ary[@]}" | xargs -n1 -P${parallel} -I {} sh -c "download {} ${total} $((${download_count}*${parallel})) ${user} ${host}"
+    download ${url} ${total} $((${download_count}*${parallel})) ${user} ${host}
   done < $urlfile
+  #while mapfile -t -n${parallel} ary && ((${#ary[@]})); do
+    #download_count=$(($download_count+1))
+    #printf '%s\n' "${ary[@]}" | xargs -n1 -P${parallel} -I {} sh -c "download {} ${total} $((${download_count}*${parallel})) ${user} ${host}"
+  #done < $urlfile
 elif [ $delete ]; then
   yesno "delete?"
   i=0
