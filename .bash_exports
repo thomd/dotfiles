@@ -57,3 +57,7 @@ export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
 
 # ripgrep configuration file
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
+
+# java
+export JAVA_HOME=$(/usr/libexec/java_home)
