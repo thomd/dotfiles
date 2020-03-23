@@ -84,6 +84,17 @@ function job_ps1 {
 
 
 #
+# prompt conda environment
+#
+function conda_ps1 {
+  if [[ -n $CONDA_PREFIX ]]; then
+    local NAME=$(basename $CONDA_PREFIX)
+    echo -e "$(tput setaf 2)(${NAME/miniconda3/base}) $(tput sgr0)"
+  fi
+}
+
+
+#
 # prompt delimiter
 #   If there is an absolute must, I do `sudo bash` which makes me root but with my environment
 #
@@ -97,7 +108,7 @@ function delimiter_ps1 {
 
 
 # PS1: Default interaction prompt
-export PS1='\n\[\e[1;30m\]$(job_ps1 \j)$([[ ( $SCRATCH_HOME && $PWD =~ ^$SCRATCH_HOME ) || ( $SCRATCH_TEMP && $PWD =~ ^$SCRATCH_TEMP ) ]] && echo -e "\[\e[0;31m\]" || echo -e "\[\e[0;36m\]")\W $(git_ps1 "\[$(git_user_color)\][%s\[\e[0;31m\]$(git_dirty)\[\e[38;5;220m\]$(git_stash)\[\e[1;30m\]$(git_behind "\[\e[0;31m\]")\[\e[1;30m\]$(git_ahead "\[\e[0;32m\]")\[$(git_user_color)\]]") \[\e[1;30m\]$(delimiter_ps1)\[\e[m\] '
+export PS1='\n\[\e[1;30m\]$(job_ps1 \j)$(conda_ps1)$([[ ( $SCRATCH_HOME && $PWD =~ ^$SCRATCH_HOME ) || ( $SCRATCH_TEMP && $PWD =~ ^$SCRATCH_TEMP ) ]] && echo -e "\[\e[0;31m\]" || echo -e "\[\e[0;36m\]")\W $(git_ps1 "\[$(git_user_color)\][%s\[\e[0;31m\]$(git_dirty)\[\e[38;5;220m\]$(git_stash)\[\e[1;30m\]$(git_behind "\[\e[0;31m\]")\[\e[1;30m\]$(git_ahead "\[\e[0;32m\]")\[$(git_user_color)\]]") \[\e[1;30m\]$(delimiter_ps1)\[\e[m\] '
 
 # PS2: Continuation interactive prompt
 export PS2=' \[\e[1;30m\]:\[\e[m\] '
