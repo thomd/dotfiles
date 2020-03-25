@@ -89,7 +89,7 @@ function job_ps1 {
 function conda_ps1 {
   if [[ -n $CONDA_PREFIX ]]; then
     local NAME=$(basename $CONDA_PREFIX)
-    echo -e "$(tput setaf 2)(${NAME/miniconda3/base}) $(tput sgr0)"
+    echo -e "\e[0;32m(${NAME/miniconda3/base}) \e[0m"
   fi
 }
 
