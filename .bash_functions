@@ -159,10 +159,18 @@ function codepoint() {
 }
 
 
-# start jupyter lab
+# starti virtualenv and jupyter lab
 function jy() {
   workon jupyter;
-  jupyter lab;
+  tmux splitw -v -p 15 jupyter lab;
+  tmux selectp -t 1;
+}
+
+
+# starti jupyter lab
+function jl() {
+  tmux splitw -v -p 15 jupyter lab;
+  tmux selectp -t 1;
 }
 
 
