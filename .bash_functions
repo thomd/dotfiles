@@ -37,11 +37,15 @@ function scratch_go {                                                # setup a t
     export GOBIN="$GOPATH/bin"
     export PATH="$PATH:$GOBIN"
   fi
+  echo
+  echo "$(tput setaf 2) GOROOT$(tput sgr 0): $(go env GOROOT)"
+  echo "$(tput setaf 2) GOPATH$(tput sgr 0): $(go env GOPATH)"
+  echo "$(tput setaf 2) GOBIN$(tput sgr 0):  $(go env GOBIN)"
 }
 
 alias s="scratch_into"                                               # cd into current scratch folder or create a new one
 alias sn="scratch_new"                                               # new empty scratch folder
-alias sg="scratch_go"
+alias sgo="scratch_go"
 
 #
 # mkdir & cd
