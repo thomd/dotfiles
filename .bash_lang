@@ -26,6 +26,10 @@ lazy_source_nvm() {
   [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"
 }
 
+n() {
+  lazy_source_nvm
+}
+
 nvm() {
   lazy_source_nvm
   nvm $@
