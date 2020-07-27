@@ -7,7 +7,8 @@
 html:*.isml
 
 # using glob patterns to include/exclude files or folders
---glob=!git/*
+--glob=!node_modules/*
+--glob=!.git/*
 
 # because who cares about case!?
 --smart-case

@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+#
+# convert hex color to 256 terminal color
+#
+# USAGE
+#
+#    hex-to-terminal-color A52A2A
+#    hex-to-terminal-color '#A52A2A'
+#
+# source: http://unix.stackexchange.com/a/269085/67282
+#
+hex=$1
+if [[ $hex == "#"* ]]; then
+  hex=$(echo $1 | awk '{print substr($0,2)}')
+fi
+r=$(printf '0x%0.2s' "$hex")
+g=$(printf '0x%0.2s' ${hex#??})
+b=$(printf '0x%0.2s' ${hex#????})
+COLOR=`printf "%03d" "$(((r<75?0:(r-35)/40)*6*6+(g<75?0:(g-35)/40)*6+(b<75?0:(b-35)/40)+16))"`
+
+echo -e "\n   $(tput setab $COLOR) $(tput sgr0) $(tput setaf $COLOR)${COLOR}$(tput sgr0)"
+echo -e "\n $(tput setaf 0)Usage: $(tput sgr0)\$(tput setaf $COLOR)"
+echo -e "        echo -e \"[38;5;${COLOR}m\""
+echo -e "\n $(tput setaf 0)See also command: $(tput sgr0)colortput"
+echo $COLOR | pbcopy
+c=30
+printf "\n $(tput setaf 0)Copied color-code '$COLOR' to clipboard. Will clear in %.2s seconds\n" "$c"
+(sleep $c; echo -n '' | pbcopy) &

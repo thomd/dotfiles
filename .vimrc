@@ -542,8 +542,8 @@ Bundle 'digitaltoad/vim-pug'
 
 
 " Typescript Syntax-Highlighting and Syntax Check
-Bundle 'HerringtonDarkholme/yats.vim'
-autocmd BufNewFile,BufReadPost *.ts setl foldmethod=indent nofoldenable
+"Bundle 'HerringtonDarkholme/yats.vim'
+"autocmd BufNewFile,BufReadPost *.ts setl foldmethod=indent nofoldenable
 
 
 " a better JSON
@@ -583,8 +583,8 @@ Bundle 'will133/vim-dirdiff'
 
 
 " REST Client vial-http
-Bundle 'baverman/vial'
-Bundle 'baverman/vial-http'
+"Bundle 'baverman/vial'
+"Bundle 'baverman/vial-http'
 
 
 " calendar
@@ -598,7 +598,7 @@ Bundle 'itchyny/vim-cursorword'
 
 
 " Nim Language
-Bundle 'zah/nim.vim'
+"Bundle 'zah/nim.vim'
 
 
 " GraphQL
@@ -606,7 +606,7 @@ Bundle 'jparise/vim-graphql'
 
 
 " Dark blue color scheme
-Bundle 'cocopon/iceberg.vim'
+"Bundle 'cocopon/iceberg.vim'
 
 
 " Shellcheck (Bash Linter)
@@ -619,13 +619,13 @@ au BufWritePost *.sh :ShellCheck
 
 
 " Coffee Script
-Bundle 'kchmck/vim-coffee-script'
+"Bundle 'kchmck/vim-coffee-script'
 
 
 " Black - a prettyfier for Python
-Bundle 'ambv/black'
+Bundle 'psf/black'
 autocmd BufWritePre *.py execute ':Black'
-
+let g:black_linelength = 200
 
 " Vim Autosave
 "Bundle '907th/vim-auto-save'

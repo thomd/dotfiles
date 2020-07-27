@@ -67,3 +67,6 @@ for file in ~/.bash_{exports,aliases,prompt,proxy,functions,completions,lang,pri
 done
 unset file
 
+
+# broot (brew info broot)
+source /Users/duerr/Library/Preferences/org.dystroy.broot/launcher/bash/br

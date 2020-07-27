@@ -21,8 +21,9 @@ DemandwareServer
 .module-cache
 *.class
 .alm
-# Codenvy files
 .codenvy/misc.xml
 .vfs/
 .bash_private
 __pycache__
+.ipynb_checkpoints
+.pytest_cache
