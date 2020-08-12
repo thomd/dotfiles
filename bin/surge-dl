@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+[ -z "$1" ] && echo >&2 "surge CNAME required!" && exit 1
+
+NAME=$1
+
+while read file; do
+  curl -O "https://${NAME}.surge.sh$(echo $file | tr -d '\r')"
+done < <(curl -s "https://${NAME}.surge.sh/auto.appcache" | awk '/CACHE:/, /NETWORK/ {if($0 ~ /^\//) print $0}')
