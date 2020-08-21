@@ -60,6 +60,7 @@ alias s="scratch_into"                                               # cd into c
 alias sn="scratch_new"                                               # new empty scratch folder
 alias sgo="scratch_go"
 alias sg="scratch_go_up"
+alias sgn="mkdir src bin pkg; scratch_go"
 
 #
 # mkdir & cd
