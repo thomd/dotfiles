@@ -36,16 +36,30 @@ function scratch_go {                                                # setup a t
     export GOPATH=`pwd`
     export GOBIN="$GOPATH/bin"
     export PATH="$PATH:$GOBIN"
+    echo -e "\n  $(tput setaf 2)New custom Go Environment:$(tput sgr 0)"
+  else
+    echo -e "\n  $(tput setaf 1)No custom Go Environment.$(tput sgr 0)"
   fi
   echo
-  echo "$(tput setaf 2) GOROOT$(tput sgr 0): $(go env GOROOT)"
-  echo "$(tput setaf 2) GOPATH$(tput sgr 0): $(go env GOPATH)"
-  echo "$(tput setaf 2) GOBIN$(tput sgr 0):  $(go env GOBIN)"
+  echo "  $(tput setaf 2)GOROOT$(tput sgr 0): $(go env GOROOT)"
+  echo "  $(tput setaf 2)GOPATH$(tput sgr 0): $(go env GOPATH)"
+  echo "  $(tput setaf 2)GOBIN$(tput sgr 0):  $(go env GOBIN)"
+}
+
+# traverse up the folder hierarcy until a folder contains "src", "pkg" and "bin" fodlers. Then set Go environment
+function scratch_go_up {
+  CURR=$(pwd)
+  while [ $(find . -mindepth 1 -maxdepth 1 -type d -name "src" -o -name "bin" -o -name "pkg" | wc -l) != 3 ] && [ $(pwd) != "/" ]; do
+    cd ..
+  done
+  scratch_go
+  cd $CURR
 }
 
 alias s="scratch_into"                                               # cd into current scratch folder or create a new one
 alias sn="scratch_new"                                               # new empty scratch folder
 alias sgo="scratch_go"
+alias sg="scratch_go_up"
 
 #
 # mkdir & cd
