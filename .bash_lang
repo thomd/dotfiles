@@ -13,9 +13,12 @@ gpip() {                                      # enforce global install
 export WORKON_HOME=$HOME/.virtualenvs
 [ -f /usr/local/bin/virtualenvwrapper_lazy.sh ] && source /usr/local/bin/virtualenvwrapper_lazy.sh
 
+# disable pycache
+export PYTHONDONTWRITEBYTECODE=1
+
+
 
 # ----- node version manager --------------------------------------------------
-
 
 #export PATH=/usr/local/nvm/versions/node/`cat /usr/local/nvm/alias/default`/bin:$PATH
 
