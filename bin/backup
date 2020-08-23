@@ -22,6 +22,7 @@ mkdir -p $TO
 rsync -avP --stats $FROM $TO
 
 
+# sudo chmod -R 644 /Users/emma/
 FROM="/Users/emma/"
 TO="/Volumes/$DRIVE/imac-2020/Users/emma/"
 mkdir -p $TO
@@ -31,6 +32,7 @@ rsync -avP --delete --stats \
   $FROM $TO
 
 
+# sudo chmod -R 644 /Users/katja/
 FROM="/Users/katja/"
 TO="/Volumes/$DRIVE/imac-2020/Users/katja/"
 mkdir -p $TO
@@ -40,6 +42,7 @@ rsync -avP --delete --stats \
   $FROM $TO
 
 
+# sudo chmod -R 644 /Users/lotta/
 FROM="/Users/lotta/"
 TO="/Volumes/$DRIVE/imac-2020/Users/lotta/"
 mkdir -p $TO
