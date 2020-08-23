@@ -8,6 +8,7 @@ log/*
 .texpadtmp
 TODO
 *.todo
+!SETUP.todo
 .files
 .vagrant
 node_modules
