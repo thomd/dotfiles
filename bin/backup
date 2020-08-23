@@ -1,29 +1,43 @@
 #!/usr/bin/env bash
 
-# TODO check if backup volume is mounted
-
-
-FROM="/Users/duerr/develop"
-TO="/Volumes/UserData/duerr/MacBook-Backup"
+FROM="/Users/thomas/"
+TO="/Volumes/Backup2/imac-2020/Users/thomas/"
 mkdir -p $TO
-echo -e "\n\n\033[32mbackup: $FROM\033[0m"
-rsync -a --delete --stats \
-  --exclude .git/ \
-  --exclude node_modules/ \
+rsync -aP --stats \
+  --include="Documents/***" \
+  --include="Desktop/***" \
+  --exclude='*' \
   $FROM $TO
 
 
-FROM="/Users/duerr/Documents"
-TO="/Volumes/UserData/duerr/MacBook-Backup"
+FROM="/Users/thomas/Library/ApplicationSupport/AddressBook/"
+TO="/Volumes/Backup2/imac-2020/Users/thomas/AddressBook"
 mkdir -p $TO
-echo -e "\n\n\033[32mbackup: $FROM\033[0m"
-rsync -a --delete --stats \
+rsync -aP --stats $FROM $TO
+
+
+FROM="/Users/emma/"
+TO="/Volumes/Backup2/imac-2020/Users/emma/"
+mkdir -p $TO
+rsync -aP --delete --stats \
+  --exclude='Library' \
+  --exclude='.Trash' \
   $FROM $TO
 
 
-FROM="/Users/duerr/git"
-TO="/Volumes/UserData/duerr/MacBook-Backup"
+FROM="/Users/katja/"
+TO="/Volumes/Backup2/imac-2020/Users/katja/"
 mkdir -p $TO
-echo -e "\n\n\033[32mbackup: $FROM\033[0m"
-rsync -a --delete --stats $FROM $TO
+rsync -aP --delete --stats \
+  --exclude='Library' \
+  --exclude='.Trash' \
+  $FROM $TO
 
+
+FROM="/Users/lotta/"
+TO="/Volumes/Backup2/imac-2020/Users/lotta/"
+mkdir -p $TO
+rsync -aP --delete --stats \
+  --exclude='Library' \
+  --exclude='.Trash' \
+  $FROM $TO
