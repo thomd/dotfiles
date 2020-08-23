@@ -20,8 +20,9 @@ export HISTFILESIZE=20000
 export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S  "
 
 # HISTIGNORE controls the items which get ignored and do not get saved.
-# ignore duplicate commands, commands that begin with a space, the history alias 'h' and the 'exit' command.
-export HISTIGNORE="&:[ ]*:exit"
+# ignore duplicate commands, commands that begin with a space, the history alias 'h', the 'exit' command and
+# some sensitive data.
+export HISTIGNORE="&:[ ]*:exit:ls *:man *:history:clear:AWS_KEY*"
 
 # disable mail notification
 unset MAILCHECK

@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -e
+
+#
+# Sync Google Drive (install google drive sync: https://drive.google.com/drive/computers)
+#
+#
+# Sync via cron job:
+#
+#    > crontab -e
+#    */30 * * * * ~/bin/syncgd
+
+# directory config. ending slashes are important!
+src_dir="$HOME/develop/udacity/deep-learning-notes"
+dest_dir="$HOME/Google Drive/machine-learning/"
+
+# run the sync
+rsync -aP --delete --delete-excluded \
+  --filter=':- .gitignore' \
+  --exclude='.gitignore' \
+  --exclude='node_modules' \
+  --exclude='.git' \
+  --exclude='.DS_Store' \
+  "$src_dir" "$dest_dir"
