@@ -1,43 +1,49 @@
 #!/usr/bin/env bash
+DRIVE="Backup2"
+
 
 FROM="/Users/thomas/"
-TO="/Volumes/Backup2/imac-2020/Users/thomas/"
+TO="/Volumes/$DRIVE/imac-2020/Users/thomas/"
 mkdir -p $TO
-rsync -aP --stats \
+rsync -avP --stats \
   --include="Documents/***" \
   --include="Desktop/***" \
+  --include=".ssh/***" \
+  --include=".password-store/***" \
+  --include=".gnupg/***" \
+  --include=".git/***" \
   --exclude='*' \
   $FROM $TO
 
 
 FROM="/Users/thomas/Library/ApplicationSupport/AddressBook/"
-TO="/Volumes/Backup2/imac-2020/Users/thomas/AddressBook"
+TO="/Volumes/$DRIVE/imac-2020/Users/thomas/AddressBook"
 mkdir -p $TO
-rsync -aP --stats $FROM $TO
+rsync -avP --stats $FROM $TO
 
 
 FROM="/Users/emma/"
-TO="/Volumes/Backup2/imac-2020/Users/emma/"
+TO="/Volumes/$DRIVE/imac-2020/Users/emma/"
 mkdir -p $TO
-rsync -aP --delete --stats \
+rsync -avP --delete --stats \
   --exclude='Library' \
   --exclude='.Trash' \
   $FROM $TO
 
 
 FROM="/Users/katja/"
-TO="/Volumes/Backup2/imac-2020/Users/katja/"
+TO="/Volumes/$DRIVE/imac-2020/Users/katja/"
 mkdir -p $TO
-rsync -aP --delete --stats \
+rsync -avP --delete --stats \
   --exclude='Library' \
   --exclude='.Trash' \
   $FROM $TO
 
 
 FROM="/Users/lotta/"
-TO="/Volumes/Backup2/imac-2020/Users/lotta/"
+TO="/Volumes/$DRIVE/imac-2020/Users/lotta/"
 mkdir -p $TO
-rsync -aP --delete --stats \
+rsync -avP --delete --stats \
   --exclude='Library' \
   --exclude='.Trash' \
   $FROM $TO
