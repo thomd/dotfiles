@@ -56,11 +56,11 @@ function scratch_go_up {
   cd $CURR
 }
 
-alias s="scratch_into"                            # cd into current scratch folder or create a new one
-alias sn="scratch_new"                            # new empty scratch folder
-alias sgo="scratch_go"                            # set go env if current dir contains "pkg", "src" and "bin"
-alias sg="scratch_go_up"                          # search folders up in hierarchie and set go env
-alias sgn="mkdir src bin pkg; scratch_go"         # create new go env
+alias s="scratch_into"                               # cd into current scratch folder or create a new one
+alias sn="scratch_new"                               # new empty scratch folder
+alias sgo="scratch_go"                               # set go env if current dir contains "pkg", "src" and "bin"
+alias sg="scratch_go_up"                             # search folders up in hierarchie and set go env
+alias sgn="mkdir src bin pkg; scratch_go; cd src"    # create new go env
 
 #
 # mkdir & cd
