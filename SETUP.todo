@@ -1,0 +1,44 @@
+- [ ] download & install Google Chrome
+- [ ] download & install Homebrew
+- [ ] download & install iTerm
+- [ ] brew install git tig
+  - [ ] copy .ssh/github* keys
+- [ ] brew install bash bash-completion
+- [ ] brew install tmux
+  - [ ] git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  - [ ] install via `ctrl-A I`
+- [ ] brew install ack
+- [ ] brew install pass
+  - [ ] git clone .password-store
+  - [ ] import gpg key me@thomd.net
+- [ ] enable root-user
+  - [ ] > chsh -s /usr/local/bin/bash
+- [ ] install dotfiles: `git clone git://github.com/thomd/dotfiles.git && git checkout macbook && cd dotfiles && make`
+- [ ] brew install vim
+  - [ ] Install Plugins: `:BundleInstall`
+- [ ] brew install nvm
+  - [ ] nvm install --lts
+- [ ] tweak Finder Settings
+  - [ ] > defaults write com.apple.finder AppleShowAllFiles -bool true 
+  - [ ] > defaults write NSGlobalDomain AppleShowAllExtensions -bool true 
+  - [ ] > defaults write com.apple.finder ShowStatusBar -bool true 
+  - [ ] > defaults write com.apple.finder ShowPathbar -bool true 
+  - [ ] > defaults write com.apple.finder _FXShowPosixPathInTitle -bool true 
+  - [ ] > defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false 
+  - [ ] > defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true 
+  - [ ] > killall Finder > chflags nohidden ~/Library
+- [ ] brew install wget curl jq htop
+- [ ] brew install fzf
+  - [ ] cd /usr/local/lib && wget https://raw.githubusercontent.com/thomd/fzf-marks/master/fzf-marks.plugin.bash
+- [ ] download & install Docker Docker Desktop on Mac
+  - [ ] > cd /usr/local/etc/bash_completion.d/ > ln -s /Applications/Docker.app/Contents/Resources/etc/docker.bash-completion > ln -s /Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion
+- [ ] install xcode (via AppStore.app)
+- [ ] install python
+  - [ ] xcode-select --install
+  - [ ] brew install python
+  - [ ] > PATH="/usr/local/opt/python/libexec/bin:$PATH"
+  - [ ] > pip install virtualenvwrapper
+- [ ] brew install golang
+
+
+
