@@ -37,8 +37,6 @@ function scratch_go {                                                # setup a t
     export GOBIN="$GOPATH/bin"
     export PATH="$PATH:$GOBIN"
     echo -e "\n  $(tput setaf 2)New custom Go Environment:$(tput sgr 0)"
-  else
-    echo -e "\n  $(tput setaf 1)No custom Go Environment.$(tput sgr 0)"
   fi
   echo
   echo "  $(tput setaf 2)GOROOT$(tput sgr 0): $(go env GOROOT)"
