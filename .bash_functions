@@ -206,22 +206,18 @@ function py() {
   }
 }
 
+
 # get internal and external ips
-#
-#   external IP info is available via:
-#
-#     curl -H "User-Agent: curl" ipinfo.io | jq -r '.ip'
-#     curl -s httpbin.org/ip | jq -r '.origin'
-#     dig +short myip.opendns.com @resolver1.opendns.com
-#
 function ip() {
   if [ "-h" == "$1" ]; then
     cat << EOF
-external IP info is available via:
 
->  curl -H "User-Agent: curl" ipinfo.io | jq -r '.ip'
->  curl -s httpbin.org/ip | jq -r '.origin'
->  dig +short myip.opendns.com @resolver1.opendns.com
+ external IP info is available via:
+
+  > curl ipinfo.io/ip
+  > curl -H "User-Agent: curl" ipinfo.io | jq -r '.ip'
+  > curl -s httpbin.org/ip | jq -r '.origin'
+  > dig +short myip.opendns.com @resolver1.opendns.com
 EOF
   else
     echo -e "\n \033[1;30mInternal IPs:\033[0m\n"
