@@ -6,7 +6,6 @@ red=$'\e[0;31m'
 grn=$'\e[0;32m'
 end=$'\e[0m'
 
-echo ""
 git for-each-ref --format="%(refname:short) %(upstream:short)" refs | \
 {
   while read local remote
@@ -15,14 +14,12 @@ git for-each-ref --format="%(refname:short) %(upstream:short)" refs | \
     git rev-list --left-right ${local}...${remote} -- 2>/dev/null >/tmp/git_upstream_status_delta || continue
     ahead="$(awk '/^</{n++};END{print n}' /tmp/git_upstream_status_delta)"
     behind="$(awk '/^>/{n++};END{print n}' /tmp/git_upstream_status_delta)"
-      if [[ "$ahead" -gt 0 && "$behind" -gt 0 ]]; then
-        echo -e "${gry} ${end}#$local#${gry}↓${red}$behind${end}#|#${gry}↑${grn}$ahead${end}#$remote"
-      elif [[ "$ahead" -gt 0 ]]; then
-        echo -e "${gry} ${end}#$local#${gry} ${red} ${end}#|#${gry}↑${grn}$ahead${end}#$remote"
-      elif [[ "$behind" -gt 0 ]]; then
-        echo -e "${gry} ${end}#$local#${gry}↓${red}$behind${end}#|#${gry} ${grn} ${end}#$remote"
-      fi
+    if [[ "$ahead" -gt 0 && "$behind" -gt 0 ]]; then
+      echo -e "${gry} ${end}#$local#${gry}↓${red}$behind${end}#|#${gry}↑${grn}$ahead${end}#$remote"
+    elif [[ "$ahead" -gt 0 ]]; then
+      echo -e "${gry} ${end}#$local#${gry} ${red} ${end}#|#${gry}↑${grn}$ahead${end}#$remote"
+    elif [[ "$behind" -gt 0 ]]; then
+      echo -e "${gry} ${end}#$local#${gry}↓${red}$behind${end}#|#${gry} ${grn} ${end}#$remote"
+    fi
   done
 } | sort | column -t -s'#'
-echo ""
-
