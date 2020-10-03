@@ -1,6 +1,6 @@
 [user]
-  name = Thomas Duerr
-  email = thomas.duerr@arvato.com
+	name = Thomas Duerr
+	email = thomas.duerr@arvato.com
 [alias]
   co = checkout
   st = status
@@ -40,7 +40,7 @@
   changed = yellow
   untracked = red
 [core]
-  excludesfile = ~/.gitignore
+	excludesfile = /Users/duerr/.gitignore
   editor = vim
   # make `git rebase` safer on osx
   # see http://www.git-tower.com/blog/make-git-rebase-safe-on-osx
@@ -59,3 +59,11 @@
   ignoredHook = false
 [diff]
   noprefix = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/duerr/.stCommitMsg

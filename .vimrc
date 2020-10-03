@@ -625,6 +625,9 @@ au QuickFixCmdPost [^l]* nested cwindow
 au QuickFixCmdPost    l* nested lwindow
 au BufWritePost *.sh :ShellCheck
 
+"
+Bundle 'evanleck/vim-svelte'
+
 
 " Coffee Script
 "Bundle 'kchmck/vim-coffee-script'
