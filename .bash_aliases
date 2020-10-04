@@ -39,16 +39,17 @@ function g {
     git "$@"
   else
     echo
-    git branch-status
-    echo -e "   Last commit:     \033[0;32m$(time_since_last_commit)\033[0m ago"
-    echo -e "   Most recent ref: \033[0;32m$(git describe --all 2>/dev/null)\033[0m\n"
+    [[ -n $(git branch-status) ]] && (git branch-status; echo)
+    echo -e "   $(tput setaf 0)Last commit:     $(tput sgr0)$(time_since_last_commit)"
+    echo -e "   $(tput setaf 0)Most recent ref: $(tput sgr0)$(git describe --all 2>/dev/null)"
+    echo
     git status --short --branch
   fi
 }
 
 function time_since_last_commit() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  git log -1 --pretty=format:"%ar" | sed 's/\([0-9]*\) \(.\).*/\1\2/'
+  git log -1 --pretty=format:"%ar"
 }
 
 alias gb='git branch -a -vv'            # "git branches"
