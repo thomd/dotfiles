@@ -54,11 +54,17 @@ npx() {
 }
 
 
+
 # ----- go --------------------------------------------------------------------
 
 export GOPATH="/Users/$USER/develop/go"
 export GOBIN="$GOPATH/bin"
 export PATH="$PATH:$GOBIN"
+
+goo() {
+  open https://pkg.go.dev/$@
+}
+
 
 
 # ----- rust ------------------------------------------------------------------

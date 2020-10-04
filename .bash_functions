@@ -37,8 +37,6 @@ function scratch_go {                                                # setup a t
     export GOBIN="$GOPATH/bin"
     export PATH="$PATH:$GOBIN"
     echo -e "\n  $(tput setaf 2)New custom Go Environment:$(tput sgr 0)"
-  else
-    echo -e "\n  $(tput setaf 1)No custom Go Environment.$(tput sgr 0)"
   fi
   echo
   echo "  $(tput setaf 2)GOROOT$(tput sgr 0): $(go env GOROOT)"
@@ -56,11 +54,11 @@ function scratch_go_up {
   cd $CURR
 }
 
-alias s="scratch_into"                                               # cd into current scratch folder or create a new one
-alias sn="scratch_new"                                               # new empty scratch folder
-alias sgo="scratch_go"
-alias sg="scratch_go_up"
-alias sgn="mkdir src bin pkg; scratch_go"
+alias s="scratch_into"                               # cd into current scratch folder or create a new one
+alias sn="scratch_new"                               # new empty scratch folder
+alias sgo="scratch_go"                               # set go env if current dir contains "pkg", "src" and "bin"
+alias sg="scratch_go_up"                             # search folders up in hierarchie and set go env
+alias sgn="mkdir src bin pkg; scratch_go; cd src"    # create new go env
 
 #
 # mkdir & cd
@@ -208,22 +206,18 @@ function py() {
   }
 }
 
+
 # get internal and external ips
-#
-#   external IP info is available via:
-#
-#     curl -H "User-Agent: curl" ipinfo.io | jq -r '.ip'
-#     curl -s httpbin.org/ip | jq -r '.origin'
-#     dig +short myip.opendns.com @resolver1.opendns.com
-#
 function ip() {
   if [ "-h" == "$1" ]; then
     cat << EOF
-external IP info is available via:
 
->  curl -H "User-Agent: curl" ipinfo.io | jq -r '.ip'
->  curl -s httpbin.org/ip | jq -r '.origin'
->  dig +short myip.opendns.com @resolver1.opendns.com
+ external IP info is available via:
+
+  > curl ipinfo.io/ip
+  > curl -H "User-Agent: curl" ipinfo.io | jq -r '.ip'
+  > curl -s httpbin.org/ip | jq -r '.origin'
+  > dig +short myip.opendns.com @resolver1.opendns.com
 EOF
   else
     echo -e "\n \033[1;30mInternal IPs:\033[0m\n"

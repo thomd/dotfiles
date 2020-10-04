@@ -4,6 +4,7 @@ ORANGE="\e[38;5;222m"
 GREEN="\e[0;32m"
 GREY="\e[0;30m"
 NONE="\e[0m"
+UNDERLINE="\e[4m"
 
 usage() {
   echo -e "\n ${GREY}usage:${NONE}\n"
@@ -35,6 +36,18 @@ identity() {
   fi
 }
 
+services() {
+  echo -e "\n ${GREY}current services:${NONE}\n"
+  ssh -T git@github.com |& sed 's/^/    /' \
+    | perl -pe "s/(thduerr)/${GREEN}\1${NONE}/" \
+    | perl -pe "s/(thomd)/${ORANGE}\1${NONE}/" \
+    | perl -pe "s/(GitHub)/${UNDERLINE}\1${NONE}/"
+  ssh -T git@bitbucket.com | perl -pe "s/\n/ /" | sed 's/^/    /' \
+    | perl -pe "s/(thduerr)/${GREEN}\1${NONE}/" \
+    | perl -pe "s/(thomd)/${ORANGE}\1${NONE}/" \
+    | perl -pe "s/(Bitbucket)/${UNDERLINE}\1${NONE}/"
+}
+
 [ -z "$1" ] && usage && identity && user && exit 1
 
 if [ "$1" == "thomd" ]; then
@@ -44,6 +57,7 @@ if [ "$1" == "thomd" ]; then
   ssh-add -K ~/.ssh/github_thomd 2> /dev/null
   identity
   user
+  #services
 fi
 
 # use git user defined in global git config
@@ -54,5 +68,6 @@ if [ "$1" == "thduerr" ]; then
   ssh-add -K ~/.ssh/github_thduerr 2> /dev/null
   identity
   user
+  #services
 fi
 
