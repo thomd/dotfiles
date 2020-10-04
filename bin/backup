@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-DRIVE="Backup2"
+DRIVE="Backup"
 
 
 FROM="/Users/thomas/"
@@ -16,10 +16,42 @@ rsync -avP --stats \
   $FROM $TO
 
 
+
+FROM="/Users/thomas/Pictures"
+TO="/Volumes/$DRIVE/imac-2020/Pictures"
+mkdir -p $TO
+rsync -avP --stats \
+  --exclude='Familie' \
+  --exclude='Thomas' \
+  $FROM $TO
+
+mkdir -p "/Volumes/$DRIVE/fotos"
+rsync -avP --stats "/Users/thomas/Pictures/Familie" "/Volumes/$DRIVE/fotos"
+rsync -avP --stats "/Users/thomas/Pictures/Thomas" "/Volumes/$DRIVE/fotos"
+
+
+
+FROM="/Users/thomas/Movies"
+TO="/Volumes/$DRIVE/imac-2020/Movies"
+mkdir -p $TO
+rsync -avP --stats \
+  --exclude='Familie' \
+  --exclude='Thomas' \
+  --exclude='DVD' \
+  $FROM $TO
+
+mkdir -p "/Volumes/$DRIVE/filme"
+rsync -avP --stats "/Users/thomas/Movies/Familie" "/Volumes/$DRIVE/filme"
+rsync -avP --stats "/Users/thomas/Movies/Thomas" "/Volumes/$DRIVE/filme"
+rsync -avP --stats "/Users/thomas/Movies/DVD" "/Volumes/$DRIVE/filme"
+
+
+
 FROM="/Users/thomas/Library/ApplicationSupport/AddressBook/"
 TO="/Volumes/$DRIVE/imac-2020/Users/thomas/AddressBook"
 mkdir -p $TO
 rsync -avP --stats $FROM $TO
+
 
 
 # sudo chmod -R 644 /Users/emma/
@@ -32,6 +64,7 @@ rsync -avP --delete --stats \
   $FROM $TO
 
 
+
 # sudo chmod -R 644 /Users/katja/
 FROM="/Users/katja/"
 TO="/Volumes/$DRIVE/imac-2020/Users/katja/"
@@ -40,6 +73,7 @@ rsync -avP --delete --stats \
   --exclude='Library' \
   --exclude='.Trash' \
   $FROM $TO
+
 
 
 # sudo chmod -R 644 /Users/lotta/
