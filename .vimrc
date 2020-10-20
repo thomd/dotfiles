@@ -350,16 +350,16 @@ autocmd VimEnter * call AirlineInit()
 
 
 " The ultimate snippet solution for Vim
-Bundle 'SirVer/ultisnips'
+"Bundle 'SirVer/ultisnips'
 " Snippets are separated from the engine.
-Plugin 'honza/vim-snippets'
+"Plugin 'honza/vim-snippets'
  "split window on :UltiSnipsEdit
-let g:UltiSnipsEditSplit="vertical"
+"let g:UltiSnipsEditSplit="vertical"
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
-let g:UltiSnipsListSnippets="<c-tab>"
+"let g:UltiSnipsExpandTrigger="<tab>"
+"let g:UltiSnipsJumpForwardTrigger="<tab>"
+"let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
+"let g:UltiSnipsListSnippets="<c-tab>"
 
 
 " Changes Vim working directory to project root
@@ -538,7 +538,7 @@ Bundle 'chemzqm/vim-jsx-improve'
 
 
 " vim pug (aka jade) template engine syntax highlighting and indention
-Bundle 'digitaltoad/vim-pug'
+"Bundle 'digitaltoad/vim-pug'
 
 
 " Typescript Syntax-Highlighting and Syntax Check
@@ -610,7 +610,7 @@ Bundle 'itchyny/vim-cursorword'
 
 
 " GraphQL
-Bundle 'jparise/vim-graphql'
+"Bundle 'jparise/vim-graphql'
 
 
 " Dark blue color scheme
@@ -625,8 +625,17 @@ au QuickFixCmdPost [^l]* nested cwindow
 au QuickFixCmdPost    l* nested lwindow
 au BufWritePost *.sh :ShellCheck
 
-"
-Bundle 'evanleck/vim-svelte'
+
+" Prettier
+Bundle 'prettier/vim-prettier'
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.css,*.scss Prettier
+let g:prettier#config#semi = 'false'
+let g:prettier#config#trailing_comma = 'none'
+
+
+" Svente
+"Bundle 'evanleck/vim-svelte'
 
 
 " Coffee Script
@@ -637,6 +646,7 @@ Bundle 'evanleck/vim-svelte'
 Bundle 'psf/black'
 autocmd BufWritePre *.py execute ':Black'
 let g:black_linelength = 200
+
 
 " Vim Autosave
 "Bundle '907th/vim-auto-save'
