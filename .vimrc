@@ -643,6 +643,9 @@ let g:prettier#config#trailing_comma = 'none'
 
 
 " Black - a prettyfier for Python
+"
+" In case of ModuleNotFoundError: No module named 'black', delete folder ~/.vim/black and start vim again
+"
 Bundle 'psf/black'
 autocmd BufWritePre *.py execute ':Black'
 let g:black_linelength = 200
