@@ -6,4 +6,5 @@ adr generate graph \
   | sed 's/, weight=0//g' \
   | sed 's/\[style="dotted", weight=1\];//g' \
   | sed 's/; URL=".*"//g' \
+  | perl -pe 's/\[label="(.{20}).*?"\]/\[label="${1}"\]/' \
   | graph-easy --as boxart
