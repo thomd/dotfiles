@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+adr generate graph \
+  | sed /^..node/d \
+  | sed /subgraph/d \
+  | sed /^..}$/d \
+  | sed 's/, weight=0//g' \
+  | sed 's/\[style="dotted", weight=1\];//g' \
+  | sed 's/; URL=".*"//g' \
+  | graph-easy --as boxart
