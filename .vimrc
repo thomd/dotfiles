@@ -560,6 +560,8 @@ Bundle 'auto_autoread.vim'
 " Vim-Todo-Lists
 Bundle 'aserebryakov/vim-todo-lists'
 let g:VimTodoListsMoveItems = 1
+let g:VimTodoListsDatesEnabled = 1
+let g:VimTodoListsDatesFormat = "%d %b, %Y"
 
 
 " Make the yanked region apparent
