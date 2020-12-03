@@ -8,6 +8,7 @@ log/*
 .texpadtmp
 TODO
 *.todo
+*.todo.md
 !SETUP.todo
 .files
 .vagrant
