@@ -34,8 +34,8 @@ set -e
 #    sfcc impex -d log import-catalog-20190617
 #    sfcc impex -P
 #    sfcc impex -p 2019-05-03
-#    sfcc impex -k archive/catalog 2019-05-03              // delete all files matchin a pattern in archive/catalog
-#    sfcc impex -K archive/catalog/2019-09-25.xml          // delete a specific file
+#    sfcc impex --delete archive/catalog 2019-05-03              // delete all files matchin a pattern in archive/catalog
+#    sfcc impex --Delete archive/catalog/2019-09-25.xml          // delete a specific file
 #
 
 
