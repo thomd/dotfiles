@@ -218,6 +218,7 @@ if [ $deleteFile ]; then
   yesno "delete?"
   echo "$(tput setaf 1)[X]$(tput sgr0) ${deleteFile}"
   curl -s -u "${user}" -X DELETE "https://${host}${deleteFile}"
+  exit 0;
 fi
 
 urlfile=`mktemp ./url-XXXXX`

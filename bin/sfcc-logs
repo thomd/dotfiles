@@ -18,6 +18,8 @@
 #    -t [N|all]      N days ago (default: today)
 #    -I              list instances
 #    -i NAME         use NAME as instances (and set as default)
+#    --delete        delete using filename-pattern
+#    --Delete        delete a specific file
 #
 # EXAMPLES
 #
@@ -43,6 +45,11 @@ list_instances() {
     | perl -pe 's/^SFCC_HOST_(.*)=(.*)$/\1 \2/g' \
     | awk -v I="$instance" -v G=`tput setaf 2` -v R=`tput sgr0` '{M=" ";if(I == $1){M="*"};printf(" %s %s%s%s#%s\n"), M, G, $1, R, $2 }' \
     | column -t -s '#'
+}
+
+yesno() {
+  read -p "$1 [y/N] " response
+  [[ $response == "y" || $response == "Y" ]] || exit 1
 }
 
 while test $# -ne 0; do
@@ -72,6 +79,12 @@ while test $# -ne 0; do
     -f)
       force_download=1
       ;;
+    --delete)
+      delete=1
+      ;;
+    --Delete)
+      deleteFile=$1
+      ;;
     -t)
       ago=$1
       shift
@@ -83,6 +96,13 @@ while test $# -ne 0; do
 done
 
 echo -e "\n$(tput setaf 2)${host}$(tput sgr0)\n"
+
+if [ $deleteFile ]; then
+  yesno "delete?"
+  echo "$(tput setaf 1)[X]$(tput sgr0) ${deleteFile}"
+  curl -s -u "${user}" -X DELETE "https://${host}${deleteFile}"
+  exit 0;
+fi
 
 errorfile="${host}_$(date +"%Y%m%d_%H%M%S").error"
 pagefile=`mktemp ./page-XXXXX`
@@ -122,6 +142,18 @@ if [ $download ]; then
       fi
     fi
     echo "${counter_color}[$i/$total]$(tput sgr0) $file"
+  done < $urlfile
+elif [ $delete ]; then
+  yesno "delete?"
+  i=0
+  while ((i++)); read -r url; do
+    file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
+    if [ -z $no_color ]; then
+      echo "$(tput setaf 1)[$i/$total]$(tput sgr0) $file"
+    else
+      echo "[$i/$total] $file"
+    fi
+    curl -s -u "$user" -X DELETE "https://${host}${url}"
   done < $urlfile
 else
   less $urlfile | sed "s/\(${filepattern}\)/$(tput sgr 0 1)$(tput setaf 2)\1$(tput sgr0)/g"
