@@ -14,6 +14,7 @@
 # OPTIONS
 #
 #    -d              downlaod
+#    -a              add log archive
 #    -f              force download
 #    -t [N|all]      N days ago (default: today)
 #    -I              list instances
@@ -24,7 +25,8 @@
 # EXAMPLES
 #
 #    sfcc logs -d monitoring             // download monitoring logfiles from today
-#    sfcc logs -d -t all                 // download all available logfiles
+#    sfcc logs -d -t all                 // download all logfiles
+#    sfcc logs -a -d -t all              // download all logfiles including archive
 #
 
 config="$HOME/.sfcc-logs"
@@ -73,6 +75,9 @@ while test $# -ne 0; do
       user=${!user_envname}
       shift
       ;;
+    -a)
+      archive=1
+      ;;
     -d)
       download=1
       ;;
@@ -109,7 +114,13 @@ pagefile=`mktemp ./page-XXXXX`
 urlfile=`mktemp ./url-XXXXX`
 trap "rm $pagefile $urlfile" EXIT
 
-/usr/local/opt/curl/bin/curl -vsN -u "$user" "https://${host}${basepath}" 2>$errorfile >$pagefile
+if [ $archive ]; then
+  /usr/local/opt/curl/bin/curl -vsN -u "$user" "https://${host}${basepath}" 2>$errorfile >$pagefile
+  /usr/local/opt/curl/bin/curl -vsN -u "$user" "https://${host}${basepath}/log_archive" 2>>$errorfile >>$pagefile
+else
+  /usr/local/opt/curl/bin/curl -vsN -u "$user" "https://${host}${basepath}" 2>$errorfile >$pagefile
+fi
+
 status=$?
 if [ $status == 0 ]; then
   [ -f $errorfile ] && rm $errorfile
@@ -118,14 +129,14 @@ else
 fi
 
 cat $pagefile \
-  | sed -n '/.*<a href=".*\.log"><tt>.*/p' \
+  | perl -ne 'print if /.*<a href=".*\.(log|log\.gz)"><tt>.*/' \
   | sed 's/.*<a href="\(.*\)"><tt>.*/\1/g' \
   | ( [[ $ago != 'all' ]] && sed -n /$(date -v -${ago}d +"%Y%m%d")/p || cat ) \
   | ( [[ $filepattern ]] && sed -n /$filepattern/p || cat ) \
   > $urlfile
+total=`wc -l $urlfile | awk '{print $1}'`
 
 if [ $download ]; then
-  total=`wc -l $urlfile | awk '{print $1}'`
   i=0
   while ((i++)); read -r url; do
     file="`echo $url | sed 's/.*\/\(.*\)/\1/g'`"
@@ -157,6 +168,7 @@ elif [ $delete ]; then
   done < $urlfile
 else
   less $urlfile | sed "s/\(${filepattern}\)/$(tput sgr 0 1)$(tput setaf 2)\1$(tput sgr0)/g"
+  echo -e "\n  $(tput setaf 2)${total}$(tput sgr0) files"
 fi
 
 exit 0
