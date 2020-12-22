@@ -17,6 +17,14 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PYTHONDONTWRITEBYTECODE=1
 
 
+# venv
+venv() {
+  python -m venv venv
+  source venv/bin/activate
+  echo "VIRTUAL_ENV is set to: $(tput setaf 2)$(echo $VIRTUAL_ENV)$(tput sgr 0)"
+  echo "deactivate virtual env with '> deactivate'"
+}
+
 
 # ----- node version manager --------------------------------------------------
 
