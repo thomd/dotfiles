@@ -3,7 +3,10 @@
 #
 # git info for prompt
 #
+#   disable git prompt with `unset GIT_PROMPT`
+#
 function git_ps1 {
+  [ ! -n "$GIT_PROMPT" ] && exit 0
   local g="$(git rev-parse --git-dir 2>/dev/null)"
   if [ -n "$g" ]; then
     local r
@@ -37,12 +40,13 @@ function git_ps1 {
     fi
 
     if [ -n "$1" ]; then
-      printf "$1" "${b##refs/heads/}$r"
+      printf "$1 " "${b##refs/heads/}$r"
     else
-      printf "[%s]" "${b##refs/heads/}$r"
+      printf "[%s] " "${b##refs/heads/}$r"
     fi
   fi
 }
+export GIT_PROMPT=1
 
 function git_dirty {
   [[ $(git status 2> /dev/null | tail -n1) != nothing\ to\ commit* ]] && echo "*"
@@ -122,7 +126,7 @@ function delimiter_ps1 {
 # TODO: use https://starship.rs/ ?
 
 # PS1: Default interaction prompt
-export PS1='\n$(conda_ps1)$(venv_ps1)\[\e[1;30m\]$(job_ps1 \j)$([[ ( $SCRATCH_HOME && $PWD =~ ^$SCRATCH_HOME ) || ( $SCRATCH_TEMP && $PWD =~ ^$SCRATCH_TEMP ) ]] && echo -e "\[\e[0;31m\]" || echo -e "\[\e[0;36m\]")\W $(git_ps1 "\[$(git_user_color)\][%s\[\e[0;31m\]$(git_dirty)\[\e[38;5;220m\]$(git_stash)\[\e[1;30m\]$(git_behind "\[\e[0;31m\]")\[\e[1;30m\]$(git_ahead "\[\e[0;32m\]")\[$(git_user_color)\]]") \[\e[1;30m\]$(delimiter_ps1)\[\e[m\] '
+export PS1='\n$(conda_ps1)$(venv_ps1)\[\e[1;30m\]$(job_ps1 \j)$([[ ( $SCRATCH_HOME && $PWD =~ ^$SCRATCH_HOME ) || ( $SCRATCH_TEMP && $PWD =~ ^$SCRATCH_TEMP ) ]] && echo -e "\[\e[0;31m\]" || echo -e "\[\e[0;36m\]")\W $(git_ps1 "\[$(git_user_color)\][%s\[\e[0;31m\]$(git_dirty)\[\e[38;5;220m\]$(git_stash)\[\e[1;30m\]$(git_behind "\[\e[0;31m\]")\[\e[1;30m\]$(git_ahead "\[\e[0;32m\]")\[$(git_user_color)\]]")\[\e[1;30m\]$(delimiter_ps1)\[\e[m\] '
 
 # PS2: Continuation interactive prompt
 export PS2=' \[\e[1;30m\]:\[\e[m\] '
