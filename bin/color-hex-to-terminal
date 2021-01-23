@@ -5,8 +5,8 @@
 #
 # USAGE
 #
-#    hex-to-terminal-color A52A2A
-#    hex-to-terminal-color '#A52A2A'
+#    color-hex-to-terminal A52A2A
+#    color-hex-to-terminal '#A52A2A'
 #
 # source: http://unix.stackexchange.com/a/269085/67282
 #
