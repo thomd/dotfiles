@@ -654,6 +654,11 @@ autocmd BufWritePre *.py execute ':Black'
 let g:black_linelength = 200
 
 
+" SQL Syntax
+Bundle 'shmup/vim-sql-syntax'
+
+
+
 " Vim Autosave
 "Bundle '907th/vim-auto-save'
 "let g:auto_save = 1              " enable AutoSave on Vim startup
