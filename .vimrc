@@ -592,11 +592,6 @@ Bundle 'martinda/Jenkinsfile-vim-syntax'
 Bundle 'will133/vim-dirdiff'
 
 
-" REST Client vial-http
-"Bundle 'baverman/vial'
-"Bundle 'baverman/vial-http'
-
-
 " calendar
 Bundle 'itchyny/calendar.vim'
 let g:calendar_first_day = 'monday'
@@ -632,20 +627,18 @@ au BufWritePost *.sh :ShellCheck
 Bundle 'prettier/vim-prettier'
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.css,*.scss,*.html,*.yml,*.yaml,*.json PrettierAsync
-let g:prettier#config#semi = 'false'
-let g:prettier#config#trailing_comma = 'none'
-let g:prettier#config#print_width = 'auto' " number or 'auto' (use textwidth)
+let g:prettier#config#semi = 'true'
+let g:prettier#config#trailing_comma = 'all'
+"let g:prettier#config#print_width = 'auto' " number or 'auto' (use textwidth)
 
 
 " Svente
 "Bundle 'evanleck/vim-svelte'
 
 
-" Coffee Script
-"Bundle 'kchmck/vim-coffee-script'
-
-
 " Black - a prettyfier for Python
+"
+" TODO: https://github.com/skywind3000/vim-rt-format ?
 "
 " In case of ModuleNotFoundError: No module named 'black', delete folder ~/.vim/black and start vim again
 "
