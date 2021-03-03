@@ -626,7 +626,7 @@ au BufWritePost *.sh :ShellCheck
 " Prettier
 Bundle 'prettier/vim-prettier'
 let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.css,*.scss,*.html,*.yml,*.yaml,*.json PrettierAsync
+"autocmd BufWritePre *.js,*.jsx,*.css,*.scss,*.html,*.yml,*.yaml,*.json PrettierAsync
 let g:prettier#config#semi = 'true'
 let g:prettier#config#trailing_comma = 'all'
 "let g:prettier#config#print_width = 'auto' " number or 'auto' (use textwidth)
