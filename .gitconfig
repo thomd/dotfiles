@@ -1,6 +1,6 @@
 [user]
   name = Thomas Duerr
- email = thomas.duerr@arvato.com
+  email = thomas.duerr@arvato-scs.com
 [alias]
   co = checkout
   st = status
