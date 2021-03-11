@@ -71,10 +71,14 @@ function git_behind {
 }
 
 function git_user_color {
-  if [[ $(git config --get user.email) == "thomduerr@gmail.com" ]]; then
+  if [[ $(git config --get user.email) == "${GIT_EMAIL_GITHUB}" ]]; then
     echo -e "\e[38;5;222m"  # yellow
-  else
+  elif [[ $(git config --get user.email) == "${GIT_EMAIL_AZURE}" ]]; then
+    echo -e "\e[38;5;032m"      # blue
+  elif [[ $(git config --get user.email) == "${GIT_EMAIL_BITBUCKET}" ]]; then
     echo -e "\e[0;32m"      # green
+  else
+    echo -e ""
   fi
 }
 

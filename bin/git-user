@@ -1,21 +1,49 @@
 #!/usr/bin/env bash
+set -e
+[ -n "$DEBUG" ] && set -x
+
+# export GIT_USER_AZURE
+# export GIT_EMAIL_AZURE
+# export GIT_NAME_AZURE
+# export GIT_IDENTITY_AZURE
+# export GIT_USER_BITBUCKET
+# export GIT_EMAIL_BITBUCKET
+# export GIT_NAME_BITBUCKET
+# export GIT_IDENTITY_BITBUCKET
+# export GIT_USER_GITHUB
+# export GIT_EMAIL_GITHUB
+# export GIT_NAME_GITHUB
+# export GIT_IDENTITY_GITHUB
+
 
 ORANGE="\e[38;5;222m"
 GREEN="\e[0;32m"
 GREY="\e[0;30m"
+BLUE="\e[38;5;032m"
 NONE="\e[0m"
 UNDERLINE="\e[4m"
 
 usage() {
   echo -e "\n ${GREY}usage:${NONE}\n"
-  echo -e "   git user [${ORANGE}thomd${NONE}|${GREEN}thduerr${NONE}]"
+  echo -e "   git user [${ORANGE}${GIT_USER_GITHUB}${NONE}|${GREEN}${GIT_USER_BITBUCKET}${NONE}|${BLUE}${GIT_USER_AZURE}${NONE}]"
+}
+
+howto() {
+  echo -e "\n   git config user.email <EMAIL>"
+  echo -e "   git config user.name <NAME>"
+  echo -e "   ssh-add -D"
+  echo -e "   ssh-add -K ~/.ssh/<IDENTITY>"
 }
 
 current_user() {
-  if [ $(git config --get user.email) == "thomduerr@gmail.com" ]; then
-    echo "${ORANGE}thomd${NONE}"
+  if [ $(git config --get user.email) == "${GIT_EMAIL_GITHUB}" ]; then
+    echo "${ORANGE}${GIT_USER_GITHUB}${NONE}"
+  elif [ $(git config --get user.email) == "${GIT_EMAIL_BITBUCKET}" ]; then
+    echo "${GREEN}${GIT_USER_BITBUCKET}${NONE}"
+  elif [ $(git config --get user.email) == "${GIT_EMAIL_AZURE}" ]; then
+    echo "${BLUE}${GIT_USER_AZURE}${NONE}"
   else
-    echo "${GREEN}thduerr${NONE}"
+    exit 1
   fi
 }
 
@@ -29,45 +57,48 @@ user() {
 
 identity() {
   echo -e "\n ${GREY}current identity:${NONE}\n"
-  if [ $(ssh-add -l | awk '{gsub(/.*\//, "", $3); print $3}') == "github_thomd" ]; then
+  if [ $(ssh-add -l | awk '{gsub(/.*\//, "", $3); print $3}') == "${GIT_IDENTITY_GITHUB}" ]; then
     ssh-add -E md5 -l 2>&1 | sed 's/^/   /' | perl -pe "s/(.*MD5:)(.*?) (.*)/\1${ORANGE}\2\e[0m \3/g"
-  else
+  elif [ $(ssh-add -l | awk '{gsub(/.*\//, "", $3); print $3}') == "${GIT_IDENTITY_BITBUCKET}" ]; then
     ssh-add -E md5 -l 2>&1 | sed 's/^/   /' | perl -pe "s/(.*MD5:)(.*?) (.*)/\1${GREEN}\2\e[0m \3/g"
+  elif [ $(ssh-add -l | awk '{gsub(/.*\//, "", $3); print $3}') == "${GIT_IDENTITY_AZURE}" ]; then
+    ssh-add -E md5 -l 2>&1 | sed 's/^/   /' | perl -pe "s/(.*MD5:)(.*?) (.*)/\1${BLUE}\2\e[0m \3/g"
+  else
+    exit 1
   fi
 }
 
-services() {
-  echo -e "\n ${GREY}current services:${NONE}\n"
-  ssh -T git@github.com |& sed 's/^/    /' \
-    | perl -pe "s/(thduerr)/${GREEN}\1${NONE}/" \
-    | perl -pe "s/(thomd)/${ORANGE}\1${NONE}/" \
-    | perl -pe "s/(GitHub)/${UNDERLINE}\1${NONE}/"
-  ssh -T git@bitbucket.com | perl -pe "s/\n/ /" | sed 's/^/    /' \
-    | perl -pe "s/(thduerr)/${GREEN}\1${NONE}/" \
-    | perl -pe "s/(thomd)/${ORANGE}\1${NONE}/" \
-    | perl -pe "s/(Bitbucket)/${UNDERLINE}\1${NONE}/"
-}
+[ -z "$1" ] && usage && howto && identity && user && exit 1
 
-[ -z "$1" ] && usage && identity && user && exit 1
-
-if [ "$1" == "thomd" ]; then
-  git config user.name "Thomas Dürr" 2> /dev/null
-  git config user.email "thomduerr@gmail.com" 2> /dev/null
+if [ "$1" == "${GIT_USER_GITHUB}" ]; then
+  git config user.name "${GIT_NAME_GITHUB}" 2> /dev/null
+  git config user.email "${GIT_EMAIL_GITHUB}" 2> /dev/null
   ssh-add -D 2> /dev/null
-  ssh-add -K ~/.ssh/github_thomd 2> /dev/null
+  ssh-add -K ~/.ssh/${GIT_IDENTITY_GITHUB} 2> /dev/null
   identity
   user
-  #services
+  exit 0
 fi
 
-# use git user defined in global git config
-if [ "$1" == "thduerr" ]; then
+if [ "$1" == "${GIT_USER_AZURE}" ]; then
+  git config user.name "${GIT_NAME_AZURE}" 2> /dev/null
+  git config user.email "${GIT_EMAIL_AZURE}" 2> /dev/null
+  ssh-add -D 2> /dev/null
+  ssh-add -K ~/.ssh/${GIT_IDENTITY_AZURE} 2> /dev/null
+  identity
+  user
+  exit 0
+fi
+
+# use BITBUCKET git user defined in global git config
+if [ "$1" == "${GIT_USER_BITBUCKET}" ]; then
   git config --unset user.name 2> /dev/null
   git config --unset user.email 2> /dev/null
   ssh-add -D 2> /dev/null
-  ssh-add -K ~/.ssh/github_thduerr 2> /dev/null
+  ssh-add -K ~/.ssh/${GIT_IDENTITY_BITBUCKET} 2> /dev/null
   identity
   user
-  #services
+  exit 0
 fi
 
+exit 1
