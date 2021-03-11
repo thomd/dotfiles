@@ -651,6 +651,10 @@ let g:black_linelength = 200
 Bundle 'shmup/vim-sql-syntax'
 
 
+" Terrafrom
+Bundle 'hashivim/vim-terraform'
+
+
 
 " Vim Autosave
 "Bundle '907th/vim-auto-save'
