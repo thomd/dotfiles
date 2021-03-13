@@ -7,8 +7,8 @@ set -e
 #
 # USAGE
 #
-#    now                                # print now into
-#    now -s, now --since                # mtime sice last now
+#    now                                # print current date and time sice last call of `now`
+#    now -s, now --since                # time since last call of `now`
 #
 # EXAMPLES
 #
