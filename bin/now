@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$DEBUG" ] && set -x
+
+#
+# store current time and show duration since last `now`
+#
+# USAGE
+#
+#    now                                # print now into
+#    now -s, now --since                # mtime sice last now
+#
+# EXAMPLES
+#
+#    fd --changed-within `now -s`       # find changed files since last call of `now`
+#
+
+D=$(tput setaf 0)
+R=$(tput sgr 0)
+G=$(tput setaf 2)
+
+nowfile="$HOME/.now"
+
+now=$(date +"%Y-%m-%d %H:%M:%S")
+cw=$(date +%V)
+ut=$(date +%s)
+
+since=""
+if [ -f "$nowfile" ]; then
+  since_sec=$(((${ut} - $(cat $nowfile))))
+  since_min=$(((${ut} - $(cat $nowfile)) / 60))
+  since_hour=$(((${ut} - $(cat $nowfile)) / 3600))
+  since_day=$(((${ut} - $(cat $nowfile)) / 86400))
+
+  since="${since_day}d"
+  if [ ${since_day} == 0 ]; then
+    since="${since_hour}h"
+  fi
+  if [ ${since_day} == 0 ] && [ ${since_hour} == 0 ]; then
+    since="${since_min}m"
+  fi
+  if [ ${since_day} == 0 ] && [ ${since_hour} == 0 ] && [ ${since_min} == 0 ]; then
+    since="${since_sec}s"
+  fi
+fi
+
+echo ${ut} > $nowfile
+
+while test $# -ne 0; do
+  arg=$1
+  shift
+  case $arg in
+    -h|--help)
+      cat $0 | sed -n '/^#/p' | sed '/^##/d' | sed 1d | sed 's/^#/ /g' \
+        | perl -pe "s/ #(.*)$/$(tput setaf 0)\1$(tput sgr 0)/" \
+        | perl -pe "s/(USAGE|EXAMPLES)/$(tput setaf 8)\1$(tput sgr0)/"
+      exit 1
+      ;;
+    -s|--since)
+      echo ${since}
+      exit 0
+      ;;
+  esac
+done
+
+echo ""
+if [ -n ${since} ]; then
+  echo -e "             ${D}now: ${R}${now}"
+fi
+echo -e "  ${D}since last now: ${G}${since}"
+
+exit 0
