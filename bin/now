@@ -22,7 +22,6 @@ G=$(tput setaf 2)
 nowfile="$HOME/.now"
 
 now=$(date +"%Y-%m-%d %H:%M:%S")
-cw=$(date +%V)
 ut=$(date +%s)
 
 since=""
