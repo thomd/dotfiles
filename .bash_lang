@@ -81,3 +81,8 @@ if [ -d $HOME/.cargo ]; then
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
+
+
+# ----- perl ------------------------------------------------------------------
+
+export PATH=$PATH:/usr/local/opt/perl/bin
