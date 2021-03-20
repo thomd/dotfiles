@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
+
+#
+# Install graph-easy with
+#
+#    perl -MCPAN -e shell
+#    install Graph::Easy
+#
+
 adr generate graph \
   | sed /^..node/d \
   | sed /subgraph/d \
