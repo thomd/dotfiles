@@ -125,3 +125,13 @@ alias httpdump="sudo tcpdump -i en0 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET
 
 # Terraform
 alias tf="terraform $@"
+
+
+# Golang
+#
+# USAGE
+#
+#    go doc -src http.HandleFunc | godocc
+#
+alias godocc='perl -pe "s/(\/\/.*$)/$(tput setaf 0)\1$(tput sgr 0)/"'
+
