@@ -254,9 +254,19 @@ shorten() {
 }
 
 
-# ----- sourcing external scripts -----
+# ---------- sourcing external scripts ----------
+
 #
-# download
+# fzf
+#
+if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
+  export PATH="${PATH:+${PATH}:}/usr/local/opt/fzf/bin"
+fi
+[[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.bash" 2> /dev/null
+
+
+#
+# fzf-marks
 #
 #   cd /usr/local/lib && wget https://raw.githubusercontent.com/thomd/fzf-marks/master/fzf-marks.plugin.bash
 #
