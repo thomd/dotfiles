@@ -24,7 +24,7 @@ NONE="\e[0m"
 UNDERLINE="\e[4m"
 
 usage() {
-  echo -e "\n ${GREY}usage:${NONE}\n"
+  echo -e "\n ${GREY}USAGE:${NONE}\n"
   echo -e "   git user [${ORANGE}${GIT_USER_GITHUB}${NONE}|${GREEN}${GIT_USER_BITBUCKET}${NONE}|${BLUE}${GIT_USER_AZURE}${NONE}]"
 }
 
@@ -49,14 +49,14 @@ current_user() {
 
 user() {
   local user=$(current_user)
-  echo -e "\n ${GREY}current user:${NONE}\n"
+  echo -e "\n ${GREY}CURRENT USER:${NONE}\n"
   [ -n "$user" ] && echo -e "   ${user}"
   echo "   $(git config --get user.name)"
   echo "   $(git config --get user.email)"
 }
 
 identity() {
-  echo -e "\n ${GREY}current identity:${NONE}\n"
+  echo -e "\n ${GREY}CURRENT IDENTITY:${NONE}\n"
   if [ $(ssh-add -l | awk '{gsub(/.*\//, "", $3); print $3}') == "${GIT_IDENTITY_GITHUB}" ]; then
     ssh-add -E md5 -l 2>&1 | sed 's/^/   /' | perl -pe "s/(.*MD5:)(.*?) (.*)/\1${ORANGE}\2\e[0m \3/g"
   elif [ $(ssh-add -l | awk '{gsub(/.*\//, "", $3); print $3}') == "${GIT_IDENTITY_BITBUCKET}" ]; then
@@ -68,7 +68,8 @@ identity() {
   fi
 }
 
-[ -z "$1" ] && usage && howto && identity && user && exit 1
+#[ -z "$1" ] && usage && howto && identity && user && exit 1
+[ -z "$1" ] && usage && identity && user && exit 1
 
 if [ "$1" == "${GIT_USER_GITHUB}" ]; then
   git config user.name "${GIT_NAME_GITHUB}" 2> /dev/null
@@ -92,8 +93,10 @@ fi
 
 # use BITBUCKET git user defined in global git config
 if [ "$1" == "${GIT_USER_BITBUCKET}" ]; then
-  git config --unset user.name 2> /dev/null
-  git config --unset user.email 2> /dev/null
+  #git config --unset user.name 2> /dev/null
+  #git config --unset user.email 2> /dev/null
+  git config user.name "${GIT_NAME_BITBUCKET}" 2> /dev/null
+  git config user.email "${GIT_EMAIL_BITBUCKET}" 2> /dev/null
   ssh-add -D 2> /dev/null
   ssh-add -K ~/.ssh/${GIT_IDENTITY_BITBUCKET} 2> /dev/null
   identity
