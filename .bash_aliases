@@ -14,7 +14,7 @@ alias l.='ls -ld .[^.]*'                              # list dotfiles only
 alias md='mkdir -p'
 alias v='vim'
 
-alias t='tree -a -C -I ".git|.svn|node_modules|.gradle|tmp|.sass-cache|.cache"'
+alias t='tree -a -C -I ".git|.svn|node_modules|.gradle|tmp|.sass-cache|.cache|venv"'
 alias j='jobs -l'
 alias rmi='rm -i'
 
