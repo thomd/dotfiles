@@ -75,3 +75,7 @@ else
     fi
 fi
 unset __conda_setup
+
+
+# Azure functions
+export FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=1
