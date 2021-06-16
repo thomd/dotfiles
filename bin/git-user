@@ -68,6 +68,9 @@ identity() {
   fi
 }
 
+# if more then one identitiy was added, delete them:
+[ $(ssh-add -l | wc -l) != 1 ] && ssh-add -D 2> /dev/null
+
 #[ -z "$1" ] && usage && howto && identity && user && exit 1
 [ -z "$1" ] && usage && identity && user && exit 1
 
