@@ -17,6 +17,13 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PYTHONDONTWRITEBYTECODE=1
 
 
+# pyenv
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+# enable auto-activation and de-activation of the virtual environment as you navigate in and out of the associated directory
+#eval "$(pyenv virtualenv-init -)"
+
+
 # venv
 venv() {
   python -m venv venv
