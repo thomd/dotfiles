@@ -1,86 +1,153 @@
 #!/usr/bin/env bash
-DRIVE="Backup"
+set -e
 
+ORANGE="\e[38;5;222m"
+GREEN="\e[0;32m"
+GREY="\e[0;30m"
+RED="\e[0;31m"
+BLUE="\e[38;5;032m"
+NONE="\e[0m"
+UNDERLINE="\e[4m"
 
-FROM="/Users/thomas/"
-TO="/Volumes/$DRIVE/imac-2020/Users/thomas/"
-mkdir -p $TO
-rsync -avP --stats \
-  --include="Documents/***" \
-  --include="Desktop/***" \
-  --include=".ssh/***" \
-  --include=".password-store/***" \
-  --include=".gnupg/***" \
-  --include=".git/***" \
-  --exclude='*' \
-  $FROM $TO
+DRIVE="Backup2"
 
+usage() {
+  echo -e "\n ${GREY}USAGE:${NONE}\n"
+  echo -e "   backup ${GREEN}macbook${NONE}|${GREEN}imac${NONE} [target]"
+}
 
+target() {
+  echo -e "\n ${GREY}CURRENT TARGET:${NONE}\n"
+  if mount | grep "on /Volumes/$DRIVE" > /dev/null; then
+      echo -e "   $DRIVE"
+  else
+      echo -e "   ${RED}$DRIVE not mounted${NONE}"
+      exit 1
+  fi
+}
 
-FROM="/Users/thomas/Pictures"
-TO="/Volumes/$DRIVE/imac-2020/Pictures"
-mkdir -p $TO
-rsync -avP --stats \
-  --exclude='Familie' \
-  --exclude='Thomas' \
-  $FROM $TO
+yesno() {
+  echo
+  echo -e " backup from ${GREEN}${1}${NONE} to ${GREEN}${2}${NONE}"
+  echo
+  read -p " start? [y/N]" response
+  [[ $response == "y" || $response == "Y" ]] || exit 1
+}
 
-mkdir -p "/Volumes/$DRIVE/fotos"
-rsync -avP --stats "/Users/thomas/Pictures/Familie" "/Volumes/$DRIVE/fotos"
-rsync -avP --stats "/Users/thomas/Pictures/Thomas" "/Volumes/$DRIVE/fotos"
+macbook() {
+  FROM="/Users/duerr/"
+  TO="/Volumes/$DRIVE/macbook/Users/duerr/"
+  yesno $FROM $TO
 
+  mkdir -p $TO
+  # add 'Pictures' ?
+  rsync -avP --stats \
+    --include="develop/***" \
+    --include="Documents/***" \
+    --include="Desktop/***" \
+    --include=".ssh/***" \
+    --include=".password-store/***" \
+    --include="dotfiles/***" \
+    --include=".gnupg/***" \
+    --include=".git/***" \
+    --include=".bash_private" \
+    --exclude='*' \
+    $FROM $TO
+}
 
+imac() {
+  FROM="/Users/thomas/"
+  TO="/Volumes/$DRIVE/imac-2020/Users/thomas/"
+  yesno $FROM $TO
 
-FROM="/Users/thomas/Movies"
-TO="/Volumes/$DRIVE/imac-2020/Movies"
-mkdir -p $TO
-rsync -avP --stats \
-  --exclude='Familie' \
-  --exclude='Thomas' \
-  --exclude='DVD' \
-  $FROM $TO
-
-mkdir -p "/Volumes/$DRIVE/filme"
-rsync -avP --stats "/Users/thomas/Movies/Familie" "/Volumes/$DRIVE/filme"
-rsync -avP --stats "/Users/thomas/Movies/Thomas" "/Volumes/$DRIVE/filme"
-rsync -avP --stats "/Users/thomas/Movies/DVD" "/Volumes/$DRIVE/filme"
-
-
-
-FROM="/Users/thomas/Library/ApplicationSupport/AddressBook/"
-TO="/Volumes/$DRIVE/imac-2020/Users/thomas/AddressBook"
-mkdir -p $TO
-rsync -avP --stats $FROM $TO
-
-
-
-# sudo chmod -R 644 /Users/emma/
-FROM="/Users/emma/"
-TO="/Volumes/$DRIVE/imac-2020/Users/emma/"
-mkdir -p $TO
-rsync -avP --delete --stats \
-  --exclude='Library' \
-  --exclude='.Trash' \
-  $FROM $TO
-
-
-
-# sudo chmod -R 644 /Users/katja/
-FROM="/Users/katja/"
-TO="/Volumes/$DRIVE/imac-2020/Users/katja/"
-mkdir -p $TO
-rsync -avP --delete --stats \
-  --exclude='Library' \
-  --exclude='.Trash' \
-  $FROM $TO
+  mkdir -p $TO
+  rsync -avP --stats \
+    --include="Documents/***" \
+    --include="Desktop/***" \
+    --include=".ssh/***" \
+    --include=".password-store/***" \
+    --include=".gnupg/***" \
+    --include=".git/***" \
+    --exclude='*' \
+    $FROM $TO
 
 
 
-# sudo chmod -R 644 /Users/lotta/
-FROM="/Users/lotta/"
-TO="/Volumes/$DRIVE/imac-2020/Users/lotta/"
-mkdir -p $TO
-rsync -avP --delete --stats \
-  --exclude='Library' \
-  --exclude='.Trash' \
-  $FROM $TO
+  FROM="/Users/thomas/Pictures"
+  TO="/Volumes/$DRIVE/imac-2020/Pictures"
+  mkdir -p $TO
+  rsync -avP --stats \
+    --exclude='Familie' \
+    --exclude='Thomas' \
+    $FROM $TO
+
+  mkdir -p "/Volumes/$DRIVE/fotos"
+  rsync -avP --stats "/Users/thomas/Pictures/Familie" "/Volumes/$DRIVE/fotos"
+  rsync -avP --stats "/Users/thomas/Pictures/Thomas" "/Volumes/$DRIVE/fotos"
+
+
+
+  FROM="/Users/thomas/Movies"
+  TO="/Volumes/$DRIVE/imac-2020/Movies"
+  mkdir -p $TO
+  rsync -avP --stats \
+    --exclude='Familie' \
+    --exclude='Thomas' \
+    --exclude='DVD' \
+    $FROM $TO
+
+  mkdir -p "/Volumes/$DRIVE/filme"
+  rsync -avP --stats "/Users/thomas/Movies/Familie" "/Volumes/$DRIVE/filme"
+  rsync -avP --stats "/Users/thomas/Movies/Thomas" "/Volumes/$DRIVE/filme"
+  rsync -avP --stats "/Users/thomas/Movies/DVD" "/Volumes/$DRIVE/filme"
+
+
+
+  FROM="/Users/thomas/Library/ApplicationSupport/AddressBook/"
+  TO="/Volumes/$DRIVE/imac-2020/Users/thomas/AddressBook"
+  mkdir -p $TO
+  rsync -avP --stats $FROM $TO
+
+
+
+  # sudo chmod -R 644 /Users/emma/
+  FROM="/Users/emma/"
+  TO="/Volumes/$DRIVE/imac-2020/Users/emma/"
+  mkdir -p $TO
+  rsync -avP --delete --stats \
+    --exclude='Library' \
+    --exclude='.Trash' \
+    $FROM $TO
+
+
+
+  # sudo chmod -R 644 /Users/katja/
+  FROM="/Users/katja/"
+  TO="/Volumes/$DRIVE/imac-2020/Users/katja/"
+  mkdir -p $TO
+  rsync -avP --delete --stats \
+    --exclude='Library' \
+    --exclude='.Trash' \
+    $FROM $TO
+
+
+
+  # sudo chmod -R 644 /Users/lotta/
+  FROM="/Users/lotta/"
+  TO="/Volumes/$DRIVE/imac-2020/Users/lotta/"
+  mkdir -p $TO
+  rsync -avP --delete --stats \
+    --exclude='Library' \
+    --exclude='.Trash' \
+    $FROM $TO
+}
+
+[ -z "$1" ] && usage && target && exit 1
+[ -n "$2" ] && DRIVE=$2 && target
+
+[ "$1" == "macbook" ] && macbook && exit 0
+[ "$1" == "imac" ] && imac && exit 0
+
+usage
+exit 1
+
